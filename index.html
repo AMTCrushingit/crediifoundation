@@ -70,9 +70,12 @@ body{font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;background:
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,15,45,.07);box-shadow:0 2px 16px rgba(0,15,45,.05);animation:navIn .5s ease both;}
 nav.scrolled{box-shadow:0 4px 28px rgba(0,15,45,.1);}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-.logo-mark{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#000f2d,#2d69b4);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:.95rem;letter-spacing:-.5px;flex-shrink:0;}
-.logo-text{font-size:1.25rem;font-weight:800;color:#000f2d;letter-spacing:.3px;}
-.logo-text em{color:#b41e2d;font-style:normal;}
+.logo-mark{width:42px;height:42px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.logo-wordmark{display:flex;align-items:center;}
+.logo-wordmark .wm-bg{background:#b41e2d;border-radius:7px;padding:5px 12px;display:flex;align-items:center;}
+.logo-wordmark .wm-text{font-size:1.2rem;font-weight:900;letter-spacing:.3px;font-family:'Segoe UI',system-ui,sans-serif;}
+.logo-wordmark .wm-navy{color:#fff;}
+.logo-wordmark .wm-red{color:#ff6b6b;}
 .nav-links{display:flex;align-items:center;gap:28px;}
 .nav-links a{color:#000f2d;text-decoration:none;font-size:.87rem;font-weight:600;position:relative;padding-bottom:2px;transition:color .2s;}
 .nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;background:#2d69b4;transition:width .3s;}
@@ -330,7 +333,7 @@ footer{background:#000f2d;padding:68px 5% 26px;border-top:1px solid rgba(45,105,
 .flogo{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
 .flogo-mark{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#2d69b4,#000f2d);display:flex;align-items:center;justify-content:center;color:#d2e1f0;font-weight:900;font-size:.9rem;}
 .flogo-text{font-size:1.15rem;font-weight:800;color:#fff;}
-.flogo-text em{color:#b41e2d;font-style:normal;}
+.flogo-text em{color:#ff6b6b;font-style:normal;}
 .fdesc{font-size:.81rem;color:rgba(210,225,240,.45);line-height:1.7;margin-bottom:18px;}
 .ftags{display:flex;flex-wrap:wrap;gap:6px;}
 .ftag{background:rgba(45,105,180,.12);color:rgba(210,225,240,.5);border-radius:4px;padding:3px 8px;font-size:.67rem;}
@@ -394,12 +397,22 @@ footer{background:#000f2d;padding:68px 5% 26px;border-top:1px solid rgba(45,105,
 <!-- NAV -->
 <nav id="nav">
 <a aria-label="Credii Foundation" class="logo" href="#home">
-<div class="logo-mark">Cr</div>
-<span class="logo-text">Cred<em>ii</em></span>
+<div class="logo-mark">
+<svg fill="none" height="42" viewbox="0 0 42 42" width="42" xmlns="http://www.w3.org/2000/svg">
+<path d="M21 3 L36 9 L36 21 C36 30 21 39 21 39 C21 39 6 30 6 21 L6 9 Z" fill="#b41e2d"></path>
+<path d="M27 14 C24.5 12 18 12.5 16 17 C14 21.5 16 27 20 28.5 C23 29.5 26.5 28.5 28 26.5" fill="none" stroke="white" stroke-linecap="round" stroke-width="3.2"></path>
+<path d="M17 21 L20 24.5 L26 18" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+</svg>
+</div>
+<div class="logo-wordmark">
+<div class="wm-bg">
+<span class="wm-text"><span class="wm-navy">credi</span><span class="wm-red">i</span></span>
+</div>
+</div>
 </a>
 <div class="nav-links">
 <a href="#who">Who We Are</a>
-<a href="#architecture">Architecture</a>
+<a href="#architecture">Network</a>
 <a href="#serve">Who We Serve</a>
 <a href="#membership">Membership</a>
 <a href="#partner">Partner</a>
@@ -412,7 +425,7 @@ footer{background:#000f2d;padding:68px 5% 26px;border-top:1px solid rgba(45,105,
 <!-- MOBILE MENU -->
 <div class="mob-menu" id="mobMenu">
 <a href="#who" onclick="closeMob()">Who We Are</a>
-<a href="#architecture" onclick="closeMob()">Architecture</a>
+<a href="#architecture" onclick="closeMob()">Network</a>
 <a href="#serve" onclick="closeMob()">Who We Serve</a>
 <a href="#membership" onclick="closeMob()">Membership</a>
 <a href="#partner" onclick="closeMob()">Partner</a>
@@ -875,8 +888,12 @@ footer{background:#000f2d;padding:68px 5% 26px;border-top:1px solid rgba(45,105,
 <div class="footer-grid">
 <div>
 <div class="flogo">
-<div class="flogo-mark">Cr</div>
-<span class="flogo-text">Cred<em>ii</em> Foundation</span>
+<svg fill="none" height="38" viewbox="0 0 42 42" width="38" xmlns="http://www.w3.org/2000/svg">
+<path d="M21 3 L36 9 L36 21 C36 30 21 39 21 39 C21 39 6 30 6 21 L6 9 Z" fill="#b41e2d"></path>
+<path d="M27 14 C24.5 12 18 12.5 16 17 C14 21.5 16 27 20 28.5 C23 29.5 26.5 28.5 28 26.5" fill="none" stroke="white" stroke-linecap="round" stroke-width="3.2"></path>
+<path d="M17 21 L20 24.5 L26 18" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+</svg>
+<span class="flogo-text">credi<em>i</em> Foundation</span>
 </div>
 <p class="fdesc">The Caribbean's digital credentialing, trust, and access infrastructure — aligned with SDGs, ESG, and IDPAD. Registered Non-Profit Company Limited by Guarantee, Trinidad &amp; Tobago.</p>
 <div class="ftags">
