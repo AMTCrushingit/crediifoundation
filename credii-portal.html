@@ -1,0 +1,1792 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Credii Member Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Fraunces:ital,wght@0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:        #C0392B;
+      --red-dark:   #9B2D20;
+      --red-pale:   #FDF0EE;
+      --sage:       #7A9E8E;
+      --sage-pale:  #EDF5F2;
+      --sand:       #D4C5A9;
+      --sand-pale:  #FAF7F2;
+      --mustard:    #C9A84C;
+      --mustard-pale:#FBF5E6;
+      --terra:      #B5714A;
+      --terra-pale: #FBF0E8;
+      --lilac:      #9B8DB5;
+      --lilac-pale: #F2EFF8;
+      --warm-white: #FDFCF9;
+      --off-white:  #F5F3EF;
+      --charcoal:   #2C2825;
+      --text:       #3D3835;
+      --muted:      #7A7370;
+      --border:     rgba(212,197,169,0.4);
+      --sidebar-w:  240px;
+    }
+
+    html, body { height: 100%; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text); background: var(--off-white); }
+
+    /* ── LAYOUT ── */
+    .portal { display: flex; height: 100vh; overflow: hidden; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: var(--sidebar-w);
+      background: var(--charcoal);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      overflow-y: auto;
+    }
+
+    .sidebar-logo {
+      display: flex; align-items: center; gap: 10px;
+      padding: 22px 20px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .logo-mark {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--red); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 15px; flex-shrink: 0;
+    }
+
+    .logo-text { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700; color: #fff; }
+    .logo-text span { color: var(--red); }
+
+    .sidebar-section { padding: 18px 12px 6px; }
+    .sidebar-section-label {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: rgba(255,255,255,0.3);
+      padding: 0 8px; margin-bottom: 6px;
+    }
+
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 10px; border-radius: 10px;
+      cursor: pointer; transition: background 0.15s;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.85rem; font-weight: 500;
+      margin-bottom: 2px;
+      border: none; background: none; width: 100%; text-align: left;
+    }
+
+    .nav-item:hover { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.9); }
+    .nav-item.active { background: rgba(192,57,43,0.25); color: #fff; }
+    .nav-item.active .nav-icon { color: var(--red); }
+
+    .nav-icon { font-size: 1rem; width: 20px; text-align: center; flex-shrink: 0; }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding: 16px 12px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .member-chip {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+    }
+
+    .member-avatar {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--red); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 13px; flex-shrink: 0;
+    }
+
+    .member-name { font-size: 0.8rem; font-weight: 600; color: #fff; }
+    .member-tier { font-size: 0.7rem; color: rgba(255,255,255,0.45); margin-top: 1px; }
+
+    /* ── MAIN ── */
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+    .topbar {
+      background: var(--warm-white);
+      border-bottom: 1.5px solid var(--border);
+      padding: 0 28px;
+      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .topbar-title { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 700; color: var(--charcoal); }
+    .topbar-subtitle { font-size: 0.78rem; color: var(--muted); margin-top: 1px; }
+
+    .topbar-actions { display: flex; align-items: center; gap: 12px; }
+
+    .topbar-btn {
+      padding: 7px 16px; border-radius: 100px;
+      font-size: 0.8rem; font-weight: 600;
+      cursor: pointer; border: none; transition: background 0.15s;
+    }
+
+    .btn-red { background: var(--red); color: #fff; }
+    .btn-red:hover { background: var(--red-dark); }
+    .btn-ghost { background: transparent; color: var(--muted); border: 1.5px solid var(--border); }
+    .btn-ghost:hover { border-color: var(--muted); color: var(--text); }
+
+    .content { flex: 1; overflow-y: auto; padding: 28px; }
+
+    /* ── SCREENS ── */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--warm-white);
+      border-radius: 18px;
+      border: 1.5px solid var(--border);
+      padding: 22px 24px;
+    }
+
+    .card-sm { padding: 16px 18px; }
+
+    .card-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1rem; font-weight: 700;
+      color: var(--charcoal); margin-bottom: 4px;
+    }
+
+    .card-sub { font-size: 0.8rem; color: var(--muted); }
+
+    /* ── GRID ── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+    .mb-4 { margin-bottom: 16px; }
+    .mb-6 { margin-bottom: 24px; }
+    .mb-8 { margin-bottom: 32px; }
+
+    /* ── WELCOME CARD ── */
+    .welcome-card {
+      background: linear-gradient(135deg, var(--charcoal) 0%, #3D3835 100%);
+      border-radius: 20px;
+      padding: 28px 32px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .welcome-card::before {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 220px; height: 220px; border-radius: 50%;
+      background: rgba(192,57,43,0.15);
+    }
+
+    .welcome-card::after {
+      content: '';
+      position: absolute; bottom: -40px; left: 30%;
+      width: 140px; height: 140px; border-radius: 50%;
+      background: rgba(122,158,142,0.1);
+    }
+
+    .welcome-eyebrow {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase; color: rgba(255,255,255,0.45);
+      margin-bottom: 6px;
+    }
+
+    .welcome-name {
+      font-family: 'Fraunces', serif;
+      font-size: 1.8rem; font-weight: 700; color: #fff;
+      margin-bottom: 14px;
+    }
+
+    .welcome-meta { display: flex; gap: 20px; flex-wrap: wrap; }
+
+    .welcome-badge {
+      display: flex; align-items: center; gap: 7px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 100px; padding: 5px 12px;
+      font-size: 0.78rem; color: rgba(255,255,255,0.8); font-weight: 500;
+    }
+
+    .welcome-badge .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+    }
+
+    .dot-green { background: #4ADE80; }
+    .dot-red   { background: var(--red); }
+    .dot-sand  { background: var(--sand); }
+
+    /* ── STAT CARDS ── */
+    .stat-card {
+      background: var(--warm-white);
+      border-radius: 16px;
+      border: 1.5px solid var(--border);
+      padding: 18px 20px;
+      position: relative; overflow: hidden;
+    }
+
+    .stat-card::after {
+      content: '';
+      position: absolute; bottom: -16px; right: -16px;
+      width: 60px; height: 60px; border-radius: 50%;
+      opacity: 0.08;
+    }
+
+    .stat-card:nth-child(1)::after { background: var(--red); }
+    .stat-card:nth-child(2)::after { background: var(--sage); }
+    .stat-card:nth-child(3)::after { background: var(--mustard); }
+    .stat-card:nth-child(4)::after { background: var(--lilac); }
+
+    .stat-icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; margin-bottom: 12px;
+    }
+
+    .stat-num {
+      font-family: 'Fraunces', serif;
+      font-size: 2rem; font-weight: 700; color: var(--charcoal);
+      line-height: 1;
+    }
+
+    .stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+
+    /* ── UPDATES ── */
+    .update-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .update-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .update-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      flex-shrink: 0; margin-top: 5px;
+    }
+
+    .update-title { font-size: 0.85rem; font-weight: 600; color: var(--charcoal); }
+    .update-meta  { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+
+    /* ── BADGES / PILLS ── */
+    .badge {
+      display: inline-flex; align-items: center;
+      padding: 3px 10px; border-radius: 100px;
+      font-size: 0.7rem; font-weight: 700;
+    }
+
+    .badge-green  { background: #DCFCE7; color: #166534; }
+    .badge-red    { background: var(--red-pale); color: var(--red); }
+    .badge-sand   { background: var(--sand-pale); color: #7A6A50; }
+    .badge-sage   { background: var(--sage-pale); color: #4A7A6A; }
+    .badge-mustard{ background: var(--mustard-pale); color: #8A6A1A; }
+    .badge-lilac  { background: var(--lilac-pale); color: var(--lilac); }
+    .badge-terra  { background: var(--terra-pale); color: var(--terra); }
+    .badge-grey   { background: #F3F4F6; color: #6B7280; }
+
+    /* ── TABLE ── */
+    .table-wrap { overflow-x: auto; }
+
+    table { width: 100%; border-collapse: collapse; }
+
+    th {
+      text-align: left; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.8px; text-transform: uppercase;
+      color: var(--muted); padding: 10px 14px;
+      border-bottom: 1.5px solid var(--border);
+    }
+
+    td {
+      padding: 13px 14px; font-size: 0.84rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--off-white); }
+
+    /* ── CREDENTIAL CARD ── */
+    .cred-card {
+      background: var(--warm-white);
+      border-radius: 16px;
+      border: 1.5px solid var(--border);
+      padding: 20px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+
+    .cred-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+
+    .cred-icon {
+      width: 48px; height: 48px; border-radius: 14px;
+      background: var(--red-pale);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; flex-shrink: 0;
+    }
+
+    .cred-name { font-weight: 700; font-size: 0.92rem; color: var(--charcoal); }
+    .cred-issuer { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+    .cred-date { font-size: 0.72rem; color: var(--muted); }
+
+    .cred-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .cred-btn {
+      padding: 6px 12px; border-radius: 100px;
+      font-size: 0.75rem; font-weight: 600;
+      cursor: pointer; border: 1.5px solid var(--border);
+      background: transparent; color: var(--text);
+      transition: all 0.15s;
+    }
+
+    .cred-btn:hover { border-color: var(--red); color: var(--red); }
+    .cred-btn.primary { background: var(--red); color: #fff; border-color: var(--red); }
+    .cred-btn.primary:hover { background: var(--red-dark); }
+
+    /* ── PROGRAM CARD ── */
+    .prog-card {
+      background: var(--warm-white);
+      border-radius: 16px;
+      border: 1.5px solid var(--border);
+      padding: 20px;
+      transition: box-shadow 0.2s, transform 0.15s;
+    }
+
+    .prog-card:hover { box-shadow: 0 8px 28px rgba(44,40,37,0.09); transform: translateY(-2px); }
+
+    .prog-tag {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.8px;
+      text-transform: uppercase; color: var(--red);
+      margin-bottom: 8px;
+    }
+
+    .prog-name { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 700; color: var(--charcoal); margin-bottom: 6px; }
+    .prog-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
+
+    .prog-meta { display: flex; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+    .prog-meta-item { font-size: 0.75rem; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+
+    .prog-actions { display: flex; gap: 8px; }
+
+    /* ── RESOURCE CARD ── */
+    .res-card {
+      background: var(--warm-white);
+      border-radius: 14px;
+      border: 1.5px solid var(--border);
+      padding: 18px;
+      display: flex; gap: 14px; align-items: flex-start;
+      transition: box-shadow 0.15s;
+    }
+
+    .res-card:hover { box-shadow: 0 6px 20px rgba(44,40,37,0.08); }
+
+    .res-icon {
+      width: 42px; height: 42px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+
+    .res-name { font-weight: 700; font-size: 0.88rem; color: var(--charcoal); margin-bottom: 4px; }
+    .res-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+    .res-link { font-size: 0.75rem; font-weight: 600; color: var(--red); margin-top: 8px; cursor: pointer; }
+
+    /* ── EVENT CARD ── */
+    .event-card {
+      background: var(--warm-white);
+      border-radius: 16px;
+      border: 1.5px solid var(--border);
+      padding: 20px;
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+
+    .event-date-box {
+      background: var(--red-pale);
+      border-radius: 12px;
+      padding: 10px 14px;
+      text-align: center;
+      flex-shrink: 0;
+      min-width: 56px;
+    }
+
+    .event-month { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: var(--red); }
+    .event-day { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 700; color: var(--red); line-height: 1; }
+
+    .event-name { font-weight: 700; font-size: 0.92rem; color: var(--charcoal); margin-bottom: 4px; }
+    .event-meta { font-size: 0.75rem; color: var(--muted); margin-bottom: 10px; }
+    .event-actions { display: flex; gap: 8px; }
+
+    /* ── COMMUNITY MEMBER ── */
+    .community-card {
+      background: var(--warm-white);
+      border-radius: 14px;
+      border: 1.5px solid var(--border);
+      padding: 18px;
+      text-align: center;
+    }
+
+    .community-avatar {
+      width: 52px; height: 52px; border-radius: 50%;
+      margin: 0 auto 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 1.1rem; color: #fff;
+    }
+
+    .community-name { font-weight: 700; font-size: 0.88rem; color: var(--charcoal); }
+    .community-role { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+    .community-country { font-size: 0.72rem; color: var(--muted); margin-top: 6px; }
+
+    /* ── APPLICATION STATUS ── */
+    .app-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0; border-bottom: 1px solid var(--border);
+      gap: 12px;
+    }
+
+    .app-row:last-child { border-bottom: none; }
+    .app-name { font-weight: 600; font-size: 0.88rem; color: var(--charcoal); }
+    .app-type { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+    .app-date { font-size: 0.75rem; color: var(--muted); }
+
+    /* ── SURVEY CARD ── */
+    .survey-card {
+      background: var(--warm-white);
+      border-radius: 16px;
+      border: 1.5px solid var(--border);
+      padding: 20px;
+    }
+
+    .survey-name { font-weight: 700; font-size: 0.92rem; color: var(--charcoal); margin-bottom: 6px; }
+    .survey-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
+    .survey-meta { display: flex; gap: 14px; margin-bottom: 14px; }
+    .survey-meta-item { font-size: 0.75rem; color: var(--muted); }
+
+    /* ── FORM ── */
+    .form-group { margin-bottom: 18px; }
+    .form-label { font-size: 0.8rem; font-weight: 600; color: var(--charcoal); margin-bottom: 6px; display: block; }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%; padding: 10px 14px;
+      border-radius: 10px; border: 1.5px solid var(--border);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.85rem; color: var(--text);
+      background: var(--warm-white);
+      transition: border-color 0.15s;
+      outline: none;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--red);
+    }
+
+    .form-textarea { resize: vertical; min-height: 90px; }
+
+    /* ── SECTION HEADER ── */
+    .section-hdr {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .section-hdr-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1rem; font-weight: 700; color: var(--charcoal);
+    }
+
+    .section-hdr-link {
+      font-size: 0.78rem; font-weight: 600; color: var(--red);
+      cursor: pointer; text-decoration: none;
+    }
+
+    /* ── MEMBERSHIP TIER DISPLAY ── */
+    .tier-display {
+      background: linear-gradient(135deg, var(--charcoal), #3D3835);
+      border-radius: 18px;
+      padding: 24px 28px;
+      color: #fff;
+      position: relative; overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .tier-display::before {
+      content: '';
+      position: absolute; top: -40px; right: -40px;
+      width: 160px; height: 160px; border-radius: 50%;
+      background: rgba(192,57,43,0.2);
+    }
+
+    .tier-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 6px; }
+    .tier-name-big { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .tier-price-big { font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-bottom: 16px; }
+
+    .tier-meta-row { display: flex; gap: 16px; flex-wrap: wrap; }
+    .tier-meta-item { font-size: 0.78rem; color: rgba(255,255,255,0.7); }
+    .tier-meta-item strong { color: #fff; }
+
+    /* ── UPGRADE CARDS ── */
+    .upgrade-card {
+      border-radius: 14px;
+      border: 1.5px solid var(--border);
+      padding: 18px;
+      background: var(--warm-white);
+      cursor: pointer;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .upgrade-card:hover { border-color: var(--red); box-shadow: 0 4px 16px rgba(192,57,43,0.1); }
+    .upgrade-card-name { font-weight: 700; font-size: 0.9rem; color: var(--charcoal); margin-bottom: 4px; }
+    .upgrade-card-price { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 700; color: var(--red); }
+    .upgrade-card-price span { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.75rem; font-weight: 500; color: var(--muted); }
+    .upgrade-card-desc { font-size: 0.78rem; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+
+    /* ── FILTER BAR ── */
+    .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+
+    .filter-btn {
+      padding: 6px 14px; border-radius: 100px;
+      font-size: 0.78rem; font-weight: 600;
+      cursor: pointer; border: 1.5px solid var(--border);
+      background: var(--warm-white); color: var(--muted);
+      transition: all 0.15s;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--red-pale); border-color: var(--red); color: var(--red);
+    }
+
+    /* ── ADMIN SIDEBAR INDICATOR ── */
+    .admin-indicator {
+      background: rgba(201,168,76,0.15);
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--mustard);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    /* ── ADMIN STAT ── */
+    .admin-stat {
+      background: var(--warm-white);
+      border-radius: 16px;
+      border: 1.5px solid var(--border);
+      padding: 20px;
+    }
+
+    .admin-stat-num { font-family: 'Fraunces', serif; font-size: 2.2rem; font-weight: 700; color: var(--charcoal); }
+    .admin-stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+    .admin-stat-change { font-size: 0.75rem; font-weight: 600; margin-top: 8px; }
+    .change-up { color: #16A34A; }
+    .change-down { color: var(--red); }
+
+    /* ── PROGRESS BAR ── */
+    .progress-bar { height: 6px; background: var(--off-white); border-radius: 100px; overflow: hidden; margin-top: 8px; }
+    .progress-fill { height: 100%; border-radius: 100px; background: var(--red); }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center; padding: 48px 24px;
+      color: var(--muted);
+    }
+
+    .empty-icon { font-size: 2.5rem; margin-bottom: 12px; opacity: 0.4; }
+    .empty-title { font-weight: 700; font-size: 0.95rem; color: var(--charcoal); margin-bottom: 6px; }
+    .empty-desc { font-size: 0.82rem; line-height: 1.6; }
+
+    /* ── DIVIDER ── */
+    .divider { height: 1px; background: var(--border); margin: 20px 0; }
+
+    /* ── TOGGLE VIEW ── */
+    .view-toggle { display: flex; gap: 0; border: 1.5px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .view-btn { padding: 6px 12px; font-size: 0.78rem; font-weight: 600; cursor: pointer; border: none; background: var(--warm-white); color: var(--muted); transition: all 0.15s; }
+    .view-btn.active { background: var(--red); color: #fff; }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(44,40,37,0.15); border-radius: 10px; }
+
+    /* ── NOTIFICATION DOT ── */
+    .notif-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--red); flex-shrink: 0;
+    }
+
+    /* ── HISTORY TABLE ── */
+    .history-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .history-row:last-child { border-bottom: none; }
+    .history-label { font-size: 0.83rem; color: var(--text); }
+    .history-value { font-size: 0.83rem; color: var(--muted); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .grid-4 { grid-template-columns: 1fr 1fr; }
+      .grid-3 { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .sidebar { display: none; }
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="portal">
+<!-- ══ SIDEBAR ══ -->
+<aside class="sidebar">
+<div class="sidebar-logo">
+<div class="logo-mark">C</div>
+<span class="logo-text">credii<span>.</span></span>
+</div>
+<!-- Member Nav -->
+<div class="sidebar-section">
+<div class="sidebar-section-label">Member Portal</div>
+<button class="nav-item active" onclick="showScreen('dashboard')">
+<span class="nav-icon">🏠</span> Dashboard
+      </button>
+<button class="nav-item" onclick="showScreen('membership')">
+<span class="nav-icon">🪪</span> My Membership
+      </button>
+<button class="nav-item" onclick="showScreen('credentials')">
+<span class="nav-icon">🏅</span> My Credentials
+      </button>
+<button class="nav-item" onclick="showScreen('programs')">
+<span class="nav-icon">🚀</span> Programs &amp; Pilots
+      </button>
+<button class="nav-item" onclick="showScreen('resources')">
+<span class="nav-icon">📚</span> Resource Hub
+      </button>
+<button class="nav-item" onclick="showScreen('events')">
+<span class="nav-icon">📅</span> Events
+      </button>
+<button class="nav-item" onclick="showScreen('community')">
+<span class="nav-icon">🌍</span> Community
+      </button>
+<button class="nav-item" onclick="showScreen('applications')">
+<span class="nav-icon">📋</span> My Applications
+      </button>
+<button class="nav-item" onclick="showScreen('surveys')">
+<span class="nav-icon">📊</span> Surveys &amp; Research
+      </button>
+<button class="nav-item" onclick="showScreen('profile')">
+<span class="nav-icon">⚙️</span> Profile Settings
+      </button>
+</div>
+<!-- Admin Nav -->
+<div class="sidebar-section">
+<div class="sidebar-section-label" style="display:flex;align-items:center;gap:6px;">
+        Admin <span class="admin-indicator">Staff</span>
+</div>
+<button class="nav-item" onclick="showScreen('admin-dashboard')">
+<span class="nav-icon">📈</span> Admin Dashboard
+      </button>
+<button class="nav-item" onclick="showScreen('admin-members')">
+<span class="nav-icon">👥</span> Members
+      </button>
+<button class="nav-item" onclick="showScreen('admin-content')">
+<span class="nav-icon">🗂️</span> Content
+      </button>
+<button class="nav-item" onclick="showScreen('admin-events')">
+<span class="nav-icon">🗓️</span> Events
+      </button>
+</div>
+<div class="sidebar-footer">
+<div class="member-chip">
+<div class="member-avatar">AJ</div>
+<div>
+<div class="member-name">Andrea Joseph</div>
+<div class="member-tier">Community Member</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- ══ MAIN ══ -->
+<div class="main">
+<!-- Topbar -->
+<div class="topbar" id="topbar">
+<div>
+<div class="topbar-title" id="topbar-title">Dashboard</div>
+<div class="topbar-subtitle" id="topbar-subtitle">Welcome back, Andrea</div>
+</div>
+<div class="topbar-actions">
+<button class="topbar-btn btn-ghost">🔔</button>
+<button class="topbar-btn btn-red" onclick="showScreen('membership')">Upgrade Membership</button>
+</div>
+</div>
+<div class="content">
+<!-- ══════════════════════════════════════
+           SCREEN: DASHBOARD
+      ══════════════════════════════════════ -->
+<div class="screen active" id="screen-dashboard">
+<!-- Welcome Card -->
+<div class="welcome-card">
+<div class="welcome-eyebrow">Member Portal</div>
+<div class="welcome-name">Hello, Andrea 👋</div>
+<div class="welcome-meta">
+<div class="welcome-badge"><span class="dot dot-sand"></span> Community Member since Sept 2026</div>
+<div class="welcome-badge"><span class="dot dot-green"></span> Status: Active</div>
+<div class="welcome-badge"><span class="dot dot-red"></span> Renewal: Sept 30, 2027</div>
+</div>
+</div>
+<!-- Quick Stats -->
+<div class="grid-4 mb-6">
+<div class="stat-card">
+<div class="stat-icon" style="background:var(--red-pale);">🏅</div>
+<div class="stat-num">1</div>
+<div class="stat-label">Credential Earned</div>
+</div>
+<div class="stat-card">
+<div class="stat-icon" style="background:var(--sage-pale);">📅</div>
+<div class="stat-num">3</div>
+<div class="stat-label">Events Attended</div>
+</div>
+<div class="stat-card">
+<div class="stat-icon" style="background:var(--mustard-pale);">🚀</div>
+<div class="stat-num">2</div>
+<div class="stat-label">Programs Participated</div>
+</div>
+<div class="stat-card">
+<div class="stat-icon" style="background:var(--lilac-pale);">🪪</div>
+<div class="stat-num" style="font-size:1.1rem;padding-top:4px;">Community</div>
+<div class="stat-label">Membership Level</div>
+</div>
+</div>
+<!-- Recent Updates + Quick Actions -->
+<div class="grid-2">
+<div class="card">
+<div class="section-hdr">
+<div class="card-title">Recent Updates</div>
+<span class="section-hdr-link">View all</span>
+</div>
+<div class="update-item">
+<div class="update-dot" style="background:var(--red);"></div>
+<div>
+<div class="update-title">New Pilot Opportunity Available</div>
+<div class="update-meta">Women in Business Pilot — Applications open · 2 days ago</div>
+</div>
+</div>
+<div class="update-item">
+<div class="update-dot" style="background:var(--sage);"></div>
+<div>
+<div class="update-title">Upcoming Webinar: Digital Trust 101</div>
+<div class="update-meta">Oct 22, 2026 · 2:00 PM AST · Register now</div>
+</div>
+</div>
+<div class="update-item">
+<div class="update-dot" style="background:var(--mustard);"></div>
+<div>
+<div class="update-title">New Resource: Business Readiness Toolkit</div>
+<div class="update-meta">Added to Resource Hub · 5 days ago</div>
+</div>
+</div>
+<div class="update-item">
+<div class="update-dot" style="background:var(--lilac);"></div>
+<div>
+<div class="update-title">Community Announcement</div>
+<div class="update-meta">Credii Q4 2026 Roadmap shared with members · 1 week ago</div>
+</div>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px;">
+<div class="card card-sm">
+<div class="card-title" style="margin-bottom:12px;">Quick Actions</div>
+<div style="display:flex;flex-direction:column;gap:8px;">
+<button class="topbar-btn btn-red" onclick="showScreen('programs')" style="width:100%;text-align:left;padding:10px 16px;border-radius:10px;">🚀 Apply to a Program</button>
+<button class="topbar-btn btn-ghost" onclick="showScreen('credentials')" style="width:100%;text-align:left;padding:10px 16px;border-radius:10px;">🏅 View My Credentials</button>
+<button class="topbar-btn btn-ghost" onclick="showScreen('events')" style="width:100%;text-align:left;padding:10px 16px;border-radius:10px;">📅 Register for an Event</button>
+<button class="topbar-btn btn-ghost" onclick="showScreen('membership')" style="width:100%;text-align:left;padding:10px 16px;border-radius:10px;">⬆️ Upgrade Membership</button>
+</div>
+</div>
+<div class="card card-sm">
+<div class="card-title" style="margin-bottom:4px;">Trust Profile</div>
+<div class="card-sub" style="margin-bottom:12px;">Your profile is being built as you participate.</div>
+<div style="font-size:0.78rem;color:var(--muted);margin-bottom:4px;">Profile completeness</div>
+<div class="progress-bar"><div class="progress-fill" style="width:35%;"></div></div>
+<div style="font-size:0.72rem;color:var(--muted);margin-top:6px;">35% — Add more credentials and complete your profile to strengthen your Trust Profile.</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+           SCREEN: MY MEMBERSHIP
+      ══════════════════════════════════════ -->
+<div class="screen" id="screen-membership">
+<div class="tier-display">
+<div class="tier-label">Current Membership</div>
+<div class="tier-name-big">Community Member</div>
+<div class="tier-price-big">$49 USD / year</div>
+<div class="tier-meta-row">
+<div class="tier-meta-item">Status: <strong>Active</strong></div>
+<div class="tier-meta-item">Renewal: <strong>Sept 30, 2027</strong></div>
+<div class="tier-meta-item">Member since: <strong>Sept 2026</strong></div>
+</div>
+</div>
+<div class="grid-2 mb-6">
+<!-- Membership History -->
+<div class="card">
+<div class="card-title" style="margin-bottom:14px;">Membership History</div>
+<div class="history-row">
+<div class="history-label">Date Joined</div>
+<div class="history-value">September 1, 2026</div>
+</div>
+<div class="history-row">
+<div class="history-label">Tier at Joining</div>
+<div class="history-value">Community Member</div>
+</div>
+<div class="history-row">
+<div class="history-label">Last Renewal</div>
+<div class="history-value">—</div>
+</div>
+<div class="history-row">
+<div class="history-label">Past Upgrades</div>
+<div class="history-value">None</div>
+</div>
+<div class="history-row">
+<div class="history-label">Next Renewal</div>
+<div class="history-value">September 30, 2027</div>
+</div>
+</div>
+<!-- Included Benefits -->
+<div class="card">
+<div class="card-title" style="margin-bottom:14px;">Your Benefits</div>
+<div style="display:flex;flex-direction:column;gap:10px;">
+<div style="display:flex;align-items:center;gap:10px;font-size:0.84rem;">
+<span style="color:var(--sage);font-weight:700;">✓</span> Quarterly updates &amp; newsletters
+              </div>
+<div style="display:flex;align-items:center;gap:10px;font-size:0.84rem;">
+<span style="color:var(--sage);font-weight:700;">✓</span> Member webinars
+              </div>
+<div style="display:flex;align-items:center;gap:10px;font-size:0.84rem;">
+<span style="color:var(--sage);font-weight:700;">✓</span> Early resource access
+              </div>
+<div style="display:flex;align-items:center;gap:10px;font-size:0.84rem;">
+<span style="color:var(--sage);font-weight:700;">✓</span> Digital member badge
+              </div>
+<div style="display:flex;align-items:center;gap:10px;font-size:0.84rem;">
+<span style="color:var(--sage);font-weight:700;">✓</span> Pilot &amp; consultation participation
+              </div>
+</div>
+</div>
+</div>
+<!-- Upgrade Options -->
+<div class="section-hdr mb-4">
+<div class="section-hdr-title">Upgrade Your Membership</div>
+</div>
+<div class="grid-3">
+<div class="upgrade-card">
+<div class="upgrade-card-name">Professional &amp; Small Business</div>
+<div class="upgrade-card-price">$149 <span>USD/year</span></div>
+<div class="upgrade-card-desc">Directory listing, capability workshops, early credential access, and pilot participation.</div>
+<button class="topbar-btn btn-red" style="margin-top:14px;width:100%;border-radius:10px;">Upgrade →</button>
+</div>
+<div class="upgrade-card" style="border-color:var(--red);">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;">
+<div class="upgrade-card-name">Organizational Member</div>
+<span class="badge badge-red">Popular</span>
+</div>
+<div class="upgrade-card-price">$499 <span>USD/year</span></div>
+<div class="upgrade-card-desc">Up to 5 users, working groups, research access, and pilot collaboration invitations.</div>
+<button class="topbar-btn btn-red" style="margin-top:14px;width:100%;border-radius:10px;">Upgrade →</button>
+</div>
+<div class="upgrade-card">
+<div class="upgrade-card-name">Strategic Partner</div>
+<div class="upgrade-card-price">$2,500 <span>USD/year+</span></div>
+<div class="upgrade-card-desc">Strategic sessions, co-branded initiatives, pilot sponsorship, and impact reporting.</div>
+<button class="topbar-btn btn-ghost" style="margin-top:14px;width:100%;border-radius:10px;">Contact Us →</button>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+           SCREEN: MY CREDENTIALS
+      ══════════════════════════════════════ -->
+<div class="screen" id="screen-credentials">
+<div class="grid-2 mb-6">
+<div class="cred-card">
+<div class="cred-header">
+<div style="display:flex;gap:12px;align-items:flex-start;">
+<div class="cred-icon">🏅</div>
+<div>
+<div class="cred-name">Digital Readiness Certificate</div>
+<div class="cred-issuer">Issued by Credii Foundation</div>
+<div class="cred-date">September 2026</div>
+</div>
+</div>
+<span class="badge badge-green">Verified</span>
+</div>
+<div class="cred-actions">
+<button class="cred-btn primary">View</button>
+<button class="cred-btn">Share</button>
+<button class="cred-btn">Verify</button>
+<button class="cred-btn">Download</button>
+</div>
+</div>
+<div class="card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border-style:dashed;">
+<div style="font-size:2rem;margin-bottom:10px;opacity:0.3;">🏅</div>
+<div style="font-weight:700;font-size:0.88rem;color:var(--charcoal);margin-bottom:6px;">More credentials coming</div>
+<div style="font-size:0.78rem;color:var(--muted);line-height:1.6;">Participate in programs and pilots to earn additional verified credentials.</div>
+<button class="topbar-btn btn-red" onclick="showScreen('programs')" style="margin-top:14px;border-radius:10px;">Explore Programs</button>
+</div>
+</div>
+<div class="card">
+<div class="card-title" style="margin-bottom:14px;">All Credentials</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Credential</th>
+<th>Issued By</th>
+<th>Date</th>
+<th>Status</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Digital Readiness Certificate</strong></td>
+<td>Credii Foundation</td>
+<td>Sept 2026</td>
+<td><span class="badge badge-green">Verified</span></td>
+<td>
+<div style="display:flex;gap:6px;">
+<button class="cred-btn">View</button>
+<button class="cred-btn">Share</button>
+<button class="cred-btn">Download</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+           SCREEN: PROGRAMS & PILOTS
+      ══════════════════════════════════════ -->
+<div class="screen" id="screen-programs">
+<div class="filter-bar">
+<button class="filter-btn active">All</button>
+<button class="filter-btn">Open</button>
+<button class="filter-btn">Pilots</button>
+<button class="filter-btn">Workshops</button>
+<button class="filter-btn">Research</button>
+</div>
+<div class="grid-2">
+<div class="prog-card">
+<div class="prog-tag">🟢 Open · Pilot</div>
+<div class="prog-name">Women in Business Pilot</div>
+<div class="prog-desc">A six-month pilot testing digital credential issuance and trust profiles for women entrepreneurs and MSMEs across the Caribbean.</div>
+<div class="prog-meta">
+<div class="prog-meta-item">📅 Starts Nov 2026</div>
+<div class="prog-meta-item">⏱ 6 months</div>
+<div class="prog-meta-item">👥 20 participants</div>
+</div>
+<div class="prog-actions">
+<button class="topbar-btn btn-red" style="border-radius:10px;">Apply Now</button>
+<button class="topbar-btn btn-ghost" style="border-radius:10px;">Learn More</button>
+</div>
+</div>
+<div class="prog-card">
+<div class="prog-tag">🟢 Open · Program</div>
+<div class="prog-name">Digital Readiness Program</div>
+<div class="prog-desc">A foundational program helping individuals and small businesses understand and prepare for digital credentialing and verification systems.</div>
+<div class="prog-meta">
+<div class="prog-meta-item">📅 Rolling intake</div>
+<div class="prog-meta-item">⏱ 4 weeks</div>
+<div class="prog-meta-item">🏅 Certificate awarded</div>
+</div>
+<div class="prog-actions">
+<button class="topbar-btn btn-red" style="border-radius:10px;">Register</button>
+<button class="topbar-btn btn-ghost" style="border-radius:10px;">Learn More</button>
+</div>
+</div>
+<div class="prog-card">
+<div class="prog-tag">🟡 Coming Soon · Research</div>
+<div class="prog-name">Trust Profile Pilot</div>
+<div class="prog-desc">Testing the Credii trust profile model with selected organizations and beneficiaries to validate adoption, usability, and impact.</div>
+<div class="prog-meta">
+<div class="prog-meta-item">📅 Q1 2027</div>
+<div class="prog-meta-item">⏱ 3 months</div>
+<div class="prog-meta-item">👥 Limited spots</div>
+</div>
+<div class="prog-actions">
+<button class="topbar-btn btn-ghost" style="border-radius:10px;">Express Interest</button>
+<button class="topbar-btn btn-ghost" style="border-radius:10px;">Learn More</button>
+</div>
+</div>
+<div class="prog-card">
+<div class="prog-tag">🟢 Open · Research</div>
+<div class="prog-name">Community Research Cohort</div>
+<div class="prog-desc">Join a cohort of members contributing to Credii's research on credential recognition, trust systems, and economic inclusion in the Caribbean.</div>
+<div class="prog-meta">
+<div class="prog-meta-item">📅 Oct 2026</div>
+<div class="prog-meta-item">⏱ Ongoing</div>
+<div class="prog-meta-item">📊 Survey-based</div>
+</div>
+<div class="prog-actions">
+<button class="topbar-btn btn-red" style="border-radius:10px;">Join Cohort</button>
+<button class="topbar-btn btn-ghost" style="border-radius:10px;">Learn More</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+           SCREEN: RESOURCE HUB
+      ══════════════════════════════════════ -->
+<div class="screen" id="screen-resources">
+<div class="filter-bar">
+<button class="filter-btn active">All</button>
+<button class="filter-btn">Learning</button>
+<button class="filter-btn">Research</button>
+<button class="filter-btn">Guides</button>
+<button class="filter-btn">Templates</button>
+<button class="filter-btn">Toolkits</button>
+<button class="filter-btn">Webinars</button>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<div class="res-card">
+<div class="res-icon" style="background:var(--red-pale);">🧰</div>
+<div style="flex:1;">
+<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;">
+<div>
+<div class="res-name">Business Readiness Toolkit</div>
+<div class="res-desc">A practical toolkit to help MSMEs assess and strengthen their readiness for digital credentialing, financing, and market access.</div>
+</div>
+<span class="badge badge-mustard">Toolkit</span>
+</div>
+<div class="res-link">Download →</div>
+</div>
+</div>
+<div class="res-card">
+<div class="res-icon" style="background:var(--sage-pale);">📘</div>
+<div style="flex:1;">
+<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;">
+<div>
+<div class="res-name">Digital Trust Guide</div>
+<div class="res-desc">An introduction to digital trust, verifiable credentials, and how they can support economic inclusion across the Caribbean.</div>
+</div>
+<span class="badge badge-sage">Guide</span>
+</div>
+<div class="res-link">Read Now →</div>
+</div>
+</div>
+<div class="res-card">
+<div class="res-icon" style="background:var(--terra-pale);">📚</div>
+<div style="flex:1;">
+<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;">
+<div>
+<div class="res-name">Entrepreneurship Resource Library</div>
+<div class="res-desc">A curated collection of resources for Caribbean entrepreneurs covering business development, funding, and capability building.</div>
+</div>
+<span class="badge badge-terra">Library</span>
+</div>
+<div class="res-link">Browse Library →</div>
+</div>
+</div>
+<div class="res-card">
+<div class="res-icon" style="background:var(--mustard-pale);">✅</div>
+<div style="flex:1;">
+<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;">
+<div>
+<div class="res-name">Funding Readiness Checklist</div>
+<div class="res-desc">Step-by-step checklist to help entrepreneurs and MSMEs prepare for financing applications and investor conversations.</div>
+</div>
+<span class="badge badge-mustard">Template</span>
+</div>
+<div class="res-link">Download →</div>
+</div>
+</div>
+<div class="res-card">
+<div class="res-icon" style="background:var(--lilac-pale);">🎥</div>
+<div style="flex:1;">
+<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;">
+<div>
+<div class="res-name">Webinar Recording: Introduction to Credii</div>
+<div class="res-desc">Watch the recording of our September 2026 member webinar introducing the Credii platform, mission, and pilot programs.</div>
+</div>
+<span class="badge badge-lilac">Webinar</span>
+</div>
+<div class="res-link">Watch Recording →</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+           SCREEN: EVENTS
+      ══════════════════════════════════════ -->
+<div class="screen" id="screen-events">
+<div class="filter-bar">
+<button class="filter-btn active">Upcoming</button>
+<button class="filter-btn">Webinars</button>
+<button class="filter-btn">Roundtables</button>
+<button class="filter-btn">Workshops</button>
+<button class="filter-btn">Past Events</button>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px;">
+<div class="event-card">
+<div class="event-date-box">
+<div class="event-month">Oct</div>
+<div class="event-day">22</div>
+</div>
+<div style="flex:1;">
+<div class="event-name">Digital Trust 101 — Member Webinar</div>
+<div class="event-meta">📍 Online · 2:00 PM AST · 90 minutes · Webinar</div>
+<div class="event-actions">
+<button class="topbar-btn btn-red" style="border-radius:10px;font-size:0.78rem;padding:6px 14px;">Register</button>
+<button class="topbar-btn btn-ghost" style="border-radius:10px;font-size:0.78rem;padding:6px 14px;">Add to Calendar</button>
+</div>
+</div>
+</div>
+<div class="event-card">
+<div class="event-date-box">
+<div class="event-month">Nov</div>
+<div class="event-day">5</div>
+</div>
+<div style="flex:1;">
+<div class="event-name">Women Entrepreneurs Roundtable</div>
+<div class="event-meta">📍 Online · 10:00 AM AST · 2 hours · Roundtable</div>
+<div class="event-actions">
+<button class="topbar-btn btn-red" style="border-radius:10px;font-size:0.78rem;padding:6px 14px;">Register</button>
+<button class="topbar-btn btn-ghost" style="border-radius:10px;font-size:0.78rem;padding:6px 14px;">Add to Calendar</button>
+</div>
+</div>
+</div>
+<div class="event-card">
+<div class="event-date-box">
+<div class="event-month">Nov</div>
+<div class="event-day">18</div>
+</div>
+<div style="flex:1;">
+<div class="event-name">Pilot Information Session — Women in Business</div>
+<div class="event-meta">📍 Online · 3:00 PM AST · 60 minutes · Info Session</div>
+<div class="event-actions">
+<button class="topbar-btn btn-red" style="border-radius:10px;font-size:0.78rem;padding:6px 14px;">Register</button>
+<button class="topbar-btn btn-ghost" style="border-radius:10px;font-size:0.78rem;padding:6px 14px;">Add to Calendar</button>
+</div>
+</div>
+</div>
+<div class="event-card" style="opacity:0.6;">
+<div class="event-date-box" style="background:var(--off-white);">
+<div class="event-month" style="color:var(--muted);">Sept</div>
+<div class="event-day" style="color:var(--muted);">15</div>
+</div>
+<div style="flex:1;">
+<div class="event-name">Introduction to Credii — Launch Webinar</div>
+<div class="event-meta">📍 Online · Past Event · Attended ✓</div>
+<div class="event-actions">
+<button class="topbar-btn btn-ghost" style="border-radius:10px;font-size:0.78rem;padding:6px 14px;">Watch Recording</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+           SCREEN: COMMUNITY
+      ══════════════════════════════════════ -->
+<div class="screen" id="screen-community">
+<div class="filter-bar">
+<button class="filter-btn active">All Members</button>
+<button class="filter-btn">Trinidad &amp; Tobago</button>
+<button class="filter-btn">Jamaica</button>
+<button class="filter-btn">Barbados</button>
+<button class="filter-btn">Entrepreneurs</button>
+<button class="filter-btn">Organizations</button>
+</div>
+<div class="grid-4">
+<div class="community-card">
+<div class="community-avatar" style="background:var(--red);">MR</div>
+<div class="community-name">Maria Ramsaran</div>
+<div class="community-role">Entrepreneur · MSME</div>
+<div class="community-country">🇹🇹 Trinidad &amp; Tobago</div>
+</div>
+<div class="community-card">
+<div class="community-avatar" style="background:var(--sage);">JB</div>
+<div class="community-name">James Brown</div>
+<div class="community-role">Training Provider</div>
+<div class="community-country">🇯🇲 Jamaica</div>
+</div>
+<div class="community-card">
+<div class="community-avatar" style="background:var(--mustard);">SC</div>
+<div class="community-name">Simone Clarke</div>
+<div class="community-role">Entrepreneur · MSME</div>
+<div class="community-country">🇧🇧 Barbados</div>
+</div>
+<div class="community-card">
+<div class="community-avatar" style="background:var(--lilac);">KP</div>
+<div class="community-name">Kezia Pierre</div>
+<div class="community-role">Community Organization</div>
+<div class="community-country">🇬🇩 Grenada</div>
+</div>
+<div class="community-card">
+<div class="community-avatar" style="background:var(--terra);">DW</div>
+<div class="community-name">David Williams</div>
+<div class="community-role">Supporter</div>
+<div class="community-country">🇬🇾 Guyana</div>
+</div>
+<div class="community-card">
+<div class="community-avatar" style="background:#6B7280;">AJ</div>
+<div class="community-name">Andrea Joseph</div>
+<div class="community-role">Entrepreneur · You</div>
+<div class="community-country">🇹🇹 Trinidad &amp; Tobago</div>
+</div>
+</div>
+<div class="card" style="margin-top:20px;text-align:center;padding:20px;">
+<div style="font-size:0.82rem;color:var(--muted);">The community directory shows members who have opted in to be visible. This is not a social network — it's a simple directory to help members connect.</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+           SCREEN: MY APPLICATIONS
+      ══════════════════════════════════════ -->
+<div class="screen" id="screen-applications">
+<div class="card mb-6">
+<div class="card-title" style="margin-bottom:16px;">Application Tracker</div>
+<div class="app-row">
+<div>
+<div class="app-name">Women in Business Pilot</div>
+<div class="app-type">Pilot Program · Submitted Oct 9, 2026</div>
+</div>
+<div style="display:flex;align-items:center;gap:12px;">
+<span class="badge badge-mustard">Under Review</span>
+<div class="app-date">Oct 9, 2026</div>
+</div>
+</div>
+<div class="app-row">
+<div>
+<div class="app-name">Digital Readiness Program</div>
+<div class="app-type">Program · Enrolled</div>
+</div>
+<div style="display:flex;align-items:center;gap:12px;">
+<span class="badge badge-green">Accepted</span>
+<div class="app-date">Sept 5, 2026</div>
+</div>
+</div>
+<div class="app-row">
+<div>
+<div class="app-name">Community Research Cohort</div>
+<div class="app-type">Research · Expression of Interest</div>
+</div>
+<div style="display:flex;align-items:center;gap:12px;">
+<span class="badge badge-sage">Submitted</span>
+<div class="app-date">Oct 1, 2026</div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-title" style="margin-bottom:6px;">Status Guide</div>
+<div class="card-sub" style="margin-bottom:16px;">What each application status means</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+<div style="padding:12px;background:var(--off-white);border-radius:10px;">
+<span class="badge badge-sage" style="margin-bottom:8px;display:inline-flex;">Submitted</span>
+<div style="font-size:0.78rem;color:var(--muted);">Your application has been received and is in the queue.</div>
+</div>
+<div style="padding:12px;background:var(--off-white);border-radius:10px;">
+<span class="badge badge-mustard" style="margin-bottom:8px;display:inline-flex;">Under Review</span>
+<div style="font-size:0.78rem;color:var(--muted);">The Credii team is reviewing your application.</div>
+</div>
+<div style="padding:12px;background:var(--off-white);border-radius:10px;">
+<span class="badge badge-green" style="margin-bottom:8px;display:inline-flex;">Accepted</span>
+<div style="font-size:0.78rem;color:var(--muted);">Congratulations — you've been accepted.</div>
+</div>
+<div style="padding:12px;background:var(--off-white);border-radius:10px;">
+<span class="badge badge-grey" style="margin-bottom:8px;display:inline-flex;">Waitlisted</span>
+<div style="font-size:0.78rem;color:var(--muted);">You're on the waitlist — we'll notify you if a spot opens.</div>
+</div>
+<div style="padding:12px;background:var(--off-white);border-radius:10px;">
+<span class="badge badge-red" style="margin-bottom:8px;display:inline-flex;">Declined</span>
+<div style="font-size:0.78rem;color:var(--muted);">This application was not successful this time.</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+           SCREEN: SURVEYS & RESEARCH
+      ══════════════════════════════════════ -->
+<div class="screen" id="screen-surveys">
+<div class="card mb-4" style="background:var(--sage-pale);border-color:rgba(122,158,142,0.3);">
+<div style="display:flex;gap:12px;align-items:flex-start;">
+<div style="font-size:1.5rem;">📊</div>
+<div>
+<div style="font-weight:700;font-size:0.9rem;color:var(--charcoal);margin-bottom:4px;">Your participation matters</div>
+<div style="font-size:0.82rem;color:var(--muted);line-height:1.6;">Credii uses member research to validate our approach, improve programs, and report impact to funders and partners. Your responses are confidential and help shape the future of the initiative.</div>
+</div>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px;">
+<div class="survey-card">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+<div class="survey-name">Member Needs Assessment 2026</div>
+<span class="badge badge-red">Open</span>
+</div>
+<div class="survey-desc">Help us understand your credentialing needs, challenges, and priorities as a Caribbean entrepreneur or professional. This survey informs our pilot design.</div>
+<div class="survey-meta">
+<div class="survey-meta-item">⏱ ~10 minutes</div>
+<div class="survey-meta-item">📅 Closes Oct 31, 2026</div>
+</div>
+<button class="topbar-btn btn-red" style="border-radius:10px;">Take Survey</button>
+</div>
+<div class="survey-card">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+<div class="survey-name">Digital Readiness Program — Feedback</div>
+<span class="badge badge-mustard">Pending</span>
+</div>
+<div class="survey-desc">Share your experience with the Digital Readiness Program. Your feedback helps us improve the program for future participants.</div>
+<div class="survey-meta">
+<div class="survey-meta-item">⏱ ~5 minutes</div>
+<div class="survey-meta-item">📅 Available after program completion</div>
+</div>
+<button class="topbar-btn btn-ghost" disabled="" style="border-radius:10px;">Complete Program First</button>
+</div>
+<div class="survey-card" style="opacity:0.6;">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+<div class="survey-name">Onboarding Experience Survey</div>
+<span class="badge badge-green">Completed</span>
+</div>
+<div class="survey-desc">Thank you for completing the onboarding survey. Your responses have been recorded.</div>
+<div class="survey-meta">
+<div class="survey-meta-item">✓ Completed Sept 3, 2026</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+           SCREEN: PROFILE SETTINGS
+      ══════════════════════════════════════ -->
+<div class="screen" id="screen-profile">
+<div class="grid-2">
+<div style="display:flex;flex-direction:column;gap:16px;">
+<div class="card">
+<div class="card-title" style="margin-bottom:16px;">Personal Information</div>
+<div class="form-group">
+<label class="form-label">Full Name</label>
+<input class="form-input" type="text" value="Andrea Joseph"/>
+</div>
+<div class="form-group">
+<label class="form-label">Country</label>
+<select class="form-select">
+<option selected="">Trinidad &amp; Tobago</option>
+<option>Jamaica</option>
+<option>Barbados</option>
+<option>Guyana</option>
+<option>Other</option>
+</select>
+</div>
+<div class="form-group">
+<label class="form-label">Organization</label>
+<input class="form-input" placeholder="Your organization or business name" type="text"/>
+</div>
+<div class="form-group">
+<label class="form-label">Sector</label>
+<select class="form-select">
+<option>Entrepreneurship</option>
+<option>Training &amp; Education</option>
+<option>Technology</option>
+<option>Finance</option>
+<option>Community Development</option>
+</select>
+</div>
+<div class="form-group">
+<label class="form-label">Biography</label>
+<textarea class="form-textarea" placeholder="Tell the community a little about yourself..."></textarea>
+</div>
+<button class="topbar-btn btn-red" style="border-radius:10px;">Save Changes</button>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px;">
+<div class="card">
+<div class="card-title" style="margin-bottom:16px;">Online Presence</div>
+<div class="form-group">
+<label class="form-label">LinkedIn URL</label>
+<input class="form-input" placeholder="https://linkedin.com/in/yourprofile" type="url"/>
+</div>
+<div class="form-group">
+<label class="form-label">Website</label>
+<input class="form-input" placeholder="https://yourwebsite.com" type="url"/>
+</div>
+<div class="form-group">
+<label class="form-label">Interests</label>
+<input class="form-input" placeholder="e.g. Digital credentials, MSME development, Workforce" type="text"/>
+</div>
+<button class="topbar-btn btn-red" style="border-radius:10px;">Save</button>
+</div>
+<div class="card">
+<div class="card-title" style="margin-bottom:14px;">Notification Preferences</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<label style="display:flex;align-items:center;justify-content:space-between;font-size:0.84rem;cursor:pointer;">
+<span>New programs &amp; pilots</span>
+<input checked="" style="accent-color:var(--red);width:16px;height:16px;" type="checkbox"/>
+</label>
+<label style="display:flex;align-items:center;justify-content:space-between;font-size:0.84rem;cursor:pointer;">
+<span>Upcoming events</span>
+<input checked="" style="accent-color:var(--red);width:16px;height:16px;" type="checkbox"/>
+</label>
+<label style="display:flex;align-items:center;justify-content:space-between;font-size:0.84rem;cursor:pointer;">
+<span>New resources</span>
+<input checked="" style="accent-color:var(--red);width:16px;height:16px;" type="checkbox"/>
+</label>
+<label style="display:flex;align-items:center;justify-content:space-between;font-size:0.84rem;cursor:pointer;">
+<span>Research &amp; surveys</span>
+<input style="accent-color:var(--red);width:16px;height:16px;" type="checkbox"/>
+</label>
+<label style="display:flex;align-items:center;justify-content:space-between;font-size:0.84rem;cursor:pointer;">
+<span>Community directory visibility</span>
+<input checked="" style="accent-color:var(--red);width:16px;height:16px;" type="checkbox"/>
+</label>
+</div>
+</div>
+<div class="card">
+<div class="card-title" style="margin-bottom:6px;">Privacy Settings</div>
+<div class="card-sub" style="margin-bottom:14px;">Control how your information is used and displayed.</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<label style="display:flex;align-items:center;justify-content:space-between;font-size:0.84rem;cursor:pointer;">
+<span>Show profile in community directory</span>
+<input checked="" style="accent-color:var(--red);width:16px;height:16px;" type="checkbox"/>
+</label>
+<label style="display:flex;align-items:center;justify-content:space-between;font-size:0.84rem;cursor:pointer;">
+<span>Allow Credii to use my data for research</span>
+<input checked="" style="accent-color:var(--red);width:16px;height:16px;" type="checkbox"/>
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+           SCREEN: ADMIN DASHBOARD
+      ══════════════════════════════════════ -->
+<div class="screen" id="screen-admin-dashboard">
+<div class="card mb-6" style="background:var(--mustard-pale);border-color:rgba(201,168,76,0.3);">
+<div style="display:flex;gap:10px;align-items:center;">
+<span style="font-size:1.2rem;">⚙️</span>
+<div>
+<div style="font-weight:700;font-size:0.88rem;color:var(--charcoal);">Admin View — Credii Staff Only</div>
+<div style="font-size:0.78rem;color:var(--muted);">This area is for Credii team members to manage members, programs, events, credentials, and content.</div>
+</div>
+</div>
+</div>
+<div class="grid-4 mb-6">
+<div class="admin-stat">
+<div class="admin-stat-num">6</div>
+<div class="admin-stat-label">Total Members</div>
+<div class="admin-stat-change change-up">↑ 2 this month</div>
+</div>
+<div class="admin-stat">
+<div class="admin-stat-num">1</div>
+<div class="admin-stat-label">Credentials Issued</div>
+<div class="admin-stat-change change-up">↑ 1 this month</div>
+</div>
+<div class="admin-stat">
+<div class="admin-stat-num">3</div>
+<div class="admin-stat-label">Active Programs</div>
+<div class="admin-stat-change">No change</div>
+</div>
+<div class="admin-stat">
+<div class="admin-stat-num">$294</div>
+<div class="admin-stat-label">Revenue (MRR)</div>
+<div class="admin-stat-change change-up">↑ $98 this month</div>
+</div>
+</div>
+<div class="grid-2">
+<div class="card">
+<div class="card-title" style="margin-bottom:14px;">Recent Applications</div>
+<div class="app-row">
+<div>
+<div class="app-name">Andrea Joseph</div>
+<div class="app-type">Women in Business Pilot</div>
+</div>
+<span class="badge badge-mustard">Under Review</span>
+</div>
+<div class="app-row">
+<div>
+<div class="app-name">Maria Ramsaran</div>
+<div class="app-type">Community Research Cohort</div>
+</div>
+<span class="badge badge-sage">Submitted</span>
+</div>
+<div class="app-row">
+<div>
+<div class="app-name">Simone Clarke</div>
+<div class="app-type">Digital Readiness Program</div>
+</div>
+<span class="badge badge-green">Accepted</span>
+</div>
+</div>
+<div class="card">
+<div class="card-title" style="margin-bottom:14px;">Membership Breakdown</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<div>
+<div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:4px;">
+<span>Community Member</span><span style="font-weight:700;">4</span>
+</div>
+<div class="progress-bar"><div class="progress-fill" style="width:67%;"></div></div>
+</div>
+<div>
+<div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:4px;">
+<span>Professional</span><span style="font-weight:700;">1</span>
+</div>
+<div class="progress-bar"><div class="progress-fill" style="width:17%;background:var(--sage);"></div></div>
+</div>
+<div>
+<div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:4px;">
+<span>Organizational</span><span style="font-weight:700;">1</span>
+</div>
+<div class="progress-bar"><div class="progress-fill" style="width:17%;background:var(--mustard);"></div></div>
+</div>
+<div>
+<div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:4px;">
+<span>Strategic Partner</span><span style="font-weight:700;">0</span>
+</div>
+<div class="progress-bar"><div class="progress-fill" style="width:0%;background:var(--lilac);"></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+           SCREEN: ADMIN MEMBERS
+      ══════════════════════════════════════ -->
+<div class="screen" id="screen-admin-members">
+<div class="card">
+<div class="section-hdr mb-4">
+<div class="card-title">All Members</div>
+<button class="topbar-btn btn-red" style="border-radius:10px;font-size:0.78rem;">+ Add Member</button>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Tier</th>
+<th>Country</th>
+<th>Status</th>
+<th>Joined</th>
+<th>Credentials</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Andrea Joseph</strong></td>
+<td><span class="badge badge-sand">Community</span></td>
+<td>🇹🇹 T&amp;T</td>
+<td><span class="badge badge-green">Active</span></td>
+<td>Sept 2026</td>
+<td>1</td>
+<td><button class="cred-btn">View Record</button></td>
+</tr>
+<tr>
+<td><strong>Maria Ramsaran</strong></td>
+<td><span class="badge badge-sand">Community</span></td>
+<td>🇹🇹 T&amp;T</td>
+<td><span class="badge badge-green">Active</span></td>
+<td>Sept 2026</td>
+<td>0</td>
+<td><button class="cred-btn">View Record</button></td>
+</tr>
+<tr>
+<td><strong>James Brown</strong></td>
+<td><span class="badge badge-sage">Professional</span></td>
+<td>🇯🇲 Jamaica</td>
+<td><span class="badge badge-green">Active</span></td>
+<td>Oct 2026</td>
+<td>0</td>
+<td><button class="cred-btn">View Record</button></td>
+</tr>
+<tr>
+<td><strong>Simone Clarke</strong></td>
+<td><span class="badge badge-mustard">Organizational</span></td>
+<td>🇧🇧 Barbados</td>
+<td><span class="badge badge-green">Active</span></td>
+<td>Oct 2026</td>
+<td>0</td>
+<td><button class="cred-btn">View Record</button></td>
+</tr>
+<tr>
+<td><strong>Kezia Pierre</strong></td>
+<td><span class="badge badge-sand">Community</span></td>
+<td>🇬🇩 Grenada</td>
+<td><span class="badge badge-green">Active</span></td>
+<td>Oct 2026</td>
+<td>0</td>
+<td><button class="cred-btn">View Record</button></td>
+</tr>
+<tr>
+<td><strong>David Williams</strong></td>
+<td><span class="badge badge-sand">Community</span></td>
+<td>🇬🇾 Guyana</td>
+<td><span class="badge badge-green">Active</span></td>
+<td>Oct 2026</td>
+<td>0</td>
+<td><button class="cred-btn">View Record</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+           SCREEN: ADMIN CONTENT
+      ══════════════════════════════════════ -->
+<div class="screen" id="screen-admin-content">
+<div class="grid-2">
+<div class="card">
+<div class="section-hdr mb-4">
+<div class="card-title">Resources</div>
+<button class="topbar-btn btn-red" style="border-radius:10px;font-size:0.78rem;">+ Add Resource</button>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;">
+<div class="app-row">
+<div><div class="app-name">Business Readiness Toolkit</div><div class="app-type">Toolkit · Published</div></div>
+<button class="cred-btn">Edit</button>
+</div>
+<div class="app-row">
+<div><div class="app-name">Digital Trust Guide</div><div class="app-type">Guide · Published</div></div>
+<button class="cred-btn">Edit</button>
+</div>
+<div class="app-row">
+<div><div class="app-name">Funding Readiness Checklist</div><div class="app-type">Template · Published</div></div>
+<button class="cred-btn">Edit</button>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="section-hdr mb-4">
+<div class="card-title">Programs</div>
+<button class="topbar-btn btn-red" style="border-radius:10px;font-size:0.78rem;">+ Add Program</button>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;">
+<div class="app-row">
+<div><div class="app-name">Women in Business Pilot</div><div class="app-type">Pilot · Open · 1 applicant</div></div>
+<button class="cred-btn">Manage</button>
+</div>
+<div class="app-row">
+<div><div class="app-name">Digital Readiness Program</div><div class="app-type">Program · Open · 2 enrolled</div></div>
+<button class="cred-btn">Manage</button>
+</div>
+<div class="app-row">
+<div><div class="app-name">Trust Profile Pilot</div><div class="app-type">Pilot · Coming Soon</div></div>
+<button class="cred-btn">Manage</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+           SCREEN: ADMIN EVENTS
+      ══════════════════════════════════════ -->
+<div class="screen" id="screen-admin-events">
+<div class="card">
+<div class="section-hdr mb-4">
+<div class="card-title">Event Management</div>
+<button class="topbar-btn btn-red" style="border-radius:10px;font-size:0.78rem;">+ Create Event</button>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Type</th>
+<th>Date</th>
+<th>Registrations</th>
+<th>Status</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Digital Trust 101 Webinar</strong></td>
+<td>Webinar</td>
+<td>Oct 22, 2026</td>
+<td>12</td>
+<td><span class="badge badge-green">Open</span></td>
+<td><button class="cred-btn">Manage</button></td>
+</tr>
+<tr>
+<td><strong>Women Entrepreneurs Roundtable</strong></td>
+<td>Roundtable</td>
+<td>Nov 5, 2026</td>
+<td>7</td>
+<td><span class="badge badge-green">Open</span></td>
+<td><button class="cred-btn">Manage</button></td>
+</tr>
+<tr>
+<td><strong>Pilot Info Session</strong></td>
+<td>Info Session</td>
+<td>Nov 18, 2026</td>
+<td>3</td>
+<td><span class="badge badge-green">Open</span></td>
+<td><button class="cred-btn">Manage</button></td>
+</tr>
+<tr>
+<td><strong>Introduction to Credii — Launch</strong></td>
+<td>Webinar</td>
+<td>Sept 15, 2026</td>
+<td>34</td>
+<td><span class="badge badge-grey">Past</span></td>
+<td><button class="cred-btn">View Report</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div><!-- /content -->
+</div><!-- /main -->
+</div><!-- /portal -->
+<script>
+  const screens = {
+    'dashboard':        { title: 'Dashboard',           subtitle: 'Welcome back, Andrea' },
+    'membership':       { title: 'My Membership',       subtitle: 'Manage your membership and upgrade options' },
+    'credentials':      { title: 'My Credentials',      subtitle: 'View, share, and download your verified credentials' },
+    'programs':         { title: 'Programs & Pilots',   subtitle: 'Explore open programs and pilot opportunities' },
+    'resources':        { title: 'Resource Hub',        subtitle: 'Access guides, toolkits, and learning materials' },
+    'events':           { title: 'Events',              subtitle: 'Register for upcoming webinars, roundtables, and workshops' },
+    'community':        { title: 'Community',           subtitle: 'Connect with other Credii members across the Caribbean' },
+    'applications':     { title: 'My Applications',     subtitle: 'Track the status of your program and pilot applications' },
+    'surveys':          { title: 'Surveys & Research',  subtitle: 'Participate in research and help shape Credii\'s work' },
+    'profile':          { title: 'Profile Settings',    subtitle: 'Update your profile, preferences, and privacy settings' },
+    'admin-dashboard':  { title: 'Admin Dashboard',     subtitle: 'Credii staff overview — members, programs, and revenue' },
+    'admin-members':    { title: 'Members',             subtitle: 'View and manage all Credii members' },
+    'admin-content':    { title: 'Content Management',  subtitle: 'Manage resources and programs' },
+    'admin-events':     { title: 'Event Management',    subtitle: 'Create and manage events' },
+  };
+
+  function showScreen(id) {
+    // Hide all screens
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+    // Show target screen
+    const screen = document.getElementById('screen-' + id);
+    if (screen) screen.classList.add('active');
+
+    // Activate nav item
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+      if (item.getAttribute('onclick') && item.getAttribute('onclick').includes("'" + id + "'")) {
+        item.classList.add('active');
+      }
+    });
+
+    // Update topbar
+    const meta = screens[id] || { title: id, subtitle: '' };
+    document.getElementById('topbar-title').textContent = meta.title;
+    document.getElementById('topbar-subtitle').textContent = meta.subtitle;
+
+    // Scroll to top
+    document.querySelector('.content').scrollTop = 0;
+  }
+
+  // Filter buttons
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const parent = this.closest('.filter-bar');
+      parent.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
