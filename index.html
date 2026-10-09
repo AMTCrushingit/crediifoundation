@@ -61,6 +61,27 @@
     .nav-cta { background: var(--red); color: #fff !important; padding: 9px 20px; border-radius: 100px; font-weight: 600 !important; transition: background 0.2s !important; }
     .nav-cta:hover { background: var(--red-dark) !important; }
 
+    /* HAMBURGER */
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; z-index: 200; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--charcoal); border-radius: 2px; transition: all 0.25s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* MOBILE NAV OVERLAY */
+    .nav-links.mobile-open {
+      display: flex !important; flex-direction: column;
+      position: fixed; top: 66px; left: 0; right: 0;
+      background: rgba(253,252,249,0.98); backdrop-filter: blur(16px);
+      padding: 20px 5% 28px; gap: 4px;
+      border-bottom: 1.5px solid rgba(212,197,169,0.35);
+      z-index: 99; box-shadow: 0 8px 32px rgba(44,40,37,0.1);
+    }
+
+    .nav-links.mobile-open li { width: 100%; }
+    .nav-links.mobile-open a { display: block; padding: 10px 0; font-size: 1rem; border-bottom: 1px solid rgba(212,197,169,0.2); }
+    .nav-links.mobile-open .nav-cta { margin-top: 8px; text-align: center; border-radius: 10px; }
+
     /* HERO */
     .hero { min-height: 100vh; padding-top: 66px; position: relative; display: flex; align-items: center; overflow: hidden; background: var(--sand-pale); }
     .hero-blob-1 { position: absolute; top: -120px; right: -100px; width: 560px; height: 560px; border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%; background: rgba(192,57,43,0.08); animation: morphBlob1 10s ease-in-out infinite; }
@@ -70,7 +91,7 @@
     @keyframes morphBlob1 { 0%,100% { border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%; } 50% { border-radius: 40% 60% 30% 70% / 60% 40% 60% 40%; } }
     @keyframes morphBlob2 { 0%,100% { border-radius: 40% 60% 30% 70% / 60% 40% 60% 40%; } 50% { border-radius: 60% 40% 70% 30% / 40% 60% 40% 60%; } }
 
-    .hero-inner { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 80px 5%; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; width: 100%; }
+    .hero-inner { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 80px 5%; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; width: 100%; min-height: calc(100vh - 66px); }
 
     .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(192,57,43,0.1); color: var(--red); font-size: 0.78rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; padding: 7px 16px; border-radius: 100px; margin-bottom: 24px; }
     .hero-eyebrow::before { content: ''; width: 7px; height: 7px; background: var(--red); border-radius: 50%; }
@@ -456,11 +477,17 @@
 <div class="nav-logo-mark">C</div>
 <span class="nav-logo-text">credii<span>.</span></span>
 </a>
-<ul class="nav-links">
+<ul class="nav-links" id="nav-links">
 <li><a href="#problem">The Problem</a></li>
 <li><a href="#building">What We're Building</a></li>
 <li><a href="#serve">Who We Serve</a></li>
+<li><a href="#approach">Our Approach</a></li>
+<li><a href="#involved">Membership</a></li>
+<li><a href="#involved" class="nav-cta">Get Involved</a></li>
 </ul>
+<button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+<span></span><span></span><span></span>
+</button>
 </nav>
 <!-- HERO -->
 <section class="hero">
@@ -470,7 +497,7 @@
 <div class="hero-inner">
 <div class="hero-text">
 <div class="hero-eyebrow">Building Trust, Capability &amp; Opportunity</div>
-<h1>Exploring new pathways to <em>recognition, mobility,</em> and opportunity across the Caribbean.</h1>
+<h1>Exploring new pathways to <em>recognition, mobility,</em> and <em>opportunity</em> across the Caribbean.</h1>
 <p class="hero-sub">Credii is a nonprofit initiative based in Trinidad and Tobago. We are developing and testing approaches to digital credential recognition, capability verification, and economic inclusion — helping individuals, women entrepreneurs, and small businesses unlock the opportunities their achievements deserve.</p>
 <div class="hero-actions">
 <a class="btn-primary" href="#involved">Become a Member ↗</a>
@@ -759,7 +786,6 @@
 <p class="section-sub" style="margin-top:10px;">Whether you're a student, entrepreneur, community organization, training provider, funder, or institution — there's a place for you in the Credii community.</p>
 </div>
 <div class="tier-grid">
-
 <div class="tier-card">
 <div class="tier-card-deco"></div>
 <div class="tier-badge tier-badge-1">Individual</div>
@@ -771,18 +797,17 @@
 <div class="tier-tooltip">
 <strong>Community Member includes:</strong>
 <ul>
-<li>&#10003; Quarterly updates</li>
-<li>&#10003; Member webinars</li>
-<li>&#10003; Early resource access</li>
-<li>&#10003; Digital member badge</li>
-<li>&#10003; Opportunities to participate in future pilots and consultations</li>
+<li>✓ Quarterly updates</li>
+<li>✓ Member webinars</li>
+<li>✓ Early resource access</li>
+<li>✓ Digital member badge</li>
+<li>✓ Opportunities to participate in future pilots and consultations</li>
 </ul>
 </div>
 </span>
 </div>
 <a class="tier-btn tier-btn-outline" href="#">Become a Member</a>
 </div>
-
 <div class="tier-card">
 <div class="tier-card-deco"></div>
 <div class="tier-badge tier-badge-2">Professional</div>
@@ -794,18 +819,17 @@
 <div class="tier-tooltip">
 <strong>Includes everything in Community, plus:</strong>
 <ul>
-<li>&#10003; Professional or business directory listing</li>
-<li>&#10003; Access to capability-building workshops</li>
-<li>&#10003; Early access to credential programs</li>
-<li>&#10003; Pilot participation opportunities</li>
-<li>&#10003; Recognition as a Supporting Member</li>
+<li>✓ Professional or business directory listing</li>
+<li>✓ Access to capability-building workshops</li>
+<li>✓ Early access to credential programs</li>
+<li>✓ Pilot participation opportunities</li>
+<li>✓ Recognition as a Supporting Member</li>
 </ul>
 </div>
 </span>
 </div>
 <a class="tier-btn tier-btn-outline" href="#">Join as a Professional</a>
 </div>
-
 <div class="tier-card tier-card-featured">
 <div class="tier-card-deco"></div>
 <div class="tier-featured-label">Most Popular</div>
@@ -818,19 +842,18 @@
 <div class="tier-tooltip tier-tooltip-left">
 <strong>Includes everything in Professional, plus:</strong>
 <ul>
-<li>&#10003; Up to 5 organizational users</li>
-<li>&#10003; Organization profile</li>
-<li>&#10003; Participation in working groups and roundtables</li>
-<li>&#10003; Access to research and insights</li>
-<li>&#10003; Early partnership opportunities</li>
-<li>&#10003; Invitations to pilot collaborations</li>
+<li>✓ Up to 5 organizational users</li>
+<li>✓ Organization profile</li>
+<li>✓ Participation in working groups and roundtables</li>
+<li>✓ Access to research and insights</li>
+<li>✓ Early partnership opportunities</li>
+<li>✓ Invitations to pilot collaborations</li>
 </ul>
 </div>
 </span>
 </div>
 <a class="tier-btn tier-btn-white" href="#">Become an Organizational Member</a>
 </div>
-
 <div class="tier-card">
 <div class="tier-card-deco"></div>
 <div class="tier-badge tier-badge-4">Partner</div>
@@ -842,21 +865,19 @@
 <div class="tier-tooltip tier-tooltip-left">
 <strong>Includes everything in Organizational, plus:</strong>
 <ul>
-<li>&#10003; Strategic engagement sessions</li>
-<li>&#10003; Partner recognition</li>
-<li>&#10003; Co-branded initiatives</li>
-<li>&#10003; Pilot sponsorship opportunities</li>
-<li>&#10003; Access to impact reporting</li>
-<li>&#10003; Customized partnership pathways</li>
+<li>✓ Strategic engagement sessions</li>
+<li>✓ Partner recognition</li>
+<li>✓ Co-branded initiatives</li>
+<li>✓ Pilot sponsorship opportunities</li>
+<li>✓ Access to impact reporting</li>
+<li>✓ Customized partnership pathways</li>
 </ul>
 </div>
 </span>
 </div>
 <a class="tier-btn tier-btn-outline" href="#">Become a Strategic Partner</a>
 </div>
-
 </div>
-
 <!-- Closing -->
 <div class="membership-closing">
 <div class="membership-closing-card">
@@ -871,7 +892,7 @@
 </div>
 </div>
 </div>
-</section>
+</div></section>
 <!-- FOOTER -->
 <footer>
 <div class="footer-inner">
@@ -888,7 +909,7 @@
 <h5>Tools</h5>
 <ul>
 <li><a href="#">Platform (Beta)</a></li>
-<li><a href="#">Credential Verification</a></li>
+<li><a href="credii-verify.html">Credential Verification</a></li>
 <li><a href="credii-portal.html">Member Portal</a></li>
 </ul>
 </div>
@@ -923,5 +944,20 @@
 </div>
 </div>
 </footer>
+<script>
+function toggleMenu() {
+  const nav = document.getElementById('nav-links');
+  const btn = document.getElementById('hamburger');
+  nav.classList.toggle('mobile-open');
+  btn.classList.toggle('open');
+}
+// Close menu on link click
+document.querySelectorAll('#nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('nav-links').classList.remove('mobile-open');
+    document.getElementById('hamburger').classList.remove('open');
+  });
+});
+</script>
 </body>
 </html>

@@ -623,18 +623,56 @@
     .history-value { font-size: 0.83rem; color: var(--muted); }
 
     /* ── RESPONSIVE ── */
+    /* MOBILE TOPBAR TOGGLE */
+    .mobile-menu-btn {
+      display: none; background: none; border: none;
+      font-size: 1.3rem; cursor: pointer; padding: 4px 8px;
+      color: var(--charcoal);
+    }
+
+    .sidebar-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(44,40,37,0.5); z-index: 98;
+    }
+
+    .sidebar-overlay.open { display: block; }
+
     @media (max-width: 900px) {
       .grid-4 { grid-template-columns: 1fr 1fr; }
       .grid-3 { grid-template-columns: 1fr 1fr; }
     }
 
-    @media (max-width: 640px) {
-      .sidebar { display: none; }
-      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed; left: -260px; top: 0; bottom: 0;
+        z-index: 99; transition: left 0.25s ease;
+        width: 260px;
+      }
+      .sidebar.open { left: 0; }
+      .mobile-menu-btn { display: block; }
+      .topbar { padding: 0 16px; }
+      .content { padding: 16px; }
+      .grid-4 { grid-template-columns: 1fr 1fr; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .tier-grid { grid-template-columns: 1fr 1fr; }
+      .welcome-meta { flex-direction: column; gap: 8px; }
+      .membership-closing-card { padding: 32px 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .grid-4 { grid-template-columns: 1fr 1fr; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .content { padding: 12px; }
+      .card { padding: 16px; }
+      .topbar-actions .topbar-btn:first-child { display: none; }
+      .serve-grid { grid-template-columns: 1fr; }
+      .upgrade-card { padding: 14px; }
     }
   </style>
 </head>
 <body>
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
 <div class="portal">
 <!-- ══ SIDEBAR ══ -->
 <aside class="sidebar">
@@ -1787,6 +1825,21 @@
       this.classList.add('active');
     });
   });
+</script>
+<script>
+function toggleSidebar() {
+  document.querySelector('.sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('open');
+}
+// Close sidebar when nav item clicked on mobile
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    if (window.innerWidth <= 768) {
+      document.querySelector('.sidebar').classList.remove('open');
+      document.getElementById('sidebar-overlay').classList.remove('open');
+    }
+  });
+});
 </script>
 </body>
 </html>
