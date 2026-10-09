@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Credii | Credential Verification</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600&amp;display=swap" rel="stylesheet"/>
+<style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:        #C0392B;
+      --red-dark:   #9B2D20;
+      --red-pale:   #FDF0EE;
+      --sage:       #7A9E8E;
+      --sage-pale:  #EDF5F2;
+      --sand:       #D4C5A9;
+      --sand-pale:  #FAF7F2;
+      --mustard:    #C9A84C;
+      --mustard-pale:#FBF5E6;
+      --terra:      #B5714A;
+      --terra-pale: #FBF0E8;
+      --lilac:      #9B8DB5;
+      --lilac-pale: #F2EFF8;
+      --warm-white: #FDFCF9;
+      --off-white:  #F5F3EF;
+      --charcoal:   #2C2825;
+      --text:       #3D3835;
+      --muted:      #7A7370;
+      --border:     rgba(212,197,169,0.4);
+      --sidebar-w:  240px;
+    }
+
+    html, body { height: 100%; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text); background: var(--off-white); }
+
+    /* ── LAYOUT ── */
+    .app { display: flex; height: 100vh; overflow: hidden; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: var(--sidebar-w); background: var(--charcoal);
+      display: flex; flex-direction: column; flex-shrink: 0; overflow-y: auto;
+    }
+
+    .sidebar-logo {
+      display: flex; align-items: center; gap: 10px;
+      padding: 22px 20px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .logo-mark {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--red); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 15px; flex-shrink: 0;
+    }
+
+    .logo-text { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700; color: #fff; }
+    .logo-text span { color: var(--red); }
+
+    .sidebar-section { padding: 16px 12px 6px; }
+
+    .sidebar-section-label {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: rgba(255,255,255,0.3);
+      padding: 0 8px; margin-bottom: 6px;
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 10px; border-radius: 10px;
+      cursor: pointer; transition: background 0.15s;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.84rem; font-weight: 500;
+      margin-bottom: 2px;
+      border: none; background: none; width: 100%; text-align: left;
+    }
+
+    .nav-item:hover { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.9); }
+    .nav-item.active { background: rgba(192,57,43,0.25); color: #fff; }
+    .nav-item.active .nav-icon { color: var(--red); }
+    .nav-icon { font-size: 0.95rem; width: 20px; text-align: center; flex-shrink: 0; }
+
+    .sidebar-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 8px 12px; }
+
+    .sidebar-footer {
+      margin-top: auto; padding: 16px 12px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .user-chip {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px; background: rgba(255,255,255,0.05); border-radius: 12px;
+    }
+
+    .user-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--red); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 12px; flex-shrink: 0;
+    }
+
+    .user-name { font-size: 0.78rem; font-weight: 600; color: #fff; }
+    .user-role { font-size: 0.68rem; color: rgba(255,255,255,0.4); margin-top: 1px; }
+
+    /* ── MAIN ── */
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+    .topbar {
+      background: var(--warm-white);
+      border-bottom: 1.5px solid var(--border);
+      padding: 0 28px; height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .topbar-left { display: flex; flex-direction: column; }
+    .topbar-title { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700; color: var(--charcoal); }
+    .topbar-sub { font-size: 0.75rem; color: var(--muted); margin-top: 1px; }
+    .topbar-actions { display: flex; align-items: center; gap: 10px; }
+
+    .content { flex: 1; overflow-y: auto; padding: 28px; }
+
+    /* ── SCREENS ── */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    /* ── SHARED COMPONENTS ── */
+    .card {
+      background: var(--warm-white); border-radius: 18px;
+      border: 1.5px solid var(--border); padding: 22px 24px;
+    }
+
+    .card-sm { padding: 16px 18px; }
+
+    .card-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1rem; font-weight: 700; color: var(--charcoal); margin-bottom: 4px;
+    }
+
+    .card-sub { font-size: 0.8rem; color: var(--muted); }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+    .mb-4 { margin-bottom: 16px; }
+    .mb-6 { margin-bottom: 24px; }
+
+    .section-hdr {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;
+    }
+
+    .section-hdr-title { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 700; color: var(--charcoal); }
+    .section-hdr-link { font-size: 0.78rem; font-weight: 600; color: var(--red); cursor: pointer; }
+
+    /* BUTTONS */
+    .btn {
+      padding: 9px 20px; border-radius: 100px;
+      font-size: 0.84rem; font-weight: 600;
+      cursor: pointer; border: none; transition: all 0.15s;
+      display: inline-flex; align-items: center; gap: 7px;
+      text-decoration: none; font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .btn-red { background: var(--red); color: #fff; }
+    .btn-red:hover { background: var(--red-dark); }
+    .btn-ghost { background: transparent; color: var(--muted); border: 1.5px solid var(--border); }
+    .btn-ghost:hover { border-color: var(--muted); color: var(--text); }
+    .btn-sage { background: var(--sage-pale); color: #4A7A6A; border: 1.5px solid rgba(122,158,142,0.3); }
+    .btn-sage:hover { background: var(--sage); color: #fff; }
+    .btn-sm { padding: 6px 14px; font-size: 0.78rem; }
+    .btn-full { width: 100%; justify-content: center; border-radius: 12px; padding: 13px 20px; }
+
+    /* BADGES */
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 10px; border-radius: 100px;
+      font-size: 0.7rem; font-weight: 700;
+    }
+
+    .badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+    .badge-valid    { background: #DCFCE7; color: #166534; }
+    .badge-valid::before { background: #16A34A; }
+    .badge-expired  { background: #FEF3C7; color: #92400E; }
+    .badge-expired::before { background: #D97706; }
+    .badge-revoked  { background: var(--red-pale); color: var(--red); }
+    .badge-revoked::before { background: var(--red); }
+    .badge-suspended{ background: #FEF3C7; color: #92400E; }
+    .badge-suspended::before { background: #F59E0B; }
+    .badge-pending  { background: var(--lilac-pale); color: var(--lilac); }
+    .badge-pending::before { background: var(--lilac); }
+    .badge-replaced { background: var(--sage-pale); color: #4A7A6A; }
+    .badge-replaced::before { background: var(--sage); }
+    .badge-draft    { background: var(--sand-pale); color: #7A6A50; }
+    .badge-draft::before { background: var(--sand); }
+
+    /* STAT CARDS */
+    .stat-card {
+      background: var(--warm-white); border-radius: 16px;
+      border: 1.5px solid var(--border); padding: 18px 20px;
+      position: relative; overflow: hidden;
+    }
+
+    .stat-icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; margin-bottom: 12px;
+    }
+
+    .stat-num { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 700; color: var(--charcoal); line-height: 1; }
+    .stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+    .stat-change { font-size: 0.72rem; font-weight: 600; margin-top: 6px; }
+    .change-up { color: #16A34A; }
+
+    /* TABLE */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th { text-align: left; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--muted); padding: 10px 14px; border-bottom: 1.5px solid var(--border); }
+    td { padding: 12px 14px; font-size: 0.84rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--off-white); }
+
+    /* FORM */
+    .form-group { margin-bottom: 18px; }
+    .form-label { font-size: 0.8rem; font-weight: 600; color: var(--charcoal); margin-bottom: 6px; display: block; }
+    .form-hint { font-size: 0.72rem; color: var(--muted); margin-top: 4px; }
+    .form-input, .form-select, .form-textarea {
+      width: 100%; padding: 10px 14px;
+      border-radius: 10px; border: 1.5px solid var(--border);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.85rem; color: var(--text);
+      background: var(--warm-white); transition: border-color 0.15s; outline: none;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--red); }
+    .form-textarea { resize: vertical; min-height: 80px; }
+
+    /* PROGRESS STEPS */
+    .steps { display: flex; align-items: center; gap: 0; margin-bottom: 28px; }
+    .step { display: flex; align-items: center; gap: 8px; flex: 1; }
+    .step-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700; flex-shrink: 0;
+      background: var(--off-white); color: var(--muted); border: 1.5px solid var(--border);
+    }
+    .step.active .step-num { background: var(--red); color: #fff; border-color: var(--red); }
+    .step.done .step-num { background: var(--sage); color: #fff; border-color: var(--sage); }
+    .step-label { font-size: 0.78rem; font-weight: 600; color: var(--muted); }
+    .step.active .step-label { color: var(--red); }
+    .step.done .step-label { color: var(--sage); }
+    .step-line { flex: 1; height: 1.5px; background: var(--border); margin: 0 8px; }
+    .step-line.done { background: var(--sage); }
+
+    /* CREDENTIAL CARD */
+    .cred-card {
+      background: var(--warm-white); border-radius: 16px;
+      border: 1.5px solid var(--border); padding: 20px;
+      transition: box-shadow 0.2s, transform 0.15s;
+    }
+    .cred-card:hover { box-shadow: 0 8px 28px rgba(44,40,37,0.09); transform: translateY(-2px); }
+
+    .cred-badge-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      background: var(--red-pale); display: flex; align-items: center;
+      justify-content: center; font-size: 1.5rem; margin-bottom: 14px;
+    }
+
+    .cred-name { font-weight: 700; font-size: 0.92rem; color: var(--charcoal); margin-bottom: 4px; }
+    .cred-issuer { font-size: 0.75rem; color: var(--muted); margin-bottom: 10px; }
+    .cred-actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 14px; }
+
+    /* VERIFICATION RESULT */
+    .verify-result {
+      border-radius: 20px; padding: 32px;
+      border: 2px solid; margin-top: 24px;
+    }
+
+    .verify-result.valid { background: #F0FDF4; border-color: #86EFAC; }
+    .verify-result.invalid { background: var(--red-pale); border-color: rgba(192,57,43,0.3); }
+    .verify-result.expired { background: #FFFBEB; border-color: #FCD34D; }
+    .verify-result.suspended { background: #FFFBEB; border-color: #FCD34D; }
+    .verify-result.revoked { background: var(--red-pale); border-color: rgba(192,57,43,0.3); }
+    .verify-result.notfound { background: var(--sand-pale); border-color: var(--sand); }
+
+    .verify-icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .verify-headline { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 6px; }
+    .verify-sub { font-size: 0.88rem; color: var(--muted); line-height: 1.6; margin-bottom: 20px; }
+
+    .verify-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; margin-bottom: 20px;
+    }
+
+    .verify-field { padding: 12px 14px; background: rgba(255,255,255,0.7); border-radius: 10px; }
+    .verify-field-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+    .verify-field-value { font-size: 0.88rem; font-weight: 600; color: var(--charcoal); }
+
+    .verify-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    /* QR PLACEHOLDER */
+    .qr-box {
+      width: 160px; height: 160px; border-radius: 16px;
+      background: var(--off-white); border: 1.5px solid var(--border);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-size: 3rem; gap: 8px;
+    }
+
+    .qr-label { font-size: 0.72rem; color: var(--muted); font-weight: 600; }
+
+    /* LIFECYCLE BADGE */
+    .lifecycle {
+      display: flex; align-items: center; gap: 0; margin: 16px 0;
+    }
+
+    .lifecycle-step {
+      flex: 1; text-align: center; padding: 8px 4px;
+      font-size: 0.7rem; font-weight: 600; color: var(--muted);
+      background: var(--off-white); border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .lifecycle-step:first-child { border-radius: 8px 0 0 8px; }
+    .lifecycle-step:last-child { border-radius: 0 8px 8px 0; }
+    .lifecycle-step.active { background: var(--red); color: #fff; border-color: var(--red); }
+    .lifecycle-step.done { background: var(--sage-pale); color: #4A7A6A; border-color: rgba(122,158,142,0.3); }
+
+    /* TABS */
+    .tabs { display: flex; gap: 0; border-bottom: 1.5px solid var(--border); margin-bottom: 24px; }
+    .tab {
+      padding: 10px 18px; font-size: 0.84rem; font-weight: 600;
+      color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent;
+      margin-bottom: -1.5px; transition: all 0.15s; background: none; border-top: none; border-left: none; border-right: none;
+    }
+    .tab:hover { color: var(--text); }
+    .tab.active { color: var(--red); border-bottom-color: var(--red); }
+
+    /* ALERT BOXES */
+    .alert {
+      padding: 14px 18px; border-radius: 12px;
+      font-size: 0.84rem; line-height: 1.6; margin-bottom: 16px;
+      display: flex; gap: 12px; align-items: flex-start;
+    }
+    .alert-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+    .alert-info { background: var(--sage-pale); color: #2D5A4A; border: 1px solid rgba(122,158,142,0.3); }
+    .alert-warn { background: #FFFBEB; color: #92400E; border: 1px solid #FCD34D; }
+    .alert-red  { background: var(--red-pale); color: var(--red-dark); border: 1px solid rgba(192,57,43,0.2); }
+
+    /* PRIVACY TOGGLE */
+    .privacy-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 0.84rem;
+    }
+    .privacy-row:last-child { border-bottom: none; }
+    .toggle { position: relative; width: 40px; height: 22px; flex-shrink: 0; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute; inset: 0; background: var(--border);
+      border-radius: 100px; cursor: pointer; transition: 0.2s;
+    }
+    .toggle-slider::before {
+      content: ''; position: absolute;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: #fff; top: 3px; left: 3px; transition: 0.2s;
+    }
+    .toggle input:checked + .toggle-slider { background: var(--sage); }
+    .toggle input:checked + .toggle-slider::before { transform: translateX(18px); }
+
+    /* ISSUER STEP PANEL */
+    .step-panel { display: none; }
+    .step-panel.active { display: block; }
+
+    /* SCROLLBAR */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(44,40,37,0.15); border-radius: 10px; }
+
+    /* ADMIN INDICATOR */
+    .role-tag {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.8px;
+      text-transform: uppercase; padding: 2px 7px; border-radius: 4px;
+    }
+    .role-admin   { background: rgba(201,168,76,0.2); color: var(--mustard); }
+    .role-issuer  { background: rgba(122,158,142,0.2); color: #4A7A6A; }
+    .role-public  { background: rgba(155,141,181,0.2); color: var(--lilac); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .grid-4 { grid-template-columns: 1fr 1fr; }
+      .grid-3 { grid-template-columns: 1fr 1fr; }
+      .verify-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .sidebar { display: none; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+<!-- ══ SIDEBAR ══ -->
+<aside class="sidebar">
+<div class="sidebar-logo">
+<div class="logo-mark">C</div>
+<span class="logo-text">credii<span>.</span></span>
+</div>
+<!-- Public -->
+<div class="sidebar-section">
+<div class="sidebar-section-label"><span class="role-tag role-public">Public</span></div>
+<button class="nav-item active" onclick="showScreen('public-verify')">
+<span class="nav-icon">🔍</span> Verify a Credential
+      </button>
+</div>
+<div class="sidebar-divider"></div>
+<!-- Member Portal -->
+<div class="sidebar-section">
+<div class="sidebar-section-label">Member Portal</div>
+<button class="nav-item" onclick="showScreen('holder-dashboard')">
+<span class="nav-icon">🏅</span> My Credentials
+      </button>
+<button class="nav-item" onclick="showScreen('holder-detail')">
+<span class="nav-icon">📄</span> Credential Detail
+      </button>
+<button class="nav-item" onclick="showScreen('holder-share')">
+<span class="nav-icon">🔗</span> Share &amp; Privacy
+      </button>
+</div>
+<div class="sidebar-divider"></div>
+<!-- Issuer Portal -->
+<div class="sidebar-section">
+<div class="sidebar-section-label"><span class="role-tag role-issuer">Issuer</span></div>
+<button class="nav-item" onclick="showScreen('issuer-dashboard')">
+<span class="nav-icon">📊</span> Issuer Dashboard
+      </button>
+<button class="nav-item" onclick="showScreen('issuer-issue')">
+<span class="nav-icon">➕</span> Issue Credential
+      </button>
+<button class="nav-item" onclick="showScreen('issuer-credentials')">
+<span class="nav-icon">📋</span> Credentials
+      </button>
+<button class="nav-item" onclick="showScreen('issuer-templates')">
+<span class="nav-icon">🗂️</span> Templates
+      </button>
+</div>
+<div class="sidebar-divider"></div>
+<!-- Admin -->
+<div class="sidebar-section">
+<div class="sidebar-section-label"><span class="role-tag role-admin">Admin</span></div>
+<button class="nav-item" onclick="showScreen('admin-dashboard')">
+<span class="nav-icon">📈</span> Admin Dashboard
+      </button>
+<button class="nav-item" onclick="showScreen('admin-issuers')">
+<span class="nav-icon">🏢</span> Issuers
+      </button>
+<button class="nav-item" onclick="showScreen('admin-credentials')">
+<span class="nav-icon">🔐</span> All Credentials
+      </button>
+<button class="nav-item" onclick="showScreen('admin-templates')">
+<span class="nav-icon">📝</span> Templates
+      </button>
+<button class="nav-item" onclick="showScreen('admin-reports')">
+<span class="nav-icon">📊</span> Reports
+      </button>
+</div>
+<div class="sidebar-footer">
+<div class="user-chip">
+<div class="user-avatar">AJ</div>
+<div>
+<div class="user-name">Andrea Joseph</div>
+<div class="user-role">Community Member</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- ══ MAIN ══ -->
+<div class="main">
+<div class="topbar" id="topbar">
+<div class="topbar-left">
+<div class="topbar-title" id="topbar-title">Verify a Credential</div>
+<div class="topbar-sub" id="topbar-sub">Public verification — no account required</div>
+</div>
+<div class="topbar-actions">
+<a class="btn btn-ghost btn-sm" href="credii-portal.html">← Member Portal</a>
+<a class="btn btn-ghost btn-sm" href="credii-v4.html">← Home</a>
+</div>
+</div>
+<div class="content">
+<!-- ══════════════════════════════════════
+           PUBLIC: VERIFY A CREDENTIAL
+      ══════════════════════════════════════ -->
+<div class="screen active" id="screen-public-verify">
+<!-- Hero -->
+<div style="max-width:680px;margin:0 auto 32px;">
+<div style="font-size:0.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:10px;">Credential Verification</div>
+<h1 style="font-family:'Fraunces',serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:700;color:var(--charcoal);line-height:1.2;margin-bottom:12px;">Verify a Credii Digital Credential</h1>
+<p style="font-size:0.95rem;color:var(--muted);line-height:1.75;">Enter the credential ID or scan its QR code to confirm its issuer, authenticity, and current status. Credii's verification service helps individuals and organizations check credentials issued through Credii or participating issuing organizations.</p>
+</div>
+<!-- Verification Options -->
+<div style="max-width:680px;margin:0 auto;">
+<div class="card mb-4">
+<div class="card-title" style="margin-bottom:16px;">Option 1 — Enter Credential ID</div>
+<div class="form-group" style="margin-bottom:12px;">
+<label class="form-label">Credential ID</label>
+<input class="form-input" id="cred-id-input" placeholder="e.g. CRD-2026-000184" style="font-size:1rem;padding:13px 16px;" type="text"/>
+<div class="form-hint">Enter the credential ID exactly as shown on the certificate or badge.</div>
+</div>
+<button class="btn btn-red btn-full" onclick="showVerifyResult('valid')">Verify Credential</button>
+</div>
+<!-- Quick demo buttons -->
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
+<span style="font-size:0.75rem;color:var(--muted);align-self:center;">Try a demo result:</span>
+<button class="btn btn-ghost btn-sm" onclick="showVerifyResult('valid')">✅ Valid</button>
+<button class="btn btn-ghost btn-sm" onclick="showVerifyResult('expired')">⏰ Expired</button>
+<button class="btn btn-ghost btn-sm" onclick="showVerifyResult('revoked')">🚫 Revoked</button>
+<button class="btn btn-ghost btn-sm" onclick="showVerifyResult('suspended')">⏸ Suspended</button>
+<button class="btn btn-ghost btn-sm" onclick="showVerifyResult('notfound')">❓ Not Found</button>
+</div>
+<div class="grid-2 mb-4">
+<div class="card card-sm" style="text-align:center;">
+<div style="font-size:1.5rem;margin-bottom:8px;">📷</div>
+<div class="card-title" style="font-size:0.88rem;margin-bottom:4px;">Option 2 — Scan QR Code</div>
+<div class="card-sub" style="margin-bottom:12px;">Scan the QR code on a certificate, badge, or profile.</div>
+<button class="btn btn-ghost btn-sm" style="width:100%;justify-content:center;border-radius:8px;">Open Camera</button>
+</div>
+<div class="card card-sm" style="text-align:center;">
+<div style="font-size:1.5rem;margin-bottom:8px;">🔗</div>
+<div class="card-title" style="font-size:0.88rem;margin-bottom:4px;">Option 3 — Verification Link</div>
+<div class="card-sub" style="margin-bottom:12px;">Each credential has a unique public URL that opens its record directly.</div>
+<div style="font-size:0.72rem;color:var(--muted);background:var(--off-white);padding:6px 10px;border-radius:6px;font-family:monospace;">verify.crediifoundation.org/CRD-2026-000184</div>
+</div>
+</div>
+<!-- Result Area -->
+<div id="verify-result-area"></div>
+<!-- Disclaimer -->
+<div class="alert alert-info" style="margin-top:16px;">
+<span class="alert-icon">ℹ️</span>
+<div>A successful result confirms that the credential record exists and shows its current status. Verification does not guarantee employment, financing, admission, licensing, or acceptance by another organization. Credii provides the infrastructure through which approved issuers can issue and verify digital credentials.</div>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+           HOLDER: MY CREDENTIALS DASHBOARD
+      ══════════════════════════════════════ -->
+<div class="screen" id="screen-holder-dashboard">
+<div class="grid-4 mb-6">
+<div class="stat-card">
+<div class="stat-icon" style="background:var(--red-pale);">🏅</div>
+<div class="stat-num">3</div>
+<div class="stat-label">Total Credentials</div>
+</div>
+<div class="stat-card">
+<div class="stat-icon" style="background:var(--sage-pale);">✅</div>
+<div class="stat-num">2</div>
+<div class="stat-label">Active</div>
+</div>
+<div class="stat-card">
+<div class="stat-icon" style="background:var(--mustard-pale);">⏰</div>
+<div class="stat-num">1</div>
+<div class="stat-label">Expiring Soon</div>
+</div>
+<div class="stat-card">
+<div class="stat-icon" style="background:var(--lilac-pale);">⏳</div>
+<div class="stat-num">1</div>
+<div class="stat-label">Pending</div>
+</div>
+</div>
+<div class="section-hdr mb-4">
+<div class="section-hdr-title">My Credentials</div>
+<button class="btn btn-ghost btn-sm" onclick="showScreen('public-verify')">🔍 Verify a Credential</button>
+</div>
+<div class="grid-3">
+<div class="cred-card" onclick="showScreen('holder-detail')" style="cursor:pointer;">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+<div class="cred-badge-icon">🏅</div>
+<span class="badge badge-valid">Valid</span>
+</div>
+<div class="cred-name">Digital Readiness Certificate</div>
+<div class="cred-issuer">Credii Foundation · Sept 2026</div>
+<div style="font-size:0.78rem;color:var(--muted);line-height:1.5;margin-bottom:4px;">Demonstrates foundational understanding of digital credentialing and verification systems.</div>
+<div class="cred-actions">
+<button class="btn btn-red btn-sm" onclick="event.stopPropagation();showScreen('holder-detail')">View</button>
+<button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();showScreen('holder-share')">Share</button>
+<button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();">QR Code</button>
+</div>
+</div>
+<div class="cred-card">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+<div class="cred-badge-icon" style="background:var(--mustard-pale);">🚀</div>
+<span class="badge badge-valid">Valid</span>
+</div>
+<div class="cred-name">Program Participation — Women in Business</div>
+<div class="cred-issuer">Credii Foundation · Oct 2026</div>
+<div style="font-size:0.78rem;color:var(--muted);line-height:1.5;margin-bottom:4px;">Participated in the Women in Business pilot program cohort.</div>
+<div class="cred-actions">
+<button class="btn btn-red btn-sm">View</button>
+<button class="btn btn-ghost btn-sm" onclick="showScreen('holder-share')">Share</button>
+<button class="btn btn-ghost btn-sm">QR Code</button>
+</div>
+</div>
+<div class="cred-card" style="opacity:0.75;">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+<div class="cred-badge-icon" style="background:var(--lilac-pale);">📋</div>
+<span class="badge badge-pending">Pending</span>
+</div>
+<div class="cred-name">Business Readiness Assessment</div>
+<div class="cred-issuer">Caribbean ESO Network · Pending</div>
+<div style="font-size:0.78rem;color:var(--muted);line-height:1.5;margin-bottom:4px;">Awaiting issuer confirmation after assessment completion.</div>
+<div class="cred-actions">
+<button class="btn btn-ghost btn-sm">View Status</button>
+</div>
+</div>
+</div>
+<div class="alert alert-info" style="margin-top:24px;">
+<span class="alert-icon">🔮</span>
+<div><strong>Trust Profile coming soon.</strong> Your credentials will automatically contribute to your Credii Trust Profile, creating a portable record of your verified achievements and capabilities.</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+           HOLDER: CREDENTIAL DETAIL
+      ══════════════════════════════════════ -->
+<div class="screen" id="screen-holder-detail">
+<div class="grid-2">
+<div style="display:flex;flex-direction:column;gap:16px;">
+<!-- Credential Identity -->
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;">
+<div>
+<div style="font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;">Credential</div>
+<div class="card-title" style="font-size:1.15rem;">Digital Readiness Certificate</div>
+</div>
+<span class="badge badge-valid">Valid</span>
+</div>
+<div class="lifecycle">
+<div class="lifecycle-step done">Draft</div>
+<div class="lifecycle-step done">Pending</div>
+<div class="lifecycle-step active">Issued · Active</div>
+<div class="lifecycle-step">Expired</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;">
+<div style="padding:10px 12px;background:var(--off-white);border-radius:8px;">
+<div style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);margin-bottom:3px;">Credential ID</div>
+<div style="font-size:0.84rem;font-weight:600;color:var(--charcoal);font-family:monospace;">CRD-2026-000184</div>
+</div>
+<div style="padding:10px 12px;background:var(--off-white);border-radius:8px;">
+<div style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);margin-bottom:3px;">Credential Type</div>
+<div style="font-size:0.84rem;font-weight:600;color:var(--charcoal);">Achievement</div>
+</div>
+<div style="padding:10px 12px;background:var(--off-white);border-radius:8px;">
+<div style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);margin-bottom:3px;">Date Issued</div>
+<div style="font-size:0.84rem;font-weight:600;color:var(--charcoal);">September 15, 2026</div>
+</div>
+<div style="padding:10px 12px;background:var(--off-white);border-radius:8px;">
+<div style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);margin-bottom:3px;">Expiration</div>
+<div style="font-size:0.84rem;font-weight:600;color:var(--charcoal);">September 15, 2028</div>
+</div>
+</div>
+</div>
+<!-- Issuer -->
+<div class="card">
+<div class="card-title" style="margin-bottom:14px;">Issuer Information</div>
+<div style="display:flex;gap:12px;align-items:flex-start;">
+<div style="width:44px;height:44px;border-radius:12px;background:var(--red-pale);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;">🏛️</div>
+<div>
+<div style="font-weight:700;font-size:0.92rem;color:var(--charcoal);">Credii Foundation</div>
+<div style="font-size:0.75rem;color:var(--muted);margin-top:2px;">crediifoundation.org</div>
+<div style="margin-top:6px;"><span class="badge badge-valid">Verified Issuer</span></div>
+</div>
+</div>
+</div>
+<!-- Achievement -->
+<div class="card">
+<div class="card-title" style="margin-bottom:14px;">Achievement Details</div>
+<div style="font-size:0.84rem;color:var(--muted);line-height:1.7;margin-bottom:14px;">Demonstrates foundational understanding of digital credentialing, verification systems, and trust infrastructure relevant to Caribbean economic inclusion.</div>
+<div style="display:flex;flex-direction:column;gap:8px;">
+<div style="display:flex;gap:8px;align-items:flex-start;font-size:0.82rem;">
+<span style="color:var(--sage);font-weight:700;flex-shrink:0;">✓</span>
+<span>Understanding of verifiable credential standards (W3C VC Data Model 2.0)</span>
+</div>
+<div style="display:flex;gap:8px;align-items:flex-start;font-size:0.82rem;">
+<span style="color:var(--sage);font-weight:700;flex-shrink:0;">✓</span>
+<span>Digital trust and verification concepts</span>
+</div>
+<div style="display:flex;gap:8px;align-items:flex-start;font-size:0.82rem;">
+<span style="color:var(--sage);font-weight:700;flex-shrink:0;">✓</span>
+<span>Caribbean credential recognition landscape</span>
+</div>
+</div>
+<div style="margin-top:14px;padding:10px 12px;background:var(--off-white);border-radius:8px;font-size:0.78rem;color:var(--muted);">
+<strong style="color:var(--charcoal);">Assessment method:</strong> Online assessment with minimum 80% pass mark<br/>
+<strong style="color:var(--charcoal);">Evidence type:</strong> Assessment result record
+              </div>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px;">
+<!-- QR & Actions -->
+<div class="card" style="text-align:center;">
+<div class="card-title" style="margin-bottom:16px;">Share &amp; Verify</div>
+<div class="qr-box" style="margin:0 auto 16px;">
+<span>▦</span>
+<span class="qr-label">QR Code</span>
+</div>
+<div style="font-size:0.72rem;color:var(--muted);margin-bottom:16px;font-family:monospace;background:var(--off-white);padding:6px 10px;border-radius:6px;">verify.crediifoundation.org/CRD-2026-000184</div>
+<div style="display:flex;flex-direction:column;gap:8px;">
+<button class="btn btn-red" onclick="showScreen('holder-share')" style="width:100%;justify-content:center;border-radius:10px;">🔗 Share Credential</button>
+<button class="btn btn-ghost" style="width:100%;justify-content:center;border-radius:10px;">⬇️ Download Certificate</button>
+<button class="btn btn-ghost" onclick="showScreen('public-verify')" style="width:100%;justify-content:center;border-radius:10px;">🔍 View Public Record</button>
+<button class="btn btn-ghost" style="width:100%;justify-content:center;border-radius:10px;">⚠️ Report an Error</button>
+</div>
+</div>
+<!-- Technical Verification -->
+<div class="card">
+<div class="card-title" style="margin-bottom:14px;">Technical Verification</div>
+<div style="display:flex;flex-direction:column;gap:8px;">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.82rem;">
+<span style="color:var(--muted);">Credential Hash</span>
+<span style="font-family:monospace;font-size:0.72rem;color:var(--charcoal);">sha256:a3f8c2...</span>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.82rem;">
+<span style="color:var(--muted);">Digital Signature</span>
+<span class="badge badge-valid">Verified</span>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.82rem;">
+<span style="color:var(--muted);">Schema Version</span>
+<span style="font-size:0.82rem;color:var(--charcoal);">W3C VC 2.0</span>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;font-size:0.82rem;">
+<span style="color:var(--muted);">Last Status Check</span>
+<span style="font-size:0.82rem;color:var(--charcoal);">Oct 9, 2026</span>
+</div>
+</div>
+</div>
+<!-- Privacy -->
+<div class="card">
+<div class="card-title" style="margin-bottom:4px;">Privacy Settings</div>
+<div class="card-sub" style="margin-bottom:14px;">Control what verifiers can see on your public record.</div>
+<div class="privacy-row">
+<span>Full name</span>
+<label class="toggle"><input checked="" type="checkbox"/><span class="toggle-slider"></span></label>
+</div>
+<div class="privacy-row">
+<span>Credential title</span>
+<label class="toggle"><input checked="" type="checkbox"/><span class="toggle-slider"></span></label>
+</div>
+<div class="privacy-row">
+<span>Issuing organization</span>
+<label class="toggle"><input checked="" type="checkbox"/><span class="toggle-slider"></span></label>
+</div>
+<div class="privacy-row">
+<span>Skills recognized</span>
+<label class="toggle"><input checked="" type="checkbox"/><span class="toggle-slider"></span></label>
+</div>
+<div class="privacy-row">
+<span>Issue &amp; expiration dates</span>
+<label class="toggle"><input checked="" type="checkbox"/><span class="toggle-slider"></span></label>
+</div>
+<div class="privacy-row">
+<span>Evidence details</span>
+<label class="toggle"><input type="checkbox"/><span class="toggle-slider"></span></label>
+</div>
+<div class="alert alert-info" style="margin-top:12px;font-size:0.78rem;">
+<span class="alert-icon">🔒</span>
+<div>Core authenticity and status information always remains visible to make verification meaningful.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+           HOLDER: SHARE & PRIVACY
+      ══════════════════════════════════════ -->
+<div class="screen" id="screen-holder-share">
+<div style="max-width:640px;margin:0 auto;">
+<div class="card mb-4">
+<div class="card-title" style="margin-bottom:4px;">Share: Digital Readiness Certificate</div>
+<div class="card-sub" style="margin-bottom:20px;">Choose how to share your credential with employers, funders, or partners.</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<div style="padding:16px;background:var(--off-white);border-radius:12px;border:1.5px solid var(--border);">
+<div style="font-weight:700;font-size:0.88rem;color:var(--charcoal);margin-bottom:6px;">🔗 Verification Link</div>
+<div style="display:flex;gap:8px;align-items:center;">
+<input class="form-input" readonly="" style="font-family:monospace;font-size:0.78rem;" value="verify.crediifoundation.org/CRD-2026-000184"/>
+<button class="btn btn-red btn-sm" style="flex-shrink:0;">Copy</button>
+</div>
+</div>
+<div style="padding:16px;background:var(--off-white);border-radius:12px;border:1.5px solid var(--border);text-align:center;">
+<div style="font-weight:700;font-size:0.88rem;color:var(--charcoal);margin-bottom:12px;">▦ QR Code</div>
+<div class="qr-box" style="margin:0 auto 12px;">
+<span>▦</span><span class="qr-label">Scan to verify</span>
+</div>
+<button class="btn btn-ghost btn-sm">Download QR Code</button>
+</div>
+<div style="padding:16px;background:var(--off-white);border-radius:12px;border:1.5px solid var(--border);">
+<div style="font-weight:700;font-size:0.88rem;color:var(--charcoal);margin-bottom:6px;">⬇️ Download Certificate</div>
+<div style="font-size:0.78rem;color:var(--muted);margin-bottom:10px;">Download a PDF version of your credential for offline sharing.</div>
+<button class="btn btn-ghost btn-sm">Download PDF</button>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-title" style="margin-bottom:4px;">Privacy Controls</div>
+<div class="card-sub" style="margin-bottom:16px;">Choose what information is visible on your public verification record.</div>
+<div class="privacy-row"><span>Full name</span><label class="toggle"><input checked="" type="checkbox"/><span class="toggle-slider"></span></label></div>
+<div class="privacy-row"><span>Credential title</span><label class="toggle"><input checked="" type="checkbox"/><span class="toggle-slider"></span></label></div>
+<div class="privacy-row"><span>Issuing organization</span><label class="toggle"><input checked="" type="checkbox"/><span class="toggle-slider"></span></label></div>
+<div class="privacy-row"><span>Skills recognized</span><label class="toggle"><input checked="" type="checkbox"/><span class="toggle-slider"></span></label></div>
+<div class="privacy-row"><span>Issue &amp; expiration dates</span><label class="toggle"><input checked="" type="checkbox"/><span class="toggle-slider"></span></label></div>
+<div class="privacy-row"><span>Evidence details</span><label class="toggle"><input type="checkbox"/><span class="toggle-slider"></span></label></div>
+<button class="btn btn-red" style="margin-top:16px;border-radius:10px;">Save Privacy Settings</button>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+           ISSUER: DASHBOARD
+      ══════════════════════════════════════ -->
+<div class="screen" id="screen-issuer-dashboard">
+<div class="grid-4 mb-6">
+<div class="stat-card">
+<div class="stat-icon" style="background:var(--red-pale);">🏅</div>
+<div class="stat-num">47</div>
+<div class="stat-label">Credentials Issued</div>
+<div class="stat-change change-up">↑ 12 this month</div>
+</div>
+<div class="stat-card">
+<div class="stat-icon" style="background:var(--sage-pale);">✅</div>
+<div class="stat-num">44</div>
+<div class="stat-label">Active</div>
+</div>
+<div class="stat-card">
+<div class="stat-icon" style="background:var(--mustard-pale);">⏳</div>
+<div class="stat-num">3</div>
+<div class="stat-label">Pending</div>
+</div>
+<div class="stat-card">
+<div class="stat-icon" style="background:var(--lilac-pale);">🔍</div>
+<div class="stat-num">128</div>
+<div class="stat-label">Verification Checks</div>
+<div class="stat-change change-up">↑ 34 this month</div>
+</div>
+</div>
+<div class="grid-2">
+<div class="card">
+<div class="section-hdr mb-4">
+<div class="section-hdr-title">Recently Issued</div>
+<button class="btn btn-red btn-sm" onclick="showScreen('issuer-issue')">+ Issue Credential</button>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Recipient</th><th>Credential</th><th>Date</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td><strong>Andrea Joseph</strong></td><td>Digital Readiness</td><td>Sept 15</td><td><span class="badge badge-valid">Valid</span></td></tr>
+<tr><td><strong>Maria Ramsaran</strong></td><td>Program Participation</td><td>Oct 1</td><td><span class="badge badge-valid">Valid</span></td></tr>
+<tr><td><strong>James Brown</strong></td><td>Skills Achievement</td><td>Oct 5</td><td><span class="badge badge-pending">Pending</span></td></tr>
+<tr><td><strong>Simone Clarke</strong></td><td>Business Readiness</td><td>Oct 8</td><td><span class="badge badge-valid">Valid</span></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="card">
+<div class="card-title" style="margin-bottom:14px;">Issuer Status</div>
+<div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:16px;">
+<div style="width:44px;height:44px;border-radius:12px;background:var(--red-pale);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;">🏛️</div>
+<div>
+<div style="font-weight:700;font-size:0.92rem;color:var(--charcoal);">Credii Foundation</div>
+<div style="font-size:0.75rem;color:var(--muted);margin-top:2px;">Approved Issuer since August 2026</div>
+<div style="margin-top:6px;"><span class="badge badge-valid">Approved</span></div>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px;font-size:0.82rem;">
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
+<span style="color:var(--muted);">Approved Templates</span><span style="font-weight:600;">5</span>
+</div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
+<span style="color:var(--muted);">Authorized Users</span><span style="font-weight:600;">3</span>
+</div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;">
+<span style="color:var(--muted);">Last Audit</span><span style="font-weight:600;">Sept 2026</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+           ISSUER: ISSUE CREDENTIAL (5 STEPS)
+      ══════════════════════════════════════ -->
+<div class="screen" id="screen-issuer-issue">
+<div class="steps mb-6">
+<div class="step done" id="step-1-indicator">
+<div class="step-num">✓</div>
+<div class="step-label">Template</div>
+</div>
+<div class="step-line done"></div>
+<div class="step active" id="step-2-indicator">
+<div class="step-num">2</div>
+<div class="step-label">Recipient</div>
+</div>
+<div class="step-line"></div>
+<div class="step" id="step-3-indicator">
+<div class="step-num">3</div>
+<div class="step-label">Achievement</div>
+</div>
+<div class="step-line"></div>
+<div class="step" id="step-4-indicator">
+<div class="step-num">4</div>
+<div class="step-label">Review</div>
+</div>
+<div class="step-line"></div>
+<div class="step" id="step-5-indicator">
+<div class="step-num">5</div>
+<div class="step-label">Issue</div>
+</div>
+</div>
+<div style="max-width:680px;margin:0 auto;">
+<!-- Step 1: Template -->
+<div class="step-panel" id="step-panel-1">
+<div class="card">
+<div class="card-title" style="margin-bottom:4px;">Step 1 — Select Template</div>
+<div class="card-sub" style="margin-bottom:20px;">Choose the credential type that matches the achievement being recognized.</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
+<div class="template-option" onclick="selectTemplate(this)" style="padding:14px;border-radius:12px;border:1.5px solid var(--border);cursor:pointer;transition:all 0.15s;">
+<div style="font-size:1.3rem;margin-bottom:6px;">🎓</div>
+<div style="font-weight:700;font-size:0.88rem;color:var(--charcoal);">Course Completion</div>
+<div style="font-size:0.75rem;color:var(--muted);margin-top:3px;">Completed required course activities</div>
+</div>
+<div class="template-option selected" onclick="selectTemplate(this)" style="padding:14px;border-radius:12px;border:1.5px solid var(--red);background:var(--red-pale);cursor:pointer;transition:all 0.15s;">
+<div style="font-size:1.3rem;margin-bottom:6px;">⭐</div>
+<div style="font-weight:700;font-size:0.88rem;color:var(--charcoal);">Skills Achievement</div>
+<div style="font-size:0.75rem;color:var(--muted);margin-top:3px;">Met an assessed standard</div>
+</div>
+<div class="template-option" onclick="selectTemplate(this)" style="padding:14px;border-radius:12px;border:1.5px solid var(--border);cursor:pointer;transition:all 0.15s;">
+<div style="font-size:1.3rem;margin-bottom:6px;">🤝</div>
+<div style="font-weight:700;font-size:0.88rem;color:var(--charcoal);">Program Participation</div>
+<div style="font-size:0.75rem;color:var(--muted);margin-top:3px;">Attended or took part</div>
+</div>
+<div class="template-option" onclick="selectTemplate(this)" style="padding:14px;border-radius:12px;border:1.5px solid var(--border);cursor:pointer;transition:all 0.15s;">
+<div style="font-size:1.3rem;margin-bottom:6px;">💼</div>
+<div style="font-weight:700;font-size:0.88rem;color:var(--charcoal);">Business Readiness</div>
+<div style="font-size:0.75rem;color:var(--muted);margin-top:3px;">Demonstrated business capabilities</div>
+</div>
+<div class="template-option" onclick="selectTemplate(this)" style="padding:14px;border-radius:12px;border:1.5px solid var(--border);cursor:pointer;transition:all 0.15s;">
+<div style="font-size:1.3rem;margin-bottom:6px;">🌱</div>
+<div style="font-weight:700;font-size:0.88rem;color:var(--charcoal);">Community Contribution</div>
+<div style="font-size:0.75rem;color:var(--muted);margin-top:3px;">Recognized for a contribution</div>
+</div>
+<div class="template-option" onclick="selectTemplate(this)" style="padding:14px;border-radius:12px;border:1.5px solid var(--border);cursor:pointer;transition:all 0.15s;">
+<div style="font-size:1.3rem;margin-bottom:6px;">🏢</div>
+<div style="font-weight:700;font-size:0.88rem;color:var(--charcoal);">Organizational Capability</div>
+<div style="font-size:0.75rem;color:var(--muted);margin-top:3px;">Demonstrated org-level capabilities</div>
+</div>
+</div>
+<button class="btn btn-red btn-full" onclick="goToStep(2)">Continue →</button>
+</div>
+</div>
+<!-- Step 2: Recipient -->
+<div class="step-panel active" id="step-panel-2">
+<div class="card">
+<div class="card-title" style="margin-bottom:4px;">Step 2 — Select Recipient</div>
+<div class="card-sub" style="margin-bottom:20px;">Who is receiving this credential?</div>
+<div class="tabs">
+<button class="tab active">Existing Member</button>
+<button class="tab">New Recipient</button>
+<button class="tab">Bulk Upload</button>
+</div>
+<div class="form-group">
+<label class="form-label">Search Member</label>
+<input class="form-input" placeholder="Search by name or email..." type="text" value="Andrea Joseph"/>
+</div>
+<div style="padding:14px;background:var(--sage-pale);border-radius:12px;border:1.5px solid rgba(122,158,142,0.3);display:flex;gap:12px;align-items:center;margin-bottom:20px;">
+<div style="width:40px;height:40px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">AJ</div>
+<div>
+<div style="font-weight:700;font-size:0.88rem;color:var(--charcoal);">Andrea Joseph</div>
+<div style="font-size:0.75rem;color:var(--muted);">andrea@example.com · Community Member · Trinidad &amp; Tobago</div>
+</div>
+<span class="badge badge-valid" style="margin-left:auto;">Selected</span>
+</div>
+<div style="display:flex;gap:10px;">
+<button class="btn btn-ghost" onclick="goToStep(1)">← Back</button>
+<button class="btn btn-red" onclick="goToStep(3)" style="flex:1;justify-content:center;border-radius:10px;">Continue →</button>
+</div>
+</div>
+</div>
+<!-- Step 3: Achievement Details -->
+<div class="step-panel" id="step-panel-3">
+<div class="card">
+<div class="card-title" style="margin-bottom:4px;">Step 3 — Achievement Details</div>
+<div class="card-sub" style="margin-bottom:20px;">Enter the details of what was achieved.</div>
+<div class="form-group">
+<label class="form-label">Completion Date</label>
+<input class="form-input" type="date" value="2026-09-15"/>
+</div>
+<div class="form-group">
+<label class="form-label">Skills Demonstrated</label>
+<input class="form-input" placeholder="e.g. Digital literacy, Credential verification, Trust systems" type="text"/>
+</div>
+<div class="form-group">
+<label class="form-label">Assessment Result</label>
+<select class="form-select">
+<option>Pass — 80% or above</option>
+<option>Pass — 90% or above</option>
+<option>Distinction</option>
+<option>Satisfactory completion</option>
+</select>
+</div>
+<div class="form-group">
+<label class="form-label">Supporting Evidence</label>
+<input class="form-input" placeholder="e.g. Assessment record ID, portfolio reference" type="text"/>
+<div class="form-hint">Reference to evidence supporting this credential. Do not include sensitive personal information.</div>
+</div>
+<div class="form-group">
+<label class="form-label">Expiration Date (optional)</label>
+<input class="form-input" type="date" value="2028-09-15"/>
+</div>
+<div style="display:flex;gap:10px;">
+<button class="btn btn-ghost" onclick="goToStep(2)">← Back</button>
+<button class="btn btn-red" onclick="goToStep(4)" style="flex:1;justify-content:center;border-radius:10px;">Continue →</button>
+</div>
+</div>
+</div>
+<!-- Step 4: Review -->
+<div class="step-panel" id="step-panel-4">
+<div class="card">
+<div class="card-title" style="margin-bottom:4px;">Step 4 — Review Before Issuing</div>
+<div class="card-sub" style="margin-bottom:20px;">Confirm all details are correct. This is what will appear on the public verification record.</div>
+<div style="background:var(--off-white);border-radius:14px;padding:20px;margin-bottom:20px;">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;">
+<div>
+<div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);margin-bottom:4px;">Skills Achievement</div>
+<div style="font-family:'Fraunces',serif;font-size:1.2rem;font-weight:700;color:var(--charcoal);">Digital Readiness Certificate</div>
+</div>
+<span class="badge badge-pending">Draft</span>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:0.82rem;">
+<div><span style="color:var(--muted);">Recipient:</span> <strong>Andrea Joseph</strong></div>
+<div><span style="color:var(--muted);">Issuer:</span> <strong>Credii Foundation</strong></div>
+<div><span style="color:var(--muted);">Completion:</span> <strong>Sept 15, 2026</strong></div>
+<div><span style="color:var(--muted);">Expires:</span> <strong>Sept 15, 2028</strong></div>
+<div style="grid-column:1/-1;"><span style="color:var(--muted);">Skills:</span> <strong>Digital literacy, Credential verification, Trust systems</strong></div>
+<div style="grid-column:1/-1;"><span style="color:var(--muted);">Assessment:</span> <strong>Pass — 80% or above</strong></div>
+</div>
+</div>
+<div class="alert alert-warn">
+<span class="alert-icon">⚠️</span>
+<div>Once issued, this credential will be recorded in the audit log and cannot be silently deleted. Corrections will create a documented revision. Ensure all details are accurate before proceeding.</div>
+</div>
+<div style="display:flex;gap:10px;margin-top:16px;">
+<button class="btn btn-ghost" onclick="goToStep(3)">← Back</button>
+<button class="btn btn-red" onclick="goToStep(5)" style="flex:1;justify-content:center;border-radius:10px;">Issue Credential →</button>
+</div>
+</div>
+</div>
+<!-- Step 5: Issued -->
+<div class="step-panel" id="step-panel-5">
+<div class="card" style="text-align:center;padding:40px 32px;">
+<div style="font-size:3rem;margin-bottom:16px;">🎉</div>
+<div style="font-family:'Fraunces',serif;font-size:1.4rem;font-weight:700;color:var(--charcoal);margin-bottom:8px;">Credential Issued Successfully</div>
+<div style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-bottom:24px;">The credential has been issued, the security mechanism applied, and the recipient notified. The issuance has been recorded in the audit log.</div>
+<div style="background:var(--off-white);border-radius:12px;padding:16px;margin-bottom:24px;text-align:left;">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:0.82rem;">
+<div><span style="color:var(--muted);">Credential ID:</span><br/><strong style="font-family:monospace;">CRD-2026-000185</strong></div>
+<div><span style="color:var(--muted);">Status:</span><br/><span class="badge badge-valid">Active</span></div>
+<div><span style="color:var(--muted);">QR Code:</span><br/><strong>Generated ✓</strong></div>
+<div><span style="color:var(--muted);">Recipient Notified:</span><br/><strong>Email sent ✓</strong></div>
+</div>
+</div>
+<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+<button class="btn btn-red" onclick="showScreen('issuer-credentials')">View All Credentials</button>
+<button class="btn btn-ghost" onclick="goToStep(1)">Issue Another</button>
+<button class="btn btn-ghost" onclick="showScreen('public-verify')">Verify This Credential</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+           ISSUER: CREDENTIALS LIST
+      ══════════════════════════════════════ -->
+<div class="screen" id="screen-issuer-credentials">
+<div class="card mb-4">
+<div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;">
+<input class="form-input" placeholder="Search credentials..." style="flex:1;min-width:200px;" type="text"/>
+<select class="form-select" style="width:auto;">
+<option>All Status</option>
+<option>Active</option>
+<option>Pending</option>
+<option>Expired</option>
+<option>Suspended</option>
+<option>Revoked</option>
+</select>
+<button class="btn btn-red btn-sm" onclick="showScreen('issuer-issue')">+ Issue Credential</button>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Credential ID</th><th>Recipient</th><th>Credential</th><th>Type</th><th>Issued</th><th>Expires</th><th>Status</th><th>Actions</th></tr>
+</thead>
+<tbody>
+<tr>
+<td style="font-family:monospace;font-size:0.78rem;">CRD-2026-000184</td>
+<td><strong>Andrea Joseph</strong></td>
+<td>Digital Readiness Certificate</td>
+<td><span class="badge badge-valid" style="background:var(--sage-pale);color:#4A7A6A;">Achievement</span></td>
+<td>Sept 15, 2026</td>
+<td>Sept 15, 2028</td>
+<td><span class="badge badge-valid">Valid</span></td>
+<td><div style="display:flex;gap:4px;"><button class="btn btn-ghost btn-sm">View</button><button class="btn btn-ghost btn-sm">Suspend</button></div></td>
+</tr>
+<tr>
+<td style="font-family:monospace;font-size:0.78rem;">CRD-2026-000183</td>
+<td><strong>Maria Ramsaran</strong></td>
+<td>Program Participation</td>
+<td><span class="badge" style="background:var(--lilac-pale);color:var(--lilac);">Participation</span></td>
+<td>Oct 1, 2026</td>
+<td>—</td>
+<td><span class="badge badge-valid">Valid</span></td>
+<td><div style="display:flex;gap:4px;"><button class="btn btn-ghost btn-sm">View</button><button class="btn btn-ghost btn-sm">Suspend</button></div></td>
+</tr>
+<tr>
+<td style="font-family:monospace;font-size:0.78rem;">CRD-2026-000182</td>
+<td><strong>James Brown</strong></td>
+<td>Skills Achievement</td>
+<td><span class="badge badge-valid" style="background:var(--sage-pale);color:#4A7A6A;">Achievement</span></td>
+<td>Oct 5, 2026</td>
+<td>Oct 5, 2028</td>
+<td><span class="badge badge-pending">Pending</span></td>
+<td><div style="display:flex;gap:4px;"><button class="btn btn-ghost btn-sm">View</button><button class="btn btn-red btn-sm">Approve</button></div></td>
+</tr>
+<tr>
+<td style="font-family:monospace;font-size:0.78rem;">CRD-2026-000001</td>
+<td><strong>Test Recipient</strong></td>
+<td>Test Credential</td>
+<td><span class="badge" style="background:var(--sand-pale);color:#7A6A50;">Completion</span></td>
+<td>Aug 1, 2026</td>
+<td>Aug 1, 2027</td>
+<td><span class="badge badge-revoked">Revoked</span></td>
+<td><div style="display:flex;gap:4px;"><button class="btn btn-ghost btn-sm">View</button></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+           ISSUER: TEMPLATES
+      ══════════════════════════════════════ -->
+<div class="screen" id="screen-issuer-templates">
+<div class="grid-3">
+<div class="card">
+<div style="font-size:1.5rem;margin-bottom:10px;">🎓</div>
+<div class="card-title" style="margin-bottom:4px;">Course Completion</div>
+<div class="card-sub" style="margin-bottom:10px;">For learners who completed required course activities.</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+<span class="badge badge-valid">Approved</span>
+<span class="badge" style="background:var(--sand-pale);color:#7A6A50;">Completion</span>
+</div>
+<div style="font-size:0.75rem;color:var(--muted);">Validity: 2 years · Renewal available</div>
+</div>
+<div class="card">
+<div style="font-size:1.5rem;margin-bottom:10px;">⭐</div>
+<div class="card-title" style="margin-bottom:4px;">Skills Achievement</div>
+<div class="card-sub" style="margin-bottom:10px;">For recipients who met an assessed standard.</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+<span class="badge badge-valid">Approved</span>
+<span class="badge" style="background:var(--sage-pale);color:#4A7A6A;">Achievement</span>
+</div>
+<div style="font-size:0.75rem;color:var(--muted);">Validity: 2 years · Assessment required</div>
+</div>
+<div class="card">
+<div style="font-size:1.5rem;margin-bottom:10px;">🤝</div>
+<div class="card-title" style="margin-bottom:4px;">Program Participation</div>
+<div class="card-sub" style="margin-bottom:10px;">For participants who attended or took part in a program.</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+<span class="badge badge-valid">Approved</span>
+<span class="badge" style="background:var(--lilac-pale);color:var(--lilac);">Participation</span>
+</div>
+<div style="font-size:0.75rem;color:var(--muted);">No expiry · Attendance record required</div>
+</div>
+<div class="card">
+<div style="font-size:1.5rem;margin-bottom:10px;">💼</div>
+<div class="card-title" style="margin-bottom:4px;">Business Readiness</div>
+<div class="card-sub" style="margin-bottom:10px;">For MSMEs demonstrating business capability.</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+<span class="badge badge-valid">Approved</span>
+<span class="badge" style="background:var(--mustard-pale);color:#8A6A1A;">Capability</span>
+</div>
+<div style="font-size:0.75rem;color:var(--muted);">Validity: 1 year · Assessment required</div>
+</div>
+<div class="card">
+<div style="font-size:1.5rem;margin-bottom:10px;">🌱</div>
+<div class="card-title" style="margin-bottom:4px;">Community Contribution</div>
+<div class="card-sub" style="margin-bottom:10px;">For individuals recognized for a contribution or milestone.</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+<span class="badge badge-valid">Approved</span>
+<span class="badge" style="background:var(--terra-pale);color:var(--terra);">Recognition</span>
+</div>
+<div style="font-size:0.75rem;color:var(--muted);">No expiry · Nomination required</div>
+</div>
+<div class="card" style="border-style:dashed;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:160px;">
+<div style="font-size:2rem;opacity:0.3;margin-bottom:8px;">+</div>
+<div style="font-weight:700;font-size:0.88rem;color:var(--charcoal);margin-bottom:4px;">Request New Template</div>
+<div style="font-size:0.75rem;color:var(--muted);">Submit to Credii admin for approval</div>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+           ADMIN: DASHBOARD
+      ══════════════════════════════════════ -->
+<div class="screen" id="screen-admin-dashboard">
+<div class="alert alert-warn mb-6">
+<span class="alert-icon">⚙️</span>
+<div><strong>Admin Console — Credii Staff Only.</strong> This area manages the integrity of the entire credential ecosystem including issuer approvals, credential status, templates, and audit records.</div>
+</div>
+<div class="grid-4 mb-6">
+<div class="stat-card">
+<div class="stat-icon" style="background:var(--red-pale);">🏅</div>
+<div class="stat-num">184</div>
+<div class="stat-label">Total Credentials</div>
+<div class="stat-change change-up">↑ 47 this month</div>
+</div>
+<div class="stat-card">
+<div class="stat-icon" style="background:var(--sage-pale);">🏢</div>
+<div class="stat-num">3</div>
+<div class="stat-label">Approved Issuers</div>
+</div>
+<div class="stat-card">
+<div class="stat-icon" style="background:var(--mustard-pale);">🔍</div>
+<div class="stat-num">1,247</div>
+<div class="stat-label">Verification Checks</div>
+<div class="stat-change change-up">↑ 312 this month</div>
+</div>
+<div class="stat-card">
+<div class="stat-icon" style="background:var(--lilac-pale);">⚠️</div>
+<div class="stat-num">2</div>
+<div class="stat-label">Pending Reviews</div>
+</div>
+</div>
+<div class="grid-2">
+<div class="card">
+<div class="section-hdr mb-4">
+<div class="section-hdr-title">Issuer Applications</div>
+<button class="btn btn-ghost btn-sm" onclick="showScreen('admin-issuers')">View All</button>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Organization</th><th>Applied</th><th>Status</th><th>Action</th></tr></thead>
+<tbody>
+<tr><td><strong>Caribbean ESO Network</strong></td><td>Oct 1, 2026</td><td><span class="badge badge-pending">Under Review</span></td><td><button class="btn btn-red btn-sm">Review</button></td></tr>
+<tr><td><strong>TT Chamber of Commerce</strong></td><td>Oct 5, 2026</td><td><span class="badge badge-pending">Under Review</span></td><td><button class="btn btn-red btn-sm">Review</button></td></tr>
+<tr><td><strong>Credii Foundation</strong></td><td>Aug 1, 2026</td><td><span class="badge badge-valid">Approved</span></td><td><button class="btn btn-ghost btn-sm">View</button></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="card">
+<div class="section-hdr mb-4">
+<div class="section-hdr-title">Recent Verification Activity</div>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Credential</th><th>Method</th><th>Result</th><th>Time</th></tr></thead>
+<tbody>
+<tr><td style="font-family:monospace;font-size:0.78rem;">CRD-2026-000184</td><td>ID Search</td><td><span class="badge badge-valid">Valid</span></td><td>2 min ago</td></tr>
+<tr><td style="font-family:monospace;font-size:0.78rem;">CRD-2026-000183</td><td>QR Scan</td><td><span class="badge badge-valid">Valid</span></td><td>14 min ago</td></tr>
+<tr><td style="font-family:monospace;font-size:0.78rem;">CRD-2026-000001</td><td>Link</td><td><span class="badge badge-revoked">Revoked</span></td><td>1 hr ago</td></tr>
+<tr><td style="font-family:monospace;font-size:0.78rem;">CRD-2026-XXXXX</td><td>ID Search</td><td><span class="badge badge-draft">Not Found</span></td><td>2 hr ago</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+           ADMIN: ISSUERS
+      ══════════════════════════════════════ -->
+<div class="screen" id="screen-admin-issuers">
+<div class="card mb-4">
+<div class="section-hdr mb-4">
+<div class="card-title">Issuer Management</div>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Organization</th><th>Applied</th><th>Status</th><th>Credentials Issued</th><th>Last Activity</th><th>Actions</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>Credii Foundation</strong></td>
+<td>Aug 1, 2026</td>
+<td><span class="badge badge-valid">Approved</span></td>
+<td>47</td>
+<td>Oct 9, 2026</td>
+<td><div style="display:flex;gap:4px;"><button class="btn btn-ghost btn-sm">View</button><button class="btn btn-ghost btn-sm">Restrict</button></div></td>
+</tr>
+<tr>
+<td><strong>Caribbean ESO Network</strong></td>
+<td>Oct 1, 2026</td>
+<td><span class="badge badge-pending">Under Review</span></td>
+<td>0</td>
+<td>—</td>
+<td><div style="display:flex;gap:4px;"><button class="btn btn-red btn-sm">Approve</button><button class="btn btn-ghost btn-sm">Decline</button></div></td>
+</tr>
+<tr>
+<td><strong>TT Chamber of Commerce</strong></td>
+<td>Oct 5, 2026</td>
+<td><span class="badge badge-pending">Under Review</span></td>
+<td>0</td>
+<td>—</td>
+<td><div style="display:flex;gap:4px;"><button class="btn btn-red btn-sm">Approve</button><button class="btn btn-ghost btn-sm">Decline</button></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Issuer Approval Workflow -->
+<div class="card">
+<div class="card-title" style="margin-bottom:14px;">Issuer Approval Workflow</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+<div style="padding:12px;background:var(--off-white);border-radius:10px;text-align:center;">
+<div style="font-size:1.2rem;margin-bottom:6px;">📝</div>
+<div style="font-weight:700;font-size:0.78rem;color:var(--charcoal);">1. Application</div>
+<div style="font-size:0.72rem;color:var(--muted);margin-top:3px;">Organization submits issuer application</div>
+</div>
+<div style="padding:12px;background:var(--off-white);border-radius:10px;text-align:center;">
+<div style="font-size:1.2rem;margin-bottom:6px;">🔍</div>
+<div style="font-weight:700;font-size:0.78rem;color:var(--charcoal);">2. Verification</div>
+<div style="font-size:0.72rem;color:var(--muted);margin-top:3px;">Credii verifies legal and contact info</div>
+</div>
+<div style="padding:12px;background:var(--off-white);border-radius:10px;text-align:center;">
+<div style="font-size:1.2rem;margin-bottom:6px;">📋</div>
+<div style="font-weight:700;font-size:0.78rem;color:var(--charcoal);">3. Template Review</div>
+<div style="font-size:0.72rem;color:var(--muted);margin-top:3px;">Credential templates reviewed and approved</div>
+</div>
+<div style="padding:12px;background:var(--sage-pale);border-radius:10px;text-align:center;border:1px solid rgba(122,158,142,0.3);">
+<div style="font-size:1.2rem;margin-bottom:6px;">✅</div>
+<div style="font-weight:700;font-size:0.78rem;color:#4A7A6A;">4. Activation</div>
+<div style="font-size:0.72rem;color:var(--muted);margin-top:3px;">Test credentials issued, issuer activated</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+           ADMIN: ALL CREDENTIALS
+      ══════════════════════════════════════ -->
+<div class="screen" id="screen-admin-credentials">
+<div class="card">
+<div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;">
+<input class="form-input" placeholder="Search by ID, recipient, or issuer..." style="flex:1;min-width:200px;" type="text"/>
+<select class="form-select" style="width:auto;"><option>All Status</option><option>Active</option><option>Pending</option><option>Expired</option><option>Suspended</option><option>Revoked</option></select>
+<select class="form-select" style="width:auto;"><option>All Issuers</option><option>Credii Foundation</option></select>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Credential ID</th><th>Recipient</th><th>Credential</th><th>Issuer</th><th>Type</th><th>Issued</th><th>Status</th><th>Actions</th></tr></thead>
+<tbody>
+<tr>
+<td style="font-family:monospace;font-size:0.78rem;">CRD-2026-000184</td>
+<td>Andrea Joseph</td>
+<td>Digital Readiness Certificate</td>
+<td>Credii Foundation</td>
+<td><span class="badge" style="background:var(--sage-pale);color:#4A7A6A;">Achievement</span></td>
+<td>Sept 15, 2026</td>
+<td><span class="badge badge-valid">Valid</span></td>
+<td><div style="display:flex;gap:4px;"><button class="btn btn-ghost btn-sm">View</button><button class="btn btn-ghost btn-sm">Suspend</button></div></td>
+</tr>
+<tr>
+<td style="font-family:monospace;font-size:0.78rem;">CRD-2026-000183</td>
+<td>Maria Ramsaran</td>
+<td>Program Participation</td>
+<td>Credii Foundation</td>
+<td><span class="badge" style="background:var(--lilac-pale);color:var(--lilac);">Participation</span></td>
+<td>Oct 1, 2026</td>
+<td><span class="badge badge-valid">Valid</span></td>
+<td><div style="display:flex;gap:4px;"><button class="btn btn-ghost btn-sm">View</button><button class="btn btn-ghost btn-sm">Suspend</button></div></td>
+</tr>
+<tr>
+<td style="font-family:monospace;font-size:0.78rem;">CRD-2026-000001</td>
+<td>Test Recipient</td>
+<td>Test Credential</td>
+<td>Credii Foundation</td>
+<td><span class="badge" style="background:var(--sand-pale);color:#7A6A50;">Completion</span></td>
+<td>Aug 1, 2026</td>
+<td><span class="badge badge-revoked">Revoked</span></td>
+<td><div style="display:flex;gap:4px;"><button class="btn btn-ghost btn-sm">View History</button></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+           ADMIN: TEMPLATES
+      ══════════════════════════════════════ -->
+<div class="screen" id="screen-admin-templates">
+<div class="card mb-4">
+<div class="section-hdr mb-4">
+<div class="card-title">Credential Templates</div>
+<button class="btn btn-red btn-sm">+ Create Template</button>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Template</th><th>Type</th><th>Validity</th><th>Issuers</th><th>Credentials Issued</th><th>Status</th><th>Actions</th></tr></thead>
+<tbody>
+<tr><td><strong>Course Completion</strong></td><td>Completion</td><td>2 years</td><td>1</td><td>12</td><td><span class="badge badge-valid">Active</span></td><td><button class="btn btn-ghost btn-sm">Edit</button></td></tr>
+<tr><td><strong>Skills Achievement</strong></td><td>Achievement</td><td>2 years</td><td>1</td><td>28</td><td><span class="badge badge-valid">Active</span></td><td><button class="btn btn-ghost btn-sm">Edit</button></td></tr>
+<tr><td><strong>Program Participation</strong></td><td>Participation</td><td>No expiry</td><td>1</td><td>47</td><td><span class="badge badge-valid">Active</span></td><td><button class="btn btn-ghost btn-sm">Edit</button></td></tr>
+<tr><td><strong>Business Readiness</strong></td><td>Capability</td><td>1 year</td><td>1</td><td>8</td><td><span class="badge badge-valid">Active</span></td><td><button class="btn btn-ghost btn-sm">Edit</button></td></tr>
+<tr><td><strong>Community Contribution</strong></td><td>Recognition</td><td>No expiry</td><td>1</td><td>3</td><td><span class="badge badge-valid">Active</span></td><td><button class="btn btn-ghost btn-sm">Edit</button></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+           ADMIN: REPORTS
+      ══════════════════════════════════════ -->
+<div class="screen" id="screen-admin-reports">
+<div class="grid-2 mb-6">
+<div class="card">
+<div class="card-title" style="margin-bottom:14px;">Credentials by Status</div>
+<div style="display:flex;flex-direction:column;gap:10px;">
+<div>
+<div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:4px;"><span>Active</span><span style="font-weight:700;">176</span></div>
+<div style="height:6px;background:var(--off-white);border-radius:100px;overflow:hidden;"><div style="height:100%;width:95%;background:var(--sage);border-radius:100px;"></div></div>
+</div>
+<div>
+<div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:4px;"><span>Pending</span><span style="font-weight:700;">3</span></div>
+<div style="height:6px;background:var(--off-white);border-radius:100px;overflow:hidden;"><div style="height:100%;width:2%;background:var(--lilac);border-radius:100px;"></div></div>
+</div>
+<div>
+<div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:4px;"><span>Expired</span><span style="font-weight:700;">2</span></div>
+<div style="height:6px;background:var(--off-white);border-radius:100px;overflow:hidden;"><div style="height:100%;width:1%;background:var(--mustard);border-radius:100px;"></div></div>
+</div>
+<div>
+<div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:4px;"><span>Revoked</span><span style="font-weight:700;">3</span></div>
+<div style="height:6px;background:var(--off-white);border-radius:100px;overflow:hidden;"><div style="height:100%;width:2%;background:var(--red);border-radius:100px;"></div></div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-title" style="margin-bottom:14px;">Verification Activity</div>
+<div style="display:flex;flex-direction:column;gap:10px;">
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.82rem;">
+<span style="color:var(--muted);">Total verifications</span><span style="font-weight:700;">1,247</span>
+</div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.82rem;">
+<span style="color:var(--muted);">Via ID search</span><span style="font-weight:700;">834 (67%)</span>
+</div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.82rem;">
+<span style="color:var(--muted);">Via QR scan</span><span style="font-weight:700;">289 (23%)</span>
+</div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.82rem;">
+<span style="color:var(--muted);">Via direct link</span><span style="font-weight:700;">124 (10%)</span>
+</div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;font-size:0.82rem;">
+<span style="color:var(--muted);">Not found results</span><span style="font-weight:700;">18 (1.4%)</span>
+</div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="section-hdr mb-4">
+<div class="card-title">Most Frequently Verified Credentials</div>
+<button class="btn btn-ghost btn-sm">Export Report</button>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Credential</th><th>Issuer</th><th>Type</th><th>Verifications</th><th>Last Verified</th></tr></thead>
+<tbody>
+<tr><td><strong>Digital Readiness Certificate</strong></td><td>Credii Foundation</td><td>Achievement</td><td>312</td><td>Oct 9, 2026</td></tr>
+<tr><td><strong>Program Participation</strong></td><td>Credii Foundation</td><td>Participation</td><td>187</td><td>Oct 8, 2026</td></tr>
+<tr><td><strong>Business Readiness</strong></td><td>Credii Foundation</td><td>Capability</td><td>94</td><td>Oct 7, 2026</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div><!-- /content -->
+</div><!-- /main -->
+</div><!-- /app -->
+<script>
+  // ── SCREEN NAVIGATION ──
+  const screenMeta = {
+    'public-verify':       { title: 'Verify a Credential',         sub: 'Public verification — no account required' },
+    'holder-dashboard':    { title: 'My Credentials',              sub: 'Your verified credential portfolio' },
+    'holder-detail':       { title: 'Credential Detail',           sub: 'Digital Readiness Certificate · CRD-2026-000184' },
+    'holder-share':        { title: 'Share & Privacy',             sub: 'Control how your credential is shared' },
+    'issuer-dashboard':    { title: 'Issuer Dashboard',            sub: 'Credii Foundation — Approved Issuer' },
+    'issuer-issue':        { title: 'Issue a Credential',          sub: 'Step-by-step credential issuance' },
+    'issuer-credentials':  { title: 'Credentials',                 sub: 'All credentials issued by your organization' },
+    'issuer-templates':    { title: 'Credential Templates',        sub: 'Approved templates for your organization' },
+    'admin-dashboard':     { title: 'Admin Dashboard',             sub: 'Credii staff — ecosystem overview' },
+    'admin-issuers':       { title: 'Issuer Management',           sub: 'Review and approve issuing organizations' },
+    'admin-credentials':   { title: 'All Credentials',             sub: 'Search and manage all credentials in the system' },
+    'admin-templates':     { title: 'Template Management',         sub: 'Create, approve, and version credential templates' },
+    'admin-reports':       { title: 'Reports',                     sub: 'Credential issuance, verification, and impact data' },
+  };
+
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+    const screen = document.getElementById('screen-' + id);
+    if (screen) screen.classList.add('active');
+
+    document.querySelectorAll('.nav-item').forEach(item => {
+      const oc = item.getAttribute('onclick') || '';
+      if (oc.includes("'" + id + "'")) item.classList.add('active');
+    });
+
+    const meta = screenMeta[id] || { title: id, sub: '' };
+    document.getElementById('topbar-title').textContent = meta.title;
+    document.getElementById('topbar-sub').textContent = meta.sub;
+    document.querySelector('.content').scrollTop = 0;
+  }
+
+  // ── VERIFICATION RESULTS ──
+  function showVerifyResult(type) {
+    const area = document.getElementById('verify-result-area');
+    const results = {
+      valid: `
+        <div class="verify-result valid">
+          <div class="verify-icon">✅</div>
+          <div class="verify-headline" style="color:#166534;">Credential Verified</div>
+          <div class="verify-sub">This credential was issued through the Credii verification system and is currently valid.</div>
+          <div class="verify-grid">
+            <div class="verify-field"><div class="verify-field-label">Credential Name</div><div class="verify-field-value">Digital Readiness Certificate</div></div>
+            <div class="verify-field"><div class="verify-field-label">Credential ID</div><div class="verify-field-value" style="font-family:monospace;">CRD-2026-000184</div></div>
+            <div class="verify-field"><div class="verify-field-label">Status</div><div class="verify-field-value"><span class="badge badge-valid">Valid</span></div></div>
+            <div class="verify-field"><div class="verify-field-label">Recipient</div><div class="verify-field-value">Andrea Joseph</div></div>
+            <div class="verify-field"><div class="verify-field-label">Issuing Organization</div><div class="verify-field-value">Credii Foundation</div></div>
+            <div class="verify-field"><div class="verify-field-label">Issuer Status</div><div class="verify-field-value"><span class="badge badge-valid">Verified Issuer</span></div></div>
+            <div class="verify-field"><div class="verify-field-label">Date Issued</div><div class="verify-field-value">September 15, 2026</div></div>
+            <div class="verify-field"><div class="verify-field-label">Expiration Date</div><div class="verify-field-value">September 15, 2028</div></div>
+            <div class="verify-field"><div class="verify-field-label">Credential Type</div><div class="verify-field-value">Achievement</div></div>
+            <div class="verify-field"><div class="verify-field-label">Last Status Check</div><div class="verify-field-value">October 9, 2026</div></div>
+          </div>
+          <div style="margin-bottom:16px;padding:12px 14px;background:rgba(255,255,255,0.7);border-radius:10px;">
+            <div class="verify-field-label" style="margin-bottom:6px;">Skills &amp; Capabilities Recognized</div>
+            <div style="font-size:0.84rem;color:var(--charcoal);">Digital literacy · Credential verification · Trust systems · Caribbean credential landscape</div>
+          </div>
+          <div class="verify-actions">
+            <button class="btn btn-sage btn-sm">⬇️ Download Verification Summary</button>
+            <button class="btn btn-ghost btn-sm">🔗 Copy Verification Link</button>
+            <button class="btn btn-ghost btn-sm">⚠️ Report a Concern</button>
+          </div>
+        </div>`,
+
+      expired: `
+        <div class="verify-result expired">
+          <div class="verify-icon">⏰</div>
+          <div class="verify-headline" style="color:#92400E;">Credential Expired</div>
+          <div class="verify-sub">This credential was valid until September 15, 2024. Contact the issuing organization to determine whether renewal is available.</div>
+          <div class="verify-grid">
+            <div class="verify-field"><div class="verify-field-label">Credential Name</div><div class="verify-field-value">Digital Readiness Certificate</div></div>
+            <div class="verify-field"><div class="verify-field-label">Credential ID</div><div class="verify-field-value" style="font-family:monospace;">CRD-2024-000021</div></div>
+            <div class="verify-field"><div class="verify-field-label">Status</div><div class="verify-field-value"><span class="badge badge-expired">Expired</span></div></div>
+            <div class="verify-field"><div class="verify-field-label">Issuing Organization</div><div class="verify-field-value">Credii Foundation</div></div>
+            <div class="verify-field"><div class="verify-field-label">Date Issued</div><div class="verify-field-value">September 15, 2022</div></div>
+            <div class="verify-field"><div class="verify-field-label">Expired On</div><div class="verify-field-value">September 15, 2024</div></div>
+          </div>
+          <div class="verify-actions">
+            <button class="btn btn-ghost btn-sm">⚠️ Report a Concern</button>
+          </div>
+        </div>`,
+
+      revoked: `
+        <div class="verify-result revoked">
+          <div class="verify-icon">🚫</div>
+          <div class="verify-headline" style="color:var(--red-dark);">Credential Revoked</div>
+          <div class="verify-sub">This credential was issued through Credii but has been revoked by the issuing organization. It should no longer be treated as current evidence of achievement.</div>
+          <div class="verify-grid">
+            <div class="verify-field"><div class="verify-field-label">Credential ID</div><div class="verify-field-value" style="font-family:monospace;">CRD-2026-000001</div></div>
+            <div class="verify-field"><div class="verify-field-label">Status</div><div class="verify-field-value"><span class="badge badge-revoked">Revoked</span></div></div>
+            <div class="verify-field"><div class="verify-field-label">Issuing Organization</div><div class="verify-field-value">Credii Foundation</div></div>
+            <div class="verify-field"><div class="verify-field-label">Revocation Date</div><div class="verify-field-value">September 1, 2026</div></div>
+            <div class="verify-field"><div class="verify-field-label">Reason Category</div><div class="verify-field-value">Administrative correction</div></div>
+            <div class="verify-field"><div class="verify-field-label">Replacement Credential</div><div class="verify-field-value">CRD-2026-000002 →</div></div>
+          </div>
+          <div class="verify-actions">
+            <button class="btn btn-ghost btn-sm">⚠️ Report a Concern</button>
+          </div>
+        </div>`,
+
+      suspended: `
+        <div class="verify-result suspended">
+          <div class="verify-icon">⏸️</div>
+          <div class="verify-headline" style="color:#92400E;">Credential Suspended</div>
+          <div class="verify-sub">This credential is temporarily suspended while its status is being reviewed. Contact the issuing organization for further information.</div>
+          <div class="verify-grid">
+            <div class="verify-field"><div class="verify-field-label">Credential ID</div><div class="verify-field-value" style="font-family:monospace;">CRD-2026-000099</div></div>
+            <div class="verify-field"><div class="verify-field-label">Status</div><div class="verify-field-value"><span class="badge badge-suspended">Suspended</span></div></div>
+            <div class="verify-field"><div class="verify-field-label">Issuing Organization</div><div class="verify-field-value">Credii Foundation</div></div>
+            <div class="verify-field"><div class="verify-field-label">Suspended On</div><div class="verify-field-value">October 1, 2026</div></div>
+          </div>
+          <div class="verify-actions">
+            <button class="btn btn-ghost btn-sm">⚠️ Report a Concern</button>
+          </div>
+        </div>`,
+
+      notfound: `
+        <div class="verify-result notfound">
+          <div class="verify-icon">❓</div>
+          <div class="verify-headline" style="color:var(--charcoal);">Credential Not Found</div>
+          <div class="verify-sub">We could not find a credential matching this ID. Check the number and try again. If the credential was issued by another organization, contact that organization directly.</div>
+          <div style="padding:14px;background:rgba(255,255,255,0.7);border-radius:10px;margin-bottom:16px;font-size:0.84rem;color:var(--muted);">
+            A credential may not be found because the ID was mistyped, the credential was issued by a non-Credii organization, or the record is still being processed. This result does not automatically indicate fraud.
+          </div>
+          <div class="verify-actions">
+            <button class="btn btn-ghost btn-sm">⚠️ Report a Concern</button>
+          </div>
+        </div>`
+    };
+
+    area.innerHTML = results[type] || '';
+    area.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // ── ISSUER STEPS ──
+  let currentStep = 2;
+
+  function goToStep(step) {
+    document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+    const panel = document.getElementById('step-panel-' + step);
+    if (panel) panel.classList.add('active');
+
+    for (let i = 1; i <= 5; i++) {
+      const ind = document.getElementById('step-' + i + '-indicator');
+      if (!ind) continue;
+      ind.classList.remove('active', 'done');
+      if (i < step) ind.classList.add('done');
+      else if (i === step) ind.classList.add('active');
+    }
+
+    document.querySelectorAll('.step-line').forEach((line, idx) => {
+      line.classList.toggle('done', idx < step - 1);
+    });
+
+    currentStep = step;
+  }
+
+  function selectTemplate(el) {
+    document.querySelectorAll('.template-option').forEach(o => {
+      o.style.borderColor = 'rgba(212,197,169,0.4)';
+      o.style.background = '';
+    });
+    el.style.borderColor = 'var(--red)';
+    el.style.background = 'var(--red-pale)';
+  }
+
+  // ── TABS ──
+  document.querySelectorAll('.tabs').forEach(tabGroup => {
+    tabGroup.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        tabGroup.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  });
+</script>
+</body>
+</html>
