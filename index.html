@@ -303,10 +303,7 @@
     .membership-header .section-headline { margin-top: 10px; }
     .membership-header .section-sub { margin: 14px auto 0; font-size: 0.95rem; }
 
-    /* TIER GRID — horizontal strip layout */
-    .tier-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 56px; align-items: stretch; }
-
-    .tier-card {
+    
       background: #fff;
       border-radius: 24px;
       padding: 28px 22px 24px;
@@ -331,13 +328,7 @@
     .tier-card-featured:hover { transform: translateY(-5px); box-shadow: 0 24px 60px rgba(192,57,43,0.28); }
     .tier-card-featured .tier-card-deco { background: #fff; opacity: 0.1; }
 
-    .tier-featured-label {
-      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-      background: var(--mustard); color: #fff;
-      font-size: 0.65rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
-      padding: 4px 12px; border-radius: 100px; white-space: nowrap;
-      box-shadow: 0 4px 12px rgba(201,168,76,0.35);
-    }
+    
 
     .tier-badge {
       font-size: 0.65rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
@@ -425,7 +416,7 @@
       .footer-top { grid-template-columns: 1fr 1fr; gap: 36px; }
       .building-header { grid-template-columns: 1fr; gap: 16px; }
       .problem-inner { grid-template-columns: 1fr; gap: 40px; }
-      .tier-grid { grid-template-columns: 1fr 1fr; }
+      .tier-grid { grid-template-columns: repeat(4, 1fr); }
       .tier-card-featured { transform: none; box-shadow: 0 16px 48px rgba(192,57,43,0.22); }
       .tier-card-featured:hover { transform: translateY(-3px); }
     }
@@ -462,6 +453,9 @@
 <li><a href="#problem">The Problem</a></li>
 <li><a href="#building">What We're Building</a></li>
 <li><a href="#serve">Who We Serve</a></li>
+<li><a href="#approach">Our Approach</a></li>
+<li><a href="#involved">Membership</a></li>
+<li><a class="nav-cta" href="#involved">Get Involved</a></li>
 </ul>
 </nav>
 <!-- HERO -->
@@ -761,12 +755,16 @@
 <p class="section-sub" style="margin-top:10px;">Whether you're a student, entrepreneur, community organization, training provider, funder, or institution — there's a place for you in the Credii community.</p>
 </div>
 <div class="tier-grid">
+
 <!-- Tier 1 -->
 <div class="tier-card">
 <div class="tier-card-deco"></div>
 <div class="tier-badge tier-badge-1">Individual</div>
 <h3 class="tier-name">Community Member</h3>
 <div class="tier-price">$49 <span>USD/year</span></div>
+<p class="tier-desc">Perfect for individuals who want to stay informed, support the mission, and participate in future opportunities.</p>
+<div class="tier-tooltip-wrap">
+<span class="tier-details-link">See full details
 <div class="tier-tooltip">
 <strong>Community Member includes:</strong>
 <ul>
@@ -777,15 +775,20 @@
 <li>✓ Opportunities to participate in future pilots and consultations</li>
 </ul>
 </div>
+</span>
 </div>
 <a class="tier-btn tier-btn-outline" href="#">Become a Member</a>
 </div>
+
 <!-- Tier 2 -->
 <div class="tier-card">
 <div class="tier-card-deco"></div>
 <div class="tier-badge tier-badge-2">Professional</div>
 <h3 class="tier-name">Professional &amp; Small Business</h3>
 <div class="tier-price">$149 <span>USD/year</span></div>
+<p class="tier-desc">Designed for entrepreneurs, consultants, and small businesses looking to strengthen capability and connect with the Credii community.</p>
+<div class="tier-tooltip-wrap">
+<span class="tier-details-link">See full details
 <div class="tier-tooltip">
 <strong>Includes everything in Community, plus:</strong>
 <ul>
@@ -796,9 +799,11 @@
 <li>✓ Recognition as a Supporting Member</li>
 </ul>
 </div>
+</span>
 </div>
 <a class="tier-btn tier-btn-outline" href="#">Join as a Professional</a>
 </div>
+
 <!-- Tier 3 Featured -->
 <div class="tier-card tier-card-featured">
 <div class="tier-card-deco"></div>
@@ -806,6 +811,9 @@
 <div class="tier-badge tier-badge-3">Organization</div>
 <h3 class="tier-name">Organizational Member</h3>
 <div class="tier-price">$499 <span>USD/year</span></div>
+<p class="tier-desc">For nonprofits, training providers, ESOs, chambers, schools, and community groups.</p>
+<div class="tier-tooltip-wrap">
+<span class="tier-details-link" style="color:rgba(255,255,255,0.8);">See full details
 <div class="tier-tooltip tier-tooltip-left">
 <strong>Includes everything in Professional, plus:</strong>
 <ul>
@@ -817,14 +825,20 @@
 <li>✓ Invitations to pilot collaborations</li>
 </ul>
 </div>
+</span>
 </div>
 <a class="tier-btn tier-btn-white" href="#">Become an Organizational Member</a>
+</div>
+
 <!-- Tier 4 -->
 <div class="tier-card">
 <div class="tier-card-deco"></div>
 <div class="tier-badge tier-badge-4">Partner</div>
 <h3 class="tier-name">Strategic Partner</h3>
 <div class="tier-price">$2,500 <span>USD/year+</span></div>
+<p class="tier-desc">For foundations, corporations, universities, government agencies, and development organizations advancing innovation and impact.</p>
+<div class="tier-tooltip-wrap">
+<span class="tier-details-link">See full details
 <div class="tier-tooltip tier-tooltip-left">
 <strong>Includes everything in Organizational, plus:</strong>
 <ul>
@@ -836,8 +850,13 @@
 <li>✓ Customized partnership pathways</li>
 </ul>
 </div>
+</span>
 </div>
 <a class="tier-btn tier-btn-outline" href="#">Become a Strategic Partner</a>
+</div>
+
+</div><!-- /tier-grid -->
+
 <!-- Closing -->
 <div class="membership-closing">
 <div class="membership-closing-card">
