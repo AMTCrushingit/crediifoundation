@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Credii Platform (Beta)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --red:#C0392B;--red-dark:#9B2D20;--red-pale:#FDF0EE;
+      --sage:#7A9E8E;--sage-pale:#EDF5F2;
+      --sand:#D4C5A9;--sand-pale:#FAF7F2;
+      --mustard:#C9A84C;--mustard-pale:#FBF5E6;
+      --terra:#B5714A;--terra-pale:#FBF0E8;
+      --lilac:#9B8DB5;--lilac-pale:#F2EFF8;
+      --teal:#2A7F7F;--teal-pale:#E6F4F4;
+      --warm-white:#FDFCF9;--off-white:#F5F3EF;
+      --charcoal:#2C2825;--text:#3D3835;--muted:#7A7370;
+      --border:rgba(212,197,169,0.4);--sw:248px;
+    }
+    html,body{height:100%;font-family:"Plus Jakarta Sans",sans-serif;color:var(--text);background:var(--off-white)}
+    .app{display:flex;height:100vh;overflow:hidden}
+    /* SIDEBAR */
+    .sidebar{width:var(--sw);background:var(--charcoal);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto;transition:left .25s ease}
+    .sb-logo{display:flex;align-items:center;gap:10px;padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,.07);flex-shrink:0}
+    .lm{width:34px;height:34px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex-shrink:0}
+    .lt{font-family:"Fraunces",serif;font-size:1.05rem;font-weight:700;color:#fff}
+    .lt span{color:var(--red)}
+    .beta-tag{font-size:.58rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;background:rgba(201,168,76,.25);color:var(--mustard);padding:2px 6px;border-radius:4px;margin-left:4px}
+    .sb-sec{padding:14px 10px 4px}
+    .sb-lbl{font-size:.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.28);padding:0 8px;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+    .rt{font-size:.58rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:2px 6px;border-radius:3px}
+    .rp{background:rgba(122,158,142,.2);color:var(--sage)}
+    .rf{background:rgba(42,127,127,.2);color:var(--teal)}
+    .ro{background:rgba(201,168,76,.2);color:var(--mustard)}
+    .ra{background:rgba(192,57,43,.2);color:#F4A89A}
+    .ni{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:9px;cursor:pointer;transition:background .15s;color:rgba(255,255,255,.55);font-size:.82rem;font-weight:500;margin-bottom:1px;border:none;background:none;width:100%;text-align:left}
+    .ni:hover{background:rgba(255,255,255,.07);color:rgba(255,255,255,.9)}
+    .ni.active{background:rgba(192,57,43,.22);color:#fff}
+    .ic{font-size:.9rem;width:18px;text-align:center;flex-shrink:0}
+    .sb-div{height:1px;background:rgba(255,255,255,.06);margin:6px 10px}
+    .sb-foot{margin-top:auto;padding:14px 10px;border-top:1px solid rgba(255,255,255,.07);flex-shrink:0}
+    .uc{display:flex;align-items:center;gap:9px;padding:9px;background:rgba(255,255,255,.05);border-radius:10px}
+    .ua{width:30px;height:30px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;flex-shrink:0}
+    .un{font-size:.76rem;font-weight:600;color:#fff}
+    .ur{font-size:.65rem;color:rgba(255,255,255,.38);margin-top:1px}
+    /* MAIN */
+    .main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+    .topbar{background:var(--warm-white);border-bottom:1.5px solid var(--border);padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+    .tl{display:flex;align-items:center;gap:12px}
+    .mmb{display:none;background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--charcoal);padding:4px}
+    .tt{font-family:"Fraunces",serif;font-size:1.05rem;font-weight:700;color:var(--charcoal)}
+    .ts{font-size:.72rem;color:var(--muted);margin-top:1px}
+    .tr{display:flex;align-items:center;gap:8px}
+    .content{flex:1;overflow-y:auto;padding:24px}
+    /* SCREENS */
+    .sc{display:none}.sc.active{display:block}
+    /* SHARED */
+    .card{background:var(--warm-white);border-radius:16px;border:1.5px solid var(--border);padding:20px 22px}
+    .ct{font-family:"Fraunces",serif;font-size:.95rem;font-weight:700;color:var(--charcoal);margin-bottom:4px}
+    .cs{font-size:.78rem;color:var(--muted)}
+    .g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .mb4{margin-bottom:16px}.mb5{margin-bottom:20px}.mb6{margin-bottom:24px}
+    .sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+    .stl{font-family:"Fraunces",serif;font-size:.95rem;font-weight:700;color:var(--charcoal)}
+    .slk{font-size:.75rem;font-weight:600;color:var(--red);cursor:pointer}
+    /* BUTTONS */
+    .btn{padding:8px 18px;border-radius:100px;font-size:.82rem;font-weight:600;cursor:pointer;border:none;transition:all .15s;display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-family:"Plus Jakarta Sans",sans-serif}
+    .br{background:var(--red);color:#fff}.br:hover{background:var(--red-dark)}
+    .bg{background:transparent;color:var(--muted);border:1.5px solid var(--border)}.bg:hover{border-color:var(--muted);color:var(--text)}
+    .bs{background:var(--sage-pale);color:#3A6A5A;border:1.5px solid rgba(122,158,142,.3)}.bs:hover{background:var(--sage);color:#fff}
+    .bt{background:var(--teal-pale);color:var(--teal);border:1.5px solid rgba(42,127,127,.3)}
+    .bsm{padding:5px 12px;font-size:.75rem}
+    .bfl{width:100%;justify-content:center;border-radius:10px;padding:11px 18px}
+    /* BADGES */
+    .bdg{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:100px;font-size:.68rem;font-weight:700}
+    .bdg::before{content:"";width:5px;height:5px;border-radius:50%;flex-shrink:0}
+    .bac{background:#DCFCE7;color:#166534}.bac::before{background:#16A34A}
+    .bpn{background:var(--lilac-pale);color:var(--lilac)}.bpn::before{background:var(--lilac)}
+    .bdr{background:var(--sand-pale);color:#7A6A50}.bdr::before{background:var(--sand)}
+    .brv{background:var(--mustard-pale);color:#8A6A1A}.brv::before{background:var(--mustard)}
+    .bcp{background:var(--sage-pale);color:#3A6A5A}.bcp::before{background:var(--sage)}
+    .bis{background:var(--red-pale);color:var(--red)}.bis::before{background:var(--red)}
+    .bdl{background:#FEE2E2;color:#991B1B}.bdl::before{background:#DC2626}
+    .bns{background:#F3F4F6;color:#6B7280}.bns::before{background:#9CA3AF}
+    .bip{background:var(--teal-pale);color:var(--teal)}.bip::before{background:var(--teal)}
+    /* STATS */
+    .stat{background:var(--warm-white);border-radius:14px;border:1.5px solid var(--border);padding:16px 18px;position:relative;overflow:hidden}
+    .si{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:10px}
+    .sn{font-family:"Fraunces",serif;font-size:1.9rem;font-weight:700;color:var(--charcoal);line-height:1}
+    .sl{font-size:.75rem;color:var(--muted);margin-top:4px}
+    .sc2{font-size:.7rem;font-weight:600;margin-top:5px}
+    .up{color:#16A34A}.wn{color:var(--mustard)}
+    /* TABLE */
+    .tw{overflow-x:auto}
+    table{width:100%;border-collapse:collapse}
+    th{text-align:left;font-size:.68rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);padding:9px 12px;border-bottom:1.5px solid var(--border);white-space:nowrap}
+    td{padding:11px 12px;font-size:.82rem;border-bottom:1px solid var(--border);vertical-align:middle}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:var(--off-white)}
+    /* FORM */
+    .fg{margin-bottom:16px}
+    .fl{font-size:.78rem;font-weight:600;color:var(--charcoal);margin-bottom:5px;display:block}
+    .fh{font-size:.7rem;color:var(--muted);margin-top:3px}
+    .fi,.fs,.fta{width:100%;padding:9px 13px;border-radius:9px;border:1.5px solid var(--border);font-family:"Plus Jakarta Sans",sans-serif;font-size:.83rem;color:var(--text);background:var(--warm-white);transition:border-color .15s;outline:none}
+    .fi:focus,.fs:focus,.fta:focus{border-color:var(--red)}
+    .fta{resize:vertical;min-height:80px}
+    /* PROGRESS */
+    .pb{height:6px;background:var(--off-white);border-radius:100px;overflow:hidden;margin-top:6px}
+    .pf{height:100%;border-radius:100px}
+    /* TABS */
+    .tabs{display:flex;gap:0;border-bottom:1.5px solid var(--border);margin-bottom:20px}
+    .tab{padding:9px 16px;font-size:.82rem;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1.5px;transition:all .15s;background:none;border-top:none;border-left:none;border-right:none}
+    .tab:hover{color:var(--text)}.tab.active{color:var(--red);border-bottom-color:var(--red)}
+    /* ALERTS */
+    .al{padding:12px 16px;border-radius:10px;font-size:.82rem;line-height:1.6;margin-bottom:14px;display:flex;gap:10px;align-items:flex-start}
+    .ali{font-size:1rem;flex-shrink:0;margin-top:1px}
+    .ai{background:var(--sage-pale);color:#2D5A4A;border:1px solid rgba(122,158,142,.3)}
+    .aw{background:#FFFBEB;color:#92400E;border:1px solid #FCD34D}
+    .ar{background:var(--red-pale);color:var(--red-dark);border:1px solid rgba(192,57,43,.2)}
+    .at{background:var(--teal-pale);color:var(--teal);border:1px solid rgba(42,127,127,.25)}
+    /* ACTIVITY CARD */
+    .ac{background:var(--warm-white);border-radius:12px;border:1.5px solid var(--border);padding:16px 18px;display:flex;gap:14px;align-items:flex-start;transition:box-shadow .15s}
+    .ac:hover{box-shadow:0 4px 16px rgba(44,40,37,.08)}
+    .aic{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+    /* PROGRAM CARD */
+    .pc{background:var(--warm-white);border-radius:14px;border:1.5px solid var(--border);padding:18px 20px;transition:box-shadow .2s,transform .15s}
+    .pc:hover{box-shadow:0 6px 22px rgba(44,40,37,.09);transform:translateY(-2px)}
+    .ptag{font-size:.65rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+    .pn{font-family:"Fraunces",serif;font-size:.98rem;font-weight:700;color:var(--charcoal);margin-bottom:5px}
+    .pd{font-size:.78rem;color:var(--muted);line-height:1.6;margin-bottom:12px}
+    /* LIFECYCLE */
+    .lc{display:flex;margin:12px 0}
+    .ls{flex:1;text-align:center;padding:6px 2px;font-size:.62rem;font-weight:600;color:var(--muted);background:var(--off-white);border:1px solid var(--border)}
+    .ls:first-child{border-radius:6px 0 0 6px}.ls:last-child{border-radius:0 6px 6px 0}
+    .ld{background:var(--sage-pale);color:#3A6A5A;border-color:rgba(122,158,142,.3)}
+    .la{background:var(--red);color:#fff;border-color:var(--red)}
+    /* RUBRIC */
+    .rr{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);align-items:center;font-size:.82rem}
+    .rr:last-child{border-bottom:none}
+    /* EVIDENCE */
+    .ei{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--border)}
+    .ei:last-child{border-bottom:none}
+    .eic{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;background:var(--off-white)}
+    /* PRIVACY TOGGLE */
+    .pr{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:.82rem}
+    .pr:last-child{border-bottom:none}
+    .tg{position:relative;width:38px;height:20px;flex-shrink:0}
+    .tg input{opacity:0;width:0;height:0}
+    .ts2{position:absolute;inset:0;background:var(--border);border-radius:100px;cursor:pointer;transition:.2s}
+    .ts2::before{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;top:3px;left:3px;transition:.2s}
+    .tg input:checked+.ts2{background:var(--sage)}
+    .tg input:checked+.ts2::before{transform:translateX(18px)}
+    /* SIDEBAR OVERLAY */
+    .sov{display:none;position:fixed;inset:0;background:rgba(44,40,37,.5);z-index:98}
+    .sov.open{display:block}
+    /* SCROLLBAR */
+    ::-webkit-scrollbar{width:4px}
+    ::-webkit-scrollbar-track{background:transparent}
+    ::-webkit-scrollbar-thumb{background:rgba(44,40,37,.15);border-radius:10px}
+    /* RESPONSIVE */
+    @media(max-width:768px){
+      .sidebar{position:fixed;left:-260px;top:0;bottom:0;z-index:99;width:260px}
+      .sidebar.open{left:0}
+      .mmb{display:block}
+      .content{padding:14px}
+      .g4{grid-template-columns:1fr 1fr}
+      .g3{grid-template-columns:1fr 1fr}
+      .g2{grid-template-columns:1fr}
+    }
+    @media(max-width:480px){
+      .g4{grid-template-columns:1fr 1fr}
+      .g3,.g2{grid-template-columns:1fr}
+      .content{padding:10px}
+      .card{padding:14px}
+    }
+  </style>
+</head>
+<body>
+<div class="sov" id="sov" onclick="toggleSidebar()"></div>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="sb-logo">
+    <div class="lm">C</div>
+    <span class="lt">credii<span>.</span><span class="beta-tag">Beta</span></span>
+  </div>
+  <div class="sb-sec">
+    <div class="sb-lbl"><span class="rt rp">Participant</span></div>
+    <button class="ni active" onclick="show('pd')"><span class="ic">🏠</span>Dashboard</button>
+    <button class="ni" onclick="show('pp')"><span class="ic">📚</span>My Programs</button>
+    <button class="ni" onclick="show('pa')"><span class="ic">✅</span>Activities</button>
+    <button class="ni" onclick="show('pe')"><span class="ic">📎</span>Evidence</button>
+    <button class="ni" onclick="show('pc')"><span class="ic">🏅</span>My Credentials</button>
+    <button class="ni" onclick="show('po')"><span class="ic">🚀</span>Opportunities</button>
+    <button class="ni" onclick="show('ps')"><span class="ic">📊</span>Surveys</button>
+    <button class="ni" onclick="show('ppr')"><span class="ic">⚙️</span>Profile &amp; Privacy</button>
+  </div>
+  <div class="sb-div"></div>
+  <div class="sb-sec">
+    <div class="sb-lbl"><span class="rt rf">Facilitator</span></div>
+    <button class="ni" onclick="show('fd')"><span class="ic">📈</span>Dashboard</button>
+    <button class="ni" onclick="show('fp')"><span class="ic">👥</span>Participants</button>
+    <button class="ni" onclick="show('fr')"><span class="ic">🔍</span>Reviews</button>
+    <button class="ni" onclick="show('fa')"><span class="ic">📋</span>Attendance</button>
+    <button class="ni" onclick="show('frp')"><span class="ic">📊</span>Reports</button>
+  </div>
+  <div class="sb-div"></div>
+  <div class="sb-sec">
+    <div class="sb-lbl"><span class="rt ro">Organization</span></div>
+    <button class="ni" onclick="show('od')"><span class="ic">🏢</span>Dashboard</button>
+    <button class="ni" onclick="show('opr')"><span class="ic">📚</span>Programs</button>
+    <button class="ni" onclick="show('opt')"><span class="ic">👥</span>Participants</button>
+    <button class="ni" onclick="show('oc')"><span class="ic">🏅</span>Credentials</button>
+    <button class="ni" onclick="show('orp')"><span class="ic">📊</span>Reports</button>
+    <button class="ni" onclick="show('os')"><span class="ic">⚙️</span>Org Settings</button>
+  </div>
+  <div class="sb-div"></div>
+  <div class="sb-sec">
+    <div class="sb-lbl"><span class="rt ra">Credii Admin</span></div>
+    <button class="ni" onclick="show('ad')"><span class="ic">📈</span>Dashboard</button>
+    <button class="ni" onclick="show('ao')"><span class="ic">🏢</span>Organizations</button>
+    <button class="ni" onclick="show('apr')"><span class="ic">📚</span>Programs</button>
+    <button class="ni" onclick="show('ac')"><span class="ic">🏅</span>Credentials</button>
+    <button class="ni" onclick="show('arp')"><span class="ic">📊</span>Reports</button>
+    <button class="ni" onclick="show('ag')"><span class="ic">🔒</span>Data Governance</button>
+  </div>
+  <div class="sb-foot">
+    <div class="uc">
+      <div class="ua">AJ</div>
+      <div><div class="un">Andrea Joseph</div><div class="ur">Participant · Community Member</div></div>
+    </div>
+  </div>
+</aside>
+<div class="main">
+  <div class="topbar">
+    <div class="tl">
+      <button class="mmb" onclick="toggleSidebar()">&#9776;</button>
+      <div><div class="tt" id="tt">Participant Dashboard</div><div class="ts" id="ts">Welcome back, Andrea</div></div>
+    </div>
+    <div class="tr">
+      <a href="credii-portal.html" class="btn bg bsm">&#8592; Portal</a>
+      <a href="credii-v4.html" class="btn bg bsm">&#8592; Home</a>
+    </div>
+  </div>
+  <div class="content">
+
+  <!-- PARTICIPANT DASHBOARD -->
+  <div class="sc active" id="s-pd">
+    <div style="background:linear-gradient(135deg,var(--charcoal),#3D3835);border-radius:18px;padding:24px 28px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-50px;right:-50px;width:180px;height:180px;border-radius:50%;background:rgba(192,57,43,.15)"></div>
+      <div style="font-size:.68rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:6px">Credii Platform Beta</div>
+      <div style="font-family:Fraunces,serif;font-size:1.6rem;font-weight:700;color:#fff;margin-bottom:8px">Welcome back, Andrea &#128075;</div>
+      <div style="font-size:.84rem;color:rgba(255,255,255,.65);line-height:1.6;position:relative;z-index:1">Continue building your verified record of learning, participation and achievement.</div>
+    </div>
+    <div class="g4 mb5">
+      <div class="stat"><div class="si" style="background:var(--red-pale)">&#128218;</div><div class="sn">2</div><div class="sl">Active Programs</div></div>
+      <div class="stat"><div class="si" style="background:var(--sage-pale)">&#9989;</div><div class="sn">7</div><div class="sl">Activities Completed</div></div>
+      <div class="stat"><div class="si" style="background:var(--mustard-pale)">&#127885;</div><div class="sn">1</div><div class="sl">Credentials Earned</div></div>
+      <div class="stat"><div class="si" style="background:var(--lilac-pale)">&#9889;</div><div class="sn">3</div><div class="sl">Actions Required</div></div>
+    </div>
+    <div class="g2">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="card">
+          <div class="ptag">&#128994; Active &middot; Digital Readiness</div>
+          <div class="pn">Digital Readiness for Opportunity</div>
+          <div style="font-size:.78rem;color:var(--muted);margin-bottom:12px">Credii Foundation &middot; 3 of 5 activities completed</div>
+          <div style="display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);margin-bottom:4px"><span>Progress</span><span>60%</span></div>
+          <div class="pb mb4"><div class="pf" style="width:60%;background:var(--sage)"></div></div>
+          <div style="margin-top:4px;padding:10px 12px;background:var(--off-white);border-radius:8px;font-size:.78rem">
+            <div style="font-weight:600;color:var(--charcoal);margin-bottom:2px">Next: Documenting Your Capabilities</div>
+            <div style="color:var(--muted)">Due: October 20, 2026</div>
+          </div>
+          <button class="btn br bfl" style="margin-top:12px" onclick="show('pa')">Continue Program &#8594;</button>
+        </div>
+        <div class="card">
+          <div class="ptag">&#128994; Active &middot; Women in Business</div>
+          <div class="pn">Women in Business Pilot</div>
+          <div style="font-size:.78rem;color:var(--muted);margin-bottom:12px">Credii Foundation &middot; 2 of 6 activities completed</div>
+          <div style="display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);margin-bottom:4px"><span>Progress</span><span>33%</span></div>
+          <div class="pb mb4"><div class="pf" style="width:33%;background:var(--mustard)"></div></div>
+          <button class="btn bg bfl" onclick="show('pa')">View Activities</button>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="card">
+          <div class="sh mb4"><div class="stl">Actions Required</div><span class="bdg bis">3 pending</span></div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;gap:10px;align-items:flex-start;padding:10px;background:var(--red-pale);border-radius:10px;border:1px solid rgba(192,57,43,.15)">
+              <span style="font-size:1rem;flex-shrink:0">&#128221;</span>
+              <div><div style="font-weight:600;font-size:.82rem;color:var(--charcoal)">Complete consent form</div><div style="font-size:.72rem;color:var(--muted)">Women in Business Pilot &middot; Due Oct 15</div></div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;padding:10px;background:var(--mustard-pale);border-radius:10px;border:1px solid rgba(201,168,76,.2)">
+              <span style="font-size:1rem;flex-shrink:0">&#128228;</span>
+              <div><div style="font-weight:600;font-size:.82rem;color:var(--charcoal)">Upload business evidence</div><div style="font-size:.72rem;color:var(--muted)">Digital Readiness &middot; Due Oct 20</div></div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;padding:10px;background:var(--sage-pale);border-radius:10px;border:1px solid rgba(122,158,142,.2)">
+              <span style="font-size:1rem;flex-shrink:0">&#128202;</span>
+              <div><div style="font-weight:600;font-size:.82rem;color:var(--charcoal)">Complete baseline survey</div><div style="font-size:.72rem;color:var(--muted)">Women in Business Pilot &middot; Due Oct 18</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="stl" style="margin-bottom:12px">Recent Credential</div>
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="width:44px;height:44px;border-radius:12px;background:var(--red-pale);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0">&#127885;</div>
+            <div style="flex:1">
+              <div style="font-weight:700;font-size:.88rem;color:var(--charcoal)">Digital Readiness Certificate</div>
+              <div style="font-size:.72rem;color:var(--muted);margin-top:2px">Credii Foundation &middot; Sept 15, 2026</div>
+              <div style="margin-top:6px"><span class="bdg bac">Valid</span></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;margin-top:12px">
+            <button class="btn bg bsm" onclick="show('pc')">View</button>
+            <button class="btn bg bsm">Share</button>
+            <button class="btn bg bsm">Verify</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PARTICIPANT PROGRAMS -->
+  <div class="sc" id="s-pp">
+    <div class="tabs mb5">
+      <button class="tab active">Active (2)</button>
+      <button class="tab">Completed (1)</button>
+      <button class="tab">Applied (1)</button>
+      <button class="tab">Browse Programs</button>
+    </div>
+    <div class="g2">
+      <div class="pc">
+        <div class="ptag">&#128994; Active &middot; Credii Foundation</div>
+        <div class="pn">Digital Readiness for Opportunity</div>
+        <div class="pd">A foundational program helping individuals and small businesses understand digital credentialing, verification systems, and trust infrastructure.</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;font-size:.72rem;color:var(--muted)">
+          <span>&#128197; Sept&ndash;Oct 2026</span><span>&#9201; 5 activities</span><span>&#127885; Certificate</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);margin-bottom:4px"><span>3 of 5 completed</span><span>60%</span></div>
+        <div class="pb mb4"><div class="pf" style="width:60%;background:var(--sage)"></div></div>
+        <div style="display:flex;gap:8px">
+          <button class="btn br bsm" onclick="show('pa')">Continue &#8594;</button>
+          <button class="btn bg bsm">Program Details</button>
+        </div>
+      </div>
+      <div class="pc">
+        <div class="ptag">&#128994; Active &middot; Credii Foundation</div>
+        <div class="pn">Women in Business Pilot</div>
+        <div class="pd">A six-month pilot testing digital credential issuance and trust profiles for women entrepreneurs and MSMEs across the Caribbean.</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;font-size:.72rem;color:var(--muted)">
+          <span>&#128197; Oct 2026&ndash;Mar 2027</span><span>&#9201; 6 activities</span><span>&#127885; Pilot credential</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);margin-bottom:4px"><span>2 of 6 completed</span><span>33%</span></div>
+        <div class="pb mb4"><div class="pf" style="width:33%;background:var(--mustard)"></div></div>
+        <div style="display:flex;gap:8px">
+          <button class="btn br bsm" onclick="show('pa')">Continue &#8594;</button>
+          <button class="btn bg bsm">Program Details</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PARTICIPANT ACTIVITIES -->
+  <div class="sc" id="s-pa">
+    <div class="al ai mb5"><span class="ali">&#128218;</span><div><strong>Digital Readiness for Opportunity</strong> &mdash; 3 of 5 activities completed. Complete all required activities to qualify for your credential.</div></div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="ac"><div class="aic" style="background:var(--sage-pale)">&#9989;</div><div style="flex:1"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div style="font-weight:700;font-size:.88rem;color:var(--charcoal)">Introduction to Digital Trust</div><span class="bdg bcp">Completed</span></div><div style="font-size:.74rem;color:var(--muted)">Text lesson &middot; Completed Sept 16, 2026</div></div></div>
+      <div class="ac"><div class="aic" style="background:var(--sage-pale)">&#9989;</div><div style="flex:1"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div style="font-weight:700;font-size:.88rem;color:var(--charcoal)">Understanding Verifiable Credentials</div><span class="bdg bcp">Completed</span></div><div style="font-size:.74rem;color:var(--muted)">Video + knowledge check &middot; Completed Sept 18, 2026</div></div></div>
+      <div class="ac"><div class="aic" style="background:var(--sage-pale)">&#9989;</div><div style="flex:1"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div style="font-weight:700;font-size:.88rem;color:var(--charcoal)">Caribbean Credential Landscape</div><span class="bdg bcp">Completed</span></div><div style="font-size:.74rem;color:var(--muted)">Guide + reflection &middot; Completed Sept 22, 2026</div></div></div>
+      <div class="ac" style="border-color:rgba(192,57,43,.3);background:var(--red-pale)"><div class="aic" style="background:#fff">&#128221;</div><div style="flex:1"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div style="font-weight:700;font-size:.88rem;color:var(--charcoal)">Documenting Your Capabilities</div><span class="bdg bip">In Progress</span></div><div style="font-size:.74rem;color:var(--muted)">Evidence submission &middot; Due October 20, 2026 &middot; Est. 45 min</div><div style="display:flex;gap:6px;margin-top:10px"><button class="btn br bsm">Continue Activity</button><button class="btn bg bsm" onclick="show('pe')">View Evidence</button></div></div></div>
+      <div class="ac" style="opacity:.6"><div class="aic" style="background:var(--off-white)">&#127919;</div><div style="flex:1"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div style="font-weight:700;font-size:.88rem;color:var(--charcoal)">Final Assessment</div><span class="bdg bns">Not Started</span></div><div style="font-size:.74rem;color:var(--muted)">Knowledge check &middot; Unlocks after Activity 4 &middot; Est. 30 min</div></div></div>
+    </div>
+  </div>
+
+  <!-- PARTICIPANT EVIDENCE -->
+  <div class="sc" id="s-pe">
+    <div class="g2">
+      <div class="card">
+        <div class="sh mb4"><div class="stl">My Evidence</div><button class="btn br bsm">+ Submit Evidence</button></div>
+        <div class="ei"><div class="eic">&#128196;</div><div style="flex:1"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div style="font-weight:600;font-size:.84rem;color:var(--charcoal)">Business Registration Document</div><span class="bdg bac">Accepted</span></div><div style="font-size:.72rem;color:var(--muted)">Supports: Business Readiness &middot; Submitted Oct 1, 2026 &middot; Reviewed by J. Williams</div></div></div>
+        <div class="ei"><div class="eic">&#9997;&#65039;</div><div style="flex:1"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div style="font-weight:600;font-size:.84rem;color:var(--charcoal)">Written Reflection &mdash; Digital Readiness</div><span class="bdg brv">Under Review</span></div><div style="font-size:.72rem;color:var(--muted)">Supports: Documenting Your Capabilities &middot; Submitted Oct 8, 2026</div></div></div>
+        <div class="ei"><div class="eic">&#128202;</div><div style="flex:1"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div style="font-weight:600;font-size:.84rem;color:var(--charcoal)">Baseline Survey Response</div><span class="bdg bac">Accepted</span></div><div style="font-size:.72rem;color:var(--muted)">Supports: Program intake &middot; Submitted Sept 15, 2026</div></div></div>
+      </div>
+      <div class="card">
+        <div class="stl" style="margin-bottom:14px">Submit New Evidence</div>
+        <div class="fg"><label class="fl">Evidence Type</label><select class="fs"><option>Written response</option><option>Business document</option><option>Portfolio item</option><option>Project output</option><option>External credential</option><option>Structured self-declaration</option></select></div>
+        <div class="fg"><label class="fl">Requirement this supports</label><select class="fs"><option>Documenting Your Capabilities (Activity 4)</option><option>Business Readiness Assessment</option></select></div>
+        <div class="fg"><label class="fl">Description</label><textarea class="fta" placeholder="Briefly describe what this evidence demonstrates..."></textarea></div>
+        <div class="fg"><label class="fl">Upload file</label><div style="border:1.5px dashed var(--border);border-radius:10px;padding:20px;text-align:center;font-size:.78rem;color:var(--muted)">Drag and drop or click to upload<br><span style="font-size:.7rem">PDF, DOCX, JPG, PNG &middot; Max 10MB</span></div></div>
+        <div class="fg"><label class="fl">Trust Profile permission</label><div style="display:flex;align-items:center;gap:10px;font-size:.82rem"><label class="tg"><input type="checkbox"><span class="ts2"></span></label><span>Allow this evidence to appear in my future Trust Profile</span></div></div>
+        <button class="btn br bfl">Submit Evidence</button>
+        <div class="al ai" style="margin-top:12px;font-size:.75rem"><span class="ali">&#128274;</span><div>Sensitive documents are never made public automatically. Your evidence is only shared with your program facilitator and Credii administrators.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PARTICIPANT CREDENTIALS -->
+  <div class="sc" id="s-pc">
+    <div class="g2 mb5">
+      <div class="card" style="display:flex;gap:14px;align-items:flex-start">
+        <div style="width:52px;height:52px;border-radius:14px;background:var(--red-pale);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0">&#127885;</div>
+        <div style="flex:1">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px"><div style="font-weight:700;font-size:.92rem;color:var(--charcoal)">Digital Readiness Certificate</div><span class="bdg bac">Valid</span></div>
+          <div style="font-size:.75rem;color:var(--muted);margin-bottom:10px">Credii Foundation &middot; Sept 15, 2026 &middot; Expires Sept 15, 2028</div>
+          <div style="font-family:monospace;font-size:.72rem;color:var(--muted);background:var(--off-white);padding:4px 8px;border-radius:5px;margin-bottom:10px">CRD-2026-000184</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn br bsm">View</button><button class="btn bg bsm">Share</button><button class="btn bg bsm">QR Code</button><button class="btn bg bsm">Download</button></div>
+        </div>
+      </div>
+      <div class="card" style="border-style:dashed;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:140px">
+        <div style="font-size:2rem;opacity:.25;margin-bottom:8px">&#127885;</div>
+        <div style="font-weight:700;font-size:.84rem;color:var(--charcoal);margin-bottom:4px">More credentials coming</div>
+        <div style="font-size:.75rem;color:var(--muted)">Complete your active programs to earn additional credentials.</div>
+      </div>
+    </div>
+    <div class="al at"><span class="ali">&#128302;</span><div><strong>Trust Profile coming soon.</strong> Once available, your verified credentials will automatically contribute to a portable Trust Profile you can share with employers, funders, and partners.</div></div>
+  </div>
+
+  <!-- PARTICIPANT OPPORTUNITIES -->
+  <div class="sc" id="s-po">
+    <div class="al ai mb5"><span class="ali">&#8505;&#65039;</span><div>These are opportunities to participate in Credii programs, pilots, and consultations. Credii does not guarantee employment, financing, or business opportunities.</div></div>
+    <div class="sh mb4"><div class="stl">Opportunities to Participate</div></div>
+    <div class="g2">
+      <div class="pc"><div class="ptag">&#128994; Open &middot; Research Cohort</div><div class="pn">Community Research Cohort 2026</div><div class="pd">Join a cohort of members contributing to Credii's research on credential recognition and economic inclusion in the Caribbean.</div><div style="display:flex;gap:8px"><button class="btn br bsm">Apply Now</button><button class="btn bg bsm">Learn More</button></div></div>
+      <div class="pc"><div class="ptag">&#128993; Coming Soon &middot; Pilot</div><div class="pn">Trust Profile Pilot</div><div class="pd">Testing the Credii trust profile model with selected organizations and beneficiaries to validate adoption, usability, and impact.</div><div style="display:flex;gap:8px"><button class="btn bg bsm">Express Interest</button></div></div>
+    </div>
+  </div>
+
+  <!-- PARTICIPANT SURVEYS -->
+  <div class="sc" id="s-ps">
+    <div class="al at mb5"><span class="ali">&#128202;</span><div>Your survey responses help Credii improve programs, report impact to funders, and shape future initiatives. Responses are confidential.</div></div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="card"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px"><div class="ct">Member Needs Assessment 2026</div><span class="bdg bis">Open</span></div><div class="cs" style="margin-bottom:12px">Help us understand your credentialing needs, challenges, and priorities as a Caribbean entrepreneur or professional.</div><div style="display:flex;gap:14px;font-size:.75rem;color:var(--muted);margin-bottom:12px"><span>&#9201; ~10 minutes</span><span>&#128197; Closes Oct 31, 2026</span></div><button class="btn br bsm">Take Survey</button></div>
+      <div class="card"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px"><div class="ct">Digital Readiness Program &mdash; Baseline</div><span class="bdg brv">Pending</span></div><div class="cs" style="margin-bottom:12px">Baseline assessment for the Digital Readiness program. Required before starting activities.</div><div style="display:flex;gap:14px;font-size:.75rem;color:var(--muted);margin-bottom:12px"><span>&#9201; ~5 minutes</span><span>&#128197; Required</span></div><button class="btn br bsm">Complete Now</button></div>
+      <div class="card" style="opacity:.65"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px"><div class="ct">Onboarding Experience Survey</div><span class="bdg bcp">Completed</span></div><div class="cs">Completed September 3, 2026. Thank you for your feedback.</div></div>
+    </div>
+  </div>
+
+  <!-- PARTICIPANT PROFILE -->
+  <div class="sc" id="s-ppr">
+    <div class="g2">
+      <div class="card">
+        <div class="ct" style="margin-bottom:14px">Personal Information</div>
+        <div class="fg"><label class="fl">Full Name</label><input class="fi" value="Andrea Joseph"></div>
+        <div class="fg"><label class="fl">Email</label><input class="fi" value="andrea@example.com"></div>
+        <div class="fg"><label class="fl">Country</label><select class="fs"><option>Trinidad &amp; Tobago</option><option>Jamaica</option><option>Barbados</option></select></div>
+        <div class="fg"><label class="fl">Community / Region</label><input class="fi" placeholder="e.g. Port of Spain"></div>
+        <div class="fg"><label class="fl">Employment / Business Status</label><select class="fs"><option>Self-employed / Entrepreneur</option><option>Employed</option><option>Student</option></select></div>
+        <div class="fg"><label class="fl">Organization (if applicable)</label><input class="fi" placeholder="Your business or organization name"></div>
+        <button class="btn br bsm">Save Changes</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="card">
+          <div class="ct" style="margin-bottom:4px">Privacy &amp; Consent Centre</div>
+          <div class="cs" style="margin-bottom:14px">Control how your information is collected and used. Consents are separate &mdash; do not bundle them.</div>
+          <div class="pr"><span>Program processing (required)</span><label class="tg"><input type="checkbox" checked disabled><span class="ts2"></span></label></div>
+          <div class="pr"><span>Research participation</span><label class="tg"><input type="checkbox" checked><span class="ts2"></span></label></div>
+          <div class="pr"><span>Credential visibility (public)</span><label class="tg"><input type="checkbox" checked><span class="ts2"></span></label></div>
+          <div class="pr"><span>Evidence sharing with facilitators</span><label class="tg"><input type="checkbox" checked><span class="ts2"></span></label></div>
+          <div class="pr"><span>Future Trust Profile invitation</span><label class="tg"><input type="checkbox"><span class="ts2"></span></label></div>
+          <div class="pr"><span>Program announcements</span><label class="tg"><input type="checkbox" checked><span class="ts2"></span></label></div>
+          <div class="pr"><span>Promotional communications</span><label class="tg"><input type="checkbox"><span class="ts2"></span></label></div>
+        </div>
+        <div class="card">
+          <div class="ct" style="margin-bottom:14px">Data Rights</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <button class="btn bg bsm" style="justify-content:flex-start;border-radius:8px">&#128203; Request data correction</button>
+            <button class="btn bg bsm" style="justify-content:flex-start;border-radius:8px">&#11015;&#65039; Download my data</button>
+            <button class="btn bg bsm" style="justify-content:flex-start;border-radius:8px;color:var(--red);border-color:rgba(192,57,43,.3)">&#128465;&#65039; Request account closure</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FACILITATOR DASHBOARD -->
+  <div class="sc" id="s-fd">
+    <div class="g4 mb5">
+      <div class="stat"><div class="si" style="background:var(--red-pale)">&#128101;</div><div class="sn">24</div><div class="sl">Assigned Participants</div></div>
+      <div class="stat"><div class="si" style="background:var(--sage-pale)">&#9989;</div><div class="sn">18</div><div class="sl">Active</div></div>
+      <div class="stat"><div class="si" style="background:var(--mustard-pale)">&#128269;</div><div class="sn">7</div><div class="sl">Reviews Pending</div><div class="sc2 wn">&#8593; 3 new</div></div>
+      <div class="stat"><div class="si" style="background:var(--lilac-pale)">&#127885;</div><div class="sn">6</div><div class="sl">Ready for Credential</div></div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="sh mb4"><div class="stl">Participants Needing Attention</div><button class="btn bg bsm" onclick="show('fp')">View All</button></div>
+        <div class="tw"><table><thead><tr><th>Participant</th><th>Program</th><th>Status</th><th>Action</th></tr></thead><tbody>
+          <tr><td><strong>Maria Ramsaran</strong></td><td>Women in Business</td><td><span class="bdg brv">Evidence pending</span></td><td><button class="btn bg bsm" onclick="show('fr')">Review</button></td></tr>
+          <tr><td><strong>Kezia Pierre</strong></td><td>Digital Readiness</td><td><span class="bdg brv">Revision needed</span></td><td><button class="btn bg bsm" onclick="show('fr')">Review</button></td></tr>
+          <tr><td><strong>David Williams</strong></td><td>Women in Business</td><td><span class="bdg" style="background:var(--mustard-pale);color:#8A6A1A">Missed deadline</span></td><td><button class="btn bg bsm">Contact</button></td></tr>
+        </tbody></table></div>
+      </div>
+      <div class="card">
+        <div class="stl" style="margin-bottom:14px">Ready for Credential Recommendation</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--sage-pale);border-radius:10px;border:1px solid rgba(122,158,142,.2)"><div><div style="font-weight:600;font-size:.84rem;color:var(--charcoal)">Andrea Joseph</div><div style="font-size:.72rem;color:var(--muted)">Digital Readiness &middot; All requirements met</div></div><button class="btn bs bsm">Recommend</button></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--sage-pale);border-radius:10px;border:1px solid rgba(122,158,142,.2)"><div><div style="font-weight:600;font-size:.84rem;color:var(--charcoal)">Simone Clarke</div><div style="font-size:.72rem;color:var(--muted)">Digital Readiness &middot; All requirements met</div></div><button class="btn bs bsm">Recommend</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FACILITATOR PARTICIPANTS -->
+  <div class="sc" id="s-fp">
+    <div class="card">
+      <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+        <input class="fi" type="text" placeholder="Search participants..." style="flex:1;min-width:180px">
+        <select class="fs" style="width:auto"><option>All Programs</option><option>Digital Readiness</option><option>Women in Business</option></select>
+        <select class="fs" style="width:auto"><option>All Status</option><option>Active</option><option>Completed</option><option>Needs Support</option></select>
+      </div>
+      <div class="tw"><table><thead><tr><th>Participant</th><th>Program</th><th>Progress</th><th>Evidence</th><th>Status</th><th>Actions</th></tr></thead><tbody>
+        <tr><td><strong>Andrea Joseph</strong></td><td>Digital Readiness</td><td>3/5 (60%)</td><td>2 submitted</td><td><span class="bdg bip">In Progress</span></td><td><div style="display:flex;gap:4px"><button class="btn bg bsm">View</button><button class="btn bs bsm">Recommend</button></div></td></tr>
+        <tr><td><strong>Maria Ramsaran</strong></td><td>Women in Business</td><td>2/6 (33%)</td><td>1 pending</td><td><span class="bdg brv">Review needed</span></td><td><div style="display:flex;gap:4px"><button class="btn bg bsm">View</button><button class="btn br bsm" onclick="show('fr')">Review</button></div></td></tr>
+        <tr><td><strong>Simone Clarke</strong></td><td>Digital Readiness</td><td>5/5 (100%)</td><td>3 accepted</td><td><span class="bdg bcp">Complete</span></td><td><div style="display:flex;gap:4px"><button class="btn bg bsm">View</button><button class="btn bs bsm">Recommend</button></div></td></tr>
+        <tr><td><strong>Kezia Pierre</strong></td><td>Digital Readiness</td><td>2/5 (40%)</td><td>1 revision</td><td><span class="bdg brv">Revision needed</span></td><td><div style="display:flex;gap:4px"><button class="btn bg bsm">View</button><button class="btn br bsm" onclick="show('fr')">Review</button></div></td></tr>
+        <tr><td><strong>David Williams</strong></td><td>Women in Business</td><td>1/6 (17%)</td><td>0 submitted</td><td><span class="bdg bpn">Needs support</span></td><td><div style="display:flex;gap:4px"><button class="btn bg bsm">View</button><button class="btn bg bsm">Contact</button></div></td></tr>
+      </tbody></table></div>
+    </div>
+  </div>
+
+  <!-- FACILITATOR REVIEWS -->
+  <div class="sc" id="s-fr">
+    <div class="g2">
+      <div class="card">
+        <div class="stl" style="margin-bottom:14px">Evidence Review &mdash; Maria Ramsaran</div>
+        <div style="padding:12px;background:var(--off-white);border-radius:10px;margin-bottom:14px">
+          <div style="font-weight:600;font-size:.84rem;color:var(--charcoal);margin-bottom:4px">Written Reflection &mdash; Business Capability</div>
+          <div style="font-size:.75rem;color:var(--muted);margin-bottom:8px">Submitted Oct 5, 2026 &middot; Supports: Documenting Your Capabilities</div>
+          <div style="font-size:.82rem;color:var(--text);line-height:1.65">"Over the past three years, I have developed my catering business from a home-based operation to a registered MSME serving corporate clients across Trinidad. I have completed food safety training, managed a team of four, and secured two government contracts..."</div>
+        </div>
+        <div class="stl" style="margin-bottom:10px">Assessment Rubric</div>
+        <div class="rr" style="font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px"><div>Criterion</div><div>Rating</div><div>Required</div></div>
+        <div class="rr"><div><div style="font-weight:600;font-size:.82rem">Business capability demonstrated</div><div style="font-size:.72rem;color:var(--muted)">Evidence of running a business</div></div><select class="fs" style="font-size:.78rem;padding:5px 8px"><option>Strongly demonstrated</option><option>Demonstrated</option><option>Partially demonstrated</option><option>Not yet demonstrated</option></select><div><span class="bdg bac">Required</span></div></div>
+        <div class="rr"><div><div style="font-weight:600;font-size:.82rem">Reflection quality</div><div style="font-size:.72rem;color:var(--muted)">Clear and specific</div></div><select class="fs" style="font-size:.78rem;padding:5px 8px"><option>Demonstrated</option><option>Strongly demonstrated</option><option>Partially demonstrated</option><option>Not yet demonstrated</option></select><div><span class="bdg bac">Required</span></div></div>
+        <div class="fg" style="margin-top:14px"><label class="fl">Reviewer feedback (shared with participant)</label><textarea class="fta">Excellent reflection demonstrating clear business development. The specific examples of government contracts and team management are strong evidence of capability.</textarea></div>
+        <div style="display:flex;gap:8px;margin-top:4px">
+          <button class="btn bs bsm">&#10003; Accept Evidence</button>
+          <button class="btn bg bsm">&#8617; Request Revision</button>
+          <button class="btn bg bsm" style="color:var(--red)">&#10007; Decline</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="stl" style="margin-bottom:14px">Pending Reviews (7)</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="padding:10px;background:var(--red-pale);border-radius:10px;border:1px solid rgba(192,57,43,.15);cursor:pointer"><div style="font-weight:600;font-size:.82rem;color:var(--charcoal)">Maria Ramsaran</div><div style="font-size:.72rem;color:var(--muted)">Written Reflection &middot; Women in Business &middot; Oct 5</div></div>
+          <div style="padding:10px;background:var(--off-white);border-radius:10px;border:1px solid var(--border);cursor:pointer"><div style="font-weight:600;font-size:.82rem;color:var(--charcoal)">Kezia Pierre</div><div style="font-size:.72rem;color:var(--muted)">Portfolio item &middot; Digital Readiness &middot; Oct 7</div></div>
+          <div style="padding:10px;background:var(--off-white);border-radius:10px;border:1px solid var(--border);cursor:pointer"><div style="font-weight:600;font-size:.82rem;color:var(--charcoal)">James Brown</div><div style="font-size:.72rem;color:var(--muted)">Business document &middot; Women in Business &middot; Oct 8</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FACILITATOR ATTENDANCE -->
+  <div class="sc" id="s-fa">
+    <div class="card mb4">
+      <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center">
+        <select class="fs" style="width:auto"><option>Digital Readiness for Opportunity</option><option>Women in Business Pilot</option></select>
+        <select class="fs" style="width:auto"><option>Session 3 &mdash; Oct 10, 2026</option><option>Session 2 &mdash; Oct 3, 2026</option><option>Session 1 &mdash; Sept 26, 2026</option></select>
+        <button class="btn br bsm">Record Attendance</button>
+      </div>
+      <div class="tw"><table><thead><tr><th>Participant</th><th>Session 1</th><th>Session 2</th><th>Session 3</th><th>Attendance %</th></tr></thead><tbody>
+        <tr><td><strong>Andrea Joseph</strong></td><td>&#9989;</td><td>&#9989;</td><td>&#9989;</td><td><span class="bdg bac">100%</span></td></tr>
+        <tr><td><strong>Maria Ramsaran</strong></td><td>&#9989;</td><td>&#9989;</td><td>&mdash;</td><td><span class="bdg brv">67%</span></td></tr>
+        <tr><td><strong>Simone Clarke</strong></td><td>&#9989;</td><td>&#9989;</td><td>&#9989;</td><td><span class="bdg bac">100%</span></td></tr>
+        <tr><td><strong>Kezia Pierre</strong></td><td>&#9989;</td><td>&mdash;</td><td>&#9989;</td><td><span class="bdg brv">67%</span></td></tr>
+        <tr><td><strong>David Williams</strong></td><td>&mdash;</td><td>&mdash;</td><td>&#9989;</td><td><span class="bdg bdl">33%</span></td></tr>
+      </tbody></table></div>
+    </div>
+  </div>
+
+  <!-- FACILITATOR REPORTS -->
+  <div class="sc" id="s-frp">
+    <div class="g2 mb5">
+      <div class="card">
+        <div class="ct" style="margin-bottom:14px">Program Summary &mdash; Digital Readiness</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:.82rem">
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted)">Enrolled</span><strong>12</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted)">Active</span><strong>10</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted)">Completed</span><strong>4</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted)">Completion rate</span><strong>33%</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0"><span style="color:var(--muted)">Credentials issued</span><strong>4</strong></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ct" style="margin-bottom:14px">Activity Completion</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px"><span>Intro to Digital Trust</span><span>12/12</span></div><div class="pb"><div class="pf" style="width:100%;background:var(--sage)"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px"><span>Understanding VCs</span><span>11/12</span></div><div class="pb"><div class="pf" style="width:92%;background:var(--sage)"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px"><span>Caribbean Landscape</span><span>9/12</span></div><div class="pb"><div class="pf" style="width:75%;background:var(--mustard)"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px"><span>Documenting Capabilities</span><span>5/12</span></div><div class="pb"><div class="pf" style="width:42%;background:var(--mustard)"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px"><span>Final Assessment</span><span>4/12</span></div><div class="pb"><div class="pf" style="width:33%;background:var(--red)"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORGANIZATION DASHBOARD -->
+  <div class="sc" id="s-od">
+    <div class="g4 mb5">
+      <div class="stat"><div class="si" style="background:var(--red-pale)">&#128218;</div><div class="sn">3</div><div class="sl">Active Programs</div></div>
+      <div class="stat"><div class="si" style="background:var(--sage-pale)">&#128101;</div><div class="sn">47</div><div class="sl">Enrolled Participants</div><div class="sc2 up">&#8593; 12 this month</div></div>
+      <div class="stat"><div class="si" style="background:var(--mustard-pale)">&#127885;</div><div class="sn">18</div><div class="sl">Credentials Issued</div></div>
+      <div class="stat"><div class="si" style="background:var(--lilac-pale)">&#8987;</div><div class="sn">5</div><div class="sl">Awaiting Approval</div><div class="sc2 wn">Action needed</div></div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="sh mb4"><div class="stl">Active Programs</div><button class="btn br bsm" onclick="show('opr')">+ New Program</button></div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="padding:12px;background:var(--off-white);border-radius:10px"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px"><div style="font-weight:700;font-size:.84rem;color:var(--charcoal)">Digital Readiness for Opportunity</div><span class="bdg bac">Active</span></div><div style="font-size:.72rem;color:var(--muted);margin-bottom:6px">12 enrolled &middot; 4 completed &middot; 4 credentials issued</div><div class="pb"><div class="pf" style="width:33%;background:var(--sage)"></div></div></div>
+          <div style="padding:12px;background:var(--off-white);border-radius:10px"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px"><div style="font-weight:700;font-size:.84rem;color:var(--charcoal)">Women in Business Pilot</div><span class="bdg bac">Active</span></div><div style="font-size:.72rem;color:var(--muted);margin-bottom:6px">24 enrolled &middot; 2 completed &middot; 2 credentials issued</div><div class="pb"><div class="pf" style="width:8%;background:var(--mustard)"></div></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="sh mb4"><div class="stl">Credentials Awaiting Approval</div></div>
+        <div class="tw"><table><thead><tr><th>Participant</th><th>Credential</th><th>Recommended by</th><th>Action</th></tr></thead><tbody>
+          <tr><td><strong>Simone Clarke</strong></td><td>Digital Readiness</td><td>J. Williams</td><td><div style="display:flex;gap:4px"><button class="btn bs bsm">Approve</button><button class="btn bg bsm">Review</button></div></td></tr>
+          <tr><td><strong>James Brown</strong></td><td>Digital Readiness</td><td>J. Williams</td><td><div style="display:flex;gap:4px"><button class="btn bs bsm">Approve</button><button class="btn bg bsm">Review</button></div></td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORGANIZATION PROGRAMS -->
+  <div class="sc" id="s-opr">
+    <div class="tabs mb5"><button class="tab active">Active (3)</button><button class="tab">Draft (1)</button><button class="tab">Completed (2)</button><button class="tab">Archived</button></div>
+    <div class="g2">
+      <div class="pc">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px"><div class="ptag">Active &middot; Credii Foundation</div><span class="bdg bac">Active Delivery</span></div>
+        <div class="pn">Digital Readiness for Opportunity</div>
+        <div class="pd">Foundational digital credentialing program for individuals and MSMEs.</div>
+        <div class="lc"><div class="ls ld">Draft</div><div class="ls ld">Approved</div><div class="ls ld">Enrolment</div><div class="ls la">Delivery</div><div class="ls">Assessment</div><div class="ls">Complete</div></div>
+        <div style="display:flex;gap:8px;margin-top:10px"><button class="btn bg bsm">Manage</button><button class="btn bg bsm">Participants</button><button class="btn bg bsm">Reports</button></div>
+      </div>
+      <div class="pc" style="border-style:dashed;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:180px">
+        <div style="font-size:2rem;opacity:.25;margin-bottom:8px">+</div>
+        <div style="font-weight:700;font-size:.88rem;color:var(--charcoal);margin-bottom:4px">Create New Program</div>
+        <div style="font-size:.75rem;color:var(--muted);margin-bottom:12px">Draft a new program for Credii review and approval.</div>
+        <button class="btn br bsm">Create Program</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORGANIZATION PARTICIPANTS -->
+  <div class="sc" id="s-opt">
+    <div class="card">
+      <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+        <input class="fi" type="text" placeholder="Search participants..." style="flex:1;min-width:180px">
+        <select class="fs" style="width:auto"><option>All Programs</option><option>Digital Readiness</option><option>Women in Business</option></select>
+        <button class="btn br bsm">+ Invite Participant</button>
+      </div>
+      <div class="tw"><table><thead><tr><th>Name</th><th>Program</th><th>Enrolled</th><th>Progress</th><th>Credentials</th><th>Status</th><th>Actions</th></tr></thead><tbody>
+        <tr><td><strong>Andrea Joseph</strong></td><td>Digital Readiness</td><td>Sept 15</td><td>60%</td><td>1</td><td><span class="bdg bip">In Progress</span></td><td><button class="btn bg bsm">View</button></td></tr>
+        <tr><td><strong>Maria Ramsaran</strong></td><td>Women in Business</td><td>Oct 1</td><td>33%</td><td>0</td><td><span class="bdg brv">Review needed</span></td><td><button class="btn bg bsm">View</button></td></tr>
+        <tr><td><strong>Simone Clarke</strong></td><td>Digital Readiness</td><td>Sept 15</td><td>100%</td><td>1</td><td><span class="bdg bcp">Complete</span></td><td><button class="btn bg bsm">View</button></td></tr>
+        <tr><td><strong>James Brown</strong></td><td>Digital Readiness</td><td>Sept 15</td><td>100%</td><td>0</td><td><span class="bdg brv">Credential pending</span></td><td><button class="btn bg bsm">View</button></td></tr>
+        <tr><td><strong>Kezia Pierre</strong></td><td>Women in Business</td><td>Oct 1</td><td>40%</td><td>0</td><td><span class="bdg bip">In Progress</span></td><td><button class="btn bg bsm">View</button></td></tr>
+      </tbody></table></div>
+    </div>
+  </div>
+
+  <!-- ORGANIZATION CREDENTIALS -->
+  <div class="sc" id="s-oc">
+    <div class="g4 mb5">
+      <div class="stat"><div class="si" style="background:var(--sage-pale)">&#9989;</div><div class="sn">18</div><div class="sl">Issued</div></div>
+      <div class="stat"><div class="si" style="background:var(--mustard-pale)">&#8987;</div><div class="sn">5</div><div class="sl">Awaiting Approval</div></div>
+      <div class="stat"><div class="si" style="background:var(--lilac-pale)">&#128269;</div><div class="sn">94</div><div class="sl">Verifications</div></div>
+      <div class="stat"><div class="si" style="background:var(--red-pale)">&#128683;</div><div class="sn">1</div><div class="sl">Revoked</div></div>
+    </div>
+    <div class="card">
+      <div class="sh mb4"><div class="stl">Credential Register</div><button class="btn bg bsm">Export CSV</button></div>
+      <div class="tw"><table><thead><tr><th>Credential ID</th><th>Recipient</th><th>Credential</th><th>Issued</th><th>Status</th><th>Verifications</th><th>Actions</th></tr></thead><tbody>
+        <tr><td style="font-family:monospace;font-size:.75rem">CRD-2026-000184</td><td>Andrea Joseph</td><td>Digital Readiness</td><td>Sept 15</td><td><span class="bdg bac">Valid</span></td><td>12</td><td><div style="display:flex;gap:4px"><button class="btn bg bsm">View</button><button class="btn bg bsm">Suspend</button></div></td></tr>
+        <tr><td style="font-family:monospace;font-size:.75rem">CRD-2026-000183</td><td>Simone Clarke</td><td>Digital Readiness</td><td>Sept 20</td><td><span class="bdg bac">Valid</span></td><td>8</td><td><div style="display:flex;gap:4px"><button class="btn bg bsm">View</button><button class="btn bg bsm">Suspend</button></div></td></tr>
+        <tr><td style="font-family:monospace;font-size:.75rem">CRD-2026-000001</td><td>Test User</td><td>Test Credential</td><td>Aug 1</td><td><span class="bdg bdl">Revoked</span></td><td>2</td><td><button class="btn bg bsm">View History</button></td></tr>
+      </tbody></table></div>
+    </div>
+  </div>
+
+  <!-- ORGANIZATION REPORTS -->
+  <div class="sc" id="s-orp">
+    <div class="g2 mb5">
+      <div class="card">
+        <div class="ct" style="margin-bottom:14px">Participation Summary</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:.82rem">
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted)">Total enrolled</span><strong>47</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted)">Active</span><strong>38</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted)">Completed</span><strong>8</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted)">Completion rate</span><strong>17%</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted)">Credentials issued</span><strong>18</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0"><span style="color:var(--muted)">Avg. participant satisfaction</span><strong>4.2 / 5</strong></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ct" style="margin-bottom:14px">Credential Verification Activity</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px"><span>Digital Readiness Certificate</span><span>67 checks</span></div><div class="pb"><div class="pf" style="width:71%;background:var(--red)"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px"><span>Program Participation</span><span>27 checks</span></div><div class="pb"><div class="pf" style="width:29%;background:var(--sage)"></div></div></div>
+        </div>
+        <div style="margin-top:16px"><button class="btn bg bsm">Export Pilot Report</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORGANIZATION SETTINGS -->
+  <div class="sc" id="s-os">
+    <div class="g2">
+      <div class="card">
+        <div class="ct" style="margin-bottom:14px">Organization Profile</div>
+        <div class="fg"><label class="fl">Organization Name</label><input class="fi" value="Credii Foundation"></div>
+        <div class="fg"><label class="fl">Organization Type</label><select class="fs"><option>Nonprofit</option><option>Training Provider</option><option>ESO</option><option>Government</option></select></div>
+        <div class="fg"><label class="fl">Country</label><select class="fs"><option>Trinidad &amp; Tobago</option></select></div>
+        <div class="fg"><label class="fl">Website</label><input class="fi" value="crediifoundation.org"></div>
+        <div class="fg"><label class="fl">Contact Email</label><input class="fi" value="info@crediifoundation.org"></div>
+        <button class="btn br bsm">Save Changes</button>
+      </div>
+      <div class="card">
+        <div class="ct" style="margin-bottom:14px">Team Members</div>
+        <div class="tw"><table><thead><tr><th>Name</th><th>Role</th><th>Status</th></tr></thead><tbody>
+          <tr><td><strong>Andrea Joseph</strong></td><td>Organization Owner</td><td><span class="bdg bac">Active</span></td></tr>
+          <tr><td><strong>J. Williams</strong></td><td>Facilitator</td><td><span class="bdg bac">Active</span></td></tr>
+          <tr><td><strong>M. Thomas</strong></td><td>Read-only Reporting</td><td><span class="bdg bac">Active</span></td></tr>
+        </tbody></table></div>
+        <button class="btn bg bsm" style="margin-top:12px">+ Invite Team Member</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN DASHBOARD -->
+  <div class="sc" id="s-ad">
+    <div class="al aw mb5"><span class="ali">&#9881;&#65039;</span><div><strong>Credii Admin Console.</strong> This area manages the integrity of the entire platform ecosystem. All material actions create an audit record.</div></div>
+    <div class="g4 mb5">
+      <div class="stat"><div class="si" style="background:var(--red-pale)">&#127970;</div><div class="sn">3</div><div class="sl">Organizations</div><div class="sc2 wn">2 pending review</div></div>
+      <div class="stat"><div class="si" style="background:var(--sage-pale)">&#128218;</div><div class="sn">8</div><div class="sl">Active Programs</div></div>
+      <div class="stat"><div class="si" style="background:var(--mustard-pale)">&#128101;</div><div class="sn">184</div><div class="sl">Participants</div><div class="sc2 up">&#8593; 47 this month</div></div>
+      <div class="stat"><div class="si" style="background:var(--lilac-pale)">&#127885;</div><div class="sn">247</div><div class="sl">Credentials Issued</div></div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="sh mb4"><div class="stl">Organization Applications</div><button class="btn bg bsm" onclick="show('ao')">View All</button></div>
+        <div class="tw"><table><thead><tr><th>Organization</th><th>Applied</th><th>Status</th><th>Action</th></tr></thead><tbody>
+          <tr><td><strong>Caribbean ESO Network</strong></td><td>Oct 1</td><td><span class="bdg brv">Under Review</span></td><td><button class="btn br bsm">Review</button></td></tr>
+          <tr><td><strong>TT Chamber</strong></td><td>Oct 5</td><td><span class="bdg brv">Under Review</span></td><td><button class="btn br bsm">Review</button></td></tr>
+          <tr><td><strong>Credii Foundation</strong></td><td>Aug 1</td><td><span class="bdg bac">Approved</span></td><td><button class="btn bg bsm">View</button></td></tr>
+        </tbody></table></div>
+      </div>
+      <div class="card">
+        <div class="sh mb4"><div class="stl">Beta Success Metrics</div></div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px"><span>Participants invited</span><span>250</span></div><div class="pb"><div class="pf" style="width:100%;background:var(--sage)"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px"><span>Enrolled (74%)</span><span>184</span></div><div class="pb"><div class="pf" style="width:74%;background:var(--sage)"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px"><span>Course completers (26%)</span><span>47</span></div><div class="pb"><div class="pf" style="width:26%;background:var(--mustard)"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px"><span>Credentials issued</span><span>247</span></div><div class="pb"><div class="pf" style="width:100%;background:var(--red)"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px"><span>Successfully verified</span><span>1,247</span></div><div class="pb"><div class="pf" style="width:100%;background:var(--red)"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN ORGANIZATIONS -->
+  <div class="sc" id="s-ao">
+    <div class="card mb4">
+      <div class="sh mb4"><div class="stl">Organization Management</div></div>
+      <div class="tw"><table><thead><tr><th>Organization</th><th>Type</th><th>Country</th><th>Applied</th><th>Status</th><th>Programs</th><th>Credentials</th><th>Actions</th></tr></thead><tbody>
+        <tr><td><strong>Credii Foundation</strong></td><td>Nonprofit</td><td>&#127481;&#127481; T&amp;T</td><td>Aug 1, 2026</td><td><span class="bdg bac">Approved</span></td><td>3</td><td>247</td><td><div style="display:flex;gap:4px"><button class="btn bg bsm">View</button><button class="btn bg bsm">Restrict</button></div></td></tr>
+        <tr><td><strong>Caribbean ESO Network</strong></td><td>ESO</td><td>&#127471;&#127474; Jamaica</td><td>Oct 1, 2026</td><td><span class="bdg brv">Under Review</span></td><td>0</td><td>0</td><td><div style="display:flex;gap:4px"><button class="btn br bsm">Approve</button><button class="btn bg bsm">Decline</button></div></td></tr>
+        <tr><td><strong>TT Chamber of Commerce</strong></td><td>Chamber</td><td>&#127481;&#127481; T&amp;T</td><td>Oct 5, 2026</td><td><span class="bdg brv">Under Review</span></td><td>0</td><td>0</td><td><div style="display:flex;gap:4px"><button class="btn br bsm">Approve</button><button class="btn bg bsm">Decline</button></div></td></tr>
+      </tbody></table></div>
+    </div>
+    <div class="card">
+      <div class="ct" style="margin-bottom:14px">Organization Approval Workflow</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+        <div style="padding:12px;background:var(--off-white);border-radius:10px;text-align:center"><div style="font-size:1.2rem;margin-bottom:6px">&#128221;</div><div style="font-weight:700;font-size:.75rem;color:var(--charcoal)">1. Application</div><div style="font-size:.7rem;color:var(--muted);margin-top:3px">Org submits application</div></div>
+        <div style="padding:12px;background:var(--off-white);border-radius:10px;text-align:center"><div style="font-size:1.2rem;margin-bottom:6px">&#128269;</div><div style="font-weight:700;font-size:.75rem;color:var(--charcoal)">2. Verification</div><div style="font-size:.7rem;color:var(--muted);margin-top:3px">Credii verifies legal info</div></div>
+        <div style="padding:12px;background:var(--off-white);border-radius:10px;text-align:center"><div style="font-size:1.2rem;margin-bottom:6px">&#128203;</div><div style="font-weight:700;font-size:.75rem;color:var(--charcoal)">3. Program Review</div><div style="font-size:.7rem;color:var(--muted);margin-top:3px">Programs &amp; templates reviewed</div></div>
+        <div style="padding:12px;background:var(--sage-pale);border-radius:10px;text-align:center;border:1px solid rgba(122,158,142,.3)"><div style="font-size:1.2rem;margin-bottom:6px">&#9989;</div><div style="font-weight:700;font-size:.75rem;color:#3A6A5A">4. Activation</div><div style="font-size:.7rem;color:var(--muted);margin-top:3px">Org activated, can issue</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN PROGRAMS -->
+  <div class="sc" id="s-apr">
+    <div class="card">
+      <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+        <input class="fi" type="text" placeholder="Search programs..." style="flex:1;min-width:180px">
+        <select class="fs" style="width:auto"><option>All Status</option><option>Draft</option><option>Under Review</option><option>Active</option><option>Completed</option></select>
+      </div>
+      <div class="tw"><table><thead><tr><th>Program</th><th>Organization</th><th>Type</th><th>Participants</th><th>Credentials</th><th>Status</th><th>Actions</th></tr></thead><tbody>
+        <tr><td><strong>Digital Readiness for Opportunity</strong></td><td>Credii Foundation</td><td>Course</td><td>12</td><td>4</td><td><span class="bdg bac">Active</span></td><td><button class="btn bg bsm">Review</button></td></tr>
+        <tr><td><strong>Women in Business Pilot</strong></td><td>Credii Foundation</td><td>Pilot</td><td>24</td><td>2</td><td><span class="bdg bac">Active</span></td><td><button class="btn bg bsm">Review</button></td></tr>
+        <tr><td><strong>Community Research Cohort</strong></td><td>Credii Foundation</td><td>Research</td><td>11</td><td>0</td><td><span class="bdg bac">Active</span></td><td><button class="btn bg bsm">Review</button></td></tr>
+        <tr><td><strong>Trust Profile Pilot</strong></td><td>Credii Foundation</td><td>Pilot</td><td>0</td><td>0</td><td><span class="bdg bdr">Draft</span></td><td><button class="btn br bsm">Review</button></td></tr>
+      </tbody></table></div>
+    </div>
+  </div>
+
+  <!-- ADMIN CREDENTIALS -->
+  <div class="sc" id="s-ac">
+    <div class="card">
+      <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+        <input class="fi" type="text" placeholder="Search by ID, recipient, or issuer..." style="flex:1;min-width:180px">
+        <select class="fs" style="width:auto"><option>All Status</option><option>Active</option><option>Pending</option><option>Suspended</option><option>Revoked</option></select>
+      </div>
+      <div class="tw"><table><thead><tr><th>Credential ID</th><th>Recipient</th><th>Credential</th><th>Issuer</th><th>Program</th><th>Issued</th><th>Status</th><th>Actions</th></tr></thead><tbody>
+        <tr><td style="font-family:monospace;font-size:.72rem">CRD-2026-000184</td><td>Andrea Joseph</td><td>Digital Readiness</td><td>Credii Foundation</td><td>Digital Readiness</td><td>Sept 15</td><td><span class="bdg bac">Valid</span></td><td><div style="display:flex;gap:4px"><button class="btn bg bsm">View</button><button class="btn bg bsm">Suspend</button></div></td></tr>
+        <tr><td style="font-family:monospace;font-size:.72rem">CRD-2026-000183</td><td>Simone Clarke</td><td>Digital Readiness</td><td>Credii Foundation</td><td>Digital Readiness</td><td>Sept 20</td><td><span class="bdg bac">Valid</span></td><td><div style="display:flex;gap:4px"><button class="btn bg bsm">View</button><button class="btn bg bsm">Suspend</button></div></td></tr>
+        <tr><td style="font-family:monospace;font-size:.72rem">CRD-2026-000001</td><td>Test User</td><td>Test Credential</td><td>Credii Foundation</td><td>&mdash;</td><td>Aug 1</td><td><span class="bdg bdl">Revoked</span></td><td><button class="btn bg bsm">View History</button></td></tr>
+      </tbody></table></div>
+    </div>
+  </div>
+
+  <!-- ADMIN REPORTS -->
+  <div class="sc" id="s-arp">
+    <div class="g2 mb5">
+      <div class="card">
+        <div class="ct" style="margin-bottom:14px">Platform Overview</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:.82rem">
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted)">Organizations onboarded</span><strong>3</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted)">Active programs</span><strong>8</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted)">Total participants</span><strong>184</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted)">Credentials issued</span><strong>247</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted)">Verification checks</span><strong>1,247</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0"><span style="color:var(--muted)">Completion rate</span><strong>26%</strong></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ct" style="margin-bottom:14px">Geographic Distribution</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px"><span>&#127481;&#127481; Trinidad &amp; Tobago</span><span>94 (51%)</span></div><div class="pb"><div class="pf" style="width:51%;background:var(--red)"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px"><span>&#127471;&#127474; Jamaica</span><span>42 (23%)</span></div><div class="pb"><div class="pf" style="width:23%;background:var(--sage)"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px"><span>&#127463;&#127463; Barbados</span><span>28 (15%)</span></div><div class="pb"><div class="pf" style="width:15%;background:var(--mustard)"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px"><span>Other Caribbean</span><span>20 (11%)</span></div><div class="pb"><div class="pf" style="width:11%;background:var(--lilac)"></div></div></div>
+        </div>
+        <div style="margin-top:14px"><button class="btn bg bsm">Export Pilot Report</button></div>
+      </div>
+    </div>
+    <div class="al ai"><span class="ali">&#9888;&#65039;</span><div>Do not report that credentials created employment, financing or market access unless the collected evidence supports that conclusion. Report only what the data shows.</div></div>
+  </div>
+
+  <!-- ADMIN DATA GOVERNANCE -->
+  <div class="sc" id="s-ag">
+    <div class="g2">
+      <div class="card">
+        <div class="ct" style="margin-bottom:14px">Data Governance Principles</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="padding:12px;background:var(--off-white);border-radius:10px;font-size:.82rem"><strong style="color:var(--charcoal)">Minimum necessary data</strong><div style="color:var(--muted);margin-top:3px;line-height:1.5">Collect only what is needed for program delivery and credential issuance. Do not collect government IDs, home addresses, or financial information unless legally required.</div></div>
+          <div style="padding:12px;background:var(--off-white);border-radius:10px;font-size:.82rem"><strong style="color:var(--charcoal)">Separated consents</strong><div style="color:var(--muted);margin-top:3px;line-height:1.5">Program processing, research participation, and promotional communications must use separate consent mechanisms. Do not bundle them.</div></div>
+          <div style="padding:12px;background:var(--off-white);border-radius:10px;font-size:.82rem"><strong style="color:var(--charcoal)">Evidence protection</strong><div style="color:var(--muted);margin-top:3px;line-height:1.5">Sensitive documents are never made public automatically. Evidence is only shared with assigned facilitators and Credii administrators with a legitimate need.</div></div>
+          <div style="padding:12px;background:var(--off-white);border-radius:10px;font-size:.82rem"><strong style="color:var(--charcoal)">Audit trail</strong><div style="color:var(--muted);margin-top:3px;line-height:1.5">All material administrative actions must create an audit record. Issued credentials are never silently deleted. Status changes require a reason and authorized approval.</div></div>
+          <div style="padding:12px;background:var(--off-white);border-radius:10px;font-size:.82rem"><strong style="color:var(--charcoal)">Role-based access</strong><div style="color:var(--muted);margin-top:3px;line-height:1.5">No one receives broader access than their assigned role requires. External reviewers receive limited access only to assigned submissions.</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ct" style="margin-bottom:14px">Audit Log</div>
+        <div class="tw"><table><thead><tr><th>Action</th><th>User</th><th>Date</th><th>Record</th></tr></thead><tbody>
+          <tr><td>Credential issued</td><td>J. Williams</td><td>Oct 9, 2026</td><td style="font-family:monospace;font-size:.72rem">CRD-2026-000184</td></tr>
+          <tr><td>Evidence accepted</td><td>J. Williams</td><td>Oct 8, 2026</td><td style="font-family:monospace;font-size:.72rem">EV-2026-0042</td></tr>
+          <tr><td>Org approved</td><td>Admin</td><td>Aug 1, 2026</td><td>Credii Foundation</td></tr>
+          <tr><td>Credential revoked</td><td>Admin</td><td>Sept 1, 2026</td><td style="font-family:monospace;font-size:.72rem">CRD-2026-000001</td></tr>
+          <tr><td>Program approved</td><td>Admin</td><td>Aug 15, 2026</td><td>Digital Readiness</td></tr>
+        </tbody></table></div>
+        <div style="margin-top:14px"><button class="btn bg bsm">Export Full Audit Log</button></div>
+      </div>
+    </div>
+  </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+</div><!-- /app -->
+
+<script>
+const meta = {
+  pd:  {t:"Participant Dashboard",    s:"Welcome back, Andrea"},
+  pp:  {t:"My Programs",              s:"Your active and completed programs"},
+  pa:  {t:"Activities",               s:"Digital Readiness for Opportunity"},
+  pe:  {t:"Evidence",                 s:"Submit and manage your evidence"},
+  pc:  {t:"My Credentials",           s:"Your verified credential portfolio"},
+  po:  {t:"Opportunities to Participate", s:"Programs, pilots, and consultations"},
+  ps:  {t:"Surveys",                  s:"Research and feedback surveys"},
+  ppr: {t:"Profile & Privacy",        s:"Manage your information and consents"},
+  fd:  {t:"Facilitator Dashboard",    s:"Your assigned programs and participants"},
+  fp:  {t:"Participants",             s:"All participants in your assigned programs"},
+  fr:  {t:"Evidence Reviews",         s:"Review submitted evidence and assessments"},
+  fa:  {t:"Attendance",               s:"Record and track session attendance"},
+  frp: {t:"Facilitator Reports",      s:"Program completion and activity data"},
+  od:  {t:"Organization Dashboard",   s:"Credii Foundation — Approved Organization"},
+  opr: {t:"Programs",                 s:"Create and manage your programs"},
+  opt: {t:"Participants",             s:"Your participant register"},
+  oc:  {t:"Credentials",              s:"Credential register and verification activity"},
+  orp: {t:"Reports",                  s:"Participation, completion, and credential data"},
+  os:  {t:"Organization Settings",    s:"Profile, team, and configuration"},
+  ad:  {t:"Admin Dashboard",          s:"Credii staff — platform ecosystem overview"},
+  ao:  {t:"Organizations",            s:"Review and approve participating organizations"},
+  apr: {t:"Programs",                 s:"All programs across the platform"},
+  ac:  {t:"Credentials",              s:"All credentials in the system"},
+  arp: {t:"Reports",                  s:"Platform-wide analytics and pilot results"},
+  ag:  {t:"Data Governance",          s:"Principles, audit log, and system controls"},
+};
+
+function show(id) {
+  document.querySelectorAll(".sc").forEach(s => s.classList.remove("active"));
+  document.querySelectorAll(".ni").forEach(n => n.classList.remove("active"));
+  const sc = document.getElementById("s-" + id);
+  if (sc) sc.classList.add("active");
+  document.querySelectorAll(".ni").forEach(n => {
+    if ((n.getAttribute("onclick") || "").includes("'" + id + "'")) n.classList.add("active");
+  });
+  const m = meta[id] || {t: id, s: ""};
+  document.getElementById("tt").textContent = m.t;
+  document.getElementById("ts").textContent = m.s;
+  document.querySelector(".content").scrollTop = 0;
+  if (window.innerWidth <= 768) {
+    document.getElementById("sidebar").classList.remove("open");
+    document.getElementById("sov").classList.remove("open");
+  }
+}
+
+function toggleSidebar() {
+  document.getElementById("sidebar").classList.toggle("open");
+  document.getElementById("sov").classList.toggle("open");
+}
+
+document.querySelectorAll(".tabs").forEach(tg => {
+  tg.querySelectorAll(".tab").forEach(t => {
+    t.addEventListener("click", function() {
+      tg.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
+      this.classList.add("active");
+    });
+  });
+});
+</script>
+</body>
+</html>
