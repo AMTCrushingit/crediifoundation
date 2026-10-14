@@ -32,7 +32,7 @@
       --sidebar-w:  240px;
     }
 
-    html, body { height: 100%; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text); background: var(--off-white); }
+    html, body { height: 100%; font-family: 'DM Sans', sans-serif; font-size: 16px; color: var(--text); background: var(--off-white); }
 
     /* ── LAYOUT ── */
     .app { display: flex; height: 100vh; overflow: hidden; }
@@ -162,7 +162,7 @@
       font-size: 0.84rem; font-weight: 600;
       cursor: pointer; border: none; transition: all 0.15s;
       display: inline-flex; align-items: center; gap: 7px;
-      text-decoration: none; font-family: 'Plus Jakarta Sans', sans-serif;
+      text-decoration: none; font-family: 'DM Sans', sans-serif;
     }
 
     .btn-red { background: var(--red); color: #fff; }
@@ -231,7 +231,7 @@
     .form-input, .form-select, .form-textarea {
       width: 100%; padding: 10px 14px;
       border-radius: 10px; border: 1.5px solid var(--border);
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: 'DM Sans', sans-serif;
       font-size: 0.85rem; color: var(--text);
       background: var(--warm-white); transition: border-color 0.15s; outline: none;
     }
@@ -433,6 +433,8 @@
       .verify-result { padding: 16px; }
       .verify-headline { font-size: 1.1rem; }
     }
+
+    @media (min-width: 769px) { body { font-size: 17px; } }
   </style>
 </head>
 <body>
@@ -574,7 +576,7 @@
 <!-- Disclaimer -->
 <div class="alert alert-info" style="margin-top:16px;">
 <span class="alert-icon">ℹ️</span>
-<div>A successful result confirms that the credential record exists and shows its current status. Verification does not guarantee employment, financing, admission, licensing, or acceptance by another organization. Credii provides the infrastructure through which approved issuers can issue and verify digital credentials.</div>
+<div>A successful result confirms that the credential record exists and shows its current status. Verification does not guarantee employment, financing, admission, licensing, or acceptance by another organization. Credii is testing an infrastructure model through which approved issuers may issue and verify digital credentials.</div>
 </div>
 </div>
 </div>

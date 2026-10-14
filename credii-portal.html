@@ -32,7 +32,7 @@
       --sidebar-w:  240px;
     }
 
-    html, body { height: 100%; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text); background: var(--off-white); }
+    html, body { height: 100%; font-family: 'DM Sans', sans-serif; font-size: 16px; color: var(--text); background: var(--off-white); }
 
     /* ── LAYOUT ── */
     .portal { display: flex; height: 100vh; overflow: hidden; }
@@ -472,7 +472,7 @@
     .form-input, .form-select, .form-textarea {
       width: 100%; padding: 10px 14px;
       border-radius: 10px; border: 1.5px solid var(--border);
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: 'DM Sans', sans-serif;
       font-size: 0.85rem; color: var(--text);
       background: var(--warm-white);
       transition: border-color 0.15s;
@@ -539,7 +539,7 @@
     .upgrade-card:hover { border-color: var(--red); box-shadow: 0 4px 16px rgba(192,57,43,0.1); }
     .upgrade-card-name { font-weight: 700; font-size: 0.9rem; color: var(--charcoal); margin-bottom: 4px; }
     .upgrade-card-price { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 700; color: var(--red); }
-    .upgrade-card-price span { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.75rem; font-weight: 500; color: var(--muted); }
+    .upgrade-card-price span { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 500; color: var(--muted); }
     .upgrade-card-desc { font-size: 0.78rem; color: var(--muted); margin-top: 6px; line-height: 1.5; }
 
     /* ── FILTER BAR ── */
@@ -669,6 +669,8 @@
       .serve-grid { grid-template-columns: 1fr; }
       .upgrade-card { padding: 14px; }
     }
+
+    @media (min-width: 769px) { body { font-size: 17px; } }
   </style>
 </head>
 <body>
@@ -1016,7 +1018,7 @@
 <div class="prog-card">
 <div class="prog-tag">🟢 Open · Pilot</div>
 <div class="prog-name">Women in Business Pilot</div>
-<div class="prog-desc">A six-month pilot testing digital credential issuance and trust profiles for women entrepreneurs and MSMEs across the Caribbean.</div>
+<div class="prog-desc">A six-month pilot exploring whether digital credential issuance and trust profiles could be useful for women entrepreneurs and MSMEs in the Caribbean.</div>
 <div class="prog-meta">
 <div class="prog-meta-item">📅 Starts Nov 2026</div>
 <div class="prog-meta-item">⏱ 6 months</div>
@@ -1104,7 +1106,7 @@
 <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;">
 <div>
 <div class="res-name">Digital Trust Guide</div>
-<div class="res-desc">An introduction to digital trust, verifiable credentials, and how they can support economic inclusion across the Caribbean.</div>
+<div class="res-desc">An introduction to digital trust, verifiable credentials, and how they might support economic inclusion in the Caribbean.</div>
 </div>
 <span class="badge badge-sage">Guide</span>
 </div>

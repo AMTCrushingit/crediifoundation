@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Credii Platform (Beta)</title>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
@@ -19,7 +19,7 @@
       --charcoal:#2C2825;--text:#3D3835;--muted:#7A7370;
       --border:rgba(212,197,169,0.4);--sw:248px;
     }
-    html,body{height:100%;font-family:"Plus Jakarta Sans",sans-serif;color:var(--text);background:var(--off-white)}
+    html,body{height:100%;font-family:"DM Sans",sans-serif;font-size:16px;color:var(--text);background:var(--off-white)}
     .app{display:flex;height:100vh;overflow:hidden}
     /* SIDEBAR */
     .sidebar{width:var(--sw);background:var(--charcoal);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto;transition:left .25s ease}
@@ -68,7 +68,7 @@
     .stl{font-family:"Fraunces",serif;font-size:.95rem;font-weight:700;color:var(--charcoal)}
     .slk{font-size:.75rem;font-weight:600;color:var(--red);cursor:pointer}
     /* BUTTONS */
-    .btn{padding:8px 18px;border-radius:100px;font-size:.82rem;font-weight:600;cursor:pointer;border:none;transition:all .15s;display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-family:"Plus Jakarta Sans",sans-serif}
+    .btn{padding:8px 18px;border-radius:100px;font-size:.82rem;font-weight:600;cursor:pointer;border:none;transition:all .15s;display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-family:"DM Sans",sans-serif}
     .br{background:var(--red);color:#fff}.br:hover{background:var(--red-dark)}
     .bg{background:transparent;color:var(--muted);border:1.5px solid var(--border)}.bg:hover{border-color:var(--muted);color:var(--text)}
     .bs{background:var(--sage-pale);color:#3A6A5A;border:1.5px solid rgba(122,158,142,.3)}.bs:hover{background:var(--sage);color:#fff}
@@ -105,7 +105,7 @@
     .fg{margin-bottom:16px}
     .fl{font-size:.78rem;font-weight:600;color:var(--charcoal);margin-bottom:5px;display:block}
     .fh{font-size:.7rem;color:var(--muted);margin-top:3px}
-    .fi,.fs,.fta{width:100%;padding:9px 13px;border-radius:9px;border:1.5px solid var(--border);font-family:"Plus Jakarta Sans",sans-serif;font-size:.83rem;color:var(--text);background:var(--warm-white);transition:border-color .15s;outline:none}
+    .fi,.fs,.fta{width:100%;padding:9px 13px;border-radius:9px;border:1.5px solid var(--border);font-family:"DM Sans",sans-serif;font-size:.83rem;color:var(--text);background:var(--warm-white);transition:border-color .15s;outline:none}
     .fi:focus,.fs:focus,.fta:focus{border-color:var(--red)}
     .fta{resize:vertical;min-height:80px}
     /* PROGRESS */
@@ -177,6 +177,8 @@
       .content{padding:10px}
       .card{padding:14px}
     }
+
+    @media (min-width: 769px) { body { font-size: 17px; } }
   </style>
 </head>
 <body>
@@ -253,7 +255,7 @@
       <div style="position:absolute;top:-50px;right:-50px;width:180px;height:180px;border-radius:50%;background:rgba(192,57,43,.15)"></div>
       <div style="font-size:.68rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:6px">Credii Platform Beta</div>
       <div style="font-family:Fraunces,serif;font-size:1.6rem;font-weight:700;color:#fff;margin-bottom:8px">Welcome back, Andrea &#128075;</div>
-      <div style="font-size:.84rem;color:rgba(255,255,255,.65);line-height:1.6;position:relative;z-index:1">Continue building your verified record of learning, participation, and achievement.</div>
+      <div style="font-size:.84rem;color:rgba(255,255,255,.65);line-height:1.6;position:relative;z-index:1">Continue contributing to your verified record of learning, participation, and achievement.</div>
     </div>
     <div class="g4 mb5">
       <div class="stat"><div class="si" style="background:var(--red-pale)">&#128218;</div><div class="sn">2</div><div class="sl">Active Programs</div></div>
@@ -348,7 +350,7 @@
       <div class="pc">
         <div class="ptag">&#128994; Active &middot; Credii Foundation</div>
         <div class="pn">Women in Business Pilot</div>
-        <div class="pd">A six-month pilot testing digital credential issuance and trust profiles for women entrepreneurs and MSMEs across the Caribbean.</div>
+        <div class="pd">A six-month pilot exploring whether digital credential issuance and trust profiles could be useful for women entrepreneurs and MSMEs in the Caribbean.</div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;font-size:.72rem;color:var(--muted)">
           <span>&#128197; Oct 2026&ndash;Mar 2027</span><span>&#9201; 6 activities</span><span>&#127885; Pilot credential</span>
         </div>
