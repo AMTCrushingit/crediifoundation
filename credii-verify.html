@@ -2,6 +2,63 @@
 
 <html lang="en">
 <head>
+<script>
+(function() {
+  var passwords = {
+    'credii-platform': true,
+    'credii-verify': true,
+    'credii-portal': true
+  };
+  var pageKey = 'credii_auth_verify';
+  var correctPass = 'credii-verify';
+
+  if (sessionStorage.getItem(pageKey) === 'ok') return;
+
+  // Build overlay
+  var overlay = document.createElement('div');
+  overlay.id = 'credii-auth-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:#FAF7F2;display:flex;align-items:center;justify-content:center;font-family:"DM Sans",sans-serif;';
+
+  overlay.innerHTML = `
+    <div style="background:#fff;border-radius:20px;border:1.5px solid rgba(212,197,169,0.4);padding:48px 44px;max-width:400px;width:90%;text-align:center;box-shadow:0 16px 48px rgba(44,40,37,0.1);">
+      <div style="width:48px;height:48px;border-radius:50%;background:#C0392B;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;margin:0 auto 20px;">C</div>
+      <div style="font-family:Fraunces,serif;font-size:1.4rem;font-weight:700;color:#2C2825;margin-bottom:8px;">Credential Verification</div>
+      <div style="font-size:0.85rem;color:#7A7370;margin-bottom:28px;line-height:1.6;">This tool is currently in private beta.<br>Please enter your access password to continue.</div>
+      <input id="credii-pass-input" type="password" placeholder="Enter password" autocomplete="off"
+        style="width:100%;padding:11px 16px;border-radius:10px;border:1.5px solid rgba(212,197,169,0.5);font-family:DM Sans,sans-serif;font-size:0.9rem;color:#3D3835;background:#FAF7F2;outline:none;margin-bottom:10px;box-sizing:border-box;">
+      <div id="credii-pass-error" style="font-size:0.78rem;color:#C0392B;margin-bottom:10px;min-height:18px;"></div>
+      <button onclick="crediiCheckPass()" 
+        style="width:100%;padding:12px;border-radius:100px;background:#C0392B;color:#fff;border:none;font-family:DM Sans,sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;">
+        Access Tool
+      </button>
+      <div style="margin-top:20px;font-size:0.75rem;color:#7A7370;">
+        <a href="/" style="color:#C0392B;text-decoration:none;">&#8592; Return to Credii home</a>
+      </div>
+    </div>`;
+
+  document.documentElement.appendChild(overlay);
+
+  // Focus input on load
+  window.addEventListener('DOMContentLoaded', function() {
+    var inp = document.getElementById('credii-pass-input');
+    if (inp) { inp.focus(); inp.addEventListener('keydown', function(e){ if(e.key==='Enter') crediiCheckPass(); }); }
+  });
+
+  window.crediiCheckPass = function() {
+    var val = document.getElementById('credii-pass-input').value.trim();
+    var err = document.getElementById('credii-pass-error');
+    if (val === correctPass) {
+      sessionStorage.setItem(pageKey, 'ok');
+      document.getElementById('credii-auth-overlay').remove();
+    } else {
+      err.textContent = 'Incorrect password. Please try again.';
+      document.getElementById('credii-pass-input').value = '';
+      document.getElementById('credii-pass-input').focus();
+    }
+  };
+})();
+</script>
+
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Credii | Credential Verification</title>
