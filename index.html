@@ -156,6 +156,14 @@
     .problem-float-text strong { display: block; font-family: 'Fraunces', serif; font-size: 1rem; color: var(--charcoal); margin-bottom: 2px; }
     .problem-circle-deco { position: absolute; top: -28px; left: -28px; width: 80px; height: 80px; border-radius: 50%; background: var(--mustard); opacity: 0.25; }
 
+    /* PROBLEM STATS */
+    .problem-stats { display: flex; gap: 0; margin-top: 32px; border-top: 1.5px solid rgba(212,197,169,0.4); border-bottom: 1.5px solid rgba(212,197,169,0.4); }
+    .prob-stat { flex: 1; padding: 20px 16px; text-align: center; border-right: 1px solid rgba(212,197,169,0.4); }
+    .prob-stat:last-child { border-right: none; }
+    .prob-stat-num { font-family: 'Fraunces', serif; font-size: 1.9rem; font-weight: 700; color: var(--red); line-height: 1; margin-bottom: 8px; }
+    .prob-stat-label { font-size: 0.74rem; color: var(--text-muted); line-height: 1.55; }
+    .prob-source { font-size: 0.72rem; color: var(--text-muted); margin-top: 16px; font-style: italic; line-height: 1.6; }
+
     /* TRUST LAYER CALLOUT */
     .trust-callout { background: var(--red-pale); padding: 56px 5%; }
     .trust-callout-inner { max-width: 900px; margin: 0 auto; text-align: center; }
@@ -169,19 +177,15 @@
     .building-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
     .building-header { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-bottom: 56px; }
 
-    .focus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .focus-card { background: #fff; border-radius: 24px; padding: 36px 28px; transition: box-shadow 0.25s, transform 0.2s; position: relative; overflow: hidden; }
-    .focus-card:hover { box-shadow: 0 20px 52px rgba(44,40,37,0.1); transform: translateY(-4px); }
-    .focus-card-deco { position: absolute; top: -30px; right: -30px; width: 100px; height: 100px; border-radius: 50%; opacity: 0.12; }
-    .focus-card:nth-child(1) .focus-card-deco { background: var(--red); }
-    .focus-card:nth-child(2) .focus-card-deco { background: var(--sage); }
-    .focus-card:nth-child(3) .focus-card-deco { background: var(--terracotta); }
-    .focus-icon { width: 56px; height: 56px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin-bottom: 20px; }
-    .focus-card:nth-child(1) .focus-icon { background: var(--red-pale); }
-    .focus-card:nth-child(2) .focus-icon { background: var(--sage-pale); }
-    .focus-card:nth-child(3) .focus-icon { background: var(--terra-pale); }
-    .focus-card h3 { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 600; color: var(--charcoal); margin-bottom: 10px; }
-    .focus-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.72; }
+    .focus-list { display: flex; flex-direction: column; gap: 0; }
+    .focus-item { display: grid; grid-template-columns: 56px 1fr; gap: 24px; align-items: start; padding: 28px 0; border-bottom: 1px solid rgba(212,197,169,0.4); }
+    .focus-item:last-child { border-bottom: none; }
+    .focus-num { font-family: 'Fraunces', serif; font-size: 2.2rem; font-weight: 700; line-height: 1; }
+    .focus-item:nth-child(1) .focus-num { color: var(--red); }
+    .focus-item:nth-child(2) .focus-num { color: var(--sage); }
+    .focus-item:nth-child(3) .focus-num { color: var(--terracotta); }
+    .focus-item h3 { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700; color: var(--charcoal); margin-bottom: 8px; }
+    .focus-item p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.75; }
 
     /* IMPACT */
     .impact-section { background: var(--sage-pale); padding: 100px 5%; position: relative; overflow: hidden; }
@@ -192,14 +196,9 @@
     .impact-header { text-align: center; margin-bottom: 56px; }
     .impact-header .section-label { justify-content: center; }
     .impact-header .section-label::before { display: none; }
-    .impact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-    .impact-card { background: #fff; border-radius: 24px; padding: 36px 24px; text-align: center; transition: box-shadow 0.2s, transform 0.2s; position: relative; overflow: hidden; }
-    .impact-card::before { content: ''; position: absolute; bottom: -20px; right: -20px; width: 80px; height: 80px; border-radius: 50%; opacity: 0.1; }
-    .impact-card:nth-child(1)::before { background: var(--red); }
-    .impact-card:nth-child(2)::before { background: var(--sage); }
-    .impact-card:nth-child(3)::before { background: var(--terracotta); }
-    .impact-card:nth-child(4)::before { background: var(--mustard); }
-    .impact-card:hover { box-shadow: 0 14px 40px rgba(44,40,37,0.1); transform: translateY(-3px); }
+    .impact-grid { display: flex; gap: 0; border-top: 1.5px solid rgba(212,197,169,0.4); border-bottom: 1.5px solid rgba(212,197,169,0.4); }
+    .impact-card { flex: 1; padding: 36px 24px; text-align: center; border-right: 1px solid rgba(212,197,169,0.4); }
+    .impact-card:last-child { border-right: none; }
     .impact-num { font-family: 'Fraunces', serif; font-size: 3rem; font-weight: 700; color: var(--red); line-height: 1; margin-bottom: 10px; }
     .impact-label { font-size: 0.84rem; color: var(--text-muted); line-height: 1.55; font-weight: 500; }
 
@@ -257,17 +256,13 @@
     .eco-header .section-label { justify-content: center; }
     .eco-header .section-label::before { display: none; }
     .eco-header .section-sub { max-width: 560px; margin: 14px auto 0; }
-    .eco-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-    .eco-card { background: #fff; border-radius: 24px; padding: 32px 24px; border: 1.5px solid rgba(212,197,169,0.3); text-align: center; transition: box-shadow 0.2s, transform 0.2s; position: relative; overflow: hidden; }
-    .eco-card::before { content: ''; position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); width: 80px; height: 80px; border-radius: 50%; opacity: 0.08; }
-    .eco-card:nth-child(1)::before { background: var(--red); }
-    .eco-card:nth-child(2)::before { background: var(--sage); }
-    .eco-card:nth-child(3)::before { background: var(--terracotta); }
-    .eco-card:nth-child(4)::before { background: var(--mustard); }
-    .eco-card:hover { box-shadow: 0 14px 40px rgba(44,40,37,0.09); transform: translateY(-4px); }
-    .eco-icon { font-size: 2.2rem; margin-bottom: 14px; display: block; }
-    .eco-card h4 { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 600; color: var(--charcoal); margin-bottom: 8px; }
-    .eco-card p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
+    .eco-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .eco-card { display: flex; gap: 20px; align-items: flex-start; padding: 28px 32px; border-bottom: 1px solid rgba(212,197,169,0.35); }
+    .eco-card:nth-child(odd) { border-right: 1px solid rgba(212,197,169,0.35); }
+    .eco-card:nth-last-child(-n+2) { border-bottom: none; }
+    .eco-icon { font-size: 1.6rem; flex-shrink: 0; margin-top: 2px; }
+    .eco-card h4 { font-family: 'Fraunces', serif; font-size: 0.95rem; font-weight: 700; color: var(--charcoal); margin-bottom: 6px; }
+    .eco-card p { font-size: 0.84rem; color: var(--text-muted); line-height: 1.65; }
 
     /* WHY WE DO THIS */
     .why-we { background: var(--terra-pale); position: relative; overflow: hidden; }
@@ -432,6 +427,70 @@
     .membership-closing-card p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.75; max-width: 560px; margin: 0 auto; position: relative; z-index: 1; }
     .mc-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 28px; position: relative; z-index: 1; }
 
+
+    /* FRAMEWORK STRIP */
+    .framework-strip {
+      margin-top: 64px;
+      background: var(--charcoal);
+      border-radius: 24px;
+      padding: 48px 44px;
+      position: relative;
+      overflow: hidden;
+    }
+    .framework-strip::before {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 240px; height: 240px; border-radius: 50%;
+      background: rgba(192,57,43,0.12);
+    }
+    .framework-strip::after {
+      content: '';
+      position: absolute; bottom: -40px; left: 20%;
+      width: 160px; height: 160px; border-radius: 50%;
+      background: rgba(122,158,142,0.08);
+    }
+    .framework-strip-header { margin-bottom: 36px; position: relative; z-index: 1; }
+    .framework-eyebrow {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--red-light, #E8534A);
+      margin-bottom: 10px;
+    }
+    .framework-headline {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-weight: 700; color: #fff; line-height: 1.25;
+    }
+    .framework-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: rgba(255,255,255,0.08);
+      border-radius: 14px; overflow: hidden;
+      position: relative; z-index: 1;
+    }
+    .framework-item {
+      background: rgba(255,255,255,0.04);
+      padding: 28px 26px;
+      transition: background 0.2s;
+    }
+    .framework-item:hover { background: rgba(255,255,255,0.08); }
+    .framework-icon { font-size: 1.6rem; margin-bottom: 12px; }
+    .framework-title {
+      font-family: 'Fraunces', serif;
+      font-size: 0.95rem; font-weight: 700;
+      color: #fff; margin-bottom: 10px; line-height: 1.3;
+    }
+    .framework-desc {
+      font-size: 0.8rem; color: rgba(255,255,255,0.6);
+      line-height: 1.7; margin-bottom: 16px;
+    }
+    .framework-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .ftag {
+      font-size: 0.68rem; font-weight: 600;
+      padding: 3px 9px; border-radius: 100px;
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.75);
+      letter-spacing: 0.3px;
+    }
+
     /* RESPONSIVE */
     @media (max-width: 1024px) {
       .hero-inner { grid-template-columns: 1fr; }
@@ -456,6 +515,23 @@
       .impact-grid { grid-template-columns: 1fr 1fr; }
       .footer-top { grid-template-columns: 1fr; gap: 32px; }
       .nav-links { display: none; }
+      .focus-list { gap: 0; }
+      .serve-grid { grid-template-columns: 1fr; }
+      .serve-card:nth-child(odd) { border-right: none; }
+      .serve-card:nth-last-child(-n+2) { border-bottom: 1px solid rgba(212,197,169,0.35); }
+      .serve-card:last-child { border-bottom: none; }
+      .eco-grid { grid-template-columns: 1fr; }
+      .framework-grid { grid-template-columns: 1fr; }
+      .framework-strip { padding: 32px 24px; border-radius: 18px; }
+      .eco-card:nth-child(odd) { border-right: none; }
+      .eco-card:nth-last-child(-n+2) { border-bottom: 1px solid rgba(212,197,169,0.35); }
+      .eco-card:last-child { border-bottom: none; }
+      .impact-grid { flex-direction: column; }
+      .impact-card { border-right: none; border-bottom: 1px solid rgba(212,197,169,0.4); }
+      .impact-card:last-child { border-bottom: none; }
+      .problem-stats { flex-direction: column; }
+      .prob-stat { border-right: none; border-bottom: 1px solid rgba(212,197,169,0.4); }
+      .prob-stat:last-child { border-bottom: none; }
       .why-we-quote { padding: 32px 28px; }
       .why-we-quote p { font-size: 1rem; }
       .trust-callout-inner p { font-size: 1.15rem; }
@@ -463,8 +539,11 @@
     }
     @media (max-width: 480px) {
       .eco-grid { grid-template-columns: 1fr; }
+      .framework-grid { grid-template-columns: 1fr; }
+      .framework-strip { padding: 32px 24px; border-radius: 18px; }
       .impact-grid { grid-template-columns: 1fr; }
       .hero-actions { flex-direction: column; }
+      .problem-stats { grid-template-columns: 1fr; }
       .tier-grid { grid-template-columns: 1fr; }
       .mc-actions { flex-direction: column; align-items: center; }
     }
@@ -474,8 +553,7 @@
 <!-- NAV -->
 <nav>
 <a class="nav-logo" href="#">
-<div class="nav-logo-mark">C</div>
-<span class="nav-logo-text">credii<span>.</span></span>
+<img src="credii-logo.png" alt="Credii" style="height:36px;width:auto;display:block;">
 </a>
 <ul class="nav-links" id="nav-links">
 <li><a href="#problem">The Problem</a></li>
@@ -556,21 +634,29 @@
 <div class="section-label">The Problem</div>
 <h2 class="section-headline">Capability exists everywhere. Opportunity doesn't always follow.</h2>
 <p class="section-sub">
-          Across the Caribbean, people, particularly women, youth, and entrepreneurs, gain skills, complete training, build businesses, and contribute to their communities every day. Yet these achievements are often stored in paper certificates, PDFs, spreadsheets, or disconnected systems.
-        </p>
+Across the Caribbean, people build skills, complete training, gain experience, start businesses and contribute to their communities every day. Yet much of what they know, achieve and contribute can be difficult to verify, carry forward or use as trusted evidence of capability.
+</p>
 <p class="section-sub">
-          Verification is cumbersome, records are difficult to validate, and many accomplishments remain invisible to the employers, financial institutions, investors, and support organizations that could create real opportunity. There is a missing trust layer between capability and opportunity.
-        </p>
-<p class="section-sub">
-          This challenge is particularly acute for women entrepreneurs and aspiring professionals who may have completed training programs, community initiatives, informal learning, or business development activities, yet cannot easily demonstrate their credibility to those who matter most.
-        </p>
-<div class="problem-pills">
-<span class="pill pill-red">Paper Certificates</span>
-<span class="pill pill-sage">Unverifiable Records</span>
-<span class="pill pill-terra">Invisible Achievements</span>
-<span class="pill pill-sand">Credential Gaps</span>
-<span class="pill pill-lilac">AI-Era Urgency</span>
+The challenge is bigger than scattered certificates and disconnected records. For people whose experience does not fit neatly into traditional systems, that gap can make it harder to demonstrate credibility to employers, institutions, funders and other opportunity providers.
+</p>
+<p class="section-sub" style="font-weight:600;color:var(--charcoal);margin-top:6px;">The gap is not capability. It is trust, visibility and access.</p>
+
+<div class="problem-stats">
+  <div class="prob-stat">
+    <div class="prob-stat-num">24%</div>
+    <div class="prob-stat-label">of Caribbean youth aged 15 to 24 are not in employment, education or training</div>
+  </div>
+  <div class="prob-stat">
+    <div class="prob-stat-num">17.6%</div>
+    <div class="prob-stat-label">youth unemployment across the Caribbean, compared with 4.7% for adults</div>
+  </div>
+  <div class="prob-stat">
+    <div class="prob-stat-num">1.6&times;</div>
+    <div class="prob-stat-label">higher unemployment rate experienced by young women compared to young men</div>
+  </div>
 </div>
+
+<p class="prob-source">Source: International Labour Organization, 2025. Caribbean youth figures exclude Haiti where indicated.</p>
 </div>
 <div class="problem-visual">
 <div class="problem-circle-deco"></div>
@@ -590,7 +676,7 @@
 <!-- TRUST LAYER CALLOUT -->
 <div class="trust-callout">
 <div class="trust-callout-inner">
-<p>There is a <em>missing trust layer</em> between capability and opportunity, and Credii is exploring how to build it.</p>
+<p>There is a <em>missing trust layer</em> between capability and opportunity. Credii is exploring whether that gap can be bridged.</p>
 </div>
 </div>
 <!-- WHAT WE'RE BUILDING -->
@@ -605,24 +691,27 @@
 </div>
 <p class="section-sub">Credii is exploring and testing a platform that enables participating organizations to issue verifiable digital credentials, while helping individuals and small businesses build a trusted, portable record of skills, learning, achievements, and business capability.</p>
 </div>
-<div class="focus-grid">
-<div class="focus-card">
-<div class="focus-card-deco"></div>
-<div class="focus-icon">🏅</div>
+<div class="focus-list">
+<div class="focus-item">
+<div class="focus-num">01</div>
+<div>
 <h3>Digital Credential Issuance</h3>
 <p>Enabling ESOs, training providers, nonprofits, and community programs to issue verifiable digital credentials that participants can carry and present anywhere.</p>
 </div>
-<div class="focus-card">
-<div class="focus-card-deco"></div>
-<div class="focus-icon">🔐</div>
+</div>
+<div class="focus-item">
+<div class="focus-num">02</div>
+<div>
 <h3>Credential Verification</h3>
 <p>A public verification process that allows employers, funders, lenders, and partners to confirm the authenticity of credentials quickly and with confidence.</p>
 </div>
-<div class="focus-card">
-<div class="focus-card-deco"></div>
-<div class="focus-icon">👤</div>
+</div>
+<div class="focus-item">
+<div class="focus-num">03</div>
+<div>
 <h3>Trusted Capability Profiles</h3>
 <p>User trust profiles that consolidate verified achievements, skills, and business milestones into a single portable digital record, making capability visible and credible.</p>
+</div>
 </div>
 </div>
 </div>
@@ -669,33 +758,33 @@
 <div class="serve-grid">
 <div class="serve-card">
 <div class="serve-icon-wrap">👩‍💼</div>
-<h4>Women Entrepreneurs &amp; MSMEs</h4>
-<p>Women-led micro, small, and medium enterprises seeking stronger ways to demonstrate credibility when applying for financing, procurement, partnerships, and business support programs.</p>
+<div><h4>Women Entrepreneurs &amp; MSMEs</h4>
+<p>Women-led micro, small, and medium enterprises seeking stronger ways to demonstrate credibility when applying for financing, procurement, partnerships, and business support programs.</p></div>
 </div>
 <div class="serve-card">
 <div class="serve-icon-wrap">🏫</div>
-<h4>Training &amp; Support Organizations</h4>
-<p>ESOs, nonprofits, and training providers that need a practical way to issue and verify digital credentials, recognize participant achievements, and demonstrate program outcomes.</p>
+<div><h4>Training &amp; Support Organizations</h4>
+<p>ESOs, nonprofits, and training providers that need a practical way to issue and verify digital credentials, recognize participant achievements, and demonstrate program outcomes.</p></div>
 </div>
 <div class="serve-card">
 <div class="serve-icon-wrap">🎓</div>
-<h4>Youth &amp; Emerging Professionals</h4>
-<p>People seeking trusted, portable ways to demonstrate skills, training, and readiness for employment and career advancement across the region.</p>
+<div><h4>Youth &amp; Emerging Professionals</h4>
+<p>People seeking trusted, portable ways to demonstrate skills, training, and readiness for employment and career advancement across the region.</p></div>
 </div>
 <div class="serve-card">
 <div class="serve-icon-wrap">🏛️</div>
-<h4>Governments &amp; Public Agencies</h4>
-<p>Entities exploring innovative approaches to workforce development, capability building, and public service modernization across the Caribbean.</p>
+<div><h4>Governments &amp; Public Agencies</h4>
+<p>Entities exploring innovative approaches to workforce development, capability building, and public service modernization across the Caribbean.</p></div>
 </div>
 <div class="serve-card">
 <div class="serve-icon-wrap">🌍</div>
-<h4>Caribbean Diaspora</h4>
-<p>Individuals seeking stronger connections between experience gained abroad and opportunities across the region, with credentials that travel with them.</p>
+<div><h4>Caribbean Diaspora</h4>
+<p>Individuals seeking stronger connections between experience gained abroad and opportunities across the region, with credentials that travel with them.</p></div>
 </div>
 <div class="serve-card">
 <div class="serve-icon-wrap">🤝</div>
-<h4>Communities &amp; Civil Society</h4>
-<p>Organizations working to create inclusive pathways to learning, participation, and economic opportunity for underserved groups.</p>
+<div><h4>Communities &amp; Civil Society</h4>
+<p>Organizations working to create inclusive pathways to learning, participation, and economic opportunity for underserved groups.</p></div>
 </div>
 </div>
 </div>
@@ -738,25 +827,72 @@
 <div class="eco-grid">
 <div class="eco-card">
 <span class="eco-icon">📋</span>
-<h4>Standards &amp; Governance</h4>
-<p>Establishing credential frameworks and institutional partnerships that anchor a trusted, consistent credentialing ecosystem.</p>
+<div><h4>Standards &amp; Governance</h4>
+<p>Establishing credential frameworks and institutional partnerships that anchor a trusted, consistent credentialing ecosystem.</p></div>
 </div>
 <div class="eco-card">
 <span class="eco-icon">✅</span>
-<h4>Digital Verification</h4>
-<p>Building open, trusted digital systems for credential issuance and public verification, replacing paper with portable proof.</p>
+<div><h4>Digital Verification</h4>
+<p>Exploring open, trusted digital systems for credential issuance and public verification, replacing paper with portable proof.</p></div>
 </div>
 <div class="eco-card">
 <span class="eco-icon">🔗</span>
-<h4>Mobility Pathways</h4>
-<p>Connecting Caribbean communities globally through credentials that travel across borders and open doors to new opportunities.</p>
+<div><h4>Mobility Pathways</h4>
+<p>Connecting Caribbean communities globally through credentials that travel across borders and open doors to new opportunities.</p></div>
 </div>
 <div class="eco-card">
 <span class="eco-icon">🌺</span>
-<h4>Cultural Grounding</h4>
-<p>Honoring Caribbean identity, heritage, and lived experience in every framework and system we build together.</p>
+<div><h4>Cultural Grounding</h4>
+<p>Honoring Caribbean identity, heritage, and lived experience in every framework and system we explore together.</p></div>
 </div>
 </div>
+
+<!-- FRAMEWORK ALIGNMENT STRIP -->
+<div class="framework-strip">
+  <div class="framework-strip-header">
+    <div class="framework-eyebrow">Global Framework Alignment</div>
+    <h3 class="framework-headline">Aligned with the world's most important frameworks.</h3>
+  </div>
+  <div class="framework-grid">
+    <div class="framework-item">
+      <div class="framework-icon">🌱</div>
+      <div class="framework-title">UN Sustainable Development Goals</div>
+      <div class="framework-desc">Every Credii program, layer, and credential is designed to advance specific SDG targets, from quality education to reduced inequalities.</div>
+      <div class="framework-tags">
+        <span class="ftag">SDG 1</span>
+        <span class="ftag">SDG 4</span>
+        <span class="ftag">SDG 5</span>
+        <span class="ftag">SDG 8</span>
+        <span class="ftag">SDG 9</span>
+        <span class="ftag">SDG 10</span>
+        <span class="ftag">SDG 16</span>
+        <span class="ftag">SDG 17</span>
+      </div>
+    </div>
+    <div class="framework-item">
+      <div class="framework-icon">♻️</div>
+      <div class="framework-title">ESG Principles</div>
+      <div class="framework-desc">Credii embeds Environmental, Social, and Governance principles into every credential, standard, and institutional framework we explore.</div>
+      <div class="framework-tags">
+        <span class="ftag">ESG Social</span>
+        <span class="ftag">ESG Governance</span>
+        <span class="ftag">ESG Environmental</span>
+      </div>
+    </div>
+    <div class="framework-item">
+      <div class="framework-icon">✊🏾</div>
+      <div class="framework-title">IDPAD Mandate</div>
+      <div class="framework-desc">The International Decade for People of African Descent guides Credii's commitment to equity, recognition, and rights-based frameworks for Caribbean and diaspora communities.</div>
+      <div class="framework-tags">
+        <span class="ftag">Institutional Equity</span>
+        <span class="ftag">Economic Mobility</span>
+        <span class="ftag">Cultural Recognition</span>
+        <span class="ftag">Anti-Discrimination</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div>
 </section>
 <!-- WHY WE DO THIS -->
@@ -774,6 +910,41 @@
           Drawing from education, tourism, global exposure, communication training, and deep cultural roots, Credii was built to create the trusted infrastructure the Caribbean deserves: systems that see our people, honor our heritage, and unlock our collective potential on the world stage.
         </p>
 </div>
+
+<div style="margin-top:36px;">
+  <div style="font-size:0.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:16px;display:flex;align-items:center;gap:8px;justify-content:center;">
+    <span style="width:18px;height:2px;background:var(--red);border-radius:2px;display:inline-block;"></span>
+    Our Values
+    <span style="width:18px;height:2px;background:var(--red);border-radius:2px;display:inline-block;"></span>
+  </div>
+  <div style="background:#fff;border-radius:18px;border:1.5px solid rgba(212,197,169,0.35);padding:24px 28px;display:flex;flex-wrap:wrap;gap:0;">
+    <div style="flex:1;min-width:160px;padding:12px 16px;border-right:1px solid rgba(212,197,169,0.3);">
+      <div style="font-size:0.78rem;font-weight:700;color:var(--red);margin-bottom:3px;">Equity &amp; Inclusion</div>
+      <div style="font-size:0.75rem;color:var(--text-muted);line-height:1.5;">Every person deserves access to opportunity.</div>
+    </div>
+    <div style="flex:1;min-width:160px;padding:12px 16px;border-right:1px solid rgba(212,197,169,0.3);">
+      <div style="font-size:0.78rem;font-weight:700;color:var(--sage);margin-bottom:3px;">Cultural Grounding</div>
+      <div style="font-size:0.75rem;color:var(--text-muted);line-height:1.5;">Heritage, identity, and community matter.</div>
+    </div>
+    <div style="flex:1;min-width:160px;padding:12px 16px;border-right:1px solid rgba(212,197,169,0.3);">
+      <div style="font-size:0.78rem;font-weight:700;color:var(--terracotta);margin-bottom:3px;">Transparency &amp; Trust</div>
+      <div style="font-size:0.75rem;color:var(--text-muted);line-height:1.5;">Governance and accountability guide our work.</div>
+    </div>
+    <div style="flex:1;min-width:160px;padding:12px 16px;border-right:1px solid rgba(212,197,169,0.3);">
+      <div style="font-size:0.78rem;font-weight:700;color:var(--mustard);margin-bottom:3px;">Sustainability</div>
+      <div style="font-size:0.75rem;color:var(--text-muted);line-height:1.5;">Climate resilience and long-term thinking.</div>
+    </div>
+    <div style="flex:1;min-width:160px;padding:12px 16px;border-right:1px solid rgba(212,197,169,0.3);">
+      <div style="font-size:0.78rem;font-weight:700;color:var(--lilac);margin-bottom:3px;">Collaboration</div>
+      <div style="font-size:0.75rem;color:var(--text-muted);line-height:1.5;">Regional integration and multi-stakeholder partnerships.</div>
+    </div>
+    <div style="flex:1;min-width:160px;padding:12px 16px;">
+      <div style="font-size:0.78rem;font-weight:700;color:#2A7F7F;margin-bottom:3px;">Innovation for Public Good</div>
+      <div style="font-size:0.75rem;color:var(--text-muted);line-height:1.5;">Modern tools, community-centred design.</div>
+    </div>
+  </div>
+</div>
+
 </div>
 </section>
 <!-- MEMBERSHIP -->
@@ -899,8 +1070,7 @@
 <div class="footer-top">
 <div class="footer-brand">
 <div class="footer-brand-logo">
-<div class="nav-logo-mark">C</div>
-<span class="nav-logo-text">credii<span>.</span></span>
+<img src="credii-logo.png" alt="Credii" style="height:36px;width:auto;display:block;">
 </div>
 <p>Credii is a nonprofit initiative developing and testing trust, credentialing, capability-building, and opportunity-focused approaches that could contribute to greater inclusion, mobility, and resilience across the Caribbean.</p>
 <p class="footer-tagline">Based in Trinidad &amp; Tobago. Based in the Caribbean, working with the Caribbean.</p>
