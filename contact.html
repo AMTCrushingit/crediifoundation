@@ -56,19 +56,32 @@ h1{font-size:clamp(2.3rem,5vw,4rem);max-width:760px;margin-bottom:18px}
 .contact-note{margin-top:28px;padding-top:22px;border-top:1px solid var(--border);font-size:.88rem;color:var(--text-muted)}
 footer{background:var(--sand-pale);border-top:1px solid var(--border);padding:54px 5% 28px}
 .footer-inner{max-width:1200px;margin:0 auto}
-.footer-top{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px;padding-bottom:38px;border-bottom:1px solid var(--border)}
+.footer-top{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(4,minmax(0,1fr));gap:28px;padding-bottom:38px;border-bottom:1px solid var(--border)}
 .footer-brand img{width:auto;height:36px;display:block;margin-bottom:14px}
 .footer-brand p{font-size:.84rem;line-height:1.7;color:var(--text-muted);max-width:310px}
 .footer-col h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:18px}
 .footer-col ul{list-style:none;display:grid;gap:9px}
 .footer-col a{font-size:.84rem;color:var(--text-muted);text-decoration:none}
 .footer-col a:hover{color:var(--red)}
-.footer-bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:22px;font-size:.78rem;color:var(--text-muted)}
+.footer-tools ul li a{color:var(--red-dark);font-weight:700}
+.footer-social-list{display:grid;gap:12px}
+.footer-social-link{display:inline-flex;align-items:center;gap:9px}
+.footer-social-link svg{width:18px;height:18px;flex:0 0 18px}
+.footer-social-link.linkedin svg,.footer-social-link.facebook svg{fill:currentColor}
+.footer-social-link.instagram svg{fill:none;stroke:currentColor}
+.footer-social-link.instagram svg circle:last-child{fill:currentColor;stroke:none}
+.footer-social-link.linkedin{color:#0A66C2}
+.footer-social-link.instagram{color:#B14B65}
+.footer-social-link.facebook{color:#1877F2}
+.footer-bottom{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:16px;padding-top:22px;font-size:.78rem;color:var(--text-muted)}
 .footer-bottom a{color:inherit;text-decoration:none}
 .footer-bottom a:hover{color:var(--red)}
-@media(max-width:900px){.footer-top{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}.path-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:768px){.nav-links{display:none!important}.hamburger{display:flex}.contact-hero{padding:64px 6% 56px}.paths{padding:56px 6% 64px}.path-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:680px){.nav-links.mobile-open .nav-cta{margin-top:8px;padding:11px 16px}.path-grid,.footer-top{grid-template-columns:1fr}.footer-top{gap:24px}.footer-bottom{display:grid}}
+.footer-bottom-links{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.footer-bottom-links .separator{color:rgba(122,115,112,.5)}
+.back-to-top{white-space:nowrap}
+@media(max-width:1024px){.footer-top{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}.footer-brand{grid-column:1/-1}.path-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.nav-links{display:none!important}.hamburger{display:flex}.contact-hero{padding:64px 6% 56px}.paths{padding:56px 6% 64px}.path-grid{grid-template-columns:1fr 1fr}.footer-top{grid-template-columns:repeat(2,minmax(0,1fr))}.footer-bottom{grid-template-columns:1fr auto}.footer-bottom-links{grid-column:1/-1}}
+@media(max-width:680px){.nav-links.mobile-open .nav-cta{margin-top:8px;padding:11px 16px}.path-grid,.footer-top{grid-template-columns:1fr}.footer-top{gap:24px}.footer-brand{grid-column:auto}.footer-bottom{grid-template-columns:1fr}.footer-bottom-links{grid-column:auto}.back-to-top{justify-self:start}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.path{transition:none}}
 </style>
 </head>
@@ -130,9 +143,9 @@ footer{background:var(--sand-pale);border-top:1px solid var(--border);padding:54
 <div class="footer-top">
 <div class="footer-brand">
 <a href="index.html" aria-label="Credii Foundation home"><img src="credii-logo.png" alt="Credii Foundation"/></a>
-<p>Credii is a nonprofit initiative developing and testing trust, credentialing, capability-building, and opportunity-focused approaches across the Caribbean.</p>
+<p>Credii is a nonprofit building trust infrastructure that helps people turn verified achievements, skills and experiences into stronger pathways to opportunity across the Caribbean.</p>
 </div>
-<div class="footer-col">
+<div class="footer-col footer-tools">
 <h2>Tools</h2>
 <ul>
 <li><a href="credii-platform.html">Platform (Beta)</a></li>
@@ -143,26 +156,37 @@ footer{background:var(--sand-pale);border-top:1px solid var(--border);padding:54
 <div class="footer-col">
 <h2>Explore</h2>
 <ul>
+<li><a href="index.html#approach">About Credii</a></li>
+<li><a href="index.html#problem">The Problem</a></li>
 <li><a href="index.html#building">What We're Building</a></li>
 <li><a href="index.html#serve">Who We Serve</a></li>
+<li><a href="index.html#approach">Our Approach</a></li>
 <li><a href="index.html#involved">Membership</a></li>
 </ul>
 </div>
 <div class="footer-col">
 <h2>Get Involved</h2>
 <ul>
-<li><a href="contact.html#membership">Membership</a></li>
+<li><a href="contact.html#membership">Become a Member</a></li>
 <li><a href="contact.html#volunteer">Volunteer</a></li>
-<li><a href="contact.html#partnerships">Partnerships</a></li>
+<li><a href="contact.html#partnerships">Partner With Us</a></li>
 <li><a href="contact.html#pilots">Programs &amp; Pilots</a></li>
-<li><a href="contact.html">General contact</a></li>
+<li><a href="contact.html">Contact Us</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h2>Connect</h2>
+<ul class="footer-social-list">
+<li><a class="footer-social-link linkedin" href="https://www.linkedin.com/company/credii-foundation/posts/?viewAsMember=true" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.5a2.1 2.1 0 1 1 0 4.2 2.1 2.1 0 0 1 0-4.2ZM3.5 9h3.4v11.5H3.5V9Zm5.5 0h3.2v1.6h.05c.45-.85 1.55-1.75 3.2-1.75 3.42 0 4.05 2.25 4.05 5.18v6.47h-3.4v-5.74c0-1.37-.03-3.13-1.9-3.13-1.9 0-2.18 1.48-2.18 3.03v5.84H9V9Z"/></svg><span>LinkedIn</span></a></li>
+<li><a class="footer-social-link instagram" href="https://www.instagram.com/crediiFacebook" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.7" cy="6.6" r="1.1"/></svg><span>Instagram</span></a></li>
+<li><a class="footer-social-link facebook" href="https://www.facebook.com/profile.php?id=61589564333491" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5h1.7V3.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4.1 1.5-4.1 4.2V10H7.5v3h2.8v8h3.2Z"/></svg><span>Facebook</span></a></li>
 </ul>
 </div>
 </div>
 <div class="footer-bottom">
 <span>© 2026 Credii Foundation. Based in Trinidad &amp; Tobago.</span>
-<a href="credii-privacy.html">Privacy Policy</a>
-<a href="index.html">Back to home</a>
+<nav class="footer-bottom-links" aria-label="Legal information"><a href="credii-privacy.html">Privacy Policy</a><span class="separator">·</span><a href="mailto:legal@crediifoundation.org?subject=Terms%20of%20Use">Terms of Use</a><span class="separator">·</span><a href="mailto:legal@crediifoundation.org?subject=Accessibility">Accessibility</a><span class="separator">·</span><a href="mailto:legal@crediifoundation.org?subject=Trust%20and%20Verification">Trust &amp; Verification</a></nav>
+<a class="back-to-top" href="#top">Back to top ↑</a>
 </div>
 </div>
 </footer>
