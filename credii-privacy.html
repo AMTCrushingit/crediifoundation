@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Privacy Policy | Credii Foundation</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&amp;family=Fraunces:ital,wght@0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red: #C0392B; --red-dark: #9B2D20; --red-pale: #FDF0EE;
+      --sand-pale: #FAF7F2; --sand: #D4C5A9;
+      --warm-white: #FDFCF9; --off-white: #F5F3EF;
+      --charcoal: #2C2825; --text: #3D3835; --muted: #7A7370;
+      --border: rgba(212,197,169,0.4);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--warm-white); line-height: 1.7; font-size: 17px; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(253,252,249,0.96); backdrop-filter: blur(16px);
+      border-bottom: 1.5px solid var(--border);
+      padding: 0 5%; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo img { height: 32px; width: auto; }
+    .nav-back { font-size: 0.84rem; font-weight: 600; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+    .nav-back:hover { color: var(--red); }
+
+    /* HERO */
+    .doc-hero {
+      background: var(--sand-pale);
+      border-bottom: 1.5px solid var(--border);
+      padding: 56px 5% 48px;
+    }
+    .doc-hero-inner { max-width: 800px; margin: 0 auto; }
+    .doc-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--red); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .doc-eyebrow::before { content: ''; width: 18px; height: 2px; background: var(--red); border-radius: 2px; display: inline-block; }
+    .doc-title { font-family: 'Fraunces', serif; font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 700; color: var(--charcoal); line-height: 1.2; margin-bottom: 14px; }
+    .doc-meta { font-size: 0.84rem; color: var(--muted); }
+
+    /* CONTENT */
+    .doc-body { max-width: 800px; margin: 0 auto; padding: 56px 5% 80px; }
+
+    .doc-section { margin-bottom: 48px; }
+    .doc-section:last-child { margin-bottom: 0; }
+
+    h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.25rem; font-weight: 700;
+      color: var(--charcoal); margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1.5px solid var(--border);
+    }
+
+    p { margin-bottom: 14px; color: var(--text); }
+    p:last-child { margin-bottom: 0; }
+
+    ul { margin: 12px 0 14px 0; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    ul li { display: flex; gap: 10px; align-items: flex-start; font-size: 0.95rem; color: var(--text); }
+    ul li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red); flex-shrink: 0; margin-top: 9px; }
+
+    .sub-heading { font-weight: 700; color: var(--charcoal); margin: 20px 0 8px; font-size: 1rem; }
+
+    .contact-box {
+      background: var(--red-pale);
+      border-radius: 14px;
+      border: 1.5px solid rgba(192,57,43,0.15);
+      padding: 20px 24px;
+      margin-top: 32px;
+      font-size: 0.9rem;
+    }
+    .contact-box strong { color: var(--charcoal); }
+    .contact-box a { color: var(--red); text-decoration: none; font-weight: 600; }
+    .contact-box a:hover { text-decoration: underline; }
+
+    /* FOOTER */
+    .doc-footer {
+      background: var(--sand-pale);
+      border-top: 1.5px solid var(--border);
+      padding: 28px 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .doc-footer p { font-size: 0.78rem; color: var(--muted); }
+    .doc-footer-links { display: flex; gap: 20px; }
+    .doc-footer-links a { font-size: 0.78rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .doc-footer-links a:hover { color: var(--red); }
+
+    @media (max-width: 640px) {
+      .doc-body { padding: 40px 5% 60px; }
+      .doc-hero { padding: 40px 5% 36px; }
+    }
+  </style>
+</head>
+<body>
+<nav>
+<a class="nav-logo" href="index.html">
+<img alt="Credii Foundation" src="credii-logo.png?expires=1794804612&amp;signature=ae0a2f94b90d3fa8cb73f7d1872b10169f26194aaeeda3633c04bb55807ba9ab&amp;kid=prod-250922"/>
+</a>
+<a class="nav-back" href="index.html">← Back to Credii</a>
+</nav>
+<div class="doc-hero">
+<div class="doc-hero-inner">
+<div class="doc-eyebrow">Legal</div>
+<h1 class="doc-title">Privacy Policy</h1>
+<p class="doc-meta">Last Updated: October 2026</p>
+</div>
+</div>
+<div class="doc-body">
+<div class="doc-section">
+<h2>1. About Credii Foundation</h2>
+<p>Credii Foundation ("Credii," "we," "our," or "us") is a nonprofit organization dedicated to helping individuals build trusted digital profiles through the verification of achievements, skills, participation, credentials, experiences, and other trust signals that support access to opportunities.</p>
+<p>This Privacy Policy explains how we collect, use, disclose, store, and protect personal information when individuals, organizations, partners, and visitors use our platform and services.</p>
+</div>
+<div class="doc-section">
+<h2>2. Information We Collect</h2>
+<p>We may collect:</p>
+<p class="sub-heading">Personal Information</p>
+<ul>
+<li>Name, email address, phone number, location, date of birth (where necessary), profile photographs, education records, training records, employment history, volunteer experience, and professional memberships.</li>
+</ul>
+<p class="sub-heading">Verification Information</p>
+<p>We may collect information used to verify achievements, including:</p>
+<ul>
+<li>Certificates, program completion records, references, licenses, membership confirmations, participation records, and supporting documentation.</li>
+</ul>
+<p class="sub-heading">Organization Information</p>
+<p>For participating organizations, we may collect:</p>
+<ul>
+<li>Organization name, contact information, program information, verification records, and organizational profile information.</li>
+</ul>
+<p class="sub-heading">Platform Usage Information</p>
+<p>We may collect:</p>
+<ul>
+<li>Login activity, device information, browser information, IP address, pages visited, and user interactions.</li>
+</ul>
+</div>
+<div class="doc-section">
+<h2>3. How We Use Information</h2>
+<p>We use information to:</p>
+<ul>
+<li>Create and manage user accounts</li>
+<li>Verify achievements and records</li>
+<li>Build trust profiles</li>
+<li>Facilitate verification requests</li>
+<li>Improve platform functionality</li>
+<li>Measure program impact</li>
+<li>Support research and evaluation activities</li>
+<li>Communicate with users</li>
+<li>Comply with legal obligations</li>
+</ul>
+</div>
+<div class="doc-section">
+<h2>4. Information Sharing</h2>
+<p>We do not sell personal information.</p>
+<p>Information may be shared:</p>
+<p class="sub-heading">With Authorized Organizations</p>
+<p>When users authorize participation in programs or verification activities.</p>
+<p class="sub-heading">With Verification Partners</p>
+<p>To validate information submitted by users.</p>
+<p class="sub-heading">With Service Providers</p>
+<p>For hosting, security, analytics, support, and platform operation.</p>
+<p class="sub-heading">For Legal Purposes</p>
+<p>Where required by law or to protect rights, safety, or security.</p>
+</div>
+<div class="doc-section">
+<h2>5. Data Security</h2>
+<p>Credii implements reasonable administrative, technical, and physical safeguards, including:</p>
+<ul>
+<li>Encryption in transit</li>
+<li>Secure authentication</li>
+<li>Role-based access controls</li>
+<li>Audit logging</li>
+<li>Backup and recovery procedures</li>
+<li>Security monitoring</li>
+</ul>
+<p>No system can guarantee absolute security.</p>
+</div>
+<div class="doc-section">
+<h2>6. User Rights</h2>
+<p>Users may:</p>
+<ul>
+<li>Access their information</li>
+<li>Correct inaccuracies</li>
+<li>Request deletion, where permitted</li>
+<li>Withdraw consent</li>
+<li>Request copies of information held about them</li>
+</ul>
+<p>Requests may be submitted through our designated privacy contact.</p>
+</div>
+<div class="doc-section">
+<h2>7. Data Retention</h2>
+<p>Credii retains information only as long as necessary to:</p>
+<ul>
+<li>Provide services</li>
+<li>Maintain trust records</li>
+<li>Meet reporting obligations</li>
+<li>Comply with applicable laws</li>
+</ul>
+</div>
+<div class="doc-section">
+<h2>8. International Data Transfers</h2>
+<p>Information may be stored or processed in different jurisdictions where service providers operate. Appropriate safeguards will be implemented where required.</p>
+</div>
+<div class="doc-section">
+<h2>9. Children and Youth</h2>
+<p>Credii may support youth-focused programs. Additional consent and privacy safeguards may apply when working with minors.</p>
+</div>
+<div class="doc-section">
+<h2>10. Policy Changes</h2>
+<p>This Policy may be updated periodically. Significant changes will be communicated through the platform.</p>
+</div>
+<div class="contact-box">
+<strong>Privacy Contact</strong><br/>
+      For privacy-related requests or questions, please contact us at:<br/>
+<a href="mailto:legal@crediifoundation.org">legal@crediifoundation.org</a>
+</div>
+</div>
+<footer class="doc-footer">
+<p>© 2026 Credii Foundation. All rights reserved. Registered nonprofit, Trinidad &amp; Tobago.</p>
+<div class="doc-footer-links">
+<a href="credii-privacy.html">Privacy Policy</a>
+<a href="credii-terms.html">Terms of Use</a>
+<a href="credii-accessibility.html">Accessibility</a>
+</div>
+</footer>
+</body>
+</html>
