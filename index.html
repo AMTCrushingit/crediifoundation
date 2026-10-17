@@ -575,6 +575,7 @@
       .impact-grid { grid-template-columns: 1fr 1fr; }
       .footer-top { grid-template-columns: 1fr; gap: 32px; }
       .nav-links { display: none; }
+      .hamburger { display: flex; }
       .serve-mosaic { grid-template-columns: 1fr; height: auto; }
       .serve-photo-large { height: 300px; }
       .serve-photo-medium { height: 220px; }
@@ -628,7 +629,7 @@
 <body>
 <!-- NAV -->
 <nav>
-<a class="nav-logo" href="#">
+<a class="nav-logo" href="index.html">
 <img src="credii-logo.png" alt="Credii" style="height:36px;width:auto;display:block;">
 </a>
 <ul class="nav-links" id="nav-links">
@@ -637,7 +638,7 @@
 <li><a href="#serve">Who We Serve</a></li>
 <li><a href="#approach">Our Approach</a></li>
 <li><a href="#involved">Membership</a></li>
-<li><a href="#involved" class="nav-cta">Get Involved</a></li>
+<li><a href="contact.html" class="nav-cta">Get Involved</a></li>
 </ul>
 <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
 <span></span><span></span><span></span>
@@ -654,8 +655,8 @@
 <h1>Exploring whether new pathways to <em>recognition, mobility,</em> and <em>opportunity</em> are possible in the Caribbean.</h1>
 <p class="hero-sub">Credii is a nonprofit initiative based in Trinidad and Tobago. We are developing and testing approaches to digital credential recognition, capability verification, and economic inclusion, helping individuals, women entrepreneurs, and small businesses unlock the opportunities their achievements deserve.</p>
 <div class="hero-actions">
-<a class="btn-primary" href="#involved">Become a Member ↗</a>
-<a class="btn-outline" href="#involved">Partner With Us</a>
+<a class="btn-primary" href="contact.html">Become a Member ↗</a>
+<a class="btn-outline" href="contact.html#partnerships">Partner With Us</a>
 </div>
 </div>
 <div class="hero-visual">
@@ -1084,7 +1085,7 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 </div>
 </span>
 </div>
-<a class="tier-btn tier-btn-outline" href="#">Become a Member</a>
+<a class="tier-btn tier-btn-outline" href="contact.html#membership">Become a Member</a>
 </div>
 <div class="tier-card">
 <div class="tier-card-deco"></div>
@@ -1106,7 +1107,7 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 </div>
 </span>
 </div>
-<a class="tier-btn tier-btn-outline" href="#">Join as a Professional</a>
+<a class="tier-btn tier-btn-outline" href="contact.html#membership">Join as a Professional</a>
 </div>
 <div class="tier-card tier-card-featured">
 <div class="tier-card-deco"></div>
@@ -1130,7 +1131,7 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 </div>
 </span>
 </div>
-<a class="tier-btn tier-btn-white" href="#">Become an Organizational Member</a>
+<a class="tier-btn tier-btn-white" href="contact.html#membership">Become an Organizational Member</a>
 </div>
 <div class="tier-card">
 <div class="tier-card-deco"></div>
@@ -1153,7 +1154,7 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 </div>
 </span>
 </div>
-<a class="tier-btn tier-btn-outline" href="#">Become a Strategic Partner</a>
+<a class="tier-btn tier-btn-outline" href="contact.html#partnerships">Become a Strategic Partner</a>
 </div>
 </div>
 <!-- Closing -->
@@ -1165,8 +1166,8 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 <p>Credii is still in its early stages, and that's exactly why membership matters. By becoming a member or partner, you are helping shape programs, pilots, research, and initiatives that explore whether trusted recognition systems can strengthen capability and opportunity.</p>
 <p style="margin-top:12px;font-weight:600;color:var(--charcoal);">Ready to get involved?</p>
 <div class="mc-actions">
-<a class="btn-primary" href="#">Become a Member ↗</a>
-<a class="btn-outline" href="#">Partner With Us</a>
+<a class="btn-primary" href="contact.html#membership">Become a Member ↗</a>
+<a class="btn-outline" href="contact.html#partnerships">Partner With Us</a>
 </div>
 </div>
 </div>
@@ -1180,11 +1181,13 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 <img src="credii-logo.png" alt="Credii" style="height:36px;width:auto;display:block;">
 </div>
 <p>Credii is a nonprofit initiative developing and testing trust, credentialing, capability-building, and opportunity-focused approaches that could contribute to greater inclusion, mobility, and resilience across the Caribbean.</p>
-<p class="footer-tagline">Based in Trinidad &amp; Tobago. Based in the Caribbean, working with t<div class="footer-col">
+<p class="footer-tagline">Based in Trinidad &amp; Tobago. Working across the Caribbean.</p>
+</div>
+<div class="footer-col">
 <h5>Explore</h5>
 <ul>
-<li><a href="#">About Credii</a></li>
-<li><a href="#">What We Do</a></li>
+<li><a href="#approach">About Credii</a></li>
+<li><a href="#building">What We Do</a></li>
 <li><a href="#serve">Who We Serve</a></li>
 <li><a href="#involved">Membership</a></li>
 </ul>
@@ -1192,11 +1195,11 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 <div class="footer-col">
 <h5>Get Involved</h5>
 <ul>
-<li><a href="mailto:ourpartner@crediifoundation.org">Partner With Us</a></li>
-<li><a href="#involved">Become a Member</a></li>
-<li><a href="#involved">Participate in a Pilot</a></li>
-<li><a href="#">Support Credii</a></li>
-<li><a href="mailto:contact@crediifoundation.org">Contact</a></li>
+<li><a href="contact.html#partnerships">Partner With Us</a></li>
+<li><a href="contact.html#membership">Become a Member</a></li>
+<li><a href="contact.html#pilots">Participate in a Pilot</a></li>
+<li><a href="contact.html#support">Support Credii</a></li>
+<li><a href="contact.html">Contact</a></li>
 </ul>
 </div>
 <div class="footer-col">
@@ -1212,7 +1215,7 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 <div class="footer-bottom">
 <p>© 2025 Credii Foundation. All rights reserved. Registered nonprofit, Trinidad &amp; Tobago.</p>
 <div class="footer-bottom-links">
-<a href="mailto:contact@crediifoundation.org">Contact</a>
+<a href="contact.html">Contact</a>
 <a href="mailto:legal@crediifoundation.org">Legal</a>
 </div>
 </div>
