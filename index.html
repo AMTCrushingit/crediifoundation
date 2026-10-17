@@ -36,7 +36,7 @@
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: 'DM Sans', sans-serif;
       color: var(--text-body);
       background: var(--warm-white);
       line-height: 1.6;
@@ -157,20 +157,18 @@
     .problem-circle-deco { position: absolute; top: -28px; left: -28px; width: 80px; height: 80px; border-radius: 50%; background: var(--mustard); opacity: 0.25; }
 
     /* PROBLEM STATS */
-    .problem-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; max-width: 1200px; margin: 48px auto 0; }
-    .prob-stat { min-width: 0; padding: 24px; text-align: left; background: #fff; border: 1px solid rgba(212,197,169,0.45); border-radius: 12px; }
-    .prob-stat-num { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 700; color: var(--red); line-height: 1; margin-bottom: 12px; }
-    .prob-stat-label { font-size: 0.84rem; color: var(--text-body); line-height: 1.6; }
-    .prob-stat-source { display: block; margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(212,197,169,0.35); font-size: 0.72rem; color: var(--text-muted); line-height: 1.55; }
+    .problem-stats { display: flex; gap: 0; margin-top: 32px; border-top: 1.5px solid rgba(212,197,169,0.4); border-bottom: 1.5px solid rgba(212,197,169,0.4); }
+    .prob-stat { flex: 1; padding: 20px 16px; text-align: center; border-right: 1px solid rgba(212,197,169,0.4); }
+    .prob-stat:last-child { border-right: none; }
+    .prob-stat-num { font-family: 'Fraunces', serif; font-size: 1.9rem; font-weight: 700; color: var(--red); line-height: 1; margin-bottom: 8px; }
+    .prob-stat-label { font-size: 0.74rem; color: var(--text-muted); line-height: 1.55; }
+    .prob-source { font-size: 0.72rem; color: var(--text-muted); margin-top: 16px; font-style: italic; line-height: 1.6; }
 
     /* TRUST LAYER CALLOUT */
     .trust-callout { background: var(--red-pale); padding: 56px 5%; }
     .trust-callout-inner { max-width: 900px; margin: 0 auto; text-align: center; }
-    .trust-callout-inner p { font-family: 'Fraunces', serif; font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-weight: 600; color: var(--charcoal); line-height: 1.5; }
-    .trust-callout-lead, .trust-callout-emphasis, .trust-callout-detail { display: block; }
-    .trust-callout-lead { font-style: italic; }
-    .trust-callout-emphasis { margin-top: 2px; color: var(--red); font-style: italic; }
-    .trust-callout-detail { max-width: 760px; margin: 14px auto 0; font-family: 'DM Sans', sans-serif; font-size: 0.92rem; font-weight: 500; color: var(--text-muted); line-height: 1.7; }
+    .trust-callout-inner p { font-family: 'Fraunces', serif; font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-weight: 600; color: var(--charcoal); line-height: 1.5; font-style: italic; }
+    .trust-callout-inner p em { color: var(--red); font-style: normal; }
 
     /* WHAT WE'RE BUILDING */
     .building { background: var(--sand-pale); position: relative; overflow: hidden; }
@@ -178,8 +176,6 @@
     .building-deco-2 { position: absolute; bottom: -40px; left: 10%; width: 160px; height: 160px; border-radius: 50%; background: rgba(122,158,142,0.1); }
     .building-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
     .building-header { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-bottom: 56px; }
-    .building-header-full { display: block; max-width: 900px; margin-bottom: 40px; }
-    .building-header-full .section-sub + .section-sub { margin-top: 8px; }
 
     .focus-list { display: flex; flex-direction: column; gap: 0; }
     .focus-item { display: grid; grid-template-columns: 56px 1fr; gap: 24px; align-items: start; padding: 28px 0; border-bottom: 1px solid rgba(212,197,169,0.4); }
@@ -190,12 +186,6 @@
     .focus-item:nth-child(3) .focus-num { color: var(--terracotta); }
     .focus-item h3 { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700; color: var(--charcoal); margin-bottom: 8px; }
     .focus-item p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.75; }
-    .focus-item .focus-outcome { margin-top: 9px; color: var(--charcoal); font-size: 0.84rem; font-weight: 600; }
-    .focus-outcome strong { color: var(--red); }
-    .building-closing { margin-top: 36px; padding-top: 28px; border-top: 1.5px solid rgba(212,197,169,0.45); }
-    .building-closing-lines { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; margin: 18px 0 12px; }
-    .building-closing-lines p { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 600; color: var(--charcoal); }
-    .building-closing-summary { max-width: 800px; color: var(--text-muted); font-size: 0.92rem; line-height: 1.75; }
 
     /* IMPACT */
     .impact-section { background: var(--sage-pale); padding: 100px 5%; position: relative; overflow: hidden; }
@@ -301,31 +291,21 @@
     .btn-outline-white:hover { border-color: #fff; background: rgba(255,255,255,0.1); transform: translateY(-2px); }
 
     /* FOOTER */
-    footer { background: var(--sand-pale); border-top: 1px solid var(--border); padding: 54px 5% 28px; }
+    footer { background: var(--sand-pale); border-top: 1.5px solid rgba(212,197,169,0.4); padding: 72px 5% 40px; }
     .footer-inner { max-width: 1200px; margin: 0 auto; }
-    .footer-top { display: grid; grid-template-columns: minmax(0,1.6fr) repeat(4,minmax(0,1fr)); gap: 28px; padding-bottom: 38px; border-bottom: 1px solid var(--border); }
-    .footer-brand img { width: auto; height: 36px; display: block; margin-bottom: 14px; }
-    .footer-brand p { font-size: 0.84rem; line-height: 1.7; color: var(--text-muted); max-width: 310px; }
-    .footer-col h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
-    .footer-col ul { list-style: none; display: grid; gap: 9px; }
-    .footer-col ul li a { text-decoration: none; font-size: 0.84rem; color: var(--text-muted); transition: color 0.2s; }
+    .footer-top { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 36px; padding-bottom: 52px; border-bottom: 1.5px solid rgba(212,197,169,0.4); }
+    .footer-brand-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .footer-brand p { font-size: 0.85rem; line-height: 1.75; color: var(--text-muted); max-width: 280px; }
+    .footer-tagline { font-size: 0.78rem; color: rgba(122,115,112,0.6); margin-top: 16px; font-style: italic; }
+    .footer-col h5 { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 18px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { text-decoration: none; font-size: 0.875rem; color: var(--text-muted); transition: color 0.2s; }
     .footer-col ul li a:hover { color: var(--red); }
-    .footer-tools a { color: var(--red-dark) !important; font-weight: 700; }
-    .footer-social-list { display: grid; gap: 12px; }
-    .footer-social-link { display: inline-flex; align-items: center; gap: 9px; }
-    .footer-social-link svg { width: 18px; height: 18px; flex: 0 0 18px; }
-    .footer-social-link.linkedin svg, .footer-social-link.facebook svg { fill: currentColor; }
-    .footer-social-link.instagram svg { fill: none; stroke: currentColor; }
-    .footer-social-link.instagram svg circle:last-child { fill: currentColor; stroke: none; }
-    .footer-social-link.linkedin { color: #0A66C2 !important; }
-    .footer-social-link.instagram { color: #B14B65 !important; }
-    .footer-social-link.facebook { color: #1877F2 !important; }
-    .footer-bottom { display: grid; grid-template-columns: minmax(0,1fr) auto auto; align-items: center; gap: 16px; padding-top: 22px; font-size: 0.78rem; color: var(--text-muted); }
-    .footer-bottom a { color: inherit; text-decoration: none; }
-    .footer-bottom a:hover { color: var(--red); }
-    .footer-bottom-links { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
-    .footer-bottom-links .separator { color: rgba(122,115,112,0.5); }
-    .back-to-top { white-space: nowrap; }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 28px; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom p { font-size: 0.8rem; color: rgba(122,115,112,0.6); }
+    .footer-bottom-links { display: flex; gap: 24px; }
+    .footer-bottom-links a { font-size: 0.8rem; color: rgba(122,115,112,0.6); text-decoration: none; transition: color 0.2s; }
+    .footer-bottom-links a:hover { color: var(--red); }
 
     /* MEMBERSHIP */
     .membership { background: var(--mustard-pale); padding: 100px 5%; position: relative; overflow: hidden; }
@@ -571,6 +551,37 @@
     /* WHY WE INNER for values below */
     .why-we-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
 
+
+    /* IMPACT STAT STRIP */
+    .impact-stat-strip { display: flex; gap: 0; border-top: 1.5px solid rgba(212,197,169,0.4); border-bottom: 1.5px solid rgba(212,197,169,0.4); margin-bottom: 64px; }
+    .impact-stat-item { flex: 1; padding: 28px 20px; text-align: center; border-right: 1px solid rgba(212,197,169,0.4); }
+    .impact-stat-item:last-child { border-right: none; }
+
+    /* PILLAR ARCHITECTURE */
+    .pillar-header { text-align: center; margin-bottom: 40px; }
+    .pillar-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .pillar-item {
+      background: var(--warm-white);
+      border-radius: 14px;
+      border: 1.5px solid rgba(212,197,169,0.35);
+      padding: 22px 18px;
+      position: relative;
+      transition: box-shadow 0.2s, transform 0.15s;
+    }
+    .pillar-item:hover { box-shadow: 0 8px 28px rgba(44,40,37,0.09); transform: translateY(-2px); }
+    .pillar-item-wide { grid-column: span 4; display: flex; align-items: center; gap: 16px; }
+    .pillar-item-wide .pillar-name { font-size: 0.92rem; }
+    .pillar-num {
+      font-family: 'Fraunces', serif;
+      font-size: 2rem; font-weight: 700;
+      color: rgba(192,57,43,0.12);
+      line-height: 1; margin-bottom: 8px;
+    }
+    .pillar-item-wide .pillar-num { margin-bottom: 0; font-size: 2.4rem; }
+    .pillar-icon { font-size: 1.4rem; margin-bottom: 10px; }
+    .pillar-item-wide .pillar-icon { margin-bottom: 0; font-size: 1.6rem; }
+    .pillar-name { font-family: 'Fraunces', serif; font-size: 0.88rem; font-weight: 700; color: var(--charcoal); line-height: 1.35; }
+
     /* RESPONSIVE */
     @media (max-width: 1024px) {
       .hero-inner { grid-template-columns: 1fr; }
@@ -589,16 +600,12 @@
       section { padding: 72px 5%; }
       .approach-inner { grid-template-columns: 1fr; gap: 40px; }
       .focus-grid { grid-template-columns: 1fr; }
-      .building-header-full { max-width: none; }
-      .building-closing-lines { grid-template-columns: 1fr; gap: 8px; }
-      .focus-item { grid-template-columns: 42px 1fr; gap: 16px; padding: 24px 0; }
       .serve-grid { grid-template-columns: 1fr; }
       .eco-grid { grid-template-columns: 1fr 1fr; }
       .tier-grid { grid-template-columns: 1fr 1fr; }
       .impact-grid { grid-template-columns: 1fr 1fr; }
       .footer-top { grid-template-columns: 1fr; gap: 32px; }
       .nav-links { display: none; }
-      .hamburger { display: flex; }
       .serve-mosaic { grid-template-columns: 1fr; height: auto; }
       .serve-photo-large { height: 300px; }
       .serve-photo-medium { height: 220px; }
@@ -619,9 +626,18 @@
       .eco-card:nth-last-child(-n+2) { border-bottom: 1px solid rgba(212,197,169,0.35); }
       .eco-card:last-child { border-bottom: none; }
       .impact-grid { flex-direction: column; }
+      .impact-stat-strip { flex-direction: column; }
+      .impact-stat-item { border-right: none; border-bottom: 1px solid rgba(212,197,169,0.4); }
+      .impact-stat-item:last-child { border-bottom: none; }
+      .pillar-grid { grid-template-columns: 1fr 1fr; }
+      .pillar-item-wide { grid-column: span 2; }
       .impact-card { border-right: none; border-bottom: 1px solid rgba(212,197,169,0.4); }
+      .pillar-grid { grid-template-columns: 1fr; }
+      .pillar-item-wide { grid-column: span 1; flex-direction: column; align-items: flex-start; }
       .impact-card:last-child { border-bottom: none; }
-      .problem-stats { grid-template-columns: 1fr 1fr; }
+      .problem-stats { flex-direction: column; }
+      .prob-stat { border-right: none; border-bottom: 1px solid rgba(212,197,169,0.4); }
+      .prob-stat:last-child { border-bottom: none; }
       .why-we-quote { padding: 32px 28px; }
       .why-we-quote p { font-size: 1rem; }
       .trust-callout-inner p { font-size: 1.15rem; }
@@ -633,7 +649,7 @@
       .framework-strip { padding: 32px 24px; border-radius: 18px; }
       .impact-grid { grid-template-columns: 1fr; }
       .hero-actions { flex-direction: column; }
-      .problem-stats { grid-template-columns: 1fr; gap: 12px; margin-top: 32px; }
+      .problem-stats { grid-template-columns: 1fr; }
       .serve-mosaic { grid-template-columns: 1fr; height: auto; }
       .serve-photo-large { height: 260px; }
       .serve-photo-medium { height: 200px; }
@@ -650,7 +666,7 @@
 <body>
 <!-- NAV -->
 <nav>
-<a class="nav-logo" href="index.html">
+<a class="nav-logo" href="#">
 <img src="credii-logo.png" alt="Credii" style="height:36px;width:auto;display:block;">
 </a>
 <ul class="nav-links" id="nav-links">
@@ -659,7 +675,7 @@
 <li><a href="#serve">Who We Serve</a></li>
 <li><a href="#approach">Our Approach</a></li>
 <li><a href="#involved">Membership</a></li>
-<li><a href="contact.html" class="nav-cta">Get Involved</a></li>
+<li><a href="#involved" class="nav-cta">Get Involved</a></li>
 </ul>
 <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
 <span></span><span></span><span></span>
@@ -676,8 +692,8 @@
 <h1>Exploring whether new pathways to <em>recognition, mobility,</em> and <em>opportunity</em> are possible in the Caribbean.</h1>
 <p class="hero-sub">Credii is a nonprofit initiative based in Trinidad and Tobago. We are developing and testing approaches to digital credential recognition, capability verification, and economic inclusion, helping individuals, women entrepreneurs, and small businesses unlock the opportunities their achievements deserve.</p>
 <div class="hero-actions">
-<a class="btn-primary" href="contact.html">Become a Member ↗</a>
-<a class="btn-outline" href="contact.html#partnerships">Partner With Us</a>
+<a class="btn-primary" href="#involved">Become a Member ↗</a>
+<a class="btn-outline" href="#involved">Partner With Us</a>
 </div>
 </div>
 <div class="hero-visual">
@@ -729,15 +745,32 @@
 <section class="problem" id="problem">
 <div class="problem-inner">
 <div class="problem-text">
-<div class="section-label">The Missing Link</div>
+<div class="section-label">The Problem</div>
 <h2 class="section-headline">Capability exists everywhere. Opportunity doesn't always follow.</h2>
 <p class="section-sub">
-Across the Caribbean, people build skills, complete training, gain experience, start businesses, and contribute to their communities every day. Yet much of what they know, achieve, and contribute can be difficult to verify, carry forward, or use as trusted evidence of capability.
+Across the Caribbean, people build skills, complete training, gain experience, start businesses and contribute to their communities every day. Yet much of what they know, achieve and contribute can be difficult to verify, carry forward or use as trusted evidence of capability.
 </p>
 <p class="section-sub">
-The challenge is bigger than scattered certificates and disconnected records. For people whose experience does not fit neatly into traditional systems, that gap can make it harder to demonstrate credibility to employers, institutions, funders, lenders, and other opportunity providers.
+The challenge is bigger than scattered certificates and disconnected records. For people whose experience does not fit neatly into traditional systems, that gap can make it harder to demonstrate credibility to employers, institutions, funders and other opportunity providers.
 </p>
-<p class="section-sub" style="font-weight:700;color:var(--charcoal);margin-top:10px;">The gap is trust, visibility, and access.</p>
+<p class="section-sub" style="font-weight:600;color:var(--charcoal);margin-top:6px;">The gap is not capability. It is trust, visibility and access.</p>
+
+<div class="problem-stats">
+  <div class="prob-stat">
+    <div class="prob-stat-num">24%</div>
+    <div class="prob-stat-label">of Caribbean youth aged 15 to 24 are not in employment, education or training</div>
+  </div>
+  <div class="prob-stat">
+    <div class="prob-stat-num">17.6%</div>
+    <div class="prob-stat-label">youth unemployment across the Caribbean, compared with 4.7% for adults</div>
+  </div>
+  <div class="prob-stat">
+    <div class="prob-stat-num">1.6&times;</div>
+    <div class="prob-stat-label">higher unemployment rate experienced by young women compared to young men</div>
+  </div>
+</div>
+
+<p class="prob-source">Source: International Labour Organization, 2025. Caribbean youth figures exclude Haiti where indicated.</p>
 </div>
 <div class="problem-visual">
 <div class="problem-circle-deco"></div>
@@ -753,28 +786,11 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 </div>
 </div>
 </div>
-<div class="problem-stats" aria-label="Research on barriers facing women-led businesses in the Caribbean">
-  <article class="prob-stat">
-    <div class="prob-stat-num">66%</div>
-    <p class="prob-stat-label">of women-owned/led businesses report access to finance as a major or severe obstacle to growth.</p>
-    <small class="prob-stat-source">Source: IDB Invest analysis of more than 1,000 firms across six Caribbean countries.</small>
-  </article>
-  <article class="prob-stat">
-    <div class="prob-stat-num">1.3%</div>
-    <p class="prob-stat-label">of medium-to-long-term loan volume in the study sample was accessed by women-owned/led firms.</p>
-    <small class="prob-stat-source">Source: IDB Invest Caribbean access-to-finance research.</small>
-  </article>
-  <article class="prob-stat">
-    <div class="prob-stat-num">50%</div>
-    <p class="prob-stat-label">of Caribbean businesses are estimated to be women-led MSMEs.</p>
-    <small class="prob-stat-source">Source: Regional Caribbean entrepreneurship and women-owned business research.</small>
-  </article>
-</div>
 </section>
 <!-- TRUST LAYER CALLOUT -->
 <div class="trust-callout">
 <div class="trust-callout-inner">
-<p><span class="trust-callout-lead">Capability exists. Opportunity exists.</span><span class="trust-callout-emphasis">Too often, trust is what sits in between.</span><span class="trust-callout-detail">Credii is exploring how trusted credentials, verification, and digital trust profiles can help bridge that gap.</span></p>
+<p>There is a <em>missing trust layer</em> between capability and opportunity. Credii is exploring whether that gap can be bridged.</p>
 </div>
 </div>
 <!-- WHAT WE'RE BUILDING -->
@@ -782,49 +798,35 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 <div class="building-deco-1"></div>
 <div class="building-deco-2"></div>
 <div class="building-inner">
-<div class="building-header building-header-full">
+<div class="building-header">
 <div>
-<div class="section-label">How We're Bridging the Gap</div>
-<h2 class="section-headline">Building the missing link between capability and opportunity.</h2>
-<p class="section-sub">Across the Caribbean, skills, achievements, business milestones, and lived experience are often difficult to verify, connect, and present as trusted evidence.</p>
-<p class="section-sub">Credii is exploring a trust infrastructure model that helps individuals, entrepreneurs, and organizations transform verified accomplishments into portable, institution-recognized signals of capability.</p>
-<p class="section-sub">We are doing this through three interconnected layers.</p>
+<div class="section-label">What We're Building</div>
+<h2 class="section-headline">A digital trust &amp; credentialing model we are testing in the Caribbean.</h2>
 </div>
+<p class="section-sub">Credii is exploring and testing a platform that enables participating organizations to issue verifiable digital credentials, while helping individuals and small businesses build a trusted, portable record of skills, learning, achievements, and business capability.</p>
 </div>
 <div class="focus-list">
 <div class="focus-item">
 <div class="focus-num">01</div>
 <div>
-<h3>Verifiable Credentials</h3>
-<p>Helping organizations issue trusted digital records of learning, achievement, participation, and capability that individuals can carry wherever opportunities emerge.</p>
-<p class="focus-outcome"><strong>Outcome:</strong> Make accomplishments visible and portable.</p>
+<h3>Digital Credential Issuance</h3>
+<p>Enabling ESOs, training providers, nonprofits, and community programs to issue verifiable digital credentials that participants can carry and present anywhere.</p>
 </div>
 </div>
 <div class="focus-item">
 <div class="focus-num">02</div>
 <div>
-<h3>Trusted Verification</h3>
-<p>Enabling employers, funders, lenders, educators, and partners to quickly confirm the authenticity of credentials and achievements with confidence.</p>
-<p class="focus-outcome"><strong>Outcome:</strong> Reduce uncertainty and increase trust.</p>
+<h3>Credential Verification</h3>
+<p>A public verification process that allows employers, funders, lenders, and partners to confirm the authenticity of credentials quickly and with confidence.</p>
 </div>
 </div>
 <div class="focus-item">
 <div class="focus-num">03</div>
 <div>
-<h3>Capability Profiles</h3>
-<p>Bringing verified credentials, skills, achievements, references, and business milestones together into a single trusted profile that helps make capability easier to understand and recognize.</p>
-<p class="focus-outcome"><strong>Outcome:</strong> Turn verified accomplishments into trusted evidence.</p>
+<h3>Trusted Capability Profiles</h3>
+<p>User trust profiles that consolidate verified achievements, skills, and business milestones into a single portable digital record, making capability visible and credible.</p>
 </div>
 </div>
-</div>
-<div class="building-closing">
-<div class="section-label">From Evidence to Opportunity</div>
-<div class="building-closing-lines">
-<p>Credentials provide evidence.</p>
-<p>Verification creates trust.</p>
-<p>Profiles bring trusted evidence together.</p>
-</div>
-<p class="building-closing-summary">Together, they form the foundation of a more connected ecosystem where capability can become more visible, credible, and recognized.</p>
 </div>
 </div>
 </section>
@@ -833,28 +835,72 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 <div class="impact-deco-circle impact-deco-1"></div>
 <div class="impact-deco-circle impact-deco-2"></div>
 <div class="impact-inner">
-<div class="impact-header">
-<div class="section-label">Our Impact</div>
-<h2 class="section-headline">Exploring the foundations of a more connected Caribbean.</h2>
-</div>
-<div class="impact-grid">
-<div class="impact-card">
-<div class="impact-num">4</div>
-<div class="impact-label">Architecture Layers Under Development</div>
-</div>
-<div class="impact-card">
-<div class="impact-num">7</div>
-<div class="impact-label">Capability Pillars Defined</div>
-</div>
-<div class="impact-card">
-<div class="impact-num">10+</div>
-<div class="impact-label">SDGs Aligned with Our Mission</div>
-</div>
-<div class="impact-card">
-<div class="impact-num">14+</div>
-<div class="impact-label">Caribbean Nations &amp; Territories in Scope</div>
-</div>
-</div>
+
+  <!-- Top stat strip -->
+  <div class="impact-stat-strip">
+    <div class="impact-stat-item">
+      <div class="impact-num">7</div>
+      <div class="impact-label">Capability Pillars</div>
+    </div>
+    <div class="impact-stat-item">
+      <div class="impact-num">4</div>
+      <div class="impact-label">Architecture Layers</div>
+    </div>
+    <div class="impact-stat-item">
+      <div class="impact-num">10+</div>
+      <div class="impact-label">SDGs Aligned</div>
+    </div>
+    <div class="impact-stat-item">
+      <div class="impact-num">14+</div>
+      <div class="impact-label">Caribbean Nations in Scope</div>
+    </div>
+  </div>
+
+  <!-- Seven Pillar Architecture -->
+  <div class="pillar-header">
+    <div class="section-label" style="justify-content:center;">Seven-Pillar Architecture</div>
+    <h2 class="section-headline" style="text-align:center;">Seven capability pillars. One regional system.</h2>
+    <p class="section-sub" style="text-align:center;max-width:620px;margin:14px auto 0;">Every pillar addresses a critical gap in Caribbean capability, credentialing, and digital infrastructure, grounded in Caribbean identity and global standards.</p>
+  </div>
+
+  <div class="pillar-grid">
+    <div class="pillar-item">
+      <div class="pillar-num">01</div>
+      <div class="pillar-icon">🌴</div>
+      <div class="pillar-name">Tourism &amp; Cultural Heritage Credentials</div>
+    </div>
+    <div class="pillar-item">
+      <div class="pillar-num">02</div>
+      <div class="pillar-icon">🎓</div>
+      <div class="pillar-name">Workforce Mobility &amp; Skills Recognition</div>
+    </div>
+    <div class="pillar-item">
+      <div class="pillar-num">03</div>
+      <div class="pillar-icon">🏪</div>
+      <div class="pillar-name">MSME Digital Capability Credentials</div>
+    </div>
+    <div class="pillar-item">
+      <div class="pillar-num">04</div>
+      <div class="pillar-icon">🌱</div>
+      <div class="pillar-name">ESG &amp; Sustainability Credentials</div>
+    </div>
+    <div class="pillar-item">
+      <div class="pillar-num">05</div>
+      <div class="pillar-icon">🏛️</div>
+      <div class="pillar-name">Governance &amp; Public Sector Capability</div>
+    </div>
+    <div class="pillar-item">
+      <div class="pillar-num">06</div>
+      <div class="pillar-icon">🔐</div>
+      <div class="pillar-name">Digital Public Infrastructure for Credentialing</div>
+    </div>
+    <div class="pillar-item pillar-item-wide">
+      <div class="pillar-num">07</div>
+      <div class="pillar-icon">⚙️</div>
+      <div class="pillar-name">Systems Transformation &amp; Regional Resilience Credentials</div>
+    </div>
+  </div>
+
 </div>
 </section>
 <!-- WHO WE SERVE -->
@@ -1120,7 +1166,7 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 </div>
 </span>
 </div>
-<a class="tier-btn tier-btn-outline" href="contact.html#membership">Become a Member</a>
+<a class="tier-btn tier-btn-outline" href="#">Become a Member</a>
 </div>
 <div class="tier-card">
 <div class="tier-card-deco"></div>
@@ -1142,7 +1188,7 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 </div>
 </span>
 </div>
-<a class="tier-btn tier-btn-outline" href="contact.html#membership">Join as a Professional</a>
+<a class="tier-btn tier-btn-outline" href="#">Join as a Professional</a>
 </div>
 <div class="tier-card tier-card-featured">
 <div class="tier-card-deco"></div>
@@ -1166,7 +1212,7 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 </div>
 </span>
 </div>
-<a class="tier-btn tier-btn-white" href="contact.html#membership">Become an Organizational Member</a>
+<a class="tier-btn tier-btn-white" href="#">Become an Organizational Member</a>
 </div>
 <div class="tier-card">
 <div class="tier-card-deco"></div>
@@ -1189,7 +1235,7 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 </div>
 </span>
 </div>
-<a class="tier-btn tier-btn-outline" href="contact.html#partnerships">Become a Strategic Partner</a>
+<a class="tier-btn tier-btn-outline" href="#">Become a Strategic Partner</a>
 </div>
 </div>
 <!-- Closing -->
@@ -1201,8 +1247,8 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 <p>Credii is still in its early stages, and that's exactly why membership matters. By becoming a member or partner, you are helping shape programs, pilots, research, and initiatives that explore whether trusted recognition systems can strengthen capability and opportunity.</p>
 <p style="margin-top:12px;font-weight:600;color:var(--charcoal);">Ready to get involved?</p>
 <div class="mc-actions">
-<a class="btn-primary" href="contact.html#membership">Become a Member ↗</a>
-<a class="btn-outline" href="contact.html#partnerships">Partner With Us</a>
+<a class="btn-primary" href="#">Become a Member ↗</a>
+<a class="btn-outline" href="#">Partner With Us</a>
 </div>
 </div>
 </div>
@@ -1212,56 +1258,44 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 <div class="footer-inner">
 <div class="footer-top">
 <div class="footer-brand">
-<a href="index.html" aria-label="Credii Foundation home"><img src="credii-logo.png" alt="Credii Foundation"></a>
-<p>Credii is a nonprofit building trust infrastructure that helps people turn verified achievements, skills and experiences into stronger pathways to opportunity across the Caribbean.</p>
+<div class="footer-brand-logo">
+<img src="credii-logo.png" alt="Credii" style="height:36px;width:auto;display:block;">
 </div>
-<div class="footer-col footer-tools">
-<h2>Tools</h2>
+<p>Credii is a nonprofit initiative developing and testing trust, credentialing, capability-building, and opportunity-focused approaches that could contribute to greater inclusion, mobility, and resilience across the Caribbean.</p>
+<p class="footer-tagline">Based in Trinidad &amp; Tobago. Based in the Caribbean, working with t<div class="footer-col">
+<h5>Explore</h5>
 <ul>
-<li><a href="credii-platform.html">Platform (Beta)</a></li>
-<li><a href="credii-verify.html">Credential Verification</a></li>
-<li><a href="credii-portal.html">Member Portal</a></li>
-</ul>
-</div>
-<div class="footer-col">
-<h2>Explore</h2>
-<ul>
-<li><a href="#approach">About Credii</a></li>
-<li><a href="#problem">The Problem</a></li>
-<li><a href="index.html#building">What We're Building</a></li>
+<li><a href="#">About Credii</a></li>
+<li><a href="#">What We Do</a></li>
 <li><a href="#serve">Who We Serve</a></li>
-<li><a href="#approach">Our Approach</a></li>
 <li><a href="#involved">Membership</a></li>
 </ul>
 </div>
 <div class="footer-col">
-<h2>Get Involved</h2>
+<h5>Get Involved</h5>
 <ul>
-<li><a href="contact.html#membership">Become a Member</a></li>
-<li><a href="contact.html#volunteer">Volunteer</a></li>
-<li><a href="contact.html#partnerships">Partner With Us</a></li>
-<li><a href="contact.html#pilots">Programs &amp; Pilots</a></li>
-<li><a href="contact.html">Contact Us</a></li>
+<li><a href="mailto:ourpartner@crediifoundation.org">Partner With Us</a></li>
+<li><a href="#involved">Become a Member</a></li>
+<li><a href="#involved">Participate in a Pilot</a></li>
+<li><a href="#">Support Credii</a></li>
+<li><a href="mailto:contact@crediifoundation.org">Contact</a></li>
 </ul>
 </div>
 <div class="footer-col">
-<h2>Connect</h2>
-<ul class="footer-social-list">
-<li><a class="footer-social-link linkedin" href="https://www.linkedin.com/company/credii-foundation/posts/?viewAsMember=true" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.5a2.1 2.1 0 1 1 0 4.2 2.1 2.1 0 0 1 0-4.2ZM3.5 9h3.4v11.5H3.5V9Zm5.5 0h3.2v1.6h.05c.45-.85 1.55-1.75 3.2-1.75 3.42 0 4.05 2.25 4.05 5.18v6.47h-3.4v-5.74c0-1.37-.03-3.13-1.9-3.13-1.9 0-2.18 1.48-2.18 3.03v5.84H9V9Z"/></svg><span>LinkedIn</span></a></li>
-<li><a class="footer-social-link instagram" href="https://www.instagram.com/crediiFacebook" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.7" cy="6.6" r="1.1"/></svg><span>Instagram</span></a></li>
-<li><a class="footer-social-link facebook" href="https://www.facebook.com/profile.php?id=61589564333491" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5h1.7V3.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4.1 1.5-4.1 4.2V10H7.5v3h2.8v8h3.2Z"/></svg><span>Facebook</span></a></li>
+<h5>Legal</h5>
+<ul>
+<li><a href="credii-privacy.html">Privacy Policy</a></li>
+<li><a href="credii-terms.html">Terms of Use</a></li>
+<li><a href="credii-accessibility.html">Accessibility</a></li>
+<li><a href="#">Trust &amp; Verification Policy</a></li>
 </ul>
 </div>
 </div>
 <div class="footer-bottom">
-<span>© 2026 Credii Foundation. Based in Trinidad &amp; Tobago.</span>
-<nav class="footer-bottom-links" aria-label="Legal information">
-<a href="credii-privacy.html">Privacy Policy</a><span class="separator">·</span>
-<a href="mailto:legal@crediifoundation.org?subject=Terms%20of%20Use">Terms of Use</a><span class="separator">·</span>
-<a href="mailto:legal@crediifoundation.org?subject=Accessibility">Accessibility</a><span class="separator">·</span>
-<a href="credii-trust-verification.html">Trust &amp; Verification</a>
-</nav>
-<a class="back-to-top" href="#top">Back to top ↑</a>
+<p>© 2025 Credii Foundation. All rights reserved. Registered nonprofit, Trinidad &amp; Tobago.</p>
+<div class="footer-bottom-links">
+<a href="mailto:contact@crediifoundation.org">Contact</a>
+<a href="mailto:legal@crediifoundation.org">Legal</a>
 </div>
 </div>
 </div>
