@@ -697,6 +697,68 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+
+    /* MEMBERSHIP / MOVEMENT SECTION */
+    .membership { background: var(--terra-pale); padding: 100px 5%; position: relative; overflow: hidden; }
+    .membership::before { content: ''; position: absolute; top: -80px; right: -80px; width: 360px; height: 360px; border-radius: 50%; background: rgba(181,113,74,0.1); }
+    .membership::after  { content: ''; position: absolute; bottom: -60px; left: -60px; width: 240px; height: 240px; border-radius: 50%; background: rgba(122,158,142,0.08); }
+    .membership-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+
+    .movement-header { text-align: center; margin-bottom: 48px; }
+    .movement-intro { font-size: 1rem; color: var(--text-muted); line-height: 1.8; max-width: 720px; margin: 14px auto 0; }
+
+    .movement-subhead {
+      font-family: 'Fraunces', serif;
+      font-size: 1.15rem; font-weight: 700;
+      color: var(--charcoal); margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .movement-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-top: 1.5px solid rgba(181,113,74,0.25);
+      border-left: 1.5px solid rgba(181,113,74,0.25);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 48px;
+      background: rgba(181,113,74,0.08);
+    }
+
+    .movement-item {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      padding: 32px 28px;
+      border-right: 1.5px solid rgba(181,113,74,0.25);
+      border-bottom: 1.5px solid rgba(181,113,74,0.25);
+      background: var(--warm-white);
+      transition: background 0.2s;
+    }
+
+    .movement-item:hover { background: var(--sand-pale); }
+
+    .movement-icon { font-size: 1.8rem; flex-shrink: 0; margin-top: 2px; }
+
+    .movement-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1rem; font-weight: 700;
+      color: var(--charcoal); margin-bottom: 8px;
+    }
+
+    .movement-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.72; }
+
+    .movement-closing { text-align: center; }
+
+    .movement-closing-text {
+      font-family: 'Fraunces', serif;
+      font-size: 1.1rem; font-style: italic;
+      color: var(--charcoal); margin-bottom: 28px;
+    }
+
+    .movement-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
     /* RESPONSIVE */
     @media (max-width: 1024px) {
       .hero-inner { grid-template-columns: 1fr; }
@@ -722,6 +784,7 @@
       .impact-grid { grid-template-columns: 1fr 1fr; }
       .footer-top { grid-template-columns: 1fr; gap: 32px; }
       .nav-links { display: none; }
+      .movement-grid { grid-template-columns: 1fr; }
       .pathway-grid { grid-template-columns: 1fr 1fr; }
       .serve-mosaic { grid-template-columns: 1fr; height: auto; }
       .serve-photo-large { height: 300px; }
@@ -1288,120 +1351,68 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 <!-- MEMBERSHIP -->
 <section class="membership" id="involved">
 <div class="membership-inner">
-<div class="membership-header">
-<div class="section-label" style="justify-content:center;">Membership</div>
-<h2 class="section-headline">Join a Community Working to Build More Trusted Pathways to Opportunity</h2>
-<p class="section-sub">Credii is exploring and developing new approaches to credentialing, verification, trust-building, and capability recognition. Membership helps support this work while giving individuals and organizations opportunities to participate in pilots, contribute ideas, access emerging programs, and help shape future initiatives.</p>
-<p class="section-sub" style="margin-top:10px;">Whether you're a student, entrepreneur, community organization, training provider, funder, or institution, there is a place for you in the Credii community.</p>
+
+  <!-- Header -->
+  <div class="movement-header">
+    <div class="section-label" style="justify-content:center;">Join the Movement</div>
+    <h2 class="section-headline" style="text-align:center;">Help make capability more visible, trusted, and recognized.</h2>
+    <p class="movement-intro">Across the Caribbean, people are building skills, starting businesses, completing training, and contributing to their communities every day. Yet too many achievements remain difficult to verify, recognize, or translate into opportunity.</p>
+    <p class="movement-intro">Credii is exploring new ways to bridge that gap through trusted credentials, verification, and digital trust profiles. We cannot build that future alone.</p>
+    <p class="movement-intro" style="font-weight:600;color:var(--charcoal);">Whether you are an individual, organization, institution, or ecosystem partner, there is a place for you in this journey.</p>
+  </div>
+
+  <!-- Be Part of What Comes Next -->
+  <div class="movement-subhead">Be Part of What Comes Next</div>
+
+  <!-- Four pathways — editorial ruled layout, no cards -->
+  <div class="movement-grid">
+
+    <div class="movement-item">
+      <div class="movement-icon">🧑</div>
+      <div class="movement-content">
+        <div class="movement-title">Join the Community</div>
+        <div class="movement-desc">Stay connected, contribute ideas, participate in discussions, and help shape the future of trust, recognition, and opportunity in the Caribbean.</div>
+      </div>
+    </div>
+
+    <div class="movement-item">
+      <div class="movement-icon">🏢</div>
+      <div class="movement-content">
+        <div class="movement-title">Organizations &amp; Institutions</div>
+        <div class="movement-desc">Explore credentialing, verification, research collaborations, pilot programmes, and opportunities to help define what trusted evidence should look like in a Caribbean context.</div>
+      </div>
+    </div>
+
+    <div class="movement-item">
+      <div class="movement-icon">🤝</div>
+      <div class="movement-content">
+        <div class="movement-title">Ecosystem Partners</div>
+        <div class="movement-desc">Support validation, community engagement, research, and initiatives that help unlock opportunity for underserved populations.</div>
+      </div>
+    </div>
+
+    <div class="movement-item">
+      <div class="movement-icon">❤️</div>
+      <div class="movement-content">
+        <div class="movement-title">Become a Supporter</div>
+        <div class="movement-desc">Help sustain Credii's work as we develop and test new approaches to trust, capability recognition, and economic inclusion across the region.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Closing -->
+  <div class="movement-closing">
+    <p class="movement-closing-text">Every contribution helps build a more trusted and connected Caribbean.</p>
+    <div class="movement-actions">
+      <a href="mailto:contact@crediifoundation.org" class="btn-primary">Join the Community &#8599;</a>
+      <a href="mailto:ourpartner@crediifoundation.org" class="btn-outline">Partner With Us</a>
+    </div>
+  </div>
+
 </div>
-<div class="tier-grid">
-<div class="tier-card">
-<div class="tier-card-deco"></div>
-<div class="tier-badge tier-badge-1">Individual</div>
-<h3 class="tier-name">Community Member</h3>
-<div class="tier-price">$49 <span>USD/year</span></div>
-<p class="tier-desc">Perfect for individuals who want to stay informed, support the mission, and participate in future opportunities.</p>
-<div class="tier-tooltip-wrap">
-<span class="tier-details-link">See full details
-<div class="tier-tooltip">
-<strong>Community Member includes:</strong>
-<ul>
-<li>✓ Quarterly updates</li>
-<li>✓ Member webinars</li>
-<li>✓ Early resource access</li>
-<li>✓ Digital member badge</li>
-<li>✓ Opportunities to participate in future pilots and consultations</li>
-</ul>
-</div>
-</span>
-</div>
-<a class="tier-btn tier-btn-outline" href="#">Become a Member</a>
-</div>
-<div class="tier-card">
-<div class="tier-card-deco"></div>
-<div class="tier-badge tier-badge-2">Professional</div>
-<h3 class="tier-name">Professional &amp; Small Business</h3>
-<div class="tier-price">$149 <span>USD/year</span></div>
-<p class="tier-desc">Designed for entrepreneurs, consultants, and small businesses looking to strengthen capability and connect with the Credii community.</p>
-<div class="tier-tooltip-wrap">
-<span class="tier-details-link">See full details
-<div class="tier-tooltip">
-<strong>Includes everything in Community, plus:</strong>
-<ul>
-<li>✓ Professional or business directory listing</li>
-<li>✓ Access to capability-building workshops</li>
-<li>✓ Early access to credential programs</li>
-<li>✓ Pilot participation opportunities</li>
-<li>✓ Recognition as a Supporting Member</li>
-</ul>
-</div>
-</span>
-</div>
-<a class="tier-btn tier-btn-outline" href="#">Join as a Professional</a>
-</div>
-<div class="tier-card tier-card-featured">
-<div class="tier-card-deco"></div>
-<div class="tier-featured-label">Most Popular</div>
-<div class="tier-badge tier-badge-3">Organization</div>
-<h3 class="tier-name">Organizational Member</h3>
-<div class="tier-price">$499 <span>USD/year</span></div>
-<p class="tier-desc">For nonprofits, training providers, ESOs, chambers, schools, and community groups.</p>
-<div class="tier-tooltip-wrap">
-<span class="tier-details-link" style="color:rgba(255,255,255,0.8);">See full details
-<div class="tier-tooltip tier-tooltip-left">
-<strong>Includes everything in Professional, plus:</strong>
-<ul>
-<li>✓ Up to 5 organizational users</li>
-<li>✓ Organization profile</li>
-<li>✓ Participation in working groups and roundtables</li>
-<li>✓ Access to research and insights</li>
-<li>✓ Early partnership opportunities</li>
-<li>✓ Invitations to pilot collaborations</li>
-</ul>
-</div>
-</span>
-</div>
-<a class="tier-btn tier-btn-white" href="#">Become an Organizational Member</a>
-</div>
-<div class="tier-card">
-<div class="tier-card-deco"></div>
-<div class="tier-badge tier-badge-4">Partner</div>
-<h3 class="tier-name">Strategic Partner</h3>
-<div class="tier-price">$2,500 <span>USD/year+</span></div>
-<p class="tier-desc">For foundations, corporations, universities, government agencies, and development organizations advancing innovation and impact.</p>
-<div class="tier-tooltip-wrap">
-<span class="tier-details-link">See full details
-<div class="tier-tooltip tier-tooltip-left">
-<strong>Includes everything in Organizational, plus:</strong>
-<ul>
-<li>✓ Strategic engagement sessions</li>
-<li>✓ Partner recognition</li>
-<li>✓ Co-branded initiatives</li>
-<li>✓ Pilot sponsorship opportunities</li>
-<li>✓ Access to impact reporting</li>
-<li>✓ Customized partnership pathways</li>
-</ul>
-</div>
-</span>
-</div>
-<a class="tier-btn tier-btn-outline" href="#">Become a Strategic Partner</a>
-</div>
-</div>
-<!-- Closing -->
-<div class="membership-closing">
-<div class="membership-closing-card">
-<div class="mc-blob-1"></div>
-<div class="mc-blob-2"></div>
-<h3>Testing what works takes collaboration.</h3>
-<p>Credii is still in its early stages, and that's exactly why membership matters. By becoming a member or partner, you are helping shape programs, pilots, research, and initiatives that explore whether trusted recognition systems can strengthen capability and opportunity.</p>
-<p style="margin-top:12px;font-weight:600;color:var(--charcoal);">Ready to get involved?</p>
-<div class="mc-actions">
-<a class="btn-primary" href="#">Become a Member ↗</a>
-<a class="btn-outline" href="#">Partner With Us</a>
-</div>
-</div>
-</div>
-</div></section>
+</section>
+
 <!-- FOOTER -->
 <footer>
 <div class="footer-inner">
