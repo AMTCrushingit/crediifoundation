@@ -759,6 +759,59 @@
 
     .movement-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
+
+    /* ── VISION & APPROACH SECTION ── */
+    .vision-section { background: var(--warm-white); padding: 0; overflow: hidden; }
+    .vision-wrap { max-width: 100%; }
+
+    /* Header */
+    .vs-header { max-width: 1200px; margin: 0 auto; padding: 96px 5% 72px; text-align: center; }
+    .vs-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--red); margin-bottom: 16px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .vs-eyebrow::before, .vs-eyebrow::after { content: ''; width: 24px; height: 2px; background: var(--red); border-radius: 2px; display: inline-block; }
+    .vs-headline { font-family: 'Fraunces', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700; color: var(--charcoal); line-height: 1.18; margin-bottom: 20px; }
+    .vs-lead { font-size: 1.05rem; color: var(--text-muted); line-height: 1.8; max-width: 680px; margin: 0 auto; }
+
+    /* Belief strip */
+    .vs-belief { background: var(--charcoal); padding: 72px 5%; }
+    .vs-belief-inner { max-width: 860px; margin: 0 auto; text-align: center; }
+    .vs-belief-quote { font-family: 'Fraunces', serif; font-size: clamp(1.3rem, 2.8vw, 2rem); font-weight: 600; color: #fff; line-height: 1.45; margin-bottom: 24px; font-style: italic; }
+    .vs-belief-mark { color: var(--red-light, #E8534A); font-size: 1.4em; line-height: 0; vertical-align: -0.2em; }
+    .vs-belief-sub { font-size: 0.95rem; color: rgba(255,255,255,0.65); line-height: 1.8; max-width: 640px; margin: 0 auto; }
+
+    /* Three pillars */
+    .vs-pillars-wrap { background: var(--sand-pale); padding: 72px 5%; }
+    .vs-pillars-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--red); text-align: center; margin-bottom: 40px; }
+    .vs-pillars { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: rgba(212,197,169,0.3); border-radius: 18px; overflow: hidden; }
+    .vs-pillar { background: var(--warm-white); padding: 40px 32px; position: relative; overflow: hidden; transition: background 0.25s; }
+    .vs-pillar:hover { background: var(--red-pale); }
+    .vs-pillar-icon { font-size: 2rem; margin-bottom: 12px; }
+    .vs-pillar-num { font-family: 'Fraunces', serif; font-size: 3.5rem; font-weight: 700; color: rgba(192,57,43,0.08); line-height: 1; position: absolute; top: 16px; right: 20px; }
+    .vs-pillar-title { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700; color: var(--charcoal); margin-bottom: 10px; }
+    .vs-pillar-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+
+    /* How we learn + frameworks */
+    .vs-learn-wrap { max-width: 1200px; margin: 0 auto; padding: 72px 5%; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .vs-learn-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+    .vs-learn-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .vs-learn-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.95rem; color: var(--text-body); line-height: 1.6; }
+    .vs-check { width: 22px; height: 22px; border-radius: 50%; background: var(--red); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+    .vs-frameworks-intro { font-size: 0.9rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 20px; }
+    .vs-framework-tags { display: flex; flex-direction: column; gap: 10px; }
+    .vs-ftag { display: inline-flex; align-items: center; gap: 8px; font-size: 0.88rem; font-weight: 600; color: var(--charcoal); padding: 10px 16px; background: var(--off-white); border-radius: 10px; border-left: 3px solid var(--red); }
+
+    /* Stat strip */
+    .vs-stats { background: var(--sage-pale); padding: 64px 5%; }
+    .vs-stat-divider { font-family: 'Fraunces', serif; font-size: clamp(1rem, 2vw, 1.3rem); font-style: italic; color: var(--charcoal); text-align: center; margin-bottom: 40px; }
+    .vs-stat-row { max-width: 900px; margin: 0 auto; display: flex; gap: 0; border-top: 1.5px solid rgba(122,158,142,0.3); border-bottom: 1.5px solid rgba(122,158,142,0.3); }
+    .vs-stat { flex: 1; text-align: center; padding: 28px 20px; border-right: 1px solid rgba(122,158,142,0.3); }
+    .vs-stat:last-child { border-right: none; }
+    .vs-stat-num { font-family: 'Fraunces', serif; font-size: 2.8rem; font-weight: 700; color: var(--red); line-height: 1; margin-bottom: 8px; }
+    .vs-stat-label { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; font-weight: 500; }
+
+    /* Scroll animations */
+    .vs-anim { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .vs-anim.vs-visible { opacity: 1; transform: translateY(0); }
+
     /* RESPONSIVE */
     @media (max-width: 1024px) {
       .hero-inner { grid-template-columns: 1fr; }
@@ -785,6 +838,11 @@
       .footer-top { grid-template-columns: 1fr; gap: 32px; }
       .nav-links { display: none; }
       .movement-grid { grid-template-columns: 1fr; }
+      .vs-pillars { grid-template-columns: 1fr; }
+      .vs-learn-wrap { grid-template-columns: 1fr; gap: 40px; }
+      .vs-stat-row { flex-direction: column; }
+      .vs-stat { border-right: none; border-bottom: 1px solid rgba(122,158,142,0.3); }
+      .vs-stat:last-child { border-bottom: none; }
       .pathway-grid { grid-template-columns: 1fr 1fr; }
       .serve-mosaic { grid-template-columns: 1fr; height: auto; }
       .serve-photo-large { height: 300px; }
@@ -1023,265 +1081,105 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 </div>
 </div>
 </section>
-<!-- IMPACT -->
-<section class="impact-section" id="impact">
-<div class="impact-deco-circle impact-deco-1"></div>
-<div class="impact-deco-circle impact-deco-2"></div>
-<div class="impact-inner">
+<!-- VISION & APPROACH — consolidated -->
+<section class="vision-section" id="approach">
+<div class="vision-wrap">
 
-  <!-- Vision header -->
-  <div class="vision-header">
-    <div class="section-label" style="justify-content:center;">Our Vision</div>
-    <h2 class="section-headline" style="text-align:center;">Building trust pathways to opportunity.</h2>
-    <p class="section-sub" style="text-align:center;max-width:680px;margin:16px auto 0;">
-      Credii is exploring how trusted credentials, verification, and digital trust profiles can help individuals and organizations transform achievements into recognized opportunity signals. While the trust model is still being developed and validated, we see multiple pathways through which trusted evidence may create value across the Caribbean.
-    </p>
+  <!-- ── TOP: Full-width editorial header ── -->
+  <div class="vs-header">
+    <div class="vs-eyebrow">Our Vision &amp; Approach</div>
+    <h2 class="vs-headline">Building trusted pathways<br>to opportunity.</h2>
+    <p class="vs-lead">Credii is exploring how trusted credentials, verification, and digital trust profiles can help make capability more visible, trusted, and recognized across the Caribbean.</p>
   </div>
 
-  <!-- Six pathways — editorial ruled list, no cards -->
-  <div class="pathway-grid">
-
-    <div class="pathway-item">
-      <div class="pathway-icon">📚</div>
-      <div class="pathway-content">
-        <div class="pathway-title">Education &amp; Skills</div>
-        <div class="pathway-desc">Making learning more visible and portable.</div>
+  <!-- ── BELIEF STATEMENT — full bleed dark strip ── -->
+  <div class="vs-belief">
+    <div class="vs-belief-inner">
+      <div class="vs-belief-quote">
+        <span class="vs-belief-mark">&#8220;</span>
+        Capability exists everywhere. Opportunity should not depend on whether capability can be easily recognized.
+        <span class="vs-belief-mark">&#8221;</span>
       </div>
+      <p class="vs-belief-sub">Rather than assuming we have all the answers, we work alongside entrepreneurs, institutions, support organizations, and ecosystem partners to understand what trusted evidence should look like in a Caribbean context.</p>
+    </div>
+  </div>
+
+  <!-- ── THREE PILLARS — animated on scroll ── -->
+  <div class="vs-pillars-wrap">
+    <div class="vs-pillars-label">How We&#8217;re Exploring This</div>
+    <div class="vs-pillars">
+
+      <div class="vs-pillar vs-anim" data-delay="0">
+        <div class="vs-pillar-icon">&#127885;</div>
+        <div class="vs-pillar-num">01</div>
+        <h3 class="vs-pillar-title">Trusted Credentials</h3>
+        <p class="vs-pillar-desc">Making learning, achievements, and participation easier to recognize and carry forward.</p>
+      </div>
+
+      <div class="vs-pillar vs-anim" data-delay="120">
+        <div class="vs-pillar-icon">&#9989;</div>
+        <div class="vs-pillar-num">02</div>
+        <h3 class="vs-pillar-title">Verification &amp; Trust</h3>
+        <p class="vs-pillar-desc">Helping organizations and institutions validate evidence with confidence.</p>
+      </div>
+
+      <div class="vs-pillar vs-anim" data-delay="240">
+        <div class="vs-pillar-icon">&#128100;</div>
+        <div class="vs-pillar-num">03</div>
+        <h3 class="vs-pillar-title">Trusted Profiles</h3>
+        <p class="vs-pillar-desc">Bringing verified achievements, skills, and experiences together in one portable record.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── HOW WE LEARN + FRAMEWORKS — two column ── -->
+  <div class="vs-learn-wrap">
+
+    <div class="vs-learn vs-anim" data-delay="0">
+      <div class="vs-learn-label">How We Learn</div>
+      <ul class="vs-learn-list">
+        <li><span class="vs-check">&#10003;</span>Research and stakeholder engagement</li>
+        <li><span class="vs-check">&#10003;</span>Pilot programmes and practical testing</li>
+        <li><span class="vs-check">&#10003;</span>Partnerships with Caribbean organizations</li>
+        <li><span class="vs-check">&#10003;</span>Continuous learning, evaluation, and improvement</li>
+      </ul>
     </div>
 
-    <div class="pathway-item">
-      <div class="pathway-icon">🏪</div>
-      <div class="pathway-content">
-        <div class="pathway-title">Entrepreneurship &amp; MSMEs</div>
-        <div class="pathway-desc">Helping businesses demonstrate capability, readiness, and credibility.</div>
-      </div>
-    </div>
-
-    <div class="pathway-item">
-      <div class="pathway-icon">🌍</div>
-      <div class="pathway-content">
-        <div class="pathway-title">Employment &amp; Workforce Mobility</div>
-        <div class="pathway-desc">Making skills easier to verify across employers and borders.</div>
-      </div>
-    </div>
-
-    <div class="pathway-item">
-      <div class="pathway-icon">💳</div>
-      <div class="pathway-content">
-        <div class="pathway-title">Financial Inclusion</div>
-        <div class="pathway-desc">Exploring how verified capability may support better-informed institutional decisions.</div>
-      </div>
-    </div>
-
-    <div class="pathway-item">
-      <div class="pathway-icon">🤝</div>
-      <div class="pathway-content">
-        <div class="pathway-title">Community &amp; Social Impact</div>
-        <div class="pathway-desc">Recognizing contributions and participation that often go unseen.</div>
-      </div>
-    </div>
-
-    <div class="pathway-item">
-      <div class="pathway-icon">🏛️</div>
-      <div class="pathway-content">
-        <div class="pathway-title">Institutional Trust</div>
-        <div class="pathway-desc">Helping organizations issue, verify, and recognize trusted evidence.</div>
+    <div class="vs-frameworks vs-anim" data-delay="120">
+      <div class="vs-learn-label">Grounded in Global Principles</div>
+      <p class="vs-frameworks-intro">Our work aligns with internationally recognized frameworks that promote inclusion, opportunity, lifelong learning, and economic participation.</p>
+      <div class="vs-framework-tags">
+        <span class="vs-ftag">&#127807; UN Sustainable Development Goals</span>
+        <span class="vs-ftag">&#9851;&#65039; ESG Principles</span>
+        <span class="vs-ftag">&#9994;&#127998; IDPAD Mandate</span>
       </div>
     </div>
 
   </div>
 
-  <!-- Stat strip below -->
-  <div class="vision-divider">Exploring the foundations of a more trusted and connected Caribbean.</div>
-
-  <div class="impact-grid">
-    <div class="impact-card">
-      <div class="impact-num">4</div>
-      <div class="impact-label">Trust Layers Under Development</div>
-    </div>
-    <div class="impact-card">
-      <div class="impact-num">10+</div>
-      <div class="impact-label">Global Goals Supported</div>
-    </div>
-    <div class="impact-card">
-      <div class="impact-num">14+</div>
-      <div class="impact-label">Caribbean Nations &amp; Territories in Scope</div>
-    </div>
-    <div class="impact-card">
-      <div class="impact-num" style="font-size:2.4rem;">&#8734;</div>
-      <div class="impact-label">Opportunities that trusted capability could unlock</div>
+  <!-- ── STAT STRIP ── -->
+  <div class="vs-stats">
+    <div class="vs-stat-divider">Exploring the foundations of a more trusted and connected Caribbean.</div>
+    <div class="vs-stat-row">
+      <div class="vs-stat vs-anim" data-delay="0">
+        <div class="vs-stat-num">4</div>
+        <div class="vs-stat-label">Trust Layers Under Development</div>
+      </div>
+      <div class="vs-stat vs-anim" data-delay="100">
+        <div class="vs-stat-num">10+</div>
+        <div class="vs-stat-label">Global Goals Supported</div>
+      </div>
+      <div class="vs-stat vs-anim" data-delay="200">
+        <div class="vs-stat-num">14+</div>
+        <div class="vs-stat-label">Caribbean Nations &amp; Territories in Scope</div>
+      </div>
     </div>
   </div>
 
 </div>
 </section>
-<!-- OUR APPROACH -->
-<section class="approach" id="approach">
-<div class="approach-blob"></div>
-<div class="approach-inner">
-<div class="approach-image-wrap">
-<div class="approach-dot"></div>
-<div class="approach-img">
-<img alt="Collaborative learning session" src="https://caribbeanscience.org/wp-content/uploads/2021/05/Classroom_CCW_BB_F18_web.jpg"/>
-</div>
-<div class="approach-float">Built <em>with</em> people,<br/>not <em>for</em> them. 🤝</div>
-</div>
-<div class="approach-text">
-<div class="section-label">Our Approach</div>
-<h2 class="section-headline">Collaborating and learning through evidence.</h2>
-<p class="section-sub">Rather than assuming answers, Credii works alongside communities, institutions, and partners to identify what works. Our approach is grounded in real stakeholder engagement with entrepreneurs, workforce development practitioners, nonprofit leaders, and training providers who have consistently told us the same thing: the trust gap is real, and it matters.</p>
-<ul class="approach-list">
-<li><span class="check">✓</span> Research and stakeholder engagement</li>
-<li><span class="check">✓</span> Pilot programs and practical testing with real users</li>
-<li><span class="check">✓</span> Partnership development with ESOs and training providers</li>
-<li><span class="check">✓</span> Capability-building and credential issuance initiatives</li>
-<li><span class="check">✓</span> Continuous learning, evaluation, and improvement</li>
-</ul>
-<div class="approach-note">Credii is currently at the MVP development stage. The nonprofit has been established, the problem researched, the concept and architecture defined, and pilot partner categories identified within the entrepreneurship and workforce development ecosystem.</div>
-</div>
-</div>
-</section>
-<!-- ECOSYSTEM -->
-<section class="ecosystem" id="ecosystem">
-<div class="eco-deco eco-deco-1"></div>
-<div class="eco-inner">
-<div class="eco-header">
-<div class="section-label">Our Ecosystem</div>
-<h2 class="section-headline">A connected network of trust and capability.</h2>
-<p class="section-sub">The Credii ecosystem brings together standards, verification, mobility, and community, aligned with global frameworks and grounded in Caribbean identity.</p>
-</div>
-<div class="eco-grid">
-<div class="eco-card">
-<span class="eco-icon">📋</span>
-<div><h4>Standards &amp; Governance</h4>
-<p>Establishing credential frameworks and institutional partnerships that anchor a trusted, consistent credentialing ecosystem.</p></div>
-</div>
-<div class="eco-card">
-<span class="eco-icon">✅</span>
-<div><h4>Digital Verification</h4>
-<p>Exploring open, trusted digital systems for credential issuance and public verification, replacing paper with portable proof.</p></div>
-</div>
-<div class="eco-card">
-<span class="eco-icon">🔗</span>
-<div><h4>Mobility Pathways</h4>
-<p>Connecting Caribbean communities globally through credentials that travel across borders and open doors to new opportunities.</p></div>
-</div>
-<div class="eco-card">
-<span class="eco-icon">🌺</span>
-<div><h4>Cultural Grounding</h4>
-<p>Honoring Caribbean identity, heritage, and lived experience in every framework and system we explore together.</p></div>
-</div>
-</div>
 
-<!-- FRAMEWORK ALIGNMENT STRIP -->
-<div class="framework-strip">
-  <div class="framework-strip-header">
-    <div class="framework-eyebrow">Global Framework Alignment</div>
-    <h3 class="framework-headline">Aligned with the world's most important frameworks.</h3>
-  </div>
-  <div class="framework-grid">
-    <div class="framework-item">
-      <div class="framework-icon">🌱</div>
-      <div class="framework-title">UN Sustainable Development Goals</div>
-      <div class="framework-desc">Every Credii program, layer, and credential is designed to advance specific SDG targets, from quality education to reduced inequalities.</div>
-      <div class="framework-tags">
-        <span class="ftag">SDG 1</span>
-        <span class="ftag">SDG 4</span>
-        <span class="ftag">SDG 5</span>
-        <span class="ftag">SDG 8</span>
-        <span class="ftag">SDG 9</span>
-        <span class="ftag">SDG 10</span>
-        <span class="ftag">SDG 16</span>
-        <span class="ftag">SDG 17</span>
-      </div>
-    </div>
-    <div class="framework-item">
-      <div class="framework-icon">♻️</div>
-      <div class="framework-title">ESG Principles</div>
-      <div class="framework-desc">Credii embeds Environmental, Social, and Governance principles into every credential, standard, and institutional framework we explore.</div>
-      <div class="framework-tags">
-        <span class="ftag">ESG Social</span>
-        <span class="ftag">ESG Governance</span>
-        <span class="ftag">ESG Environmental</span>
-      </div>
-    </div>
-    <div class="framework-item">
-      <div class="framework-icon">✊🏾</div>
-      <div class="framework-title">IDPAD Mandate</div>
-      <div class="framework-desc">The International Decade for People of African Descent guides Credii's commitment to equity, recognition, and rights-based frameworks for Caribbean and diaspora communities.</div>
-      <div class="framework-tags">
-        <span class="ftag">Institutional Equity</span>
-        <span class="ftag">Economic Mobility</span>
-        <span class="ftag">Cultural Recognition</span>
-        <span class="ftag">Anti-Discrimination</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-</div>
-</section>
-<!-- WHY WE DO THIS -->
-<section class="why-we">
-<div class="why-we-blob"></div>
-<div class="why-we-inner">
-
-  <!-- Two-column: text left, photo right -->
-  <div class="why-we-split">
-    <div class="why-we-text">
-      <div class="section-label">Why We Are Doing This</div>
-      <h2 class="section-headline">A belief that potential deserves recognition.</h2>
-      <p class="section-sub" style="margin-top:18px;">
-        Many people and organizations across the Caribbean possess valuable skills, experience, knowledge, and contributions that are not always visible or easily recognized. Women acquire skills, complete training, build businesses, and contribute to their communities but often lack trusted mechanisms for demonstrating these achievements to the organizations that create opportunities.
-      </p>
-      <p class="section-sub" style="margin-top:14px;">
-        Credii exists because we believe better recognition systems, stronger trust frameworks, and more accessible pathways to opportunity could help change that.
-      </p>
-      <blockquote class="why-we-blockquote">
-        "Drawing from education, tourism, global exposure, communication training, and deep cultural roots, Credii was established to explore whether trusted infrastructure could help the Caribbean unlock its collective potential. We are testing that idea, one pilot at a time, with the people and communities it is meant to serve."
-      </blockquote>
-    </div>
-    <div class="why-we-photo">
-      <img src="https://cpa-caaregion.org/wp-content/uploads/2024/10/2022_womencaribbeanbarbados-2-960x636.jpg" alt="Caribbean women leaders" />
-    </div>
-  </div>
-
-<div style="margin-top:36px;">
-  <div style="font-size:0.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:16px;display:flex;align-items:center;gap:8px;justify-content:center;">
-    <span style="width:18px;height:2px;background:var(--red);border-radius:2px;display:inline-block;"></span>
-    Our Values
-    <span style="width:18px;height:2px;background:var(--red);border-radius:2px;display:inline-block;"></span>
-  </div>
-  <div style="background:#fff;border-radius:18px;border:1.5px solid rgba(212,197,169,0.35);padding:24px 28px;display:flex;flex-wrap:wrap;gap:0;">
-    <div style="flex:1;min-width:160px;padding:12px 16px;border-right:1px solid rgba(212,197,169,0.3);">
-      <div style="font-size:0.78rem;font-weight:700;color:var(--red);margin-bottom:3px;">Equity &amp; Inclusion</div>
-      <div style="font-size:0.75rem;color:var(--text-muted);line-height:1.5;">Every person deserves access to opportunity.</div>
-    </div>
-    <div style="flex:1;min-width:160px;padding:12px 16px;border-right:1px solid rgba(212,197,169,0.3);">
-      <div style="font-size:0.78rem;font-weight:700;color:var(--sage);margin-bottom:3px;">Cultural Grounding</div>
-      <div style="font-size:0.75rem;color:var(--text-muted);line-height:1.5;">Heritage, identity, and community matter.</div>
-    </div>
-    <div style="flex:1;min-width:160px;padding:12px 16px;border-right:1px solid rgba(212,197,169,0.3);">
-      <div style="font-size:0.78rem;font-weight:700;color:var(--terracotta);margin-bottom:3px;">Transparency &amp; Trust</div>
-      <div style="font-size:0.75rem;color:var(--text-muted);line-height:1.5;">Governance and accountability guide our work.</div>
-    </div>
-    <div style="flex:1;min-width:160px;padding:12px 16px;border-right:1px solid rgba(212,197,169,0.3);">
-      <div style="font-size:0.78rem;font-weight:700;color:var(--mustard);margin-bottom:3px;">Sustainability</div>
-      <div style="font-size:0.75rem;color:var(--text-muted);line-height:1.5;">Climate resilience and long-term thinking.</div>
-    </div>
-    <div style="flex:1;min-width:160px;padding:12px 16px;border-right:1px solid rgba(212,197,169,0.3);">
-      <div style="font-size:0.78rem;font-weight:700;color:var(--lilac);margin-bottom:3px;">Collaboration</div>
-      <div style="font-size:0.75rem;color:var(--text-muted);line-height:1.5;">Regional integration and multi-stakeholder partnerships.</div>
-    </div>
-    <div style="flex:1;min-width:160px;padding:12px 16px;">
-      <div style="font-size:0.78rem;font-weight:700;color:#2A7F7F;margin-bottom:3px;">Innovation for Public Good</div>
-      <div style="font-size:0.75rem;color:var(--text-muted);line-height:1.5;">Modern tools, community-centred design.</div>
-    </div>
-  </div>
-</div>
-
-</div>
-</section>
 <!-- MEMBERSHIP -->
 <section class="membership" id="involved">
 <div class="membership-inner">
@@ -1450,6 +1348,21 @@ document.querySelectorAll('section, .pathway-item, .focus-item, .serve-photo, .f
   el.classList.add('fade-up');
   observer.observe(el);
 });
+</script>
+
+<script>
+(function(){
+  var items = document.querySelectorAll('.vs-anim');
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        var delay = e.target.getAttribute('data-delay') || 0;
+        setTimeout(function(){ e.target.classList.add('vs-visible'); }, parseInt(delay));
+      }
+    });
+  }, { threshold: 0.15 });
+  items.forEach(function(el){ obs.observe(el); });
+})();
 </script>
 </body>
 </html>
