@@ -293,7 +293,7 @@
     /* FOOTER */
     footer { background: var(--sand-pale); border-top: 1.5px solid rgba(212,197,169,0.4); padding: 72px 5% 40px; }
     .footer-inner { max-width: 1200px; margin: 0 auto; }
-    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 52px; border-bottom: 1.5px solid rgba(212,197,169,0.4); }
+    .footer-top { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 36px; padding-bottom: 52px; border-bottom: 1.5px solid rgba(212,197,169,0.4); }
     .footer-brand-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
     .footer-brand p { font-size: 0.85rem; line-height: 1.75; color: var(--text-muted); max-width: 280px; }
     .footer-tagline { font-size: 0.78rem; color: rgba(122,115,112,0.6); margin-top: 16px; font-style: italic; }
@@ -491,6 +491,66 @@
       letter-spacing: 0.3px;
     }
 
+
+    /* WHO WE SERVE — PHOTO MOSAIC */
+    .who-serve { background: var(--warm-white); padding: 100px 5%; }
+    .who-inner { max-width: 1200px; margin: 0 auto; }
+    .who-header { margin-bottom: 48px; }
+    .who-header .section-sub { max-width: 640px; }
+
+    .serve-mosaic { display: grid; grid-template-columns: 1.4fr 1fr; gap: 12px; margin-bottom: 0; height: 480px; }
+    .serve-photo-col { display: flex; flex-direction: column; gap: 12px; }
+
+    .serve-photo { position: relative; overflow: hidden; border-radius: 16px; }
+    .serve-photo-large { height: 100%; }
+    .serve-photo-medium { flex: 1; }
+
+    .serve-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+    .serve-photo:hover img { transform: scale(1.04); }
+
+    .serve-photo-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(44,40,37,0.82) 0%, rgba(44,40,37,0.1) 55%, transparent 100%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 24px 22px;
+      transition: background 0.3s;
+    }
+
+    .serve-photo-label { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .serve-photo-desc { font-size: 0.8rem; color: rgba(255,255,255,0.8); line-height: 1.6; max-width: 340px; }
+
+    /* Serve list below mosaic */
+    .serve-list { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; margin-top: 0; border-top: 1.5px solid rgba(212,197,169,0.4); }
+    .serve-list-item { display: flex; gap: 14px; align-items: flex-start; padding: 24px 20px; border-right: 1px solid rgba(212,197,169,0.4); }
+    .serve-list-item:last-child { border-right: none; }
+    .serve-list-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+    .serve-list-title { font-family: 'Fraunces', serif; font-size: 0.92rem; font-weight: 700; color: var(--charcoal); margin-bottom: 5px; }
+    .serve-list-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* WHY WE DO THIS — SPLIT LAYOUT */
+    .why-we { background: var(--terra-pale); padding: 100px 5%; position: relative; overflow: hidden; }
+    .why-we-blob { position: absolute; top: -60px; left: -60px; width: 300px; height: 300px; border-radius: 40% 60% 30% 70% / 60% 40% 60% 40%; background: rgba(181,113,74,0.12); }
+
+    .why-we-split { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; position: relative; z-index: 1; }
+    .why-we-text .section-sub { max-width: 100%; }
+
+    .why-we-blockquote {
+      margin-top: 28px;
+      padding-left: 20px;
+      border-left: 3px solid var(--red);
+      font-family: 'Fraunces', serif;
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--charcoal);
+      line-height: 1.7;
+    }
+
+    .why-we-photo { border-radius: 120px 24px 24px 24px; overflow: hidden; aspect-ratio: 3/4; box-shadow: 0 24px 60px rgba(44,40,37,0.15); }
+    .why-we-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* WHY WE INNER for values below */
+    .why-we-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+
     /* RESPONSIVE */
     @media (max-width: 1024px) {
       .hero-inner { grid-template-columns: 1fr; }
@@ -498,7 +558,7 @@
       .focus-grid { grid-template-columns: 1fr 1fr; }
       .eco-grid { grid-template-columns: repeat(2, 1fr); }
       .impact-grid { grid-template-columns: repeat(2, 1fr); }
-      .footer-top { grid-template-columns: 1fr 1fr; gap: 36px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 28px; }
       .building-header { grid-template-columns: 1fr; gap: 16px; }
       .problem-inner { grid-template-columns: 1fr; gap: 40px; }
       .tier-grid { grid-template-columns: repeat(4, 1fr); }
@@ -515,6 +575,14 @@
       .impact-grid { grid-template-columns: 1fr 1fr; }
       .footer-top { grid-template-columns: 1fr; gap: 32px; }
       .nav-links { display: none; }
+      .serve-mosaic { grid-template-columns: 1fr; height: auto; }
+      .serve-photo-large { height: 300px; }
+      .serve-photo-medium { height: 220px; }
+      .serve-list { grid-template-columns: 1fr; }
+      .serve-list-item { border-right: none; border-bottom: 1px solid rgba(212,197,169,0.4); }
+      .serve-list-item:last-child { border-bottom: none; }
+      .why-we-split { grid-template-columns: 1fr; gap: 40px; }
+      .why-we-photo { aspect-ratio: 16/9; border-radius: 24px; }
       .focus-list { gap: 0; }
       .serve-grid { grid-template-columns: 1fr; }
       .serve-card:nth-child(odd) { border-right: none; }
@@ -544,6 +612,14 @@
       .impact-grid { grid-template-columns: 1fr; }
       .hero-actions { flex-direction: column; }
       .problem-stats { grid-template-columns: 1fr; }
+      .serve-mosaic { grid-template-columns: 1fr; height: auto; }
+      .serve-photo-large { height: 260px; }
+      .serve-photo-medium { height: 200px; }
+      .serve-list { grid-template-columns: 1fr; }
+      .serve-list-item { border-right: none; border-bottom: 1px solid rgba(212,197,169,0.4); }
+      .serve-list-item:last-child { border-bottom: none; }
+      .why-we-split { grid-template-columns: 1fr; gap: 36px; }
+      .why-we-photo { border-radius: 24px; aspect-ratio: 16/9; }
       .tier-grid { grid-template-columns: 1fr; }
       .mc-actions { flex-direction: column; align-items: center; }
     }
@@ -747,46 +823,68 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 </section>
 <!-- WHO WE SERVE -->
 <section class="who-serve" id="serve">
-<div class="who-deco who-deco-1"></div>
-<div class="who-deco who-deco-2"></div>
 <div class="who-inner">
-<div class="who-header">
-<div class="section-label">Who We Hope to Serve</div>
-<h2 class="section-headline">Designed with Caribbean realities in mind.</h2>
-<p class="section-sub">Our initial focus is on the people and organizations most affected by the missing trust layer, particularly women, emerging professionals, and the ecosystem that supports them. We are testing whether our approach can be useful to them.</p>
-</div>
-<div class="serve-grid">
-<div class="serve-card">
-<div class="serve-icon-wrap">👩‍💼</div>
-<div><h4>Women Entrepreneurs &amp; MSMEs</h4>
-<p>Women-led micro, small, and medium enterprises seeking stronger ways to demonstrate credibility when applying for financing, procurement, partnerships, and business support programs.</p></div>
-</div>
-<div class="serve-card">
-<div class="serve-icon-wrap">🏫</div>
-<div><h4>Training &amp; Support Organizations</h4>
-<p>ESOs, nonprofits, and training providers that need a practical way to issue and verify digital credentials, recognize participant achievements, and demonstrate program outcomes.</p></div>
-</div>
-<div class="serve-card">
-<div class="serve-icon-wrap">🎓</div>
-<div><h4>Youth &amp; Emerging Professionals</h4>
-<p>People seeking trusted, portable ways to demonstrate skills, training, and readiness for employment and career advancement across the region.</p></div>
-</div>
-<div class="serve-card">
-<div class="serve-icon-wrap">🏛️</div>
-<div><h4>Governments &amp; Public Agencies</h4>
-<p>Entities exploring innovative approaches to workforce development, capability building, and public service modernization across the Caribbean.</p></div>
-</div>
-<div class="serve-card">
-<div class="serve-icon-wrap">🌍</div>
-<div><h4>Caribbean Diaspora</h4>
-<p>Individuals seeking stronger connections between experience gained abroad and opportunities across the region, with credentials that travel with them.</p></div>
-</div>
-<div class="serve-card">
-<div class="serve-icon-wrap">🤝</div>
-<div><h4>Communities &amp; Civil Society</h4>
-<p>Organizations working to create inclusive pathways to learning, participation, and economic opportunity for underserved groups.</p></div>
-</div>
-</div>
+  <div class="who-header">
+    <div class="section-label">Who We Hope to Serve</div>
+    <h2 class="section-headline">Designed with Caribbean realities in mind.</h2>
+    <p class="section-sub">Our initial focus is on the people and organizations most affected by the missing trust layer, particularly women, emerging professionals, and the ecosystem that supports them.</p>
+  </div>
+
+  <!-- Photo mosaic — no cards, just images with text -->
+  <div class="serve-mosaic">
+
+    <div class="serve-photo serve-photo-large">
+      <img src="https://content.carib-export.com/wp-content/uploads/2025/03/IWD-2025-Blog-Photo-1024x768.png" alt="Caribbean women entrepreneurs" />
+      <div class="serve-photo-overlay">
+        <div class="serve-photo-label">Women Entrepreneurs &amp; MSMEs</div>
+        <div class="serve-photo-desc">Women-led businesses seeking stronger ways to demonstrate credibility when applying for financing, procurement, and partnerships.</div>
+      </div>
+    </div>
+
+    <div class="serve-photo-col">
+      <div class="serve-photo serve-photo-medium">
+        <img src="https://www.healthycaribbean.org/wp-content/uploads/2024/02/youth-meet-2024-smedia.jpg" alt="Caribbean youth gathering" />
+        <div class="serve-photo-overlay">
+          <div class="serve-photo-label">Youth &amp; Emerging Professionals</div>
+          <div class="serve-photo-desc">People seeking trusted, portable ways to demonstrate skills and readiness for employment.</div>
+        </div>
+      </div>
+      <div class="serve-photo serve-photo-medium">
+        <img src="https://cariphilalliance.org/wp-content/uploads/2024/06/WAKE-5656.jpg" alt="Caribbean learning workshop" />
+        <div class="serve-photo-overlay">
+          <div class="serve-photo-label">Training &amp; Support Organizations</div>
+          <div class="serve-photo-desc">ESOs and training providers exploring better ways to recognize and verify participant achievements.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Remaining audiences as a clean ruled list below the photos -->
+  <div class="serve-list">
+    <div class="serve-list-item">
+      <div class="serve-list-icon">🏛️</div>
+      <div>
+        <div class="serve-list-title">Governments &amp; Public Agencies</div>
+        <div class="serve-list-desc">Entities exploring innovative approaches to workforce development, capability building, and public service modernization.</div>
+      </div>
+    </div>
+    <div class="serve-list-item">
+      <div class="serve-list-icon">🌍</div>
+      <div>
+        <div class="serve-list-title">Caribbean Diaspora</div>
+        <div class="serve-list-desc">Individuals seeking stronger connections between experience gained abroad and opportunities across the region.</div>
+      </div>
+    </div>
+    <div class="serve-list-item">
+      <div class="serve-list-icon">🤝</div>
+      <div>
+        <div class="serve-list-title">Communities &amp; Civil Society</div>
+        <div class="serve-list-desc">Organizations working to create inclusive pathways to learning, participation, and economic opportunity.</div>
+      </div>
+    </div>
+  </div>
+
 </div>
 </section>
 <!-- OUR APPROACH -->
@@ -796,7 +894,7 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 <div class="approach-image-wrap">
 <div class="approach-dot"></div>
 <div class="approach-img">
-<img alt="Collaborative learning session" src="https://dialabtt.cariri.com/wp-content/uploads/2021/06/DSC00465.jpg"/>
+<img alt="Collaborative learning session" src="https://caribbeanscience.org/wp-content/uploads/2021/05/Classroom_CCW_BB_F18_web.jpg"/>
 </div>
 <div class="approach-float">Built <em>with</em> people,<br/>not <em>for</em> them. 🤝</div>
 </div>
@@ -899,17 +997,26 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 <section class="why-we">
 <div class="why-we-blob"></div>
 <div class="why-we-inner">
-<div class="section-label" style="justify-content:center;">Why We Are Doing This</div>
-<h2 class="section-headline">A belief that potential deserves recognition.</h2>
-<p class="section-sub">
-        Many people and organizations across the Caribbean possess valuable skills, experience, knowledge, and contributions that are not always visible or easily recognized. Women acquire skills, complete training, build businesses, and contribute to their communities but often lack trusted mechanisms for demonstrating these achievements to the organizations that create opportunities. Credii exists because we believe better recognition systems, stronger trust frameworks, and more accessible pathways to opportunity could help change that.
+
+  <!-- Two-column: text left, photo right -->
+  <div class="why-we-split">
+    <div class="why-we-text">
+      <div class="section-label">Why We Are Doing This</div>
+      <h2 class="section-headline">A belief that potential deserves recognition.</h2>
+      <p class="section-sub" style="margin-top:18px;">
+        Many people and organizations across the Caribbean possess valuable skills, experience, knowledge, and contributions that are not always visible or easily recognized. Women acquire skills, complete training, build businesses, and contribute to their communities but often lack trusted mechanisms for demonstrating these achievements to the organizations that create opportunities.
       </p>
-<div class="why-we-quote">
-<div class="quote-mark">"</div>
-<p>
-          Drawing from education, tourism, global exposure, communication training, and deep cultural roots, Credii was built to create the trusted infrastructure the Caribbean deserves: systems that see our people, honor our heritage, and unlock our collective potential on the world stage.
-        </p>
-</div>
+      <p class="section-sub" style="margin-top:14px;">
+        Credii exists because we believe better recognition systems, stronger trust frameworks, and more accessible pathways to opportunity could help change that.
+      </p>
+      <blockquote class="why-we-blockquote">
+        "Drawing from education, tourism, global exposure, communication training, and deep cultural roots, Credii was established to explore whether trusted infrastructure could help the Caribbean unlock its collective potential. We are testing that idea, one pilot at a time, with the people and communities it is meant to serve."
+      </blockquote>
+    </div>
+    <div class="why-we-photo">
+      <img src="https://cpa-caaregion.org/wp-content/uploads/2024/10/2022_womencaribbeanbarbados-2-960x636.jpg" alt="Caribbean women leaders" />
+    </div>
+  </div>
 
 <div style="margin-top:36px;">
   <div style="font-size:0.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:16px;display:flex;align-items:center;gap:8px;justify-content:center;">
@@ -1073,43 +1180,40 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 <img src="credii-logo.png" alt="Credii" style="height:36px;width:auto;display:block;">
 </div>
 <p>Credii is a nonprofit initiative developing and testing trust, credentialing, capability-building, and opportunity-focused approaches that could contribute to greater inclusion, mobility, and resilience across the Caribbean.</p>
-<p class="footer-tagline">Based in Trinidad &amp; Tobago. Based in the Caribbean, working with the Caribbean.</p>
-</div>
-<div class="footer-col">
-<h5>Tools</h5>
-<ul>
-<li><a href="#">Platform (Beta)</a></li>
-<li><a href="credii-verify.html">Credential Verification</a></li>
-<li><a href="credii-portal.html">Member Portal</a></li>
-</ul>
-</div>
-<div class="footer-col">
-<h5>Organization</h5>
+<p class="footer-tagline">Based in Trinidad &amp; Tobago. Based in the Caribbean, working with t<div class="footer-col">
+<h5>Explore</h5>
 <ul>
 <li><a href="#">About Credii</a></li>
 <li><a href="#">What We Do</a></li>
-<li><a href="#">Who We Serve</a></li>
-<li><a href="#">Membership</a></li>
-<li><a href="#">Partner With Us</a></li>
-<li><a href="#">Contact</a></li>
+<li><a href="#serve">Who We Serve</a></li>
+<li><a href="#involved">Membership</a></li>
 </ul>
 </div>
 <div class="footer-col">
-<h5>Connect</h5>
+<h5>Get Involved</h5>
 <ul>
-<li><a href="#">LinkedIn</a></li>
-<li><a href="#">Twitter / X</a></li>
-<li><a href="#">Newsletter</a></li>
-<li><a href="#">Press Enquiries</a></li>
+<li><a href="mailto:ourpartner@crediifoundation.org">Partner With Us</a></li>
+<li><a href="#involved">Become a Member</a></li>
+<li><a href="#involved">Participate in a Pilot</a></li>
+<li><a href="#">Support Credii</a></li>
+<li><a href="mailto:contact@crediifoundation.org">Contact</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h5>Legal</h5>
+<ul>
+<li><a href="credii-privacy.html">Privacy Policy</a></li>
+<li><a href="credii-terms.html">Terms of Use</a></li>
+<li><a href="credii-accessibility.html">Accessibility</a></li>
+<li><a href="#">Trust &amp; Verification Policy</a></li>
 </ul>
 </div>
 </div>
 <div class="footer-bottom">
 <p>© 2025 Credii Foundation. All rights reserved. Registered nonprofit, Trinidad &amp; Tobago.</p>
 <div class="footer-bottom-links">
-<a href="#">Privacy Policy</a>
-<a href="#">Terms of Use</a>
-<a href="#">Accessibility</a>
+<a href="mailto:contact@crediifoundation.org">Contact</a>
+<a href="mailto:legal@crediifoundation.org">Legal</a>
 </div>
 </div>
 </div>
