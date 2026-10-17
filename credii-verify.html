@@ -576,7 +576,7 @@
 <div class="topbar" id="topbar">
 <div class="topbar-left">
 <div class="topbar-title" id="topbar-title">Verify a Credential</div>
-<div class="topbar-sub" id="topbar-sub">Public verification — no account required</div>
+<div class="topbar-sub" id="topbar-sub">Beta demo — sample records only</div>
 </div>
 <div class="topbar-actions">
 <a class="btn btn-ghost btn-sm" href="credii-portal.html">← Member Portal</a>
@@ -592,34 +592,36 @@
 <div style="max-width:680px;margin:0 auto 32px;">
 <div style="font-size:0.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:10px;">Credential Verification</div>
 <h1 style="font-family:'Fraunces',serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:700;color:var(--charcoal);line-height:1.2;margin-bottom:12px;">Verify a Credii Digital Credential</h1>
-<p style="font-size:0.95rem;color:var(--muted);line-height:1.75;">Enter the credential ID or scan its QR code to confirm its issuer, authenticity, and current status. Credii's verification service helps individuals and organizations check credentials issued through Credii or participating issuing organizations.</p>
+<p style="font-size:0.95rem;color:var(--muted);line-height:1.75;">Try the sample credential IDs below to explore the planned verification flow. This prototype is not connected to a live credential registry and its results are illustrative only.</p>
+<div role="note" style="margin-top:14px;padding:12px 14px;background:var(--mustard-pale);border:1px solid rgba(201,168,76,.3);border-radius:10px;font-size:.8rem;color:#725b26;">Demo environment: sample records only. Results are not live credential checks and must not be used for decisions.</div>
 </div>
 <!-- Verification Options -->
 <div style="max-width:680px;margin:0 auto;">
 <div class="card mb-4">
 <div class="card-title" style="margin-bottom:16px;">Option 1: Enter Credential ID</div>
 <div class="form-group" style="margin-bottom:12px;">
-<label class="form-label">Credential ID</label>
-<input class="form-input" id="cred-id-input" placeholder="e.g. CRD-2026-000184" style="font-size:1rem;padding:13px 16px;" type="text"/>
-<div class="form-hint">Enter the credential ID exactly as shown on the certificate or badge.</div>
+<label class="form-label" for="cred-id-input">Credential ID</label>
+<input class="form-input" id="cred-id-input" aria-describedby="cred-id-hint verify-input-error" placeholder="e.g. CRD-2026-000184" style="font-size:1rem;padding:13px 16px;" type="text" autocomplete="off"/>
+<div class="form-hint" id="cred-id-hint">Enter a sample ID exactly as shown in the demo records.</div>
+<div id="verify-input-error" role="alert" style="font-size:0.78rem;color:var(--red-dark);margin-top:6px;min-height:18px;"></div>
 </div>
-<button class="btn btn-red btn-full" onclick="showVerifyResult('valid')">Verify Credential</button>
+<button class="btn btn-red btn-full" type="button" onclick="verifyCredential()">Check Demo Record</button>
 </div>
 <!-- Quick demo buttons -->
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
-<span style="font-size:0.75rem;color:var(--muted);align-self:center;">Try a demo result:</span>
-<button class="btn btn-ghost btn-sm" onclick="showVerifyResult('valid')">✅ Valid</button>
-<button class="btn btn-ghost btn-sm" onclick="showVerifyResult('expired')">⏰ Expired</button>
-<button class="btn btn-ghost btn-sm" onclick="showVerifyResult('revoked')">🚫 Revoked</button>
-<button class="btn btn-ghost btn-sm" onclick="showVerifyResult('suspended')">⏸ Suspended</button>
-<button class="btn btn-ghost btn-sm" onclick="showVerifyResult('notfound')">❓ Not Found</button>
+<span style="font-size:0.75rem;color:var(--muted);align-self:center;">Sample records:</span>
+<button class="btn btn-ghost btn-sm" type="button" onclick="showDemoOutcome('valid')">✅ Valid sample</button>
+<button class="btn btn-ghost btn-sm" type="button" onclick="showDemoOutcome('expired')">⏰ Expired sample</button>
+<button class="btn btn-ghost btn-sm" type="button" onclick="showDemoOutcome('revoked')">🚫 Revoked sample</button>
+<button class="btn btn-ghost btn-sm" type="button" onclick="showDemoOutcome('suspended')">⏸ Suspended sample</button>
+<button class="btn btn-ghost btn-sm" type="button" onclick="showDemoOutcome('notfound')">❓ Not Found sample</button>
 </div>
 <div class="grid-2 mb-4">
 <div class="card card-sm" style="text-align:center;">
 <div style="font-size:1.5rem;margin-bottom:8px;">📷</div>
 <div class="card-title" style="font-size:0.88rem;margin-bottom:4px;">Option 2: Scan QR Code</div>
-<div class="card-sub" style="margin-bottom:12px;">Scan the QR code on a certificate, badge, or profile.</div>
-<button class="btn btn-ghost btn-sm" style="width:100%;justify-content:center;border-radius:8px;">Open Camera</button>
+<div class="card-sub" style="margin-bottom:12px;">Camera scanning is not available in this prototype.</div>
+<button class="btn btn-ghost btn-sm" type="button" disabled aria-disabled="true" style="width:100%;justify-content:center;border-radius:8px;opacity:.6;cursor:not-allowed;">Unavailable in demo</button>
 </div>
 <div class="card card-sm" style="text-align:center;">
 <div style="font-size:1.5rem;margin-bottom:8px;">🔗</div>
@@ -629,7 +631,7 @@
 </div>
 </div>
 <!-- Result Area -->
-<div id="verify-result-area"></div>
+<div id="verify-result-area" aria-live="polite"></div>
 <!-- Disclaimer -->
 <div class="alert alert-info" style="margin-top:16px;">
 <span class="alert-icon">ℹ️</span>
@@ -1607,15 +1609,50 @@
     document.querySelector('.content').scrollTop = 0;
   }
 
-  // ── VERIFICATION RESULTS ──
-  function showVerifyResult(type) {
+  // ── DEMO VERIFICATION ──
+  const demoCredentialTypes = {
+    'CRD-2026-000184': 'valid',
+    'CRD-2024-000021': 'expired',
+    'CRD-2026-000001': 'revoked',
+    'CRD-2026-000099': 'suspended'
+  };
+  const demoCredentialIds = {
+    valid: 'CRD-2026-000184',
+    expired: 'CRD-2024-000021',
+    revoked: 'CRD-2026-000001',
+    suspended: 'CRD-2026-000099',
+    notfound: 'CRD-2026-999999'
+  };
+
+  function verifyCredential() {
+    const input = document.getElementById('cred-id-input');
+    const error = document.getElementById('verify-input-error');
+    const credentialId = input.value.trim().toUpperCase();
+    if (!credentialId) {
+      error.textContent = 'Enter a sample credential ID to try the demo.';
+      input.focus();
+      return;
+    }
+    error.textContent = '';
+    showVerifyResult(demoCredentialTypes[credentialId] || 'notfound', credentialId);
+  }
+
+  function showDemoOutcome(type) {
+    const credentialId = demoCredentialIds[type] || demoCredentialIds.notfound;
+    document.getElementById('cred-id-input').value = credentialId;
+    document.getElementById('verify-input-error').textContent = '';
+    showVerifyResult(type, credentialId);
+  }
+
+  function showVerifyResult(type, credentialId) {
     const area = document.getElementById('verify-result-area');
+    const demoId = credentialId || demoCredentialIds[type] || demoCredentialIds.notfound;
     const results = {
       valid: `
         <div class="verify-result valid">
           <div class="verify-icon">✅</div>
           <div class="verify-headline" style="color:#166534;">Credential Verified</div>
-          <div class="verify-sub">This credential was issued through the Credii verification system and is currently valid.</div>
+          <div class="verify-sub">This is an illustrative sample record. The prototype is not connected to a live registry.</div>
           <div class="verify-grid">
             <div class="verify-field"><div class="verify-field-label">Credential Name</div><div class="verify-field-value">Digital Readiness Certificate</div></div>
             <div class="verify-field"><div class="verify-field-label">Credential ID</div><div class="verify-field-value" style="font-family:monospace;">CRD-2026-000184</div></div>
@@ -1633,8 +1670,8 @@
             <div style="font-size:0.84rem;color:var(--charcoal);">Digital literacy · Credential verification · Trust systems · Caribbean credential landscape</div>
           </div>
           <div class="verify-actions">
-            <button class="btn btn-sage btn-sm">⬇️ Download Verification Summary</button>
-            <button class="btn btn-ghost btn-sm">🔗 Copy Verification Link</button>
+            <button class="btn btn-sage btn-sm" type="button">Download Demo Summary</button>
+            <button class="btn btn-ghost btn-sm" type="button">Copy Demo Link</button>
             <button class="btn btn-ghost btn-sm">⚠️ Report a Concern</button>
           </div>
         </div>`,
@@ -1705,9 +1742,85 @@
         </div>`
     };
 
-    area.innerHTML = results[type] || '';
+    area.innerHTML = results[type] || results.notfound;
+    const headline = area.querySelector('.verify-headline');
+    const explanation = area.querySelector('.verify-sub');
+    if (headline) headline.textContent = 'Demo sample: ' + headline.textContent.replace(/^Demo sample:\s*/i, '');
+    if (explanation) explanation.textContent = 'Illustrative sample record only. This prototype does not query a live credential registry.';
+    const idField = [...area.querySelectorAll('.verify-field')].find(field => field.querySelector('.verify-field-label')?.textContent.trim() === 'Credential ID');
+    if (idField) idField.querySelector('.verify-field-value').textContent = demoId;
+    if (!idField && type === 'notfound') {
+      const enteredId = document.createElement('div');
+      enteredId.className = 'verify-field';
+      enteredId.style.marginBottom = '16px';
+      const label = document.createElement('div');
+      label.className = 'verify-field-label';
+      label.textContent = 'Entered Credential ID';
+      const value = document.createElement('div');
+      value.className = 'verify-field-value';
+      value.style.fontFamily = 'monospace';
+      value.textContent = demoId;
+      enteredId.append(label, value);
+      area.querySelector('.verify-sub')?.after(enteredId);
+    }
+    area.insertAdjacentHTML('afterbegin', '<div role="note" style="margin-bottom:14px;padding:10px 12px;background:var(--mustard-pale);border-radius:8px;font-size:.76rem;color:#725b26;">Demo result only; not a live verification.</div>');
+    const actionStatus = document.createElement('div');
+    actionStatus.setAttribute('role', 'status');
+    actionStatus.setAttribute('aria-live', 'polite');
+    actionStatus.style.cssText = 'font-size:.78rem;color:var(--muted);margin-top:10px;';
+    const actions = area.querySelector('.verify-actions');
+    if (actions) {
+      actions.after(actionStatus);
+      actions.querySelectorAll('button').forEach(button => {
+        const label = button.textContent.trim();
+        if (label.includes('Download')) {
+          button.type = 'button';
+          button.addEventListener('click', () => {
+            const content = `CREDII DEMO VERIFICATION SUMMARY\nIllustrative sample only; not an official credential record.\nSample ID: ${demoId}\nResult: ${type}`;
+            const url = URL.createObjectURL(new Blob([content], { type: 'text/plain' }));
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `credii-demo-${demoId}.txt`;
+            link.click();
+            URL.revokeObjectURL(url);
+            actionStatus.textContent = 'Demo summary downloaded. It is not an official credential record.';
+          });
+        } else if (label.includes('Copy')) {
+          button.type = 'button';
+          button.addEventListener('click', async () => {
+            const url = new URL('credii-verify.html', window.location.href);
+            url.searchParams.set('id', demoId);
+            try {
+              await navigator.clipboard.writeText(url.href);
+              actionStatus.textContent = 'Demo verification link copied.';
+            } catch {
+              actionStatus.textContent = 'Copy unavailable. Demo link: ' + url.href;
+            }
+          });
+        } else if (label.includes('Report')) {
+          const reportLink = document.createElement('a');
+          reportLink.className = button.className;
+          reportLink.href = 'mailto:legal@crediifoundation.org?subject=Credential%20verification%20question';
+          reportLink.textContent = label;
+          button.replaceWith(reportLink);
+        }
+      });
+    }
     area.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
+
+  const linkedCredentialId = new URLSearchParams(window.location.search).get('id');
+  if (linkedCredentialId) {
+    document.getElementById('cred-id-input').value = linkedCredentialId;
+    verifyCredential();
+  }
+
+  document.getElementById('cred-id-input').addEventListener('keydown', event => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      verifyCredential();
+    }
+  });
 
   // ── ISSUER STEPS ──
   let currentStep = 2;

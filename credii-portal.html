@@ -815,6 +815,7 @@
 </div>
 </div>
 <div class="content">
+<div class="alert alert-info" role="note" style="margin-bottom:16px;"><span class="alert-icon">🧪</span><div><strong>Prototype demo.</strong> Names, records, counts, and roles shown here are sample data. Actions do not submit applications or save profile changes, and no real personal or evidence data should be entered.</div></div>
 <!-- ══════════════════════════════════════
            SCREEN: DASHBOARD
       ══════════════════════════════════════ -->
@@ -1539,13 +1540,14 @@
 <div style="display:flex;flex-direction:column;gap:12px;">
 <label style="display:flex;align-items:center;justify-content:space-between;font-size:0.84rem;cursor:pointer;">
 <span>Show profile in community directory</span>
-<input checked="" style="accent-color:var(--red);width:16px;height:16px;" type="checkbox"/>
+<input style="accent-color:var(--red);width:16px;height:16px;" type="checkbox"/>
 </label>
 <label style="display:flex;align-items:center;justify-content:space-between;font-size:0.84rem;cursor:pointer;">
 <span>Allow Credii to use my data for research</span>
-<input checked="" style="accent-color:var(--red);width:16px;height:16px;" type="checkbox"/>
+<input style="accent-color:var(--red);width:16px;height:16px;" type="checkbox"/>
 </label>
 </div>
+<div class="card-sub" style="margin-top:10px;">Demo only: privacy settings are not saved or sent to Credii.</div>
 </div>
 </div>
 </div>
@@ -1832,6 +1834,7 @@
 </div><!-- /content -->
 </div><!-- /main -->
 </div><!-- /portal -->
+<div id="demo-action-feedback" role="status" aria-live="polite" hidden style="position:fixed;right:18px;bottom:18px;z-index:1000;max-width:min(420px,calc(100vw - 36px));padding:12px 16px;background:var(--charcoal);color:#fff;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.2);font-size:.82rem;line-height:1.5;"></div>
 <script>
   const screens = {
     'dashboard':        { title: 'Dashboard',           subtitle: 'Welcome back, Andrea' },
@@ -1875,6 +1878,51 @@
     // Scroll to top
     document.querySelector('.content').scrollTop = 0;
   }
+
+  function showDemoFeedback(message) {
+    const feedback = document.getElementById('demo-action-feedback');
+    feedback.textContent = message;
+    feedback.hidden = false;
+    clearTimeout(showDemoFeedback.timer);
+    showDemoFeedback.timer = setTimeout(() => { feedback.hidden = true; }, 5000);
+  }
+
+  function downloadDemoCredential() {
+    const content = 'CREDII DEMO CREDENTIAL\nIllustrative sample only; not an official credential record.\nDigital Readiness Certificate\nSample ID: CRD-2026-000184';
+    const url = URL.createObjectURL(new Blob([content], { type: 'text/plain' }));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'credii-demo-credential.txt';
+    link.click();
+    URL.revokeObjectURL(url);
+    showDemoFeedback('Downloaded an illustrative demo summary, not an official credential.');
+  }
+
+  document.querySelectorAll('button:not([onclick]):not([disabled])').forEach(button => {
+    button.addEventListener('click', async () => {
+      if (button.classList.contains('filter-btn')) return;
+      const label = button.textContent.trim().replace(/\s+/g, ' ');
+      if (/^(share|copy)/i.test(label)) {
+        const shareUrl = new URL('credii-verify.html?id=CRD-2026-000184', window.location.href).href;
+        try {
+          await navigator.clipboard.writeText(shareUrl);
+          showDemoFeedback('Copied a demo verification link. It points to sample data only.');
+        } catch {
+          showDemoFeedback('Demo verification link: ' + shareUrl);
+        }
+      } else if (/^download/i.test(label)) {
+        downloadDemoCredential();
+      } else if (/^verify/i.test(label)) {
+        window.location.href = 'credii-verify.html?id=CRD-2026-000184';
+      } else if (/^(apply|register|join|save|submit|create|add|manage|edit|export|take survey)/i.test(label)) {
+        showDemoFeedback('Prototype only: this action was not submitted or saved. Contact Credii to participate.');
+      } else if (/^(view|qr code|view status)/i.test(label)) {
+        showDemoFeedback('You are viewing illustrative sample data in the beta prototype.');
+      } else {
+        showDemoFeedback('This control is for demonstration only and does not change or submit data.');
+      }
+    });
+  });
 
   // Filter buttons
   document.querySelectorAll('.filter-btn').forEach(btn => {
