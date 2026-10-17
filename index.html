@@ -91,12 +91,12 @@
     @keyframes morphBlob1 { 0%,100% { border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%; } 50% { border-radius: 40% 60% 30% 70% / 60% 40% 60% 40%; } }
     @keyframes morphBlob2 { 0%,100% { border-radius: 40% 60% 30% 70% / 60% 40% 60% 40%; } 50% { border-radius: 60% 40% 70% 30% / 40% 60% 40% 60%; } }
 
-    .hero-inner { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 80px 5%; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; width: 100%; min-height: calc(100vh - 66px); }
+    .hero-inner { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 80px 5%; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; width: 100%; min-height: calc(100vh - 66px); text-align: left; }
 
     .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(192,57,43,0.1); color: var(--red); font-size: 0.78rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; padding: 7px 16px; border-radius: 100px; margin-bottom: 24px; }
     .hero-eyebrow::before { content: ''; width: 7px; height: 7px; background: var(--red); border-radius: 50%; }
 
-    .hero h1 { font-family: 'Fraunces', serif; font-size: clamp(2.4rem, 4.5vw, 3.6rem); font-weight: 700; color: var(--charcoal); line-height: 1.18; margin-bottom: 22px; }
+    .hero h1 { font-family: 'Fraunces', serif; font-size: clamp(2.4rem, 4.5vw, 3.6rem); font-weight: 700; color: var(--charcoal); line-height: 1.18; margin-bottom: 22px; text-align: left; }
     .hero h1 em { font-style: italic; color: var(--red); }
     .hero-sub { font-size: 1rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 36px; }
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
@@ -674,6 +674,29 @@
     .pillar-header, .pillar-grid, .pillar-item, .pillar-num, .pillar-icon, .pillar-name,
     .impact-stat-strip, .impact-stat-item { }
 
+
+    /* SCROLL ANIMATIONS */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-up-delay-1 { transition-delay: 0.1s; }
+    .fade-up-delay-2 { transition-delay: 0.2s; }
+    .fade-up-delay-3 { transition-delay: 0.3s; }
+
+    /* HERO ENTRANCE ANIMATION */
+    .hero-text { animation: heroEntrance 0.9s ease forwards; }
+    .hero-visual { animation: heroEntrance 0.9s ease 0.2s both; }
+    @keyframes heroEntrance {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
     /* RESPONSIVE */
     @media (max-width: 1024px) {
       .hero-inner { grid-template-columns: 1fr; }
@@ -763,13 +786,15 @@
 <img src="credii-logo.png" alt="Credii" style="height:36px;width:auto;display:block;">
 </a>
 <ul class="nav-links" id="nav-links">
-<li><a href="#problem">The Problem</a></li>
-<li><a href="#building">What We're Building</a></li>
-<li><a href="#serve">Who We Serve</a></li>
-<li><a href="#approach">Our Approach</a></li>
-<li><a href="#involved">Membership</a></li>
-<li><a href="#involved" class="nav-cta">Get Involved</a></li>
+<li><a href="#problem">Why Credii</a></li>
+<li><a href="#building">How It Works</a></li>
+<li><a href="#impact">Our Vision</a></li>
+<li><a href="#involved">Get Involved</a></li>
+<li><a href="mailto:ourpartner@crediifoundation.org" class="nav-cta">Partner With Us</a></li>
 </ul>
+<button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+<span></span><span></span><span></span>
+</button>
 <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
 <span></span><span></span><span></span>
 </button>
@@ -781,12 +806,12 @@
 <div class="hero-blob-3"></div>
 <div class="hero-inner">
 <div class="hero-text">
-<div class="hero-eyebrow">Exploring Trust, Capability &amp; Opportunity</div>
-<h1>Exploring whether new pathways to <em>recognition, mobility,</em> and <em>opportunity</em> are possible in the Caribbean.</h1>
-<p class="hero-sub">Credii is a nonprofit initiative based in Trinidad and Tobago. We are developing and testing approaches to digital credential recognition, capability verification, and economic inclusion, helping individuals, women entrepreneurs, and small businesses unlock the opportunities their achievements deserve.</p>
+<h1>Building trusted pathways to opportunity.</h1>
+<p class="hero-sub">Across the Caribbean, people gain skills, complete training, build businesses, and create value every day. Yet many achievements remain difficult to verify, carry forward, or use as trusted evidence of capability.</p>
+<p class="hero-sub" style="margin-top:12px;">Credii is exploring how trusted credentials, verification, and trust profiles can help bridge the gap between capability and opportunity.</p>
 <div class="hero-actions">
-<a class="btn-primary" href="#involved">Become a Member ↗</a>
-<a class="btn-outline" href="#involved">Partner With Us</a>
+<a href="#involved" class="btn-primary">Get Involved &#8599;</a>
+<a href="mailto:ourpartner@crediifoundation.org" class="btn-outline">Partner With Us</a>
 </div>
 </div>
 <div class="hero-visual">
@@ -1463,6 +1488,22 @@ document.querySelectorAll('#nav-links a').forEach(link => {
     document.getElementById('nav-links').classList.remove('mobile-open');
     document.getElementById('hamburger').classList.remove('open');
   });
+});
+</script>
+
+<script>
+// Scroll-triggered fade-up animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('section, .pathway-item, .focus-item, .serve-photo, .framework-item').forEach(el => {
+  el.classList.add('fade-up');
+  observer.observe(el);
 });
 </script>
 </body>
