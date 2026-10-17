@@ -1888,7 +1888,7 @@
   }
 
   function downloadDemoCredential() {
-    const content = 'CREDII DEMO CREDENTIAL\nIllustrative sample only; not an official credential record.\nDigital Readiness Certificate\nSample ID: CRD-2026-000184';
+    const content = ['CREDII DEMO CREDENTIAL', 'Illustrative sample only; not an official credential record.', 'Digital Readiness Certificate', 'Sample ID: CRD-2026-000184'].join('\n');
     const url = URL.createObjectURL(new Blob([content], { type: 'text/plain' }));
     const link = document.createElement('a');
     link.href = url;
