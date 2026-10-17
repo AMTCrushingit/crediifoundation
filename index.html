@@ -178,6 +178,8 @@
     .building-deco-2 { position: absolute; bottom: -40px; left: 10%; width: 160px; height: 160px; border-radius: 50%; background: rgba(122,158,142,0.1); }
     .building-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
     .building-header { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-bottom: 56px; }
+    .building-header-full { display: block; max-width: 900px; margin-bottom: 40px; }
+    .building-header-full .section-sub + .section-sub { margin-top: 8px; }
 
     .focus-list { display: flex; flex-direction: column; gap: 0; }
     .focus-item { display: grid; grid-template-columns: 56px 1fr; gap: 24px; align-items: start; padding: 28px 0; border-bottom: 1px solid rgba(212,197,169,0.4); }
@@ -188,6 +190,12 @@
     .focus-item:nth-child(3) .focus-num { color: var(--terracotta); }
     .focus-item h3 { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700; color: var(--charcoal); margin-bottom: 8px; }
     .focus-item p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.75; }
+    .focus-item .focus-outcome { margin-top: 9px; color: var(--charcoal); font-size: 0.84rem; font-weight: 600; }
+    .focus-outcome strong { color: var(--red); }
+    .building-closing { margin-top: 36px; padding-top: 28px; border-top: 1.5px solid rgba(212,197,169,0.45); }
+    .building-closing-lines { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; margin: 18px 0 12px; }
+    .building-closing-lines p { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 600; color: var(--charcoal); }
+    .building-closing-summary { max-width: 800px; color: var(--text-muted); font-size: 0.92rem; line-height: 1.75; }
 
     /* IMPACT */
     .impact-section { background: var(--sage-pale); padding: 100px 5%; position: relative; overflow: hidden; }
@@ -581,6 +589,9 @@
       section { padding: 72px 5%; }
       .approach-inner { grid-template-columns: 1fr; gap: 40px; }
       .focus-grid { grid-template-columns: 1fr; }
+      .building-header-full { max-width: none; }
+      .building-closing-lines { grid-template-columns: 1fr; gap: 8px; }
+      .focus-item { grid-template-columns: 42px 1fr; gap: 16px; padding: 24px 0; }
       .serve-grid { grid-template-columns: 1fr; }
       .eco-grid { grid-template-columns: 1fr 1fr; }
       .tier-grid { grid-template-columns: 1fr 1fr; }
@@ -771,35 +782,49 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 <div class="building-deco-1"></div>
 <div class="building-deco-2"></div>
 <div class="building-inner">
-<div class="building-header">
+<div class="building-header building-header-full">
 <div>
-<div class="section-label">What We're Building</div>
-<h2 class="section-headline">A digital trust &amp; credentialing model we are testing in the Caribbean.</h2>
+<div class="section-label">How We're Bridging the Gap</div>
+<h2 class="section-headline">Building the missing link between capability and opportunity.</h2>
+<p class="section-sub">Across the Caribbean, skills, achievements, business milestones, and lived experience are often difficult to verify, connect, and present as trusted evidence.</p>
+<p class="section-sub">Credii is exploring a trust infrastructure model that helps individuals, entrepreneurs, and organizations transform verified accomplishments into portable, institution-recognized signals of capability.</p>
+<p class="section-sub">We are doing this through three interconnected layers.</p>
 </div>
-<p class="section-sub">Credii is exploring and testing a platform that enables participating organizations to issue verifiable digital credentials, while helping individuals and small businesses build a trusted, portable record of skills, learning, achievements, and business capability.</p>
 </div>
 <div class="focus-list">
 <div class="focus-item">
 <div class="focus-num">01</div>
 <div>
-<h3>Digital Credential Issuance</h3>
-<p>Enabling ESOs, training providers, nonprofits, and community programs to issue verifiable digital credentials that participants can carry and present anywhere.</p>
+<h3>Verifiable Credentials</h3>
+<p>Helping organizations issue trusted digital records of learning, achievement, participation, and capability that individuals can carry wherever opportunities emerge.</p>
+<p class="focus-outcome"><strong>Outcome:</strong> Make accomplishments visible and portable.</p>
 </div>
 </div>
 <div class="focus-item">
 <div class="focus-num">02</div>
 <div>
-<h3>Credential Verification</h3>
-<p>A public verification process that allows employers, funders, lenders, and partners to confirm the authenticity of credentials quickly and with confidence.</p>
+<h3>Trusted Verification</h3>
+<p>Enabling employers, funders, lenders, educators, and partners to quickly confirm the authenticity of credentials and achievements with confidence.</p>
+<p class="focus-outcome"><strong>Outcome:</strong> Reduce uncertainty and increase trust.</p>
 </div>
 </div>
 <div class="focus-item">
 <div class="focus-num">03</div>
 <div>
-<h3>Trusted Capability Profiles</h3>
-<p>User trust profiles that consolidate verified achievements, skills, and business milestones into a single portable digital record, making capability visible and credible.</p>
+<h3>Capability Profiles</h3>
+<p>Bringing verified credentials, skills, achievements, references, and business milestones together into a single trusted profile that helps make capability easier to understand and recognize.</p>
+<p class="focus-outcome"><strong>Outcome:</strong> Turn verified accomplishments into trusted evidence.</p>
 </div>
 </div>
+</div>
+<div class="building-closing">
+<div class="section-label">From Evidence to Opportunity</div>
+<div class="building-closing-lines">
+<p>Credentials provide evidence.</p>
+<p>Verification creates trust.</p>
+<p>Profiles bring trusted evidence together.</p>
+</div>
+<p class="building-closing-summary">Together, they form the foundation of a more connected ecosystem where capability can become more visible, credible, and recognized.</p>
 </div>
 </div>
 </section>
