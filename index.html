@@ -582,6 +582,58 @@
     .pillar-item-wide .pillar-icon { margin-bottom: 0; font-size: 1.6rem; }
     .pillar-name { font-family: 'Fraunces', serif; font-size: 0.88rem; font-weight: 700; color: var(--charcoal); line-height: 1.35; }
 
+
+    /* VISION / PATHWAY SECTION */
+    .vision-header { text-align: center; margin-bottom: 48px; }
+
+    .pathway-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-top: 1.5px solid rgba(212,197,169,0.4);
+      border-left: 1.5px solid rgba(212,197,169,0.4);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 48px;
+    }
+
+    .pathway-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 28px 24px;
+      border-right: 1.5px solid rgba(212,197,169,0.4);
+      border-bottom: 1.5px solid rgba(212,197,169,0.4);
+      background: var(--warm-white);
+      transition: background 0.2s;
+    }
+
+    .pathway-item:hover { background: var(--sand-pale); }
+
+    .pathway-icon { font-size: 1.6rem; flex-shrink: 0; margin-top: 2px; }
+
+    .pathway-title {
+      font-family: 'Fraunces', serif;
+      font-size: 0.95rem; font-weight: 700;
+      color: var(--charcoal); margin-bottom: 6px;
+    }
+
+    .pathway-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+
+    .vision-divider {
+      text-align: center;
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-style: italic;
+      color: var(--charcoal);
+      margin-bottom: 32px;
+      padding: 0 5%;
+    }
+
+    /* Remove old pillar CSS if present */
+    .pillar-header, .pillar-grid, .pillar-item, .pillar-num, .pillar-icon, .pillar-name,
+    .impact-stat-strip, .impact-stat-item { }
+
     /* RESPONSIVE */
     @media (max-width: 1024px) {
       .hero-inner { grid-template-columns: 1fr; }
@@ -606,6 +658,7 @@
       .impact-grid { grid-template-columns: 1fr 1fr; }
       .footer-top { grid-template-columns: 1fr; gap: 32px; }
       .nav-links { display: none; }
+      .pathway-grid { grid-template-columns: 1fr 1fr; }
       .serve-mosaic { grid-template-columns: 1fr; height: auto; }
       .serve-photo-large { height: 300px; }
       .serve-photo-medium { height: 220px; }
@@ -649,6 +702,7 @@
       .framework-strip { padding: 32px 24px; border-radius: 18px; }
       .impact-grid { grid-template-columns: 1fr; }
       .hero-actions { flex-direction: column; }
+      .pathway-grid { grid-template-columns: 1fr; }
       .problem-stats { grid-template-columns: 1fr; }
       .serve-mosaic { grid-template-columns: 1fr; height: auto; }
       .serve-photo-large { height: 260px; }
@@ -836,68 +890,87 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 <div class="impact-deco-circle impact-deco-2"></div>
 <div class="impact-inner">
 
-  <!-- Top stat strip -->
-  <div class="impact-stat-strip">
-    <div class="impact-stat-item">
-      <div class="impact-num">7</div>
-      <div class="impact-label">Capability Pillars</div>
+  <!-- Vision header -->
+  <div class="vision-header">
+    <div class="section-label" style="justify-content:center;">Our Vision</div>
+    <h2 class="section-headline" style="text-align:center;">Building trust pathways to opportunity.</h2>
+    <p class="section-sub" style="text-align:center;max-width:680px;margin:16px auto 0;">
+      Credii is exploring how trusted credentials, verification, and digital trust profiles can help individuals and organizations transform achievements into recognized opportunity signals. While the trust model is still being developed and validated, we see multiple pathways through which trusted evidence may create value across the Caribbean.
+    </p>
+  </div>
+
+  <!-- Six pathways — editorial ruled list, no cards -->
+  <div class="pathway-grid">
+
+    <div class="pathway-item">
+      <div class="pathway-icon">📚</div>
+      <div class="pathway-content">
+        <div class="pathway-title">Education &amp; Skills</div>
+        <div class="pathway-desc">Making learning more visible and portable.</div>
+      </div>
     </div>
-    <div class="impact-stat-item">
+
+    <div class="pathway-item">
+      <div class="pathway-icon">🏪</div>
+      <div class="pathway-content">
+        <div class="pathway-title">Entrepreneurship &amp; MSMEs</div>
+        <div class="pathway-desc">Helping businesses demonstrate capability, readiness, and credibility.</div>
+      </div>
+    </div>
+
+    <div class="pathway-item">
+      <div class="pathway-icon">🌍</div>
+      <div class="pathway-content">
+        <div class="pathway-title">Employment &amp; Workforce Mobility</div>
+        <div class="pathway-desc">Making skills easier to verify across employers and borders.</div>
+      </div>
+    </div>
+
+    <div class="pathway-item">
+      <div class="pathway-icon">💳</div>
+      <div class="pathway-content">
+        <div class="pathway-title">Financial Inclusion</div>
+        <div class="pathway-desc">Exploring how verified capability may support better-informed institutional decisions.</div>
+      </div>
+    </div>
+
+    <div class="pathway-item">
+      <div class="pathway-icon">🤝</div>
+      <div class="pathway-content">
+        <div class="pathway-title">Community &amp; Social Impact</div>
+        <div class="pathway-desc">Recognizing contributions and participation that often go unseen.</div>
+      </div>
+    </div>
+
+    <div class="pathway-item">
+      <div class="pathway-icon">🏛️</div>
+      <div class="pathway-content">
+        <div class="pathway-title">Institutional Trust</div>
+        <div class="pathway-desc">Helping organizations issue, verify, and recognize trusted evidence.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Stat strip below -->
+  <div class="vision-divider">Exploring the foundations of a more trusted and connected Caribbean.</div>
+
+  <div class="impact-grid">
+    <div class="impact-card">
       <div class="impact-num">4</div>
-      <div class="impact-label">Architecture Layers</div>
+      <div class="impact-label">Trust Layers Under Development</div>
     </div>
-    <div class="impact-stat-item">
+    <div class="impact-card">
       <div class="impact-num">10+</div>
-      <div class="impact-label">SDGs Aligned</div>
+      <div class="impact-label">Global Goals Supported</div>
     </div>
-    <div class="impact-stat-item">
+    <div class="impact-card">
       <div class="impact-num">14+</div>
-      <div class="impact-label">Caribbean Nations in Scope</div>
+      <div class="impact-label">Caribbean Nations &amp; Territories in Scope</div>
     </div>
-  </div>
-
-  <!-- Seven Pillar Architecture -->
-  <div class="pillar-header">
-    <div class="section-label" style="justify-content:center;">Seven-Pillar Architecture</div>
-    <h2 class="section-headline" style="text-align:center;">Seven capability pillars. One regional system.</h2>
-    <p class="section-sub" style="text-align:center;max-width:620px;margin:14px auto 0;">Every pillar addresses a critical gap in Caribbean capability, credentialing, and digital infrastructure, grounded in Caribbean identity and global standards.</p>
-  </div>
-
-  <div class="pillar-grid">
-    <div class="pillar-item">
-      <div class="pillar-num">01</div>
-      <div class="pillar-icon">🌴</div>
-      <div class="pillar-name">Tourism &amp; Cultural Heritage Credentials</div>
-    </div>
-    <div class="pillar-item">
-      <div class="pillar-num">02</div>
-      <div class="pillar-icon">🎓</div>
-      <div class="pillar-name">Workforce Mobility &amp; Skills Recognition</div>
-    </div>
-    <div class="pillar-item">
-      <div class="pillar-num">03</div>
-      <div class="pillar-icon">🏪</div>
-      <div class="pillar-name">MSME Digital Capability Credentials</div>
-    </div>
-    <div class="pillar-item">
-      <div class="pillar-num">04</div>
-      <div class="pillar-icon">🌱</div>
-      <div class="pillar-name">ESG &amp; Sustainability Credentials</div>
-    </div>
-    <div class="pillar-item">
-      <div class="pillar-num">05</div>
-      <div class="pillar-icon">🏛️</div>
-      <div class="pillar-name">Governance &amp; Public Sector Capability</div>
-    </div>
-    <div class="pillar-item">
-      <div class="pillar-num">06</div>
-      <div class="pillar-icon">🔐</div>
-      <div class="pillar-name">Digital Public Infrastructure for Credentialing</div>
-    </div>
-    <div class="pillar-item pillar-item-wide">
-      <div class="pillar-num">07</div>
-      <div class="pillar-icon">⚙️</div>
-      <div class="pillar-name">Systems Transformation &amp; Regional Resilience Credentials</div>
+    <div class="impact-card">
+      <div class="impact-num" style="font-size:2.4rem;">&#8734;</div>
+      <div class="impact-label">Opportunities that trusted capability could unlock</div>
     </div>
   </div>
 
