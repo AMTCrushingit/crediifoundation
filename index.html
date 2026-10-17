@@ -177,7 +177,11 @@
     .building-deco-1 { position: absolute; top: -60px; right: -60px; width: 280px; height: 280px; border-radius: 50%; background: rgba(212,197,169,0.3); }
     .building-deco-2 { position: absolute; bottom: -40px; left: 10%; width: 160px; height: 160px; border-radius: 50%; background: rgba(122,158,142,0.1); }
     .building-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
-    .building-header { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-bottom: 56px; }
+    .building-header { display: block; max-width: 900px; margin: 0 auto 48px; text-align: center; }
+    .building-header .section-label { justify-content: center; }
+    .building-header .section-label::before { display: none; }
+    .building-header .section-headline { max-width: 800px; margin: 10px auto 0; }
+    .building-header .section-sub { max-width: 800px; margin: 14px auto 0; }
 
     .focus-list { display: flex; flex-direction: column; gap: 0; }
     .focus-item { display: grid; grid-template-columns: 56px 1fr; gap: 24px; align-items: start; padding: 28px 0; border-bottom: 1px solid rgba(212,197,169,0.4); }
@@ -188,6 +192,13 @@
     .focus-item:nth-child(3) .focus-num { color: var(--terracotta); }
     .focus-item h3 { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700; color: var(--charcoal); margin-bottom: 8px; }
     .focus-item p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.75; }
+    .focus-item .focus-outcome { margin-top: 10px; color: var(--charcoal); font-size: 0.82rem; }
+    .focus-outcome strong { color: var(--red); }
+    .building-bridge { max-width: 1100px; margin: 36px auto 0; padding-top: 28px; border-top: 1.5px solid rgba(212,197,169,0.45); text-align: center; }
+    .building-bridge-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--red); }
+    .building-bridge-steps { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; margin-top: 18px; }
+    .building-bridge-steps p { font-family: 'Fraunces', serif; font-size: 1rem; color: var(--charcoal); }
+    .building-bridge-summary { max-width: 800px; margin: 18px auto 0; font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
 
     /* IMPACT */
     .impact-section { background: var(--sage-pale); padding: 100px 5%; position: relative; overflow: hidden; }
@@ -645,6 +656,7 @@
       .impact-grid { grid-template-columns: repeat(2, 1fr); }
       .footer-top { grid-template-columns: 1fr 1fr; gap: 28px; }
       .building-header { grid-template-columns: 1fr; gap: 16px; }
+      .building-bridge-steps { grid-template-columns: 1fr; gap: 8px; }
       .problem-inner { grid-template-columns: 1fr; gap: 40px; }
       .tier-grid { grid-template-columns: repeat(4, 1fr); }
       .tier-card-featured { transform: none; box-shadow: 0 16px 48px rgba(192,57,43,0.22); }
@@ -853,34 +865,46 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 <div class="building-deco-2"></div>
 <div class="building-inner">
 <div class="building-header">
-<div>
-<div class="section-label">What We're Building</div>
-<h2 class="section-headline">A digital trust &amp; credentialing model we are testing in the Caribbean.</h2>
-</div>
-<p class="section-sub">Credii is exploring and testing a platform that enables participating organizations to issue verifiable digital credentials, while helping individuals and small businesses build a trusted, portable record of skills, learning, achievements, and business capability.</p>
+<div class="section-label">How We're Bridging the Gap</div>
+<h2 class="section-headline">Building the missing link between capability and opportunity.</h2>
+<p class="section-sub">Across the Caribbean, skills, achievements, business milestones, and lived experience are often difficult to verify, connect, and present as trusted evidence.</p>
+<p class="section-sub">Credii is exploring a trust infrastructure model that helps individuals, entrepreneurs, and organizations transform verified accomplishments into portable, institution-recognized signals of capability.</p>
+<p class="section-sub">We are doing this through three interconnected layers.</p>
 </div>
 <div class="focus-list">
 <div class="focus-item">
 <div class="focus-num">01</div>
 <div>
-<h3>Digital Credential Issuance</h3>
-<p>Enabling ESOs, training providers, nonprofits, and community programs to issue verifiable digital credentials that participants can carry and present anywhere.</p>
+<h3>Verifiable Credentials</h3>
+<p>Helping organizations issue trusted digital records of learning, achievement, participation, and capability that individuals can carry wherever opportunities emerge.</p>
+<p class="focus-outcome"><strong>Outcome:</strong> Make accomplishments visible and portable.</p>
 </div>
 </div>
 <div class="focus-item">
 <div class="focus-num">02</div>
 <div>
-<h3>Credential Verification</h3>
-<p>A public verification process that allows employers, funders, lenders, and partners to confirm the authenticity of credentials quickly and with confidence.</p>
+<h3>Trusted Verification</h3>
+<p>Enabling employers, funders, lenders, educators, and partners to quickly confirm the authenticity of credentials and achievements with confidence.</p>
+<p class="focus-outcome"><strong>Outcome:</strong> Reduce uncertainty and increase trust.</p>
 </div>
 </div>
 <div class="focus-item">
 <div class="focus-num">03</div>
 <div>
-<h3>Trusted Capability Profiles</h3>
-<p>User trust profiles that consolidate verified achievements, skills, and business milestones into a single portable digital record, making capability visible and credible.</p>
+<h3>Capability Profiles</h3>
+<p>Bringing verified credentials, skills, achievements, references, and business milestones together into a single trusted profile that helps make capability easier to understand and recognize.</p>
+<p class="focus-outcome"><strong>Outcome:</strong> Turn verified accomplishments into trusted evidence.</p>
 </div>
 </div>
+</div>
+<div class="building-bridge">
+<h3 class="building-bridge-title">From Evidence to Opportunity</h3>
+<div class="building-bridge-steps">
+<p>Credentials provide evidence.</p>
+<p>Verification creates trust.</p>
+<p>Profiles bring trusted evidence together.</p>
+</div>
+<p class="building-bridge-summary">Together, they form the foundation of a more connected ecosystem where capability can become more visible, credible, and recognized.</p>
 </div>
 </div>
 </section>
