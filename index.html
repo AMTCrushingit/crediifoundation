@@ -812,6 +812,91 @@
     .vs-anim { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
     .vs-anim.vs-visible { opacity: 1; transform: translateY(0); }
 
+
+    /* ── GLOBAL ANIMATION BASE ── */
+    .anim-up, .anim-left, .anim-right {
+      opacity: 0; transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .anim-up    { transform: translateY(36px); }
+    .anim-left  { transform: translateX(-40px); }
+    .anim-right { transform: translateX(40px); }
+    .anim-up.in, .anim-left.in, .anim-right.in { opacity: 1; transform: none; }
+
+    /* ── RED ITALIC HEADLINE WORDS ── */
+    .red-em { color: var(--red); font-style: italic; }
+    .hero-em { color: #F4A89A; font-style: italic; }
+
+    /* ── HERO: full-bleed photo ── */
+    .hero { position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden; padding-top: 66px; }
+    .hero-bg-img { position: absolute; inset: 0; background-size: cover; background-position: center 30%; filter: brightness(0.35) saturate(0.8); }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(44,40,37,0.7) 0%, rgba(192,57,43,0.15) 100%); }
+    .hero-inner { position: relative; z-index: 2; max-width: 760px; padding: 80px 5%; opacity: 0; transform: translateY(24px); transition: opacity 0.9s ease, transform 0.9s ease; }
+    .hero-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 20px; }
+    .hero h1 { font-family: 'Fraunces', serif; font-size: clamp(2.6rem, 5.5vw, 4.2rem); font-weight: 700; color: #fff; line-height: 1.12; margin-bottom: 24px; text-align: left; }
+    .hero-sub { font-size: 1.05rem; color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 12px; }
+    .hero-sub2 { font-size: 1rem; color: rgba(255,255,255,0.65); line-height: 1.8; margin-bottom: 36px; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-outline-light { background: transparent; color: #fff; padding: 13px 26px; border-radius: 100px; font-weight: 600; font-size: 0.9rem; text-decoration: none; border: 1.5px solid rgba(255,255,255,0.5); transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-outline-light:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+
+    /* ── PROBLEM: photo split ── */
+    .problem { background: var(--warm-white); padding: 0; overflow: hidden; }
+    .prob-split { display: grid; grid-template-columns: 1fr 1fr; min-height: 600px; }
+    .prob-photo { position: relative; overflow: hidden; }
+    .prob-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 6s ease; }
+    .prob-photo:hover img { transform: scale(1.04); }
+    .prob-photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(44,40,37,0.75), transparent); color: rgba(255,255,255,0.85); font-size: 0.8rem; font-style: italic; padding: 24px 20px 16px; }
+    .prob-text { padding: 72px 56px; display: flex; flex-direction: column; justify-content: center; }
+    .prob-stats { display: flex; gap: 0; margin-top: 32px; border-top: 1.5px solid var(--border); border-bottom: 1.5px solid var(--border); }
+    .prob-stat { flex: 1; padding: 18px 12px; text-align: center; border-right: 1px solid var(--border); }
+    .prob-stat:last-child { border-right: none; }
+    .prob-stat-num { font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 700; color: var(--red); line-height: 1; margin-bottom: 6px; }
+    .prob-stat-label { font-size: 0.72rem; color: var(--text-muted); line-height: 1.5; }
+    .prob-source { font-size: 0.7rem; color: var(--text-muted); margin-top: 12px; font-style: italic; }
+
+    /* ── WHAT WE'RE BUILDING ── */
+    .building { background: var(--sand-pale); padding: 0; overflow: hidden; }
+    .build-inner { display: grid; grid-template-columns: 1fr 1fr; min-height: 560px; }
+    .build-text { padding: 72px 56px; display: flex; flex-direction: column; justify-content: center; }
+    .build-list { margin-top: 32px; display: flex; flex-direction: column; gap: 0; }
+    .build-item { display: flex; gap: 20px; align-items: flex-start; padding: 22px 0; border-bottom: 1px solid rgba(212,197,169,0.4); }
+    .build-item:last-child { border-bottom: none; }
+    .build-num { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 700; color: rgba(192,57,43,0.2); line-height: 1; flex-shrink: 0; width: 40px; }
+    .build-title { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 700; color: var(--charcoal); margin-bottom: 5px; }
+    .build-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+    .build-photo { position: relative; overflow: hidden; }
+    .build-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .build-photo-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(192,57,43,0.85), transparent); padding: 32px 24px 20px; }
+    .build-photo-overlay span { font-family: 'Fraunces', serif; font-size: 1rem; font-style: italic; color: #fff; line-height: 1.5; }
+
+    /* ── VISION: people image ── */
+    .vs-people-img { position: relative; height: 480px; overflow: hidden; }
+    .vs-people-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; display: block; }
+    .vs-people-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(44,40,37,0.8) 0%, rgba(44,40,37,0.1) 60%, transparent 100%); display: flex; align-items: flex-end; padding: 40px 5%; }
+    .vs-people-quote { font-family: 'Fraunces', serif; font-size: clamp(1.2rem, 2.5vw, 1.8rem); font-style: italic; color: #fff; max-width: 760px; line-height: 1.45; }
+
+    /* Vision learn photo */
+    .vs-learn-photo { border-radius: 20px; overflow: hidden; aspect-ratio: 4/3; }
+    .vs-learn-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .vs-learn-wrap { max-width: 1200px; margin: 0 auto; padding: 72px 5%; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .prob-split { grid-template-columns: 1fr; }
+      .prob-photo { height: 320px; }
+      .prob-text { padding: 48px 5%; }
+      .build-inner { grid-template-columns: 1fr; }
+      .build-photo { height: 300px; order: -1; }
+      .build-text { padding: 48px 5%; }
+      .vs-learn-wrap { grid-template-columns: 1fr; gap: 36px; }
+      .vs-people-img { height: 320px; }
+    }
+    @media (max-width: 600px) {
+      .prob-stats { flex-direction: column; }
+      .prob-stat { border-right: none; border-bottom: 1px solid var(--border); }
+      .prob-stat:last-child { border-bottom: none; }
+      .hero h1 { font-size: 2.2rem; }
+    }
     /* RESPONSIVE */
     @media (max-width: 1024px) {
       .hero-inner { grid-template-columns: 1fr; }
@@ -921,36 +1006,23 @@
 </button>
 </nav>
 <!-- HERO -->
-<section class="hero">
-<div class="hero-blob-1"></div>
-<div class="hero-blob-2"></div>
-<div class="hero-blob-3"></div>
-<div class="hero-inner">
-<div class="hero-text">
-<h1>Building trusted pathways to opportunity.</h1>
-<p class="hero-sub">Across the Caribbean, people gain skills, complete training, build businesses, and create value every day. Yet many achievements remain difficult to verify, carry forward, or use as trusted evidence of capability.</p>
-<p class="hero-sub" style="margin-top:12px;">Credii is exploring how trusted credentials, verification, and trust profiles can help bridge the gap between capability and opportunity.</p>
-<div class="hero-actions">
-<a href="#involved" class="btn-primary">Get Involved &#8599;</a>
-<a href="mailto:ourpartner@crediifoundation.org" class="btn-outline">Partner With Us</a>
-</div>
-</div>
-<div class="hero-visual">
-<div class="hero-dot-1"></div>
-<div class="hero-dot-2"></div>
-<div class="hero-img-main">
-<img alt="Caribbean coastline" src="https://as2.ftcdn.net/v2/jpg/05/80/36/77/1000_F_580367719_YDL3avy8Dn0LvhZRM9wdcXlqZDKDe6vd.jpg"/>
-</div>
-<div class="hero-img-secondary">
-<img alt="Caribbean community gathering" src="https://www.healthycaribbean.org/wp-content/uploads/2024/02/DSC_0103.jpg"/>
-</div>
-<div class="hero-badge">
-<span class="hero-badge-num">14+</span>
-          Caribbean<br/>Nations in Scope
-        </div>
-</div>
-</div>
+<section class="hero" id="top">
+  <div class="hero-bg-img" style="background-image:url('https://content.carib-export.com/wp-content/uploads/2025/03/IWD-2025-Blog-Photo-1024x768.png')"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">Credii Foundation &middot; Trinidad &amp; Tobago</div>
+      <h1>Building <em class="hero-em">trusted</em> pathways<br>to <em class="hero-em">opportunity.</em></h1>
+      <p class="hero-sub">Across the Caribbean, people gain skills, complete training, build businesses, and create value every day. Yet many achievements remain difficult to verify, carry forward, or use as trusted evidence of capability.</p>
+      <p class="hero-sub2">Credii is exploring how trusted credentials, verification, and trust profiles can help bridge the gap between capability and opportunity.</p>
+      <div class="hero-actions">
+        <a href="#involved" class="btn-primary">Get Involved &#8599;</a>
+        <a href="mailto:ourpartner@crediifoundation.org" class="btn-outline-light">Partner With Us</a>
+      </div>
+    </div>
+  </div>
 </section>
+
 <!-- SCROLLING BAND -->
 <div class="scroll-band">
 <div class="scroll-track">
@@ -982,50 +1054,26 @@
 </div>
 <!-- THE PROBLEM -->
 <section class="problem" id="problem">
-<div class="problem-inner">
-<div class="problem-text">
-<div class="section-label">The Missing Link</div>
-<h2 class="section-headline">Capability exists everywhere. Opportunity doesn't always follow.</h2>
-<p class="section-sub">
-Across the Caribbean, people build skills, complete training, gain experience, start businesses, and contribute to their communities every day. Yet much of what they know, achieve, and contribute can be difficult to verify, carry forward, or use as trusted evidence of capability.
-</p>
-<p class="section-sub">
-The challenge is bigger than scattered certificates and disconnected records. For people whose experience does not fit neatly into traditional systems, that gap can make it harder to demonstrate credibility to employers, institutions, funders, lenders, and other opportunity providers.
-</p>
-<p class="section-sub" style="font-weight:700;color:var(--charcoal);margin-top:10px;">The gap is trust, visibility, and access.</p>
-</div>
-<div class="problem-visual">
-<div class="problem-circle-deco"></div>
-<div class="problem-img-wrap">
-<img alt="Caribbean community gathering" src="https://www.healthycaribbean.org/wp-content/uploads/2024/02/DSC_0103.jpg"/>
-</div>
-<div class="problem-float-card">
-<div class="problem-float-icon">🔍</div>
-<div class="problem-float-text">
-<strong>The Missing Layer</strong>
-            A trusted bridge between capability and opportunity
-          </div>
-</div>
-</div>
-</div>
-<div class="problem-stats" aria-label="Research on barriers facing women-led businesses in the Caribbean">
-  <article class="prob-stat">
-    <div class="prob-stat-num">66%</div>
-    <p class="prob-stat-label">of women-owned/led businesses report access to finance as a major or severe obstacle to growth.</p>
-    <small class="prob-stat-source">Source: IDB Invest analysis of more than 1,000 firms across six Caribbean countries.</small>
-  </article>
-  <article class="prob-stat">
-    <div class="prob-stat-num">1.3%</div>
-    <p class="prob-stat-label">of medium-to-long-term loan volume in the study sample was accessed by women-owned/led firms.</p>
-    <small class="prob-stat-source">Source: IDB Invest Caribbean access-to-finance research.</small>
-  </article>
-  <article class="prob-stat">
-    <div class="prob-stat-num">50%</div>
-    <p class="prob-stat-label">of Caribbean businesses are estimated to be women-led MSMEs.</p>
-    <small class="prob-stat-source">Source: Regional Caribbean entrepreneurship and women-owned business research.</small>
-  </article>
-</div>
+  <div class="prob-split">
+    <div class="prob-photo anim-left">
+      <img src="https://myoceanstyle.com/wp-content/uploads/2026/03/3000.jpg" alt="Caribbean women entrepreneurs" />
+      <div class="prob-photo-caption">Caribbean women building businesses every day.</div>
+    </div>
+    <div class="prob-text anim-right">
+      <div class="section-label">Why Credii</div>
+      <h2 class="section-headline">Capability exists <em class="red-em">everywhere.</em><br>Opportunity doesn&#8217;t always follow.</h2>
+      <p class="section-sub">Across the Caribbean, people build skills, complete training, gain experience, start businesses, and contribute to their communities every day. Yet much of what they know, achieve, and contribute can be difficult to verify, carry forward, or use as trusted evidence of capability.</p>
+      <p class="section-sub" style="margin-top:14px;">The challenge is bigger than scattered certificates and disconnected records. There is a <strong>missing trust layer</strong> between capability and opportunity.</p>
+      <div class="prob-stats">
+        <div class="prob-stat"><div class="prob-stat-num">24%</div><div class="prob-stat-label">of Caribbean youth not in employment, education or training</div></div>
+        <div class="prob-stat"><div class="prob-stat-num">17.6%</div><div class="prob-stat-label">youth unemployment vs 4.7% for adults</div></div>
+        <div class="prob-stat"><div class="prob-stat-num">1.6&times;</div><div class="prob-stat-label">higher unemployment rate for young women</div></div>
+      </div>
+      <p class="prob-source">Source: International Labour Organization, 2025.</p>
+    </div>
+  </div>
 </section>
+
 <!-- TRUST LAYER CALLOUT -->
 <div class="trust-callout">
 <div class="trust-callout-inner">
@@ -1034,150 +1082,111 @@ The challenge is bigger than scattered certificates and disconnected records. Fo
 </div>
 <!-- WHAT WE'RE BUILDING -->
 <section class="building" id="building">
-<div class="building-deco-1"></div>
-<div class="building-deco-2"></div>
-<div class="building-inner">
-<div class="building-header">
-<div class="section-label">How We're Bridging the Gap</div>
-<h2 class="section-headline">Building the missing link between capability and opportunity.</h2>
-<p class="section-sub">Across the Caribbean, skills, achievements, business milestones, and lived experience are often difficult to verify, connect, and present as trusted evidence.</p>
-<p class="section-sub">Credii is exploring a trust infrastructure model that helps individuals, entrepreneurs, and organizations transform verified accomplishments into portable, institution-recognized signals of capability.</p>
-<p class="section-sub">We are doing this through three interconnected layers.</p>
-</div>
-<div class="focus-list">
-<div class="focus-item">
-<div class="focus-num">01</div>
-<div>
-<h3>Verifiable Credentials</h3>
-<p>Helping organizations issue trusted digital records of learning, achievement, participation, and capability that individuals can carry wherever opportunities emerge.</p>
-<p class="focus-outcome"><strong>Outcome:</strong> Make accomplishments visible and portable.</p>
-</div>
-</div>
-<div class="focus-item">
-<div class="focus-num">02</div>
-<div>
-<h3>Trusted Verification</h3>
-<p>Enabling employers, funders, lenders, educators, and partners to quickly confirm the authenticity of credentials and achievements with confidence.</p>
-<p class="focus-outcome"><strong>Outcome:</strong> Reduce uncertainty and increase trust.</p>
-</div>
-</div>
-<div class="focus-item">
-<div class="focus-num">03</div>
-<div>
-<h3>Capability Profiles</h3>
-<p>Bringing verified credentials, skills, achievements, references, and business milestones together into a single trusted profile that helps make capability easier to understand and recognize.</p>
-<p class="focus-outcome"><strong>Outcome:</strong> Turn verified accomplishments into trusted evidence.</p>
-</div>
-</div>
-</div>
-<div class="building-bridge">
-<h3 class="building-bridge-title">From Evidence to Opportunity</h3>
-<div class="building-bridge-steps">
-<p>Credentials provide evidence.</p>
-<p>Verification creates trust.</p>
-<p>Profiles bring trusted evidence together.</p>
-</div>
-<p class="building-bridge-summary">Together, they form the foundation of a more connected ecosystem where capability can become more visible, credible, and recognized.</p>
-</div>
-</div>
+  <div class="build-inner">
+    <div class="build-text anim-left">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-headline">Three ways we&#8217;re exploring <em class="red-em">trust.</em></h2>
+      <p class="section-sub">Credii is testing a model that connects credential issuance, verification, and portable trust profiles into one coherent system.</p>
+      <div class="build-list">
+        <div class="build-item anim-up" data-delay="0">
+          <div class="build-num">01</div>
+          <div><h3 class="build-title">Trusted Credentials</h3><p class="build-desc">Making learning, achievements, and participation easier to recognize and carry forward.</p></div>
+        </div>
+        <div class="build-item anim-up" data-delay="100">
+          <div class="build-num">02</div>
+          <div><h3 class="build-title">Verification &amp; Trust</h3><p class="build-desc">Helping organizations validate evidence with confidence through a public verification system.</p></div>
+        </div>
+        <div class="build-item anim-up" data-delay="200">
+          <div class="build-num">03</div>
+          <div><h3 class="build-title">Trusted Profiles</h3><p class="build-desc">Bringing verified achievements, skills, and experiences together in one portable record.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="build-photo anim-right">
+      <img src="https://static.wixstatic.com/media/e19a38_c808d055abc048bb867b6e00b6b577ef~mv2.jpg/v1/fill/w_611,h_407,al_c,lg_1,q_80,enc_auto/csCS2.jpg" alt="Caribbean girls learning digital skills" />
+      <div class="build-photo-overlay">
+        <span>&#8220;Making capability visible and trusted.&#8221;</span>
+      </div>
+    </div>
+  </div>
 </section>
-<!-- VISION & APPROACH — consolidated -->
+
+<!-- VISION & APPROACH -->
 <section class="vision-section" id="approach">
-<div class="vision-wrap">
+  <div class="vision-wrap">
 
-  <!-- ── TOP: Full-width editorial header ── -->
-  <div class="vs-header">
-    <div class="vs-eyebrow">Our Vision &amp; Approach</div>
-    <h2 class="vs-headline">Building trusted pathways<br>to opportunity.</h2>
-    <p class="vs-lead">Credii is exploring how trusted credentials, verification, and digital trust profiles can help make capability more visible, trusted, and recognized across the Caribbean.</p>
-  </div>
-
-  <!-- ── BELIEF STATEMENT — full bleed dark strip ── -->
-  <div class="vs-belief">
-    <div class="vs-belief-inner">
-      <div class="vs-belief-quote">
-        <span class="vs-belief-mark">&#8220;</span>
-        Capability exists everywhere. Opportunity should not depend on whether capability can be easily recognized.
-        <span class="vs-belief-mark">&#8221;</span>
-      </div>
-      <p class="vs-belief-sub">Rather than assuming we have all the answers, we work alongside entrepreneurs, institutions, support organizations, and ecosystem partners to understand what trusted evidence should look like in a Caribbean context.</p>
-    </div>
-  </div>
-
-  <!-- ── THREE PILLARS — animated on scroll ── -->
-  <div class="vs-pillars-wrap">
-    <div class="vs-pillars-label">How We&#8217;re Exploring This</div>
-    <div class="vs-pillars">
-
-      <div class="vs-pillar vs-anim" data-delay="0">
-        <div class="vs-pillar-icon">&#127885;</div>
-        <div class="vs-pillar-num">01</div>
-        <h3 class="vs-pillar-title">Trusted Credentials</h3>
-        <p class="vs-pillar-desc">Making learning, achievements, and participation easier to recognize and carry forward.</p>
-      </div>
-
-      <div class="vs-pillar vs-anim" data-delay="120">
-        <div class="vs-pillar-icon">&#9989;</div>
-        <div class="vs-pillar-num">02</div>
-        <h3 class="vs-pillar-title">Verification &amp; Trust</h3>
-        <p class="vs-pillar-desc">Helping organizations and institutions validate evidence with confidence.</p>
-      </div>
-
-      <div class="vs-pillar vs-anim" data-delay="240">
-        <div class="vs-pillar-icon">&#128100;</div>
-        <div class="vs-pillar-num">03</div>
-        <h3 class="vs-pillar-title">Trusted Profiles</h3>
-        <p class="vs-pillar-desc">Bringing verified achievements, skills, and experiences together in one portable record.</p>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ── HOW WE LEARN + FRAMEWORKS — two column ── -->
-  <div class="vs-learn-wrap">
-
-    <div class="vs-learn vs-anim" data-delay="0">
-      <div class="vs-learn-label">How We Learn</div>
-      <ul class="vs-learn-list">
-        <li><span class="vs-check">&#10003;</span>Research and stakeholder engagement</li>
-        <li><span class="vs-check">&#10003;</span>Pilot programmes and practical testing</li>
-        <li><span class="vs-check">&#10003;</span>Partnerships with Caribbean organizations</li>
-        <li><span class="vs-check">&#10003;</span>Continuous learning, evaluation, and improvement</li>
-      </ul>
+    <div class="vs-header anim-up" data-delay="0">
+      <div class="vs-eyebrow">Our Vision &amp; Approach</div>
+      <h2 class="vs-headline">Building <em class="red-em">trusted</em> pathways<br>to opportunity.</h2>
+      <p class="vs-lead">Credii is exploring how trusted credentials, verification, and digital trust profiles can help make capability more visible, trusted, and recognized across the Caribbean.</p>
     </div>
 
-    <div class="vs-frameworks vs-anim" data-delay="120">
-      <div class="vs-learn-label">Grounded in Global Principles</div>
-      <p class="vs-frameworks-intro">Our work aligns with internationally recognized frameworks that promote inclusion, opportunity, lifelong learning, and economic participation.</p>
-      <div class="vs-framework-tags">
-        <span class="vs-ftag">&#127807; UN Sustainable Development Goals</span>
-        <span class="vs-ftag">&#9851;&#65039; ESG Principles</span>
-        <span class="vs-ftag">&#9994;&#127998; IDPAD Mandate</span>
+    <!-- Full-bleed people image -->
+    <div class="vs-people-img">
+      <img src="https://www.healthycaribbean.org/wp-content/uploads/2024/02/DSC_0103.jpg" alt="Caribbean community gathering" />
+      <div class="vs-people-overlay">
+        <div class="vs-people-quote">&#8220;Capability exists everywhere. Opportunity should not depend on whether capability can be easily recognized.&#8221;</div>
       </div>
     </div>
 
-  </div>
-
-  <!-- ── STAT STRIP ── -->
-  <div class="vs-stats">
-    <div class="vs-stat-divider">Exploring the foundations of a more trusted and connected Caribbean.</div>
-    <div class="vs-stat-row">
-      <div class="vs-stat vs-anim" data-delay="0">
-        <div class="vs-stat-num">4</div>
-        <div class="vs-stat-label">Trust Layers Under Development</div>
-      </div>
-      <div class="vs-stat vs-anim" data-delay="100">
-        <div class="vs-stat-num">10+</div>
-        <div class="vs-stat-label">Global Goals Supported</div>
-      </div>
-      <div class="vs-stat vs-anim" data-delay="200">
-        <div class="vs-stat-num">14+</div>
-        <div class="vs-stat-label">Caribbean Nations &amp; Territories in Scope</div>
+    <!-- Three pillars — horizontal ruled, no cards -->
+    <div class="vs-pillars-wrap">
+      <div class="vs-pillars-label">How We&#8217;re Exploring This</div>
+      <div class="vs-pillars">
+        <div class="vs-pillar anim-up" data-delay="0">
+          <div class="vs-pillar-icon">&#127885;</div>
+          <div class="vs-pillar-num">01</div>
+          <h3 class="vs-pillar-title">Trusted Credentials</h3>
+          <p class="vs-pillar-desc">Making learning, achievements, and participation easier to recognize and carry forward.</p>
+        </div>
+        <div class="vs-pillar anim-up" data-delay="120">
+          <div class="vs-pillar-icon">&#9989;</div>
+          <div class="vs-pillar-num">02</div>
+          <h3 class="vs-pillar-title">Verification &amp; Trust</h3>
+          <p class="vs-pillar-desc">Helping organizations and institutions validate evidence with confidence.</p>
+        </div>
+        <div class="vs-pillar anim-up" data-delay="240">
+          <div class="vs-pillar-icon">&#128100;</div>
+          <div class="vs-pillar-num">03</div>
+          <h3 class="vs-pillar-title">Trusted Profiles</h3>
+          <p class="vs-pillar-desc">Bringing verified achievements, skills, and experiences together in one portable record.</p>
+        </div>
       </div>
     </div>
-  </div>
 
-</div>
+    <!-- How we learn + frameworks — two col with photo -->
+    <div class="vs-learn-wrap">
+      <div class="vs-learn anim-left">
+        <div class="vs-learn-label">How We Learn</div>
+        <ul class="vs-learn-list">
+          <li><span class="vs-check">&#10003;</span>Research and stakeholder engagement</li>
+          <li><span class="vs-check">&#10003;</span>Pilot programmes and practical testing</li>
+          <li><span class="vs-check">&#10003;</span>Partnerships with Caribbean organizations</li>
+          <li><span class="vs-check">&#10003;</span>Continuous learning, evaluation, and improvement</li>
+        </ul>
+        <div class="vs-learn-label" style="margin-top:32px;">Grounded in Global Principles</div>
+        <div class="vs-framework-tags">
+          <span class="vs-ftag">&#127807; UN Sustainable Development Goals</span>
+          <span class="vs-ftag">&#9851;&#65039; ESG Principles</span>
+          <span class="vs-ftag">&#9994;&#127998; IDPAD Mandate</span>
+        </div>
+      </div>
+      <div class="vs-learn-photo anim-right">
+        <img src="https://www.caribank.org/sites/default/files/2025-07/World Bank-CDB Collobration_May2025.jpg" alt="Caribbean collaboration workshop" />
+      </div>
+    </div>
+
+    <!-- Stat strip -->
+    <div class="vs-stats">
+      <div class="vs-stat-divider">Exploring the foundations of a more <em>trusted</em> and connected Caribbean.</div>
+      <div class="vs-stat-row">
+        <div class="vs-stat anim-up" data-delay="0"><div class="vs-stat-num">4</div><div class="vs-stat-label">Trust Layers Under Development</div></div>
+        <div class="vs-stat anim-up" data-delay="100"><div class="vs-stat-num">10+</div><div class="vs-stat-label">Global Goals Supported</div></div>
+        <div class="vs-stat anim-up" data-delay="200"><div class="vs-stat-num">14+</div><div class="vs-stat-label">Caribbean Nations &amp; Territories in Scope</div></div>
+      </div>
+    </div>
+
+  </div>
 </section>
 
 <!-- MEMBERSHIP -->
@@ -1350,18 +1359,27 @@ document.querySelectorAll('section, .pathway-item, .focus-item, .serve-photo, .f
 });
 </script>
 
+
+
 <script>
 (function(){
-  var items = document.querySelectorAll('.vs-anim');
+  // Intersection observer for all animations
   var obs = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
       if(e.isIntersecting){
-        var delay = e.target.getAttribute('data-delay') || 0;
-        setTimeout(function(){ e.target.classList.add('vs-visible'); }, parseInt(delay));
+        var delay = parseInt(e.target.getAttribute('data-delay') || 0);
+        setTimeout(function(){ e.target.classList.add('in','vs-visible'); }, delay);
       }
     });
-  }, { threshold: 0.15 });
-  items.forEach(function(el){ obs.observe(el); });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.anim-up,.anim-left,.anim-right,.vs-anim').forEach(function(el){
+    obs.observe(el);
+  });
+
+  // Hero entrance
+  var heroText = document.querySelector('.hero-inner');
+  if(heroText){ setTimeout(function(){ heroText.style.opacity='1'; heroText.style.transform='none'; }, 100); }
 })();
 </script>
 </body>
