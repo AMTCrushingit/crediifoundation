@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Credii Trust Platform MVP (Beta)</title>
+<script>
+(function(){
+  var k='credii_auth_trust';
+  var p='crediimvp2026';
+  if(sessionStorage.getItem(k)==='ok')return;
+  var o=document.createElement('div');
+  o.id='auth-overlay';
+  o.style.cssText='position:fixed;inset:0;z-index:99999;background:#FAF7F2;display:flex;align-items:center;justify-content:center;font-family:DM Sans,sans-serif;';
+  o.innerHTML=`<div style="background:#fff;border-radius:20px;border:1.5px solid rgba(212,197,169,0.4);padding:48px 44px;max-width:400px;width:90%;text-align:center;box-shadow:0 16px 48px rgba(44,40,37,0.1);">
+    <img src="credii-logo.png" alt="Credii" style="height:52px;width:auto;display:block;margin:0 auto 20px;">
+    <div style="font-family:Fraunces,serif;font-size:1.3rem;font-weight:700;color:#2C2825;margin-bottom:6px;">Trust Platform MVP</div>
+    <div style="font-size:0.84rem;color:#7A7370;margin-bottom:24px;line-height:1.6;">Private beta. Enter your access password to continue.</div>
+    <input id="pi" type="password" placeholder="Enter password" autocomplete="off" style="width:100%;padding:11px 16px;border-radius:10px;border:1.5px solid rgba(212,197,169,0.5);font-size:0.9rem;color:#3D3835;background:#FAF7F2;outline:none;margin-bottom:10px;box-sizing:border-box;">
+    <div id="pe" style="font-size:0.78rem;color:#C0392B;margin-bottom:10px;min-height:18px;"></div>
+    <button onclick="ca()" style="width:100%;padding:12px;border-radius:100px;background:#C0392B;color:#fff;border:none;font-size:0.9rem;font-weight:700;cursor:pointer;">Access Platform</button>
+    <div style="margin-top:18px;font-size:0.75rem;color:#7A7370;"><a href="index.html" style="color:#C0392B;text-decoration:none;">&#8592; Return to Credii</a></div>
+  </div>`;
+  document.documentElement.appendChild(o);
+  window.addEventListener('DOMContentLoaded',function(){
+    var i=document.getElementById('pi');
+    if(i){i.focus();i.addEventListener('keydown',function(e){if(e.key==='Enter')ca();});}
+  });
+  window.ca=function(){
+    var v=document.getElementById('pi').value.trim();
+    if(v===p){sessionStorage.setItem(k,'ok');document.getElementById('auth-overlay').remove();}
+    else{document.getElementById('pe').textContent='Incorrect password. Please try again.';document.getElementById('pi').value='';document.getElementById('pi').focus();}
+  };
+})();
+</script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&family=Fraunces:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#C0392B;--red-dark:#9B2D20;--red-pale:#FDF0EE;
+  --sage:#7A9E8E;--sage-pale:#EDF5F2;
+  --sand:#D4C5A9;--sand-pale:#FAF7F2;
+  --mustard:#C9A84C;--mustard-pale:#FBF5E6;
+  --terra:#B5714A;--terra-pale:#FBF0E8;
+  --lilac:#9B8DB5;--lilac-pale:#F2EFF8;
+  --teal:#2A7F7F;--teal-pale:#E6F4F4;
+  --warm-white:#FDFCF9;--off-white:#F5F3EF;
+  --charcoal:#2C2825;--text:#3D3835;--muted:#7A7370;
+  --border:rgba(212,197,169,0.4);--sw:256px;
+}
+html,body{height:100%;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--off-white);font-size:16px;}
+@media(min-width:769px){body{font-size:17px;}}
+
+/* APP */
+.app{display:flex;height:100vh;overflow:hidden;}
+
+/* SIDEBAR */
+.sidebar{width:var(--sw);background:var(--charcoal);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto;transition:left .25s ease;}
+.sb-logo{display:flex;align-items:center;gap:10px;padding:18px 16px 14px;border-bottom:1px solid rgba(255,255,255,.07);flex-shrink:0;}
+.sb-logo img{height:30px;width:auto;display:block;}
+.sb-beta{font-size:.58rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;background:rgba(201,168,76,.25);color:#C9A84C;padding:2px 6px;border-radius:4px;margin-left:4px;}
+.sb-sec{padding:14px 10px 4px;}
+.sb-lbl{font-size:.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.28);padding:0 8px;margin-bottom:4px;}
+.ni{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:9px;cursor:pointer;transition:background .15s;color:rgba(255,255,255,.55);font-size:.82rem;font-weight:500;margin-bottom:1px;border:none;background:none;width:100%;text-align:left;}
+.ni:hover{background:rgba(255,255,255,.07);color:rgba(255,255,255,.9);}
+.ni.active{background:rgba(192,57,43,.22);color:#fff;}
+.ni .ic{font-size:.9rem;width:18px;text-align:center;flex-shrink:0;}
+.sb-div{height:1px;background:rgba(255,255,255,.06);margin:6px 10px;}
+.sb-foot{margin-top:auto;padding:14px 10px;border-top:1px solid rgba(255,255,255,.07);flex-shrink:0;}
+.uc{display:flex;align-items:center;gap:9px;padding:9px;background:rgba(255,255,255,.05);border-radius:10px;}
+.ua{width:30px;height:30px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;flex-shrink:0;}
+.un{font-size:.76rem;font-weight:600;color:#fff;}
+.ur{font-size:.65rem;color:rgba(255,255,255,.38);margin-top:1px;}
+
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.topbar{background:var(--warm-white);border-bottom:1.5px solid var(--border);padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.tt{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:700;color:var(--charcoal);}
+.ts{font-size:.72rem;color:var(--muted);margin-top:1px;}
+.tr{display:flex;align-items:center;gap:8px;}
+.mmb{display:none;background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--charcoal);padding:4px;}
+.content{flex:1;overflow-y:auto;padding:24px;}
+
+/* SCREENS */
+.sc{display:none;}.sc.active{display:block;}
+
+/* SHARED */
+.card{background:var(--warm-white);border-radius:16px;border:1.5px solid var(--border);padding:20px 22px;}
+.ct{font-family:'Fraunces',serif;font-size:.95rem;font-weight:700;color:var(--charcoal);margin-bottom:4px;}
+.cs{font-size:.78rem;color:var(--muted);}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.mb4{margin-bottom:16px;}.mb5{margin-bottom:20px;}.mb6{margin-bottom:24px;}
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.stl{font-family:'Fraunces',serif;font-size:.95rem;font-weight:700;color:var(--charcoal);}
+
+/* BUTTONS */
+.btn{padding:8px 18px;border-radius:100px;font-size:.82rem;font-weight:600;cursor:pointer;border:none;transition:all .15s;display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-family:'DM Sans',sans-serif;}
+.br{background:var(--red);color:#fff;}.br:hover{background:var(--red-dark);}
+.bg{background:transparent;color:var(--muted);border:1.5px solid var(--border);}.bg:hover{border-color:var(--muted);color:var(--text);}
+.bs{background:var(--sage-pale);color:#3A6A5A;border:1.5px solid rgba(122,158,142,.3);}.bs:hover{background:var(--sage);color:#fff;}
+.bt{background:var(--teal-pale);color:var(--teal);border:1.5px solid rgba(42,127,127,.3);}
+.bsm{padding:5px 12px;font-size:.75rem;}
+.bfl{width:100%;justify-content:center;border-radius:10px;padding:11px 18px;}
+
+/* BADGES */
+.bdg{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:100px;font-size:.68rem;font-weight:700;}
+.bdg::before{content:"";width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.bac{background:#DCFCE7;color:#166534;}.bac::before{background:#16A34A;}
+.bpn{background:var(--lilac-pale);color:var(--lilac);}.bpn::before{background:var(--lilac);}
+.bdr{background:var(--sand-pale);color:#7A6A50;}.bdr::before{background:var(--sand);}
+.brv{background:var(--mustard-pale);color:#8A6A1A;}.brv::before{background:var(--mustard);}
+.bcp{background:var(--sage-pale);color:#3A6A5A;}.bcp::before{background:var(--sage);}
+.bis{background:var(--red-pale);color:var(--red);}.bis::before{background:var(--red);}
+.bns{background:#F3F4F6;color:#6B7280;}.bns::before{background:#9CA3AF;}
+.bip{background:var(--teal-pale);color:var(--teal);}.bip::before{background:var(--teal);}
+
+/* STATS */
+.stat{background:var(--warm-white);border-radius:14px;border:1.5px solid var(--border);padding:16px 18px;}
+.si{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:10px;}
+.sn{font-family:'Fraunces',serif;font-size:1.9rem;font-weight:700;color:var(--charcoal);line-height:1;}
+.sl{font-size:.75rem;color:var(--muted);margin-top:4px;}
+
+/* TABLE */
+.tw{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;}
+th{text-align:left;font-size:.68rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);padding:9px 12px;border-bottom:1.5px solid var(--border);white-space:nowrap;}
+td{padding:11px 12px;font-size:.82rem;border-bottom:1px solid var(--border);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:var(--off-white);}
+
+/* FORM */
+.fg{margin-bottom:16px;}
+.fl{font-size:.78rem;font-weight:600;color:var(--charcoal);margin-bottom:5px;display:block;}
+.fh{font-size:.7rem;color:var(--muted);margin-top:3px;}
+.fi,.fs,.fta{width:100%;padding:9px 13px;border-radius:9px;border:1.5px solid var(--border);font-family:'DM Sans',sans-serif;font-size:.83rem;color:var(--text);background:var(--warm-white);transition:border-color .15s;outline:none;}
+.fi:focus,.fs:focus,.fta:focus{border-color:var(--red);}
+.fta{resize:vertical;min-height:80px;}
+
+/* PROGRESS */
+.pb{height:6px;background:var(--off-white);border-radius:100px;overflow:hidden;margin-top:6px;}
+.pf{height:100%;border-radius:100px;}
+
+/* TABS */
+.tabs{display:flex;gap:0;border-bottom:1.5px solid var(--border);margin-bottom:20px;}
+.tab{padding:9px 16px;font-size:.82rem;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1.5px;transition:all .15s;background:none;border-top:none;border-left:none;border-right:none;}
+.tab:hover{color:var(--text);}.tab.active{color:var(--red);border-bottom-color:var(--red);}
+
+/* ALERTS */
+.al{padding:12px 16px;border-radius:10px;font-size:.82rem;line-height:1.6;margin-bottom:14px;display:flex;gap:10px;align-items:flex-start;}
+.ali{font-size:1rem;flex-shrink:0;margin-top:1px;}
+.ai{background:var(--sage-pale);color:#2D5A4A;border:1px solid rgba(122,158,142,.3);}
+.aw{background:#FFFBEB;color:#92400E;border:1px solid #FCD34D;}
+.ar{background:var(--red-pale);color:var(--red-dark);border:1px solid rgba(192,57,43,.2);}
+
+/* VERIFICATION LEVELS */
+.vl-bar{display:flex;gap:0;border-radius:10px;overflow:hidden;margin:16px 0;}
+.vl-step{flex:1;padding:10px 8px;text-align:center;font-size:.68rem;font-weight:700;background:var(--off-white);color:var(--muted);border-right:1px solid var(--border);}
+.vl-step:last-child{border-right:none;}
+.vl-step.vl-self{background:var(--sand-pale);color:#7A6A50;}
+.vl-step.vl-doc{background:var(--mustard-pale);color:#8A6A1A;}
+.vl-step.vl-org{background:var(--sage-pale);color:#3A6A5A;}
+.vl-step.vl-ind{background:var(--teal-pale);color:var(--teal);}
+.vl-step.active{box-shadow:inset 0 -3px 0 var(--red);}
+
+/* TRUST SCORE RING */
+.trust-ring{width:100px;height:100px;border-radius:50%;background:conic-gradient(var(--sage) 0% 68%, var(--off-white) 68% 100%);display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0;}
+.trust-ring-inner{width:76px;height:76px;border-radius:50%;background:var(--warm-white);display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.trust-score{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:700;color:var(--charcoal);line-height:1;}
+.trust-label{font-size:.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;}
+
+/* EVIDENCE ITEM */
+.ev{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--border);}
+.ev:last-child{border-bottom:none;}
+.ev-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;background:var(--off-white);}
+.ev-name{font-weight:600;font-size:.84rem;color:var(--charcoal);}
+.ev-meta{font-size:.72rem;color:var(--muted);margin-top:2px;}
+
+/* CONSENT TOGGLE */
+.ct-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:.82rem;}
+.ct-row:last-child{border-bottom:none;}
+.tg{position:relative;width:38px;height:20px;flex-shrink:0;}
+.tg input{opacity:0;width:0;height:0;}
+.tsl{position:absolute;inset:0;background:var(--border);border-radius:100px;cursor:pointer;transition:.2s;}
+.tsl::before{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;top:3px;left:3px;transition:.2s;}
+.tg input:checked+.tsl{background:var(--sage);}
+.tg input:checked+.tsl::before{transform:translateX(18px);}
+
+/* SIDEBAR OVERLAY */
+.sov{display:none;position:fixed;inset:0;background:rgba(44,40,37,.5);z-index:98;}
+.sov.open{display:block;}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:rgba(44,40,37,.15);border-radius:10px;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .sidebar{position:fixed;left:-260px;top:0;bottom:0;z-index:99;width:260px;}
+  .sidebar.open{left:0;}
+  .mmb{display:block;}
+  .content{padding:14px;}
+  .g4{grid-template-columns:1fr 1fr;}
+  .g3{grid-template-columns:1fr 1fr;}
+  .g2{grid-template-columns:1fr;}
+}
+@media(max-width:480px){
+  .g4{grid-template-columns:1fr 1fr;}
+  .g3,.g2{grid-template-columns:1fr;}
+  .content{padding:10px;}
+}
+</style>
+</head>
+<body>
+<div class="sov" id="sov" onclick="toggleSidebar()"></div>
+<div class="app">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sb-logo">
+    <img src="credii-logo.png" alt="Credii Foundation">
+    <span class="sb-beta">Trust MVP</span>
+  </div>
+
+  <div class="sb-sec">
+    <div class="sb-lbl">My Trust Profile</div>
+    <button class="ni active" onclick="show('dashboard')"><span class="ic">🏠</span>Dashboard</button>
+    <button class="ni" onclick="show('profile')"><span class="ic">👤</span>My Profile</button>
+    <button class="ni" onclick="show('skills')"><span class="ic">⭐</span>Skills &amp; Achievements</button>
+    <button class="ni" onclick="show('business')"><span class="ic">🏪</span>Business Information</button>
+    <button class="ni" onclick="show('credentials')"><span class="ic">🏅</span>Credentials</button>
+  </div>
+
+  <div class="sb-div"></div>
+
+  <div class="sb-sec">
+    <div class="sb-lbl">Evidence &amp; Verification</div>
+    <button class="ni" onclick="show('evidence')"><span class="ic">📎</span>Evidence Manager</button>
+    <button class="ni" onclick="show('verification')"><span class="ic">🔐</span>Verification Engine</button>
+  </div>
+
+  <div class="sb-div"></div>
+
+  <div class="sb-sec">
+    <div class="sb-lbl">Sharing</div>
+    <button class="ni" onclick="show('sharing')"><span class="ic">🔗</span>Share My Profile</button>
+    <button class="ni" onclick="show('consent')"><span class="ic">🔒</span>Privacy &amp; Consent</button>
+  </div>
+
+  <div class="sb-div"></div>
+
+  <div class="sb-sec">
+    <div class="sb-lbl" style="display:flex;align-items:center;gap:6px;">Institution <span style="font-size:.58rem;background:rgba(42,127,127,.2);color:var(--teal);padding:2px 6px;border-radius:3px;font-weight:700;text-transform:uppercase;">Reviewer</span></div>
+    <button class="ni" onclick="show('institution')"><span class="ic">🏛️</span>Review Profiles</button>
+  </div>
+
+  <div class="sb-div"></div>
+
+  <div class="sb-sec">
+    <div class="sb-lbl" style="display:flex;align-items:center;gap:6px;">Admin <span style="font-size:.58rem;background:rgba(201,168,76,.2);color:#C9A84C;padding:2px 6px;border-radius:3px;font-weight:700;text-transform:uppercase;">Credii</span></div>
+    <button class="ni" onclick="show('admin')"><span class="ic">📊</span>Framework Dashboard</button>
+  </div>
+
+  <div class="sb-foot">
+    <div class="uc">
+      <div class="ua">AJ</div>
+      <div><div class="un">Andrea Joseph</div><div class="ur">Trust Profile · Beta</div></div>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <button class="mmb" onclick="toggleSidebar()">&#9776;</button>
+      <div><div class="tt" id="tt">Trust Profile Dashboard</div><div class="ts" id="ts">Your verified capability record</div></div>
+    </div>
+    <div class="tr">
+      <a href="index.html" class="btn bg bsm">&#8592; Credii Home</a>
+    </div>
+  </div>
+
+  <div class="content">
+
+  <!-- ══ DASHBOARD ══ -->
+  <div class="sc active" id="s-dashboard">
+
+    <!-- Trust score + welcome -->
+    <div style="background:linear-gradient(135deg,var(--charcoal),#3D3835);border-radius:18px;padding:28px 32px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-50px;right:-50px;width:200px;height:200px;border-radius:50%;background:rgba(192,57,43,.12);"></div>
+      <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
+        <div class="trust-ring">
+          <div class="trust-ring-inner">
+            <div class="trust-score">68</div>
+            <div class="trust-label">Trust</div>
+          </div>
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:.68rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:6px;">Credii Trust Platform Beta</div>
+          <div style="font-family:Fraunces,serif;font-size:1.5rem;font-weight:700;color:#fff;margin-bottom:8px;">Welcome back, Andrea &#128075;</div>
+          <div style="font-size:.84rem;color:rgba(255,255,255,.65);line-height:1.6;">Your trust profile is 68% complete. Add more verified evidence to strengthen your record.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;">
+        <span style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);padding:5px 12px;border-radius:100px;font-size:.75rem;font-weight:600;">&#9989; 3 Verified credentials</span>
+        <span style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);padding:5px 12px;border-radius:100px;font-size:.75rem;font-weight:600;">&#128206; 7 Evidence items</span>
+        <span style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);padding:5px 12px;border-radius:100px;font-size:.75rem;font-weight:600;">&#128279; 2 Active shares</span>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="g4 mb5">
+      <div class="stat"><div class="si" style="background:var(--red-pale);">&#127885;</div><div class="sn">3</div><div class="sl">Verified Credentials</div></div>
+      <div class="stat"><div class="si" style="background:var(--sage-pale);">&#128206;</div><div class="sn">7</div><div class="sl">Evidence Items</div></div>
+      <div class="stat"><div class="si" style="background:var(--mustard-pale);">&#11088;</div><div class="sn">5</div><div class="sl">Skills Recorded</div></div>
+      <div class="stat"><div class="si" style="background:var(--lilac-pale);">&#128279;</div><div class="sn">2</div><div class="sl">Active Profile Shares</div></div>
+    </div>
+
+    <!-- Verification level -->
+    <div class="card mb5">
+      <div class="ct" style="margin-bottom:4px;">Verification Level</div>
+      <div class="cs" style="margin-bottom:12px;">Your current highest verification level. Each level requires stronger evidence.</div>
+      <div class="vl-bar">
+        <div class="vl-step vl-self active">&#128100; Self Reported</div>
+        <div class="vl-step vl-doc active">&#128196; Document Verified</div>
+        <div class="vl-step vl-org">&#127970; Organization Verified</div>
+        <div class="vl-step vl-ind">&#128269; Independently Verified</div>
+      </div>
+      <div style="font-size:.78rem;color:var(--muted);margin-top:8px;">You are at <strong style="color:var(--charcoal);">Document Verified</strong>. To reach Organization Verified, have an approved organization confirm your achievements.</div>
+    </div>
+
+    <!-- Actions needed -->
+    <div class="g2">
+      <div class="card">
+        <div class="sh mb4"><div class="stl">Actions to Strengthen Your Profile</div></div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;gap:10px;align-items:flex-start;padding:10px;background:var(--red-pale);border-radius:10px;border:1px solid rgba(192,57,43,.15);">
+            <span style="font-size:1rem;flex-shrink:0;">&#128221;</span>
+            <div><div style="font-weight:600;font-size:.82rem;color:var(--charcoal);">Add business registration evidence</div><div style="font-size:.72rem;color:var(--muted);">Strengthens your MSME capability signal</div></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;padding:10px;background:var(--mustard-pale);border-radius:10px;border:1px solid rgba(201,168,76,.2);">
+            <span style="font-size:1rem;flex-shrink:0;">&#127970;</span>
+            <div><div style="font-weight:600;font-size:.82rem;color:var(--charcoal);">Request organization verification</div><div style="font-size:.72rem;color:var(--muted);">Invite an ESO or training provider to verify your record</div></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;padding:10px;background:var(--sage-pale);border-radius:10px;border:1px solid rgba(122,158,142,.2);">
+            <span style="font-size:1rem;flex-shrink:0;">&#11088;</span>
+            <div><div style="font-weight:600;font-size:.82rem;color:var(--charcoal);">Add 2 more skills</div><div style="font-size:.72rem;color:var(--muted);">Complete your skills record for a fuller profile</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="sh mb4"><div class="stl">Recent Activity</div></div>
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:.82rem;">
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);"><span>Digital Readiness credential added</span><span style="color:var(--muted);">2 days ago</span></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);"><span>Profile shared with Caribbean ESO</span><span style="color:var(--muted);">5 days ago</span></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);"><span>Business evidence uploaded</span><span style="color:var(--muted);">1 week ago</span></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;"><span>Profile created</span><span style="color:var(--muted);">Sept 2026</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ MY PROFILE ══ -->
+  <div class="sc" id="s-profile">
+    <div class="al ai mb5"><span class="ali">&#128274;</span><div>Your trust profile is <strong>consent-based</strong>. You control what is shared, with whom, and for how long. No information is shared without your explicit permission.</div></div>
+    <div class="g2">
+      <div class="card">
+        <div class="ct" style="margin-bottom:14px;">Personal Information</div>
+        <div class="fg"><label class="fl">Full Name</label><input class="fi" value="Andrea Joseph"></div>
+        <div class="fg"><label class="fl">Country</label><select class="fs"><option>Trinidad &amp; Tobago</option><option>Jamaica</option><option>Barbados</option><option>Guyana</option></select></div>
+        <div class="fg"><label class="fl">Community / Region</label><input class="fi" placeholder="e.g. Port of Spain, Trinidad"></div>
+        <div class="fg"><label class="fl">Employment / Business Status</label><select class="fs"><option>Self-employed / Entrepreneur</option><option>Employed</option><option>Student</option><option>Seeking opportunities</option></select></div>
+        <div class="fg"><label class="fl">Sector</label><select class="fs"><option>Entrepreneurship / MSME</option><option>Training &amp; Education</option><option>Technology</option><option>Creative Industries</option><option>Agriculture</option><option>Tourism &amp; Hospitality</option></select></div>
+        <div class="fg"><label class="fl">Short Bio</label><textarea class="fta" placeholder="Describe your background, experience, and what you are working toward..."></textarea></div>
+        <button class="btn br bsm">Save Profile</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div class="card">
+          <div class="ct" style="margin-bottom:4px;">Profile Completeness</div>
+          <div class="cs" style="margin-bottom:12px;">Complete each section to strengthen your trust profile.</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px;"><span>Personal Information</span><span>80%</span></div><div class="pb"><div class="pf" style="width:80%;background:var(--sage);"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px;"><span>Skills &amp; Achievements</span><span>60%</span></div><div class="pb"><div class="pf" style="width:60%;background:var(--mustard);"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px;"><span>Business Information</span><span>40%</span></div><div class="pb"><div class="pf" style="width:40%;background:var(--terra);"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px;"><span>Credentials</span><span>75%</span></div><div class="pb"><div class="pf" style="width:75%;background:var(--red);"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px;"><span>Evidence</span><span>50%</span></div><div class="pb"><div class="pf" style="width:50%;background:var(--lilac);"></div></div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ct" style="margin-bottom:14px;">Online Presence</div>
+          <div class="fg"><label class="fl">LinkedIn</label><input class="fi" placeholder="https://linkedin.com/in/yourprofile"></div>
+          <div class="fg"><label class="fl">Website / Portfolio</label><input class="fi" placeholder="https://yourwebsite.com"></div>
+          <button class="btn bg bsm">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SKILLS & ACHIEVEMENTS ══ -->
+  <div class="sc" id="s-skills">
+    <div class="g2">
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div class="card">
+          <div class="sh mb4"><div class="stl">Skills</div><button class="btn br bsm">+ Add Skill</button></div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--off-white);border-radius:10px;">
+              <div><div style="font-weight:600;font-size:.84rem;color:var(--charcoal);">Digital Credentialing</div><div style="font-size:.72rem;color:var(--muted);">Self-reported &middot; Added Sept 2026</div></div>
+              <span class="bdg bdr">Self Reported</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--off-white);border-radius:10px;">
+              <div><div style="font-weight:600;font-size:.84rem;color:var(--charcoal);">Business Development</div><div style="font-size:.72rem;color:var(--muted);">Document verified &middot; Added Oct 2026</div></div>
+              <span class="bdg brv">Doc Verified</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--off-white);border-radius:10px;">
+              <div><div style="font-weight:600;font-size:.84rem;color:var(--charcoal);">Food Safety &amp; Hygiene</div><div style="font-size:.72rem;color:var(--muted);">Document verified &middot; Certificate uploaded</div></div>
+              <span class="bdg brv">Doc Verified</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--off-white);border-radius:10px;">
+              <div><div style="font-weight:600;font-size:.84rem;color:var(--charcoal);">Team Management</div><div style="font-size:.72rem;color:var(--muted);">Self-reported &middot; 4 years experience</div></div>
+              <span class="bdg bdr">Self Reported</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--off-white);border-radius:10px;">
+              <div><div style="font-weight:600;font-size:.84rem;color:var(--charcoal);">Financial Management</div><div style="font-size:.72rem;color:var(--muted);">Self-reported &middot; Added Oct 2026</div></div>
+              <span class="bdg bdr">Self Reported</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div class="card">
+          <div class="sh mb4"><div class="stl">Achievements &amp; Milestones</div><button class="btn br bsm">+ Add Achievement</button></div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="padding:12px;background:var(--off-white);border-radius:10px;">
+              <div style="font-weight:600;font-size:.84rem;color:var(--charcoal);margin-bottom:4px;">Secured 2 government catering contracts</div>
+              <div style="font-size:.72rem;color:var(--muted);margin-bottom:6px;">Business milestone &middot; 2024&ndash;2025 &middot; Document verified</div>
+              <span class="bdg brv">Doc Verified</span>
+            </div>
+            <div style="padding:12px;background:var(--off-white);border-radius:10px;">
+              <div style="font-weight:600;font-size:.84rem;color:var(--charcoal);margin-bottom:4px;">Completed Digital Readiness Program</div>
+              <div style="font-size:.72rem;color:var(--muted);margin-bottom:6px;">Training completion &middot; Sept 2026 &middot; Credii credential issued</div>
+              <span class="bdg bcp">Org Verified</span>
+            </div>
+            <div style="padding:12px;background:var(--off-white);border-radius:10px;">
+              <div style="font-weight:600;font-size:.84rem;color:var(--charcoal);margin-bottom:4px;">Grew team from 1 to 4 employees</div>
+              <div style="font-size:.72rem;color:var(--muted);margin-bottom:6px;">Business milestone &middot; 2023 &middot; Self-reported</div>
+              <span class="bdg bdr">Self Reported</span>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ct" style="margin-bottom:4px;">Add New Achievement</div>
+          <div class="fg"><label class="fl">Achievement Title</label><input class="fi" placeholder="e.g. Completed training, secured contract..."></div>
+          <div class="fg"><label class="fl">Category</label><select class="fs"><option>Business Milestone</option><option>Training Completion</option><option>Community Contribution</option><option>Award or Recognition</option><option>Employment</option></select></div>
+          <div class="fg"><label class="fl">Date</label><input class="fi" type="month"></div>
+          <div class="fg"><label class="fl">Description</label><textarea class="fta" placeholder="Describe this achievement and its significance..."></textarea></div>
+          <button class="btn br bsm">Save Achievement</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ BUSINESS INFORMATION ══ -->
+  <div class="sc" id="s-business">
+    <div class="al ai mb5"><span class="ali">&#128274;</span><div>Business information is only shared with institutions you explicitly authorize. It is never shared automatically.</div></div>
+    <div class="g2">
+      <div class="card">
+        <div class="ct" style="margin-bottom:14px;">Business Details</div>
+        <div class="fg"><label class="fl">Business Name</label><input class="fi" value="AJ Catering Services"></div>
+        <div class="fg"><label class="fl">Business Type</label><select class="fs"><option>Sole Trader</option><option>Partnership</option><option>Limited Company</option><option>Cooperative</option></select></div>
+        <div class="fg"><label class="fl">Sector</label><select class="fs"><option>Food &amp; Beverage</option><option>Technology</option><option>Creative Industries</option><option>Agriculture</option><option>Tourism</option><option>Professional Services</option></select></div>
+        <div class="fg"><label class="fl">Years in Operation</label><input class="fi" value="4" type="number"></div>
+        <div class="fg"><label class="fl">Number of Employees</label><input class="fi" value="4" type="number"></div>
+        <div class="fg"><label class="fl">Country of Registration</label><select class="fs"><option>Trinidad &amp; Tobago</option><option>Jamaica</option><option>Barbados</option></select></div>
+        <div class="fg"><label class="fl">Registration Number (optional)</label><input class="fi" placeholder="Business registration number"></div>
+        <button class="btn br bsm">Save Business Info</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div class="card">
+          <div class="ct" style="margin-bottom:14px;">Business Capability Signals</div>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:.82rem;">
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);"><span>Registered business</span><span class="bdg brv">Doc Verified</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);"><span>Government contracts secured</span><span class="bdg brv">Doc Verified</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);"><span>Team of 4 employees</span><span class="bdg bdr">Self Reported</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;"><span>Food safety certified</span><span class="bdg brv">Doc Verified</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ct" style="margin-bottom:4px;">Important Notice</div>
+          <div class="cs" style="line-height:1.7;">This platform does not make credit scoring, lending, or financing recommendations. Business information is used only to help you demonstrate capability and readiness to institutions you choose to engage with.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CREDENTIALS ══ -->
+  <div class="sc" id="s-credentials">
+    <div class="g2 mb5">
+      <div class="card" style="display:flex;gap:14px;align-items:flex-start;">
+        <div style="width:52px;height:52px;border-radius:14px;background:var(--red-pale);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;">&#127885;</div>
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;"><div style="font-weight:700;font-size:.92rem;color:var(--charcoal);">Digital Readiness Certificate</div><span class="bdg bac">Verified</span></div>
+          <div style="font-size:.75rem;color:var(--muted);margin-bottom:6px;">Credii Foundation &middot; Sept 2026 &middot; Expires Sept 2028</div>
+          <div style="font-family:monospace;font-size:.72rem;color:var(--muted);background:var(--off-white);padding:4px 8px;border-radius:5px;margin-bottom:10px;">CRD-2026-000184</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;"><button class="btn bg bsm">View</button><button class="btn bg bsm">Share</button><button class="btn bg bsm">Download</button></div>
+        </div>
+      </div>
+      <div class="card" style="display:flex;gap:14px;align-items:flex-start;">
+        <div style="width:52px;height:52px;border-radius:14px;background:var(--mustard-pale);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;">&#127970;</div>
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;"><div style="font-weight:700;font-size:.92rem;color:var(--charcoal);">Food Safety Certificate</div><span class="bdg brv">Doc Verified</span></div>
+          <div style="font-size:.75rem;color:var(--muted);margin-bottom:6px;">T&amp;T Bureau of Standards &middot; 2024 &middot; Expires 2026</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;"><button class="btn bg bsm">View</button><button class="btn bg bsm">Share</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="sh mb4"><div class="stl">Add a Credential</div></div>
+      <div class="g2">
+        <div>
+          <div class="fg"><label class="fl">Credential Name</label><input class="fi" placeholder="e.g. Food Safety Certificate, Training Completion..."></div>
+          <div class="fg"><label class="fl">Issuing Organization</label><input class="fi" placeholder="Who issued this credential?"></div>
+          <div class="fg"><label class="fl">Date Issued</label><input class="fi" type="date"></div>
+          <div class="fg"><label class="fl">Expiry Date (if applicable)</label><input class="fi" type="date"></div>
+        </div>
+        <div>
+          <div class="fg"><label class="fl">Credential ID / Reference</label><input class="fi" placeholder="Certificate number or reference"></div>
+          <div class="fg"><label class="fl">Upload Certificate</label><div style="border:1.5px dashed var(--border);border-radius:10px;padding:20px;text-align:center;font-size:.78rem;color:var(--muted);">Drag and drop or click to upload<br><span style="font-size:.7rem;">PDF, JPG, PNG &middot; Max 10MB</span></div></div>
+          <button class="btn br bsm" style="margin-top:8px;">Add Credential</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ EVIDENCE MANAGER ══ -->
+  <div class="sc" id="s-evidence">
+    <div class="al ai mb5"><span class="ali">&#128274;</span><div>Evidence is never made public automatically. Each item requires your explicit consent before it can be shared with any institution.</div></div>
+    <div class="g2">
+      <div class="card">
+        <div class="sh mb4"><div class="stl">My Evidence</div><button class="btn br bsm">+ Upload Evidence</button></div>
+        <div class="ev"><div class="ev-icon">&#128196;</div><div style="flex:1;"><div style="display:flex;justify-content:space-between;align-items:flex-start;"><div class="ev-name">Business Registration Certificate</div><span class="bdg brv">Doc Verified</span></div><div class="ev-meta">Category: Business &middot; Uploaded Oct 1, 2026 &middot; Verified by Credii</div></div></div>
+        <div class="ev"><div class="ev-icon">&#128196;</div><div style="flex:1;"><div style="display:flex;justify-content:space-between;align-items:flex-start;"><div class="ev-name">Government Contract — Ministry of Education</div><span class="bdg brv">Doc Verified</span></div><div class="ev-meta">Category: Business Achievement &middot; Uploaded Oct 3, 2026</div></div></div>
+        <div class="ev"><div class="ev-icon">&#9997;&#65039;</div><div style="flex:1;"><div style="display:flex;justify-content:space-between;align-items:flex-start;"><div class="ev-name">Written Reflection — Business Journey</div><span class="bdg bac">Accepted</span></div><div class="ev-meta">Category: Self-declaration &middot; Reviewed by J. Williams</div></div></div>
+        <div class="ev"><div class="ev-icon">&#128202;</div><div style="flex:1;"><div style="display:flex;justify-content:space-between;align-items:flex-start;"><div class="ev-name">Baseline Survey Response</div><span class="bdg bac">Accepted</span></div><div class="ev-meta">Category: Program participation &middot; Sept 2026</div></div></div>
+        <div class="ev"><div class="ev-icon">&#128196;</div><div style="flex:1;"><div style="display:flex;justify-content:space-between;align-items:flex-start;"><div class="ev-name">Food Safety Certificate</div><span class="bdg brv">Doc Verified</span></div><div class="ev-meta">Category: Certification &middot; Expires 2026</div></div></div>
+        <div class="ev"><div class="ev-icon">&#128101;</div><div style="flex:1;"><div style="display:flex;justify-content:space-between;align-items:flex-start;"><div class="ev-name">Reference — Caribbean ESO Network</div><span class="bdg bpn">Pending</span></div><div class="ev-meta">Category: Reference &middot; Requested Oct 8, 2026</div></div></div>
+        <div class="ev"><div class="ev-icon">&#128196;</div><div style="flex:1;"><div style="display:flex;justify-content:space-between;align-items:flex-start;"><div class="ev-name">Bank Statement (redacted)</div><span class="bdg bdr">Self Reported</span></div><div class="ev-meta">Category: Financial &middot; Uploaded Oct 5, 2026 &middot; Not yet verified</div></div></div>
+      </div>
+      <div class="card">
+        <div class="ct" style="margin-bottom:4px;">Upload New Evidence</div>
+        <div class="cs" style="margin-bottom:16px;">Evidence supports your trust signals. Each item is categorized and tracked through the verification process.</div>
+        <div class="fg"><label class="fl">Evidence Type</label><select class="fs"><option>Business Document</option><option>Certificate or Credential</option><option>Contract or Agreement</option><option>Reference Letter</option><option>Written Reflection</option><option>Portfolio Item</option><option>Financial Document</option><option>Community Contribution</option></select></div>
+        <div class="fg"><label class="fl">What does this evidence support?</label><select class="fs"><option>Business capability</option><option>Skills &amp; training</option><option>Employment history</option><option>Community contribution</option><option>Financial readiness</option></select></div>
+        <div class="fg"><label class="fl">Description</label><textarea class="fta" placeholder="Briefly describe what this evidence demonstrates..."></textarea></div>
+        <div class="fg"><label class="fl">Upload File</label><div style="border:1.5px dashed var(--border);border-radius:10px;padding:20px;text-align:center;font-size:.78rem;color:var(--muted);">Drag and drop or click to upload<br><span style="font-size:.7rem;">PDF, DOCX, JPG, PNG &middot; Max 10MB</span></div></div>
+        <div class="fg"><label class="fl">Consent to share</label><div style="display:flex;align-items:center;gap:10px;font-size:.82rem;"><label class="tg"><input type="checkbox"><span class="tsl"></span></label><span>Allow this evidence to be shared with institutions I authorize</span></div></div>
+        <button class="btn br bfl">Upload Evidence</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ VERIFICATION ENGINE ══ -->
+  <div class="sc" id="s-verification">
+    <div class="card mb5">
+      <div class="ct" style="margin-bottom:4px;">Verification Hierarchy</div>
+      <div class="cs" style="margin-bottom:16px;">Credii uses a transparent, four-level verification hierarchy. Higher levels require stronger evidence and independent confirmation. There is no credit scoring or lending recommendation at any level.</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+        <div style="padding:16px;background:var(--sand-pale);border-radius:12px;border-left:3px solid var(--sand);"><div style="font-size:1.2rem;margin-bottom:8px;">&#128100;</div><div style="font-weight:700;font-size:.84rem;color:var(--charcoal);margin-bottom:4px;">Self Reported</div><div style="font-size:.75rem;color:var(--muted);line-height:1.5;">You declare the information. No external verification required. Lowest trust signal.</div></div>
+        <div style="padding:16px;background:var(--mustard-pale);border-radius:12px;border-left:3px solid var(--mustard);"><div style="font-size:1.2rem;margin-bottom:8px;">&#128196;</div><div style="font-weight:700;font-size:.84rem;color:var(--charcoal);margin-bottom:4px;">Document Verified</div><div style="font-size:.75rem;color:var(--muted);line-height:1.5;">Supporting documents uploaded and reviewed. Certificates, contracts, registrations.</div></div>
+        <div style="padding:16px;background:var(--sage-pale);border-radius:12px;border-left:3px solid var(--sage);"><div style="font-size:1.2rem;margin-bottom:8px;">&#127970;</div><div style="font-weight:700;font-size:.84rem;color:var(--charcoal);margin-bottom:4px;">Organization Verified</div><div style="font-size:.75rem;color:var(--muted);line-height:1.5;">An approved organization confirms your achievement or participation directly.</div></div>
+        <div style="padding:16px;background:var(--teal-pale);border-radius:12px;border-left:3px solid var(--teal);"><div style="font-size:1.2rem;margin-bottom:8px;">&#128269;</div><div style="font-weight:700;font-size:.84rem;color:var(--charcoal);margin-bottom:4px;">Independently Verified</div><div style="font-size:.75rem;color:var(--muted);line-height:1.5;">A Credii-approved external reviewer independently confirms the evidence.</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="sh mb4"><div class="stl">Verification Status of Your Evidence</div></div>
+      <div class="tw"><table><thead><tr><th>Evidence Item</th><th>Category</th><th>Current Level</th><th>Next Step</th><th>Action</th></tr></thead><tbody>
+        <tr><td><strong>Business Registration</strong></td><td>Business</td><td><span class="bdg brv">Doc Verified</span></td><td>Request org verification</td><td><button class="btn bs bsm">Request</button></td></tr>
+        <tr><td><strong>Government Contract</strong></td><td>Achievement</td><td><span class="bdg brv">Doc Verified</span></td><td>Request org verification</td><td><button class="btn bs bsm">Request</button></td></tr>
+        <tr><td><strong>Written Reflection</strong></td><td>Self-declaration</td><td><span class="bdg bac">Accepted</span></td><td>Complete</td><td><button class="btn bg bsm">View</button></td></tr>
+        <tr><td><strong>Reference Letter</strong></td><td>Reference</td><td><span class="bdg bpn">Pending</span></td><td>Awaiting response</td><td><button class="btn bg bsm">Follow up</button></td></tr>
+        <tr><td><strong>Bank Statement</strong></td><td>Financial</td><td><span class="bdg bdr">Self Reported</span></td><td>Upload supporting docs</td><td><button class="btn br bsm">Upgrade</button></td></tr>
+      </tbody></table></div>
+    </div>
+  </div>
+
+  <!-- ══ SHARING ══ -->
+  <div class="sc" id="s-sharing">
+    <div class="al aw mb5"><span class="ali">&#9888;&#65039;</span><div>You control all sharing. Profiles are never shared without your explicit action. You can revoke access at any time.</div></div>
+    <div class="g2">
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div class="card">
+          <div class="ct" style="margin-bottom:4px;">Share Your Trust Profile</div>
+          <div class="cs" style="margin-bottom:16px;">Choose what to include and who to share with.</div>
+          <div class="fg"><label class="fl">Share with</label><select class="fs"><option>Specific institution (by email)</option><option>Anyone with the link</option><option>Credii-approved institutions only</option></select></div>
+          <div class="fg"><label class="fl">Institution email (if specific)</label><input class="fi" placeholder="institution@example.com"></div>
+          <div class="fg"><label class="fl">Include in this share</label>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px;">
+              <label style="display:flex;align-items:center;gap:8px;font-size:.82rem;"><input type="checkbox" checked style="accent-color:var(--red);"> Skills &amp; Achievements</label>
+              <label style="display:flex;align-items:center;gap:8px;font-size:.82rem;"><input type="checkbox" checked style="accent-color:var(--red);"> Credentials</label>
+              <label style="display:flex;align-items:center;gap:8px;font-size:.82rem;"><input type="checkbox" style="accent-color:var(--red);"> Business Information</label>
+              <label style="display:flex;align-items:center;gap:8px;font-size:.82rem;"><input type="checkbox" style="accent-color:var(--red);"> Evidence (document verified only)</label>
+            </div>
+          </div>
+          <div class="fg"><label class="fl">Access expires</label><select class="fs"><option>30 days</option><option>60 days</option><option>90 days</option><option>No expiry</option></select></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn br bsm">Generate Shareable Link</button>
+            <button class="btn bg bsm">Generate PDF</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ct" style="margin-bottom:14px;">Generated Shareable Link</div>
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;">
+            <input class="fi" value="trust.crediifoundation.org/p/AJ-2026-a7f3" readonly style="font-family:monospace;font-size:.78rem;">
+            <button class="btn br bsm" style="flex-shrink:0;">Copy</button>
+          </div>
+          <div style="font-size:.75rem;color:var(--muted);">Expires: November 9, 2026 &middot; Viewed 3 times</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="sh mb4"><div class="stl">Active Shares</div></div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="padding:12px;background:var(--off-white);border-radius:10px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;"><div style="font-weight:600;font-size:.84rem;color:var(--charcoal);">Caribbean ESO Network</div><span class="bdg bac">Active</span></div>
+            <div style="font-size:.72rem;color:var(--muted);margin-bottom:8px;">Shared Oct 5, 2026 &middot; Expires Nov 5, 2026 &middot; Viewed 2 times</div>
+            <div style="font-size:.72rem;color:var(--muted);margin-bottom:8px;">Includes: Skills, Credentials, Business Info</div>
+            <button class="btn bg bsm" style="color:var(--red);border-color:rgba(192,57,43,.3);">Revoke Access</button>
+          </div>
+          <div style="padding:12px;background:var(--off-white);border-radius:10px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;"><div style="font-weight:600;font-size:.84rem;color:var(--charcoal);">Public Link (Anyone)</div><span class="bdg bac">Active</span></div>
+            <div style="font-size:.72rem;color:var(--muted);margin-bottom:8px;">Created Oct 9, 2026 &middot; No expiry &middot; Viewed 1 time</div>
+            <div style="font-size:.72rem;color:var(--muted);margin-bottom:8px;">Includes: Skills, Credentials only</div>
+            <button class="btn bg bsm" style="color:var(--red);border-color:rgba(192,57,43,.3);">Revoke Access</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PRIVACY & CONSENT ══ -->
+  <div class="sc" id="s-consent">
+    <div class="al ai mb5"><span class="ali">&#128274;</span><div>Credii is built on <strong>privacy by design</strong>. Consents are separate. Program processing, research participation, and sharing are never bundled into one checkbox.</div></div>
+    <div class="g2">
+      <div class="card">
+        <div class="ct" style="margin-bottom:4px;">Data &amp; Sharing Consents</div>
+        <div class="cs" style="margin-bottom:16px;">Control exactly how your information is used. Each consent is independent.</div>
+        <div class="ct-row"><span>Profile visible to approved institutions</span><label class="tg"><input type="checkbox" checked><span class="tsl"></span></label></div>
+        <div class="ct-row"><span>Evidence sharing with authorized reviewers</span><label class="tg"><input type="checkbox" checked><span class="tsl"></span></label></div>
+        <div class="ct-row"><span>Participation in Credii research</span><label class="tg"><input type="checkbox" checked><span class="tsl"></span></label></div>
+        <div class="ct-row"><span>Receive program and opportunity notifications</span><label class="tg"><input type="checkbox" checked><span class="tsl"></span></label></div>
+        <div class="ct-row"><span>Future Trust Profile aggregation</span><label class="tg"><input type="checkbox"><span class="tsl"></span></label></div>
+        <div class="ct-row"><span>Promotional communications</span><label class="tg"><input type="checkbox"><span class="tsl"></span></label></div>
+        <button class="btn br bsm" style="margin-top:16px;">Save Consent Preferences</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div class="card">
+          <div class="ct" style="margin-bottom:14px;">Data Rights</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <button class="btn bg bsm" style="justify-content:flex-start;border-radius:8px;">&#128203; Request a copy of my data</button>
+            <button class="btn bg bsm" style="justify-content:flex-start;border-radius:8px;">&#9999;&#65039; Request data correction</button>
+            <button class="btn bg bsm" style="justify-content:flex-start;border-radius:8px;">&#128683; Withdraw from research</button>
+            <button class="btn bg bsm" style="justify-content:flex-start;border-radius:8px;color:var(--red);border-color:rgba(192,57,43,.3);">&#128465;&#65039; Request account deletion</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ct" style="margin-bottom:4px;">What We Never Do</div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px;font-size:.82rem;">
+            <div style="display:flex;gap:8px;"><span style="color:var(--red);font-weight:700;flex-shrink:0;">&#10007;</span>Credit scoring or lending recommendations</div>
+            <div style="display:flex;gap:8px;"><span style="color:var(--red);font-weight:700;flex-shrink:0;">&#10007;</span>Share data without your explicit consent</div>
+            <div style="display:flex;gap:8px;"><span style="color:var(--red);font-weight:700;flex-shrink:0;">&#10007;</span>Sell personal information</div>
+            <div style="display:flex;gap:8px;"><span style="color:var(--red);font-weight:700;flex-shrink:0;">&#10007;</span>Make employment or financing decisions</div>
+            <div style="display:flex;gap:8px;"><span style="color:var(--red);font-weight:700;flex-shrink:0;">&#10007;</span>Collect unnecessary personal data</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ INSTITUTIONAL REVIEW ══ -->
+  <div class="sc" id="s-institution">
+    <div class="al at mb5"><span class="ali">&#127970;</span><div>Institutional Review Portal. You are reviewing trust profiles shared with your organization. All feedback is visible to the profile holder.</div></div>
+    <div class="g2">
+      <div class="card">
+        <div class="sh mb4"><div class="stl">Profiles Shared With You</div></div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="padding:14px;background:var(--off-white);border-radius:12px;cursor:pointer;border:1.5px solid var(--border);transition:border-color .15s;" onmouseover="this.style.borderColor='var(--red)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;"><div><div style="font-weight:700;font-size:.88rem;color:var(--charcoal);">Andrea Joseph</div><div style="font-size:.72rem;color:var(--muted);">Shared Oct 5, 2026 &middot; Expires Nov 5, 2026</div></div><span class="bdg bpn">Pending Review</span></div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:.72rem;color:var(--muted);"><span>&#127885; 3 credentials</span><span>&#11088; 5 skills</span><span>&#128206; 7 evidence items</span><span>&#128100; Doc Verified</span></div>
+            <button class="btn br bsm" style="margin-top:10px;">Review Profile</button>
+          </div>
+          <div style="padding:14px;background:var(--off-white);border-radius:12px;border:1.5px solid var(--border);">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;"><div><div style="font-weight:700;font-size:.88rem;color:var(--charcoal);">Maria Ramsaran</div><div style="font-size:.72rem;color:var(--muted);">Shared Oct 3, 2026 &middot; Expires Nov 3, 2026</div></div><span class="bdg bac">Reviewed</span></div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:.72rem;color:var(--muted);"><span>&#127885; 2 credentials</span><span>&#11088; 4 skills</span><span>&#128206; 5 evidence items</span></div>
+            <button class="btn bg bsm" style="margin-top:10px;">View Feedback</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ct" style="margin-bottom:4px;">Review: Andrea Joseph</div>
+        <div class="cs" style="margin-bottom:16px;">Provide structured feedback. This is visible to the profile holder and helps them strengthen their record.</div>
+        <div class="fg"><label class="fl">Overall usefulness of this profile</label><select class="fs"><option>Very useful — meets our needs</option><option>Useful — with some gaps</option><option>Partially useful</option><option>Not yet sufficient</option></select></div>
+        <div class="fg"><label class="fl">Strongest signals in this profile</label><textarea class="fta" placeholder="What evidence or achievements stood out?"></textarea></div>
+        <div class="fg"><label class="fl">Recommended additional evidence</label><textarea class="fta" placeholder="What would strengthen this profile for your purposes?"></textarea></div>
+        <div class="fg"><label class="fl">Verification level reached</label><select class="fs"><option>Document Verified — sufficient</option><option>Would prefer Organization Verified</option><option>Would prefer Independently Verified</option></select></div>
+        <div class="fg"><label class="fl">Would you engage further with this individual?</label><select class="fs"><option>Yes — would like to proceed</option><option>Possibly — pending more information</option><option>Not at this time</option></select></div>
+        <button class="btn br bsm">Submit Feedback</button>
+        <div class="al ai" style="margin-top:12px;font-size:.75rem;"><span class="ali">&#8505;&#65039;</span><div>This feedback does not constitute a credit decision, employment offer, or financing commitment. It is advisory only.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ ADMIN FRAMEWORK DASHBOARD ══ -->
+  <div class="sc" id="s-admin">
+    <div class="al aw mb5"><span class="ali">&#9881;&#65039;</span><div><strong>Credii Admin — Framework Dashboard.</strong> Track trust signals, analyze institutional preferences, and generate validation reports. All actions are logged.</div></div>
+    <div class="g4 mb5">
+      <div class="stat"><div class="si" style="background:var(--red-pale);">&#128101;</div><div class="sn">47</div><div class="sl">Active Trust Profiles</div></div>
+      <div class="stat"><div class="si" style="background:var(--sage-pale);">&#128206;</div><div class="sn">312</div><div class="sl">Evidence Items</div></div>
+      <div class="stat"><div class="si" style="background:var(--mustard-pale);">&#127970;</div><div class="sn">8</div><div class="sl">Institutional Reviewers</div></div>
+      <div class="stat"><div class="si" style="background:var(--lilac-pale);">&#128279;</div><div class="sn">94</div><div class="sl">Profile Shares</div></div>
+    </div>
+    <div class="g2 mb5">
+      <div class="card">
+        <div class="ct" style="margin-bottom:14px;">Trust Signal Distribution</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px;"><span>&#128100; Self Reported</span><span>142 signals (45%)</span></div><div class="pb"><div class="pf" style="width:45%;background:var(--sand);"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px;"><span>&#128196; Document Verified</span><span>98 signals (31%)</span></div><div class="pb"><div class="pf" style="width:31%;background:var(--mustard);"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px;"><span>&#127970; Organization Verified</span><span>54 signals (17%)</span></div><div class="pb"><div class="pf" style="width:17%;background:var(--sage);"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px;"><span>&#128269; Independently Verified</span><span>18 signals (6%)</span></div><div class="pb"><div class="pf" style="width:6%;background:var(--teal);"></div></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ct" style="margin-bottom:14px;">Institutional Preferences</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:.82rem;">
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);"><span>Most requested evidence type</span><strong>Business Registration</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);"><span>Most valued verification level</span><strong>Document Verified</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);"><span>Most common feedback</span><strong>Add financial evidence</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);"><span>Avg. profile usefulness rating</span><strong>3.8 / 5</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;"><span>Profiles leading to engagement</span><strong>34%</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="sh mb4"><div class="stl">Validation Report</div><button class="btn bg bsm">Export CSV</button></div>
+      <div class="tw"><table><thead><tr><th>Profile</th><th>Trust Score</th><th>Highest Level</th><th>Evidence Items</th><th>Shares</th><th>Institutional Feedback</th><th>Status</th></tr></thead><tbody>
+        <tr><td><strong>Andrea Joseph</strong></td><td>68</td><td><span class="bdg brv">Doc Verified</span></td><td>7</td><td>2</td><td>Pending</td><td><span class="bdg bac">Active</span></td></tr>
+        <tr><td><strong>Maria Ramsaran</strong></td><td>54</td><td><span class="bdg brv">Doc Verified</span></td><td>5</td><td>1</td><td>Reviewed</td><td><span class="bdg bac">Active</span></td></tr>
+        <tr><td><strong>James Brown</strong></td><td>42</td><td><span class="bdg bdr">Self Reported</span></td><td>3</td><td>0</td><td>None</td><td><span class="bdg bip">In Progress</span></td></tr>
+        <tr><td><strong>Simone Clarke</strong></td><td>71</td><td><span class="bdg bcp">Org Verified</span></td><td>9</td><td>3</td><td>Positive</td><td><span class="bdg bac">Active</span></td></tr>
+      </tbody></table></div>
+      <div class="al ai" style="margin-top:16px;font-size:.75rem;"><span class="ali">&#9888;&#65039;</span><div>Trust scores are indicators of evidence completeness and verification level only. They are not credit scores and must not be used for lending, employment, or financing decisions.</div></div>
+    </div>
+  </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+</div><!-- /app -->
+
+<script>
+var meta={
+  dashboard:{t:'Trust Profile Dashboard',s:'Your verified capability record'},
+  profile:{t:'My Profile',s:'Manage your personal information'},
+  skills:{t:'Skills & Achievements',s:'Record and verify your capabilities'},
+  business:{t:'Business Information',s:'Your MSME capability signals'},
+  credentials:{t:'Credentials',s:'Your verified credentials'},
+  evidence:{t:'Evidence Manager',s:'Upload, categorize, and track evidence'},
+  verification:{t:'Verification Engine',s:'Understand your verification level'},
+  sharing:{t:'Share My Profile',s:'Control who sees your trust profile'},
+  consent:{t:'Privacy & Consent',s:'Manage your data and consent preferences'},
+  institution:{t:'Institutional Review',s:'Review profiles shared with your organization'},
+  admin:{t:'Framework Dashboard',s:'Credii admin — trust signal analytics'},
+};
+function show(id){
+  document.querySelectorAll('.sc').forEach(function(s){s.classList.remove('active');});
+  document.querySelectorAll('.ni').forEach(function(n){n.classList.remove('active');});
+  var sc=document.getElementById('s-'+id);
+  if(sc)sc.classList.add('active');
+  document.querySelectorAll('.ni').forEach(function(n){
+    if((n.getAttribute('onclick')||'').includes("'"+id+"'"))n.classList.add('active');
+  });
+  var m=meta[id]||{t:id,s:''};
+  document.getElementById('tt').textContent=m.t;
+  document.getElementById('ts').textContent=m.s;
+  document.querySelector('.content').scrollTop=0;
+  if(window.innerWidth<=768){
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sov').classList.remove('open');
+  }
+}
+function toggleSidebar(){
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sov').classList.toggle('open');
+}
+document.querySelectorAll('.tabs').forEach(function(tg){
+  tg.querySelectorAll('.tab').forEach(function(t){
+    t.addEventListener('click',function(){
+      tg.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active');});
+      this.classList.add('active');
+    });
+  });
+});
+</script>
+</body>
+</html>
