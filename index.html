@@ -900,6 +900,22 @@
       .prob-stat:last-child { border-bottom: none; }
       .hero h1 { font-size: 2.2rem; }
     }
+
+    /* FRAMEWORK CARDS */
+    .vs-framework-cards { display: flex; flex-direction: column; gap: 14px; margin-top: 16px; }
+    .vs-fcard {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 16px 18px;
+      background: var(--warm-white);
+      border-radius: 12px;
+      border-left: 3px solid var(--red);
+      transition: box-shadow 0.2s, transform 0.15s;
+    }
+    .vs-fcard:hover { box-shadow: 0 6px 20px rgba(44,40,37,0.09); transform: translateX(4px); }
+    .vs-fcard-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+    .vs-fcard-title { font-family: 'Fraunces', serif; font-size: 0.92rem; font-weight: 700; color: var(--charcoal); margin-bottom: 4px; }
+    .vs-fcard-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
+
     /* RESPONSIVE */
     @media (max-width: 1024px) {
       .hero-inner { grid-template-columns: 1fr; }
@@ -1164,11 +1180,34 @@
           <li><span class="vs-check">&#10003;</span>Partnerships with Caribbean organizations</li>
           <li><span class="vs-check">&#10003;</span>Continuous learning, evaluation, and improvement</li>
         </ul>
-        <div class="vs-learn-label" style="margin-top:32px;">Grounded in Global Principles</div>
-        <div class="vs-framework-tags">
-          <span class="vs-ftag">&#127807; UN Sustainable Development Goals</span>
-          <span class="vs-ftag">&#9851;&#65039; ESG Principles</span>
-          <span class="vs-ftag">&#9994;&#127998; IDPAD Mandate</span>
+        <div class="vs-learn-label" style="margin-top:36px;">Grounded in Shared Principles</div>
+        <p class="vs-frameworks-intro">Our work is informed by global frameworks and principles that promote inclusion, lifelong learning, sustainability, economic participation, and community empowerment.</p>
+        <div class="vs-framework-cards">
+
+          <div class="vs-fcard anim-up" data-delay="0">
+            <div class="vs-fcard-icon">&#127807;</div>
+            <div>
+              <div class="vs-fcard-title">Sustainable Development Goals</div>
+              <div class="vs-fcard-desc">Supporting pathways to quality education, gender equity, decent work, reduced inequalities, and stronger institutions.</div>
+            </div>
+          </div>
+
+          <div class="vs-fcard anim-up" data-delay="100">
+            <div class="vs-fcard-icon">&#9851;&#65039;</div>
+            <div>
+              <div class="vs-fcard-title">Sustainability &amp; ESG Principles</div>
+              <div class="vs-fcard-desc">Advancing responsible, inclusive, and sustainable approaches to capability recognition, opportunity creation, and long-term community resilience.</div>
+            </div>
+          </div>
+
+          <div class="vs-fcard anim-up" data-delay="200">
+            <div class="vs-fcard-icon">&#9994;&#127998;</div>
+            <div>
+              <div class="vs-fcard-title">IDPAD Principles</div>
+              <div class="vs-fcard-desc">Supporting recognition, inclusion, and economic participation for historically underserved communities across the Caribbean and its diaspora.</div>
+            </div>
+          </div>
+
         </div>
       </div>
       <div class="vs-learn-photo anim-right">
