@@ -1012,6 +1012,23 @@
       .header-burger { display: flex; }
     }
 
+
+    /* WHO WE SERVE */
+    .who-serve { background: var(--cocoa-pale, #F5EDE4); padding: 96px 5%; }
+    .who-inner { max-width: 1200px; margin: 0 auto; }
+    .who-header { margin-bottom: 48px; }
+    .who-header .section-sub { max-width: 640px; margin-top: 14px; }
+    .serve-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1.5px solid rgba(107,58,31,0.2); border-left: 1.5px solid rgba(107,58,31,0.2); border-radius: 16px; overflow: hidden; }
+    .serve-list-item { display: flex; gap: 16px; align-items: flex-start; padding: 26px 24px; border-right: 1.5px solid rgba(107,58,31,0.2); border-bottom: 1.5px solid rgba(107,58,31,0.2); background: var(--warm-white); transition: background 0.2s; }
+    .serve-list-item:hover { background: var(--off-white); }
+    .serve-list-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+    .serve-list-title { font-family: 'Fraunces', serif; font-size: 0.95rem; font-weight: 700; color: var(--charcoal); margin-bottom: 5px; }
+    .serve-list-desc { font-size: 0.84rem; color: var(--text-muted); line-height: 1.65; }
+    @media (max-width: 768px) {
+      .serve-list { grid-template-columns: 1fr; }
+      .serve-list-item { border-right: none; }
+    }
+
     /* RESPONSIVE */
     @media (max-width: 1024px) {
       .hero-inner { grid-template-columns: 1fr; }
@@ -1217,6 +1234,61 @@
       <img src="https://static.wixstatic.com/media/e19a38_c808d055abc048bb867b6e00b6b577ef~mv2.jpg/v1/fill/w_611,h_407,al_c,lg_1,q_80,enc_auto/csCS2.jpg" alt="Caribbean girls learning digital skills" />
       <div class="build-photo-overlay">
         <span>&#8220;Making capability visible and trusted.&#8221;</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO WE SERVE -->
+<section class="who-serve" id="serve">
+  <div class="who-inner">
+    <div class="who-header">
+      <div class="section-label">Who We Hope to Serve</div>
+      <h2 class="section-headline">Designed with <em class="red-em">Caribbean realities</em> in mind.</h2>
+      <p class="section-sub">Our initial focus is on the people and organizations most affected by the missing trust layer, particularly women, emerging professionals, and the ecosystem that supports them.</p>
+    </div>
+    <div class="serve-list">
+      <div class="serve-list-item anim-up" data-delay="0">
+        <div class="serve-list-icon">&#128105;&#8205;&#128188;</div>
+        <div>
+          <div class="serve-list-title">Women Entrepreneurs &amp; MSMEs</div>
+          <div class="serve-list-desc">Women-led businesses seeking stronger ways to demonstrate credibility when applying for financing, procurement, partnerships, and business support programs.</div>
+        </div>
+      </div>
+      <div class="serve-list-item anim-up" data-delay="80">
+        <div class="serve-list-icon">&#127979;</div>
+        <div>
+          <div class="serve-list-title">Training &amp; Support Organizations</div>
+          <div class="serve-list-desc">ESOs, nonprofits, and training providers exploring better ways to recognize and verify participant achievements and demonstrate program outcomes.</div>
+        </div>
+      </div>
+      <div class="serve-list-item anim-up" data-delay="160">
+        <div class="serve-list-icon">&#127891;</div>
+        <div>
+          <div class="serve-list-title">Youth &amp; Emerging Professionals</div>
+          <div class="serve-list-desc">People seeking trusted, portable ways to demonstrate skills, training, and readiness for employment and career advancement across the region.</div>
+        </div>
+      </div>
+      <div class="serve-list-item anim-up" data-delay="240">
+        <div class="serve-list-icon">&#127963;&#65039;</div>
+        <div>
+          <div class="serve-list-title">Governments &amp; Public Agencies</div>
+          <div class="serve-list-desc">Entities exploring innovative approaches to workforce development, capability building, and public service modernization across the Caribbean.</div>
+        </div>
+      </div>
+      <div class="serve-list-item anim-up" data-delay="320">
+        <div class="serve-list-icon">&#127758;</div>
+        <div>
+          <div class="serve-list-title">Caribbean Diaspora</div>
+          <div class="serve-list-desc">Individuals seeking stronger connections between experience gained abroad and opportunities across the region, with credentials that travel with them.</div>
+        </div>
+      </div>
+      <div class="serve-list-item anim-up" data-delay="400">
+        <div class="serve-list-icon">&#129309;</div>
+        <div>
+          <div class="serve-list-title">Communities &amp; Civil Society</div>
+          <div class="serve-list-desc">Organizations working to create inclusive pathways to learning, participation, and economic opportunity for underserved groups.</div>
+        </div>
       </div>
     </div>
   </div>
