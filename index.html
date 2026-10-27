@@ -851,6 +851,66 @@
     .vs-learn-wrap { max-width: 1200px; margin: 0 auto; padding: 72px 5%; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
 
     /* ── RESPONSIVE ── */
+
+    /* ── SITE HEADER ── */
+    .site-header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 64px;
+      background: rgba(253,252,249,0.96);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(212,197,169,0.35);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; gap: 24px;
+    }
+    .header-logo { flex-shrink: 0; display: flex; align-items: center; }
+    .header-logo img { height: 36px; width: auto; display: block; max-width: 120px; object-fit: contain; object-position: left; }
+    .header-nav { display: flex; align-items: center; gap: 28px; margin-left: auto; }
+    .header-nav a {
+      font-size: 0.875rem; font-weight: 500;
+      color: var(--text-muted) !important;
+      text-decoration: none !important;
+      transition: color 0.2s;
+    }
+    .header-nav a:link { color: var(--text-muted) !important; text-decoration: none !important; }
+    .header-nav a:visited { color: var(--text-muted) !important; text-decoration: none !important; }
+    .header-nav a:hover { color: var(--red) !important; }
+    .header-cta {
+      background: var(--red) !important;
+      color: #fff !important;
+      padding: 8px 20px !important;
+      border-radius: 100px !important;
+      font-weight: 600 !important;
+    }
+    .header-cta:hover { background: var(--red-dark) !important; color: #fff !important; }
+    .header-burger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .header-burger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--charcoal); border-radius: 2px; transition: all 0.25s;
+    }
+    .header-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .header-burger.open span:nth-child(2) { opacity: 0; }
+    .header-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .header-nav.open {
+      display: flex !important; flex-direction: column;
+      position: fixed; top: 64px; left: 0; right: 0;
+      background: rgba(253,252,249,0.98);
+      backdrop-filter: blur(16px);
+      padding: 20px 5% 28px; gap: 6px;
+      border-bottom: 1px solid rgba(212,197,169,0.35);
+      box-shadow: 0 8px 32px rgba(44,40,37,0.1);
+      z-index: 199;
+    }
+    .header-nav.open a { padding: 10px 0; font-size: 1rem; border-bottom: 1px solid rgba(212,197,169,0.2); color: var(--text-muted) !important; }
+    .header-nav.open .header-cta { margin-top: 8px; text-align: center; border-radius: 10px; }
+
+    /* GLOBAL LINK RESET */
+    a { color: inherit; text-decoration: none; }
+    a:link, a:visited { color: inherit; text-decoration: none; }
+
     /* ═══════════════════════════════════════
        COMPREHENSIVE MOBILE RESPONSIVE SYSTEM
        ═══════════════════════════════════════ */
