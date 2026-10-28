@@ -201,6 +201,18 @@
       font-style: italic;
     }
 
+
+    /* PRINCIPLES LIST */
+    .vs-principles { margin-top: 32px; }
+    .vs-principles-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--espresso, #2C1503); margin-bottom: 16px; }
+    .vs-principles-list { display: flex; flex-direction: column; gap: 0; border-top: 1.5px solid rgba(44,21,3,0.15); }
+    .vs-principle { padding: 14px 0; border-bottom: 1px solid rgba(44,21,3,0.1); }
+    .vs-principle:last-child { border-bottom: none; }
+    .vs-principle-header { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+    .vs-principle-icon { font-size: 0.95rem; flex-shrink: 0; }
+    .vs-principle-name { font-family: 'Fraunces', serif; font-size: 0.92rem; font-weight: 700; color: var(--charcoal); }
+    .vs-principle-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; padding-left: 28px; }
+
     /* WHO WE SERVE */
     .who-serve { background: var(--warm-white); position: relative; overflow: hidden; }
     .who-deco { position: absolute; border-radius: 50%; }
@@ -1296,37 +1308,38 @@
           <li><span class="vs-check">&#10003;</span>Partnerships with Caribbean organizations</li>
           <li><span class="vs-check">&#10003;</span>Continuous learning, evaluation, and improvement</li>
         </ul>
-        <div class="vs-learn-label" style="margin-top:36px;">Grounded in Shared Principles</div>
-        <p class="vs-frameworks-intro">Our work is informed by global frameworks and principles that promote inclusion, lifelong learning, sustainability, economic participation, and community empowerment.</p>
-        <div class="vs-framework-cards">
+        <div class="vs-principles">
+          <div class="vs-principles-label">Grounded in Shared Principles</div>
+          <div class="vs-principles-list">
 
-          <div class="vs-fcard anim-up" data-delay="0">
-            <div class="vs-fcard-icon">&#127807;</div>
-            <div>
-              <div class="vs-fcard-title">Sustainable Development Goals</div>
-              <div class="vs-fcard-desc">Supporting pathways to quality education, gender equity, decent work, reduced inequalities, and stronger institutions.</div>
+            <div class="vs-principle anim-up" data-delay="0">
+              <div class="vs-principle-header">
+                <span class="vs-principle-icon">&#127807;</span>
+                <span class="vs-principle-name">UN Sustainable Development Goals</span>
+              </div>
+              <p class="vs-principle-desc">Quality education, gender equity, decent work, reduced inequalities, and stronger institutions.</p>
             </div>
-          </div>
 
-          <div class="vs-fcard anim-up" data-delay="100">
-            <div class="vs-fcard-icon">&#9851;&#65039;</div>
-            <div>
-              <div class="vs-fcard-title">Sustainability &amp; ESG Principles</div>
-              <div class="vs-fcard-desc">Advancing responsible, inclusive, and sustainable approaches to capability recognition, opportunity creation, and long-term community resilience.</div>
+            <div class="vs-principle anim-up" data-delay="80">
+              <div class="vs-principle-header">
+                <span class="vs-principle-icon">&#9851;&#65039;</span>
+                <span class="vs-principle-name">Sustainability &amp; ESG Principles</span>
+              </div>
+              <p class="vs-principle-desc">Responsible, inclusive, and sustainable approaches to capability recognition and community resilience.</p>
             </div>
-          </div>
 
-          <div class="vs-fcard anim-up" data-delay="200">
-            <div class="vs-fcard-icon">&#9994;&#127998;</div>
-            <div>
-              <div class="vs-fcard-title">IDPAD Principles</div>
-              <div class="vs-fcard-desc">Supporting recognition, inclusion, and economic participation for historically underserved communities across the Caribbean and its diaspora.</div>
+            <div class="vs-principle anim-up" data-delay="160">
+              <div class="vs-principle-header">
+                <span class="vs-principle-icon">&#9994;&#127998;</span>
+                <span class="vs-principle-name">IDPAD Principles</span>
+              </div>
+              <p class="vs-principle-desc">Recognition, inclusion, and economic participation for historically underserved communities across the Caribbean and its diaspora.</p>
             </div>
-          </div>
 
+          </div>
         </div>
-      </div>
-      <div class="vs-learn-photo anim-right">
+
+        <div class="vs-learn-photo anim-right">
         <img src="https://www.caribank.org/sites/default/files/2025-07/World Bank-CDB Collobration_May2025.jpg" alt="Caribbean collaboration workshop" />
       </div>
     </div>
