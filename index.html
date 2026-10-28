@@ -871,11 +871,12 @@
     /* ── SITE HEADER ── */
     .site-header {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      background: rgba(253,252,249,0.96);
+      background: rgba(253,252,249,0.97);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(212,197,169,0.35);
-      padding: 12px 5% 10px;
+      padding: 10px 5% 10px;
+      min-height: 80px;
     }
     .site-header-inner {
       display: flex;
@@ -885,8 +886,8 @@
       max-width: 1200px;
       margin: 0 auto;
     }
-    .header-logo { display: flex; align-items: center; justify-content: center; }
-    .header-logo img { height: 38px; width: auto; display: block; max-width: 140px; object-fit: contain; }
+    .header-logo { display: flex; align-items: center; justify-content: center; min-height: 44px; }
+    .header-logo img { height: 40px; width: auto; display: block; max-width: 160px; object-fit: contain; min-width: 80px; }
     .header-nav {
       display: flex; align-items: center; gap: 28px;
       justify-content: center; flex-wrap: wrap;
@@ -1116,7 +1117,8 @@
 <header class="site-header">
   <div class="site-header-inner">
     <a href="index.html" class="header-logo" aria-label="Credii Foundation home">
-      <img src="credii-logo.png" alt="Credii Foundation">
+      <img src="credii-logo.png" alt="Credii Foundation" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <span class="header-logo-fallback" style="display:none;font-family:Fraunces,serif;font-size:1.4rem;font-weight:700;color:var(--charcoal);">credii<span style="color:var(--red);">.</span></span>
     </a>
     <nav class="header-nav" id="header-nav">
       <a href="#problem">Why Credii</a>
