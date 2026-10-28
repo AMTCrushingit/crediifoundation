@@ -76,8 +76,8 @@
     .hero-sub { font-size: 1rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 36px; }
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 
-    .btn-primary { background: var(--red); color: #fff; padding: 13px 26px; border-radius: 100px; font-weight: 700; font-size: 0.9rem; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-flex; align-items: center; gap: 8px; }
-    .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); }
+    .btn-primary { background: #F2E8D9; color: var(--espresso, #2C1503); padding: 13px 26px; border-radius: 100px; font-weight: 800; font-size: 0.9rem; text-decoration: none; transition: background 0.2s, transform 0.15s, box-shadow 0.2s; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 16px rgba(242,232,217,0.4); letter-spacing: 0.2px; }
+    .btn-primary:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(242,232,217,0.5); }
     .btn-outline { background: transparent; color: var(--charcoal); padding: 13px 26px; border-radius: 100px; font-weight: 600; font-size: 0.9rem; text-decoration: none; border: 1.5px solid rgba(44,40,37,0.2); transition: border-color 0.2s, transform 0.15s; display: inline-flex; align-items: center; gap: 8px; }
     .btn-outline:hover { border-color: var(--charcoal); transform: translateY(-2px); }
 
@@ -806,8 +806,8 @@
     .hero-sub { font-size: 1.05rem; color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 12px; }
     .hero-sub2 { font-size: 1rem; color: rgba(255,255,255,0.65); line-height: 1.8; margin-bottom: 36px; }
     .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
-    .btn-outline-light { background: transparent; color: #fff; padding: 13px 26px; border-radius: 100px; font-weight: 600; font-size: 0.9rem; text-decoration: none; border: 1.5px solid rgba(255,255,255,0.5); transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
-    .btn-outline-light:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+    .btn-outline-light { background: transparent; color: #fff; padding: 13px 26px; border-radius: 100px; font-weight: 600; font-size: 0.9rem; text-decoration: none; border: 2px solid rgba(255,255,255,0.75); transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-outline-light:hover { border-color: #fff; background: rgba(255,255,255,0.15); transform: translateY(-2px); }
 
     /* ── PROBLEM: photo split ── */
     .problem { background: var(--warm-white); padding: 0; overflow: hidden; }
@@ -906,6 +906,14 @@
     }
     .header-nav.open a { padding: 10px 0; font-size: 1rem; border-bottom: 1px solid rgba(212,197,169,0.2); color: var(--text-muted) !important; }
     .header-nav.open .header-cta { margin-top: 8px; text-align: center; border-radius: 10px; }
+
+
+    /* Hero CTA overrides — cream on dark photo background */
+    .hero .btn-primary { background: #F2E8D9; color: #2C1503; font-weight: 800; box-shadow: 0 4px 20px rgba(242,232,217,0.3); }
+    .hero .btn-primary:hover { background: #fff; box-shadow: 0 8px 28px rgba(242,232,217,0.45); }
+    /* Restore red for btn-primary outside hero */
+    .membership .btn-primary, .get-involved .btn-primary, section:not(.hero) .btn-primary { background: var(--red); color: #fff; box-shadow: none; font-weight: 700; }
+    section:not(.hero) .btn-primary:hover { background: var(--red-dark); }
 
     /* GLOBAL LINK RESET */
     a { color: inherit; text-decoration: none; }
@@ -1102,8 +1110,7 @@
     <div class="hero-text">
       <div class="hero-eyebrow">Credii Foundation &middot; Trinidad &amp; Tobago</div>
       <h1>Building <em class="hero-em">trusted</em> pathways<br>to <em class="hero-em">opportunity.</em></h1>
-      <p class="hero-sub">Across the Caribbean, people gain skills, complete training, build businesses, and create value every day. Yet many achievements remain difficult to verify, carry forward, or use as trusted evidence of capability.</p>
-      <p class="hero-sub2">Credii is exploring how trusted credentials, verification, and trust profiles can help bridge the gap between capability and opportunity.</p>
+      <p class="hero-sub">Across the Caribbean, people build skills, businesses, experience and expertise every day. Credii is building the credentialing, verification and trust infrastructure that helps turn those achievements into trusted, portable evidence of capability.</p>
       <div class="hero-actions">
         <a href="#involved" class="btn-primary">Get Involved &#8599;</a>
         <a href="mailto:ourpartner@crediifoundation.org" class="btn-outline-light">Partner With Us</a>
