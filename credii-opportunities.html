@@ -1,246 +1,392 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Opportunities | Credii Foundation</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&amp;family=Fraunces:ital,wght@0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Fraunces:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet"/>
 <style>
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --red:#C0392B;--red-dark:#9B2D20;--red-pale:#FDF0EE;
-  --espresso:#2C1503;--espresso-pale:#F2E8D9;
-  --sand-pale:#FAF7F2;--warm-white:#FDFCF9;--off-white:#F5F3EF;
+  --espresso:#2C1503;--espresso-mid:#5C3317;--espresso-pale:#F2E8D9;
+  --sand:#D4C5A9;--sand-pale:#FAF7F2;
+  --warm-white:#FDFCF9;--off-white:#F5F3EF;
   --charcoal:#2C2825;--text:#3D3835;--muted:#7A7370;
   --border:rgba(212,197,169,0.4);
 }
-html,body{font-family:"DM Sans",sans-serif;color:var(--text);background:var(--warm-white);line-height:1.7;font-size:17px;}
+html,body{font-family:"DM Sans",sans-serif;color:var(--text);background:var(--warm-white);line-height:1.7;font-size:17px;overflow-x:hidden;}
 a{color:inherit;text-decoration:none;}
 a:hover{color:var(--red);}
-img{max-width:100%;height:auto;}
+img{max-width:100%;height:auto;display:block;}
 
 /* HEADER */
 .site-header{position:sticky;top:0;z-index:100;background:rgba(253,252,249,0.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:10px 5%;}
 .site-header-inner{display:flex;flex-direction:column;align-items:center;gap:8px;max-width:1200px;margin:0 auto;}
-.header-logo svg{display:block;}
 .header-nav{display:flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center;}
 .header-nav a{font-size:0.84rem;font-weight:500;color:var(--muted);transition:color 0.2s;}
 .header-nav a:hover{color:var(--red);}
 .header-cta{background:var(--red)!important;color:#fff!important;padding:7px 18px;border-radius:100px;font-weight:600;}
 .header-cta:hover{background:var(--red-dark)!important;}
 
-/* PAGE */
-.page-hero{background:var(--espresso-pale);padding:72px 5% 56px;border-bottom:1px solid var(--border);}
-.page-hero-inner{max-width:760px;margin:0 auto;}
-.page-eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
-.page-eyebrow::before{content:'';width:18px;height:2px;background:var(--red);border-radius:2px;display:inline-block;}
-.page-title{font-family:"Fraunces",serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:var(--charcoal);line-height:1.18;margin-bottom:16px;}
-.page-lead{font-size:1rem;color:var(--muted);line-height:1.8;max-width:640px;}
-.page-lead + .page-lead{margin-top:12px;}
-
-/* CONTENT */
-.page-content{max-width:860px;margin:0 auto;padding:64px 5% 80px;}
-.section-block{margin-bottom:56px;}
-.section-block:last-child{margin-bottom:0;}
-.block-label{font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:20px;}
-
-/* OPPORTUNITY CARDS */
-.opp-card{background:var(--off-white);border-radius:16px;border:1.5px solid var(--border);padding:28px 28px 24px;margin-bottom:20px;transition:box-shadow 0.2s;}
-.opp-card:hover{box-shadow:0 6px 24px rgba(44,40,37,0.08);}
-.opp-card:last-child{margin-bottom:0;}
-.opp-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:12px;flex-wrap:wrap;}
-.opp-title{font-family:"Fraunces",serif;font-size:1.05rem;font-weight:700;color:var(--charcoal);}
-.opp-tags{display:flex;gap:8px;flex-wrap:wrap;flex-shrink:0;}
-.opp-tag{font-size:0.7rem;font-weight:600;padding:3px 10px;border-radius:100px;background:var(--warm-white);border:1px solid var(--border);color:var(--muted);}
-.opp-desc{font-size:0.9rem;color:var(--muted);line-height:1.75;margin-bottom:16px;}
-.opp-list{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:20px;}
-.opp-list li{display:flex;align-items:flex-start;gap:10px;font-size:0.88rem;color:var(--text);}
-.opp-list li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--red);flex-shrink:0;margin-top:8px;}
-.opp-btn{display:inline-flex;align-items:center;gap:7px;background:var(--red);color:#fff;padding:10px 22px;border-radius:100px;font-weight:600;font-size:0.86rem;transition:background 0.2s;}
-.opp-btn:hover{background:var(--red-dark);color:#fff;}
-
-/* NO MATCH BOX */
-.no-match{background:var(--off-white);border-radius:14px;border:1.5px solid var(--border);padding:28px;margin-top:8px;}
-.no-match h3{font-family:"Fraunces",serif;font-size:1rem;font-weight:700;color:var(--charcoal);margin-bottom:6px;}
-.no-match p{font-size:0.88rem;color:var(--muted);line-height:1.7;margin-bottom:16px;}
-.no-match-btn{display:inline-flex;align-items:center;gap:7px;background:transparent;color:var(--red);padding:9px 20px;border-radius:100px;font-weight:600;font-size:0.86rem;border:1.5px solid var(--red);transition:all 0.2s;}
-.no-match-btn:hover{background:var(--red);color:#fff;}
-
-/* ORG SECTION */
-.org-box{background:var(--espresso);border-radius:18px;padding:36px 32px;margin-top:8px;}
-.org-box h3{font-family:"Fraunces",serif;font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:8px;}
-.org-box p{font-size:0.9rem;color:rgba(255,255,255,0.7);line-height:1.75;margin-bottom:20px;}
-.org-btn{display:inline-flex;align-items:center;gap:7px;background:var(--espresso-pale);color:var(--espresso);padding:10px 22px;border-radius:100px;font-weight:700;font-size:0.86rem;transition:background 0.2s;}
-.org-btn:hover{background:#fff;color:var(--espresso);}
-
 /* FOOTER */
-footer{background:var(--sand-pale);border-top:1.5px solid var(--border);padding:52px 5% 28px;}
+footer{background:var(--espresso);padding:56px 5% 32px;}
 .footer-inner{max-width:1200px;margin:0 auto;}
-.footer-top{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;padding-bottom:36px;border-bottom:1.5px solid var(--border);}
-.footer-col h2{font-size:0.7rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.footer-top{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,0.1);}
+.footer-col h2{font-size:0.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:14px;}
 .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
-.footer-col ul li a{font-size:0.84rem;color:var(--muted);transition:color 0.2s;}
-.footer-col ul li a:hover{color:var(--red);}
-.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:22px;flex-wrap:wrap;gap:12px;}
-.footer-tagline{font-size:0.8rem;font-style:italic;color:var(--muted);}
-.footer-copy{font-size:0.78rem;color:var(--muted);}
+.footer-col ul li a{font-size:0.84rem;color:rgba(255,255,255,0.6);transition:color 0.2s;}
+.footer-col ul li a:hover{color:#fff;}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:24px;flex-wrap:wrap;gap:12px;}
+.footer-tagline{font-size:0.8rem;font-style:italic;color:rgba(255,255,255,0.5);}
+.footer-copy{font-size:0.78rem;color:rgba(255,255,255,0.35);margin-top:3px;}
 .footer-legal{display:flex;gap:16px;flex-wrap:wrap;}
-.footer-legal a{font-size:0.78rem;color:var(--muted);transition:color 0.2s;}
-.footer-legal a:hover{color:var(--red);}
+.footer-legal a{font-size:0.78rem;color:rgba(255,255,255,0.4);transition:color 0.2s;}
+.footer-legal a:hover{color:#fff;}
+
+/* SHARED COMPONENTS */
+.eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.eyebrow::before{content:'';width:18px;height:2px;background:var(--red);border-radius:2px;display:inline-block;}
+.btn-red{display:inline-flex;align-items:center;gap:8px;background:var(--red);color:#fff;padding:12px 26px;border-radius:100px;font-weight:700;font-size:0.9rem;transition:all 0.2s;}
+.btn-red:hover{background:var(--red-dark);transform:translateY(-1px);}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--red);padding:11px 24px;border-radius:100px;font-weight:600;font-size:0.9rem;border:1.5px solid var(--red);transition:all 0.2s;}
+.btn-outline:hover{background:var(--red);color:#fff;}
+.btn-cream{display:inline-flex;align-items:center;gap:8px;background:var(--espresso-pale);color:var(--espresso);padding:12px 26px;border-radius:100px;font-weight:700;font-size:0.9rem;transition:all 0.2s;}
+.btn-cream:hover{background:#fff;color:var(--espresso);}
 
 @media(max-width:768px){
-  .opp-header{flex-direction:column;gap:10px;}
   .footer-top{grid-template-columns:1fr 1fr;}
-  .org-box{padding:28px 20px;}
+  .footer-bottom{flex-direction:column;align-items:flex-start;}
 }
 @media(max-width:480px){
   .footer-top{grid-template-columns:1fr;}
-  .footer-bottom{flex-direction:column;align-items:flex-start;}
+}
+
+
+/* ── OPPORTUNITIES SPECIFIC ── */
+
+/* HERO — full-bleed photo with text overlay */
+.opp-hero {
+  position: relative;
+  min-height: 500px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+.opp-hero-bg {
+  position: absolute; inset: 0;
+  background-image: url('https://content.carib-export.com/wp-content/uploads/2025/03/IWD-2025-Blog-Photo-1024x768.png');
+  background-size: cover;
+  background-position: center 25%;
+  filter: brightness(0.38) saturate(0.75);
+}
+.opp-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(44,21,3,0.85) 0%, rgba(44,21,3,0.2) 60%, transparent 100%);
+}
+.opp-hero-content {
+  position: relative; z-index: 2;
+  max-width: 860px;
+  padding: 0 5% 64px;
+}
+.opp-hero-content .eyebrow { color: rgba(255,255,255,0.55); }
+.opp-hero-content .eyebrow::before { background: rgba(255,255,255,0.4); }
+.opp-hero-title {
+  font-family: "Fraunces", serif;
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 700; color: #fff;
+  line-height: 1.12; margin-bottom: 18px;
+}
+.opp-hero-title em { color: var(--espresso-pale); font-style: italic; }
+.opp-hero-lead { font-size: 1rem; color: rgba(255,255,255,0.75); line-height: 1.8; max-width: 640px; }
+
+/* INTRO — warm editorial strip */
+.opp-intro {
+  background: var(--warm-white);
+  padding: 72px 5%;
+  border-bottom: 1.5px solid var(--border);
+}
+.opp-intro-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+.opp-intro-photo { border-radius: 24px 24px 120px 24px; overflow: hidden; aspect-ratio: 4/3; }
+.opp-intro-photo img { width: 100%; height: 100%; object-fit: cover; }
+.opp-intro-text h2 {
+  font-family: "Fraunces", serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 700; color: var(--charcoal);
+  line-height: 1.25; margin-bottom: 16px;
+}
+.opp-intro-text p { font-size: 0.95rem; color: var(--muted); line-height: 1.85; }
+.opp-intro-text p + p { margin-top: 14px; }
+
+/* ROLES — ruled editorial list, no cards */
+.opp-roles {
+  background: var(--espresso-pale);
+  padding: 96px 5%;
+}
+.opp-roles-inner { max-width: 900px; margin: 0 auto; }
+.opp-roles-header { margin-bottom: 48px; }
+.opp-roles-header h2 {
+  font-family: "Fraunces", serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 700; color: var(--charcoal); margin-bottom: 10px;
+}
+.opp-roles-header p { font-size: 0.92rem; color: var(--muted); line-height: 1.8; }
+
+.opp-role {
+  padding: 40px 0;
+  border-top: 1.5px solid rgba(44,21,3,0.15);
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 48px;
+  align-items: start;
+}
+.opp-role:last-child { border-bottom: 1.5px solid rgba(44,21,3,0.15); }
+.opp-role-meta { padding-top: 4px; }
+.opp-role-title {
+  font-family: "Fraunces", serif;
+  font-size: 1.1rem; font-weight: 700;
+  color: var(--charcoal); margin-bottom: 10px;
+  line-height: 1.3;
+}
+.opp-role-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 0; }
+.opp-role-tag {
+  font-size: 0.68rem; font-weight: 700;
+  padding: 3px 10px; border-radius: 100px;
+  background: rgba(44,21,3,0.08);
+  color: var(--espresso-mid);
+  letter-spacing: 0.4px;
+}
+.opp-role-body { }
+.opp-role-desc { font-size: 0.92rem; color: var(--muted); line-height: 1.8; margin-bottom: 16px; }
+.opp-role-list-label { font-size: 0.82rem; font-weight: 600; color: var(--charcoal); margin-bottom: 10px; }
+.opp-role-list { list-style: none; display: flex; flex-direction: column; gap: 7px; margin-bottom: 24px; }
+.opp-role-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.88rem; color: var(--text); }
+.opp-role-list li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red); flex-shrink: 0; margin-top: 8px; }
+
+/* NO MATCH — full-width dark strip -->
+.opp-nomatch {
+  background: var(--charcoal);
+  padding: 80px 5%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.opp-nomatch-inner { max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.opp-nomatch-text h2 {
+  font-family: "Fraunces", serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700; color: #fff;
+  line-height: 1.25; margin-bottom: 12px;
+}
+.opp-nomatch-text p { font-size: 0.92rem; color: rgba(255,255,255,0.65); line-height: 1.8; margin-bottom: 24px; }
+.opp-nomatch-photo { border-radius: 16px; overflow: hidden; aspect-ratio: 16/9; }
+.opp-nomatch-photo img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+
+/* ORGS — espresso bold section -->
+.opp-orgs {
+  background: var(--espresso);
+  padding: 96px 5%;
+}
+.opp-orgs-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+.opp-orgs-text h2 {
+  font-family: "Fraunces", serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 700; color: #fff;
+  line-height: 1.25; margin-bottom: 14px;
+}
+.opp-orgs-text p { font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 28px; }
+.opp-orgs-photo { border-radius: 24px 120px 24px 24px; overflow: hidden; aspect-ratio: 4/3; }
+.opp-orgs-photo img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
+
+@media(max-width:900px){
+  .opp-intro-inner { grid-template-columns: 1fr; gap: 36px; }
+  .opp-intro-photo { order: -1; }
+  .opp-role { grid-template-columns: 1fr; gap: 16px; }
+  .opp-nomatch-inner { grid-template-columns: 1fr; gap: 32px; }
+  .opp-nomatch-photo { display: none; }
+  .opp-orgs-inner { grid-template-columns: 1fr; gap: 36px; }
+  .opp-orgs-photo { display: none; }
 }
 </style>
 </head>
 <body>
+
 <header class="site-header">
-<div class="site-header-inner">
-<a aria-label="Credii Foundation home" class="header-logo" href="index.html">
-<svg height="40" viewbox="0 0 140 40" width="140" xmlns="http://www.w3.org/2000/svg">
-<rect fill="#C0392B" height="38" rx="8" width="38" x="0" y="1"></rect>
-<path d="M19 10c-5 0-9 4-9 9s4 9 9 9c2.8 0 5.2-1.2 7-3l-2.8-2.4c-1 1.2-2.6 1.9-4.2 1.9-3.5 0-6.3-2.8-6.3-6.3s2.8-6.3 6.3-6.3c1.6 0 3.1.6 4.2 1.8l2.8-2.4C24.2 11.2 21.8 10 19 10z" fill="white"></path>
-<text fill="#2C2825" font-family="Georgia,serif" font-size="20" font-weight="700" letter-spacing="-0.5" x="46" y="28">cred</text>
-<text fill="#C0392B" font-family="Georgia,serif" font-size="20" font-weight="700" letter-spacing="-0.5" x="100" y="28">ii</text>
-</svg>
-</a>
-<nav class="header-nav">
-<a href="index.html#problem">Why Credii</a>
-<a href="index.html#building">How It Works</a>
-<a href="index.html#approach">Our Vision</a>
-<a href="credii-governance.html">Governance</a>
-<a href="credii-opportunities.html">Opportunities</a>
-<a class="header-cta" href="mailto:ourpartner@crediifoundation.org">Partner With Us</a>
-</nav>
-</div>
+  <div class="site-header-inner">
+    <a href="index.html" aria-label="Credii Foundation home"><svg width="130" height="36" viewBox="0 0 140 40" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="1" width="38" height="38" rx="8" fill="#C0392B"/>
+        <path d="M19 10c-5 0-9 4-9 9s4 9 9 9c2.8 0 5.2-1.2 7-3l-2.8-2.4c-1 1.2-2.6 1.9-4.2 1.9-3.5 0-6.3-2.8-6.3-6.3s2.8-6.3 6.3-6.3c1.6 0 3.1.6 4.2 1.8l2.8-2.4C24.2 11.2 21.8 10 19 10z" fill="white"/>
+        <text x="46" y="28" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#2C2825" letter-spacing="-0.5">cred</text>
+        <text x="100" y="28" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#C0392B" letter-spacing="-0.5">ii</text>
+      </svg></a>
+    <nav class="header-nav">
+      <a href="index.html#problem">Why Credii</a>
+      <a href="index.html#building">How It Works</a>
+      <a href="index.html#approach">Our Vision</a>
+      <a href="credii-governance.html">Governance</a>
+      <a href="credii-opportunities.html">Opportunities</a>
+      <a href="mailto:ourpartner@crediifoundation.org" class="header-cta">Partner With Us</a>
+    </nav>
+  </div>
 </header>
-<div class="page-hero">
-<div class="page-hero-inner">
-<div class="page-eyebrow">Get Involved</div>
-<h1 class="page-title">Opportunities</h1>
-<p class="page-lead">Bring what you know. Help build what’s next.</p>
-<p class="page-lead" style="margin-top:12px;">Credii is bringing together people who believe skills, achievements, experience, and contribution should be easier to recognize, verify, and carry forward. There are many ways to contribute — from volunteering and research support to specialist expertise and community engagement.</p>
+
+<!-- HERO: full-bleed photo -->
+<div class="opp-hero">
+  <div class="opp-hero-bg"></div>
+  <div class="opp-hero-overlay"></div>
+  <div class="opp-hero-content">
+    <div class="eyebrow">Get Involved</div>
+    <h1 class="opp-hero-title">Bring what you know.<br><em>Help build what&#8217;s next.</em></h1>
+    <p class="opp-hero-lead">Credii is bringing together people who believe skills, achievements, experience, and contribution should be easier to recognize, verify, and carry forward. There are many ways to contribute.</p>
+  </div>
 </div>
+
+<!-- INTRO: photo + text -->
+<div class="opp-intro">
+  <div class="opp-intro-inner">
+    <div class="opp-intro-photo">
+      <img src="https://cariphilalliance.org/wp-content/uploads/2024/06/WAKE-5656.jpg" alt="Caribbean community workshop"/>
+    </div>
+    <div class="opp-intro-text">
+      <div class="eyebrow">Who We&#8217;re Looking For</div>
+      <h2>From volunteering to specialist expertise.</h2>
+      <p>We welcome people who want to help strengthen trust and opportunity across the Caribbean, whether through research support, communications, community engagement, or specialist knowledge we haven&#8217;t yet thought to recruit for.</p>
+      <p>We only list roles we are actively recruiting for. We&#8217;d rather have two real opportunities than ten hypothetical ones.</p>
+    </div>
+  </div>
 </div>
-<div class="page-content">
-<!-- Current Opportunities -->
-<div class="section-block">
-<div class="block-label">Current Opportunities</div>
-<div class="opp-card">
-<div class="opp-header">
-<div class="opp-title">Volunteer Program &amp; Research Support</div>
-<div class="opp-tags">
-<span class="opp-tag">Remote</span>
-<span class="opp-tag">Volunteer</span>
+
+<!-- ROLES: ruled editorial list -->
+<div class="opp-roles">
+  <div class="opp-roles-inner">
+    <div class="opp-roles-header">
+      <div class="eyebrow">Current Opportunities</div>
+      <h2>Two roles, open now.</h2>
+      <p>Both are remote volunteer positions. We&#8217;re a small team doing meaningful work, and we&#8217;re looking for people who want to contribute to something that matters.</p>
+    </div>
+
+    <div class="opp-role">
+      <div class="opp-role-meta">
+        <div class="opp-role-title">Volunteer Program &amp; Research Support</div>
+        <div class="opp-role-tags">
+          <span class="opp-role-tag">Remote</span>
+          <span class="opp-role-tag">Volunteer</span>
+        </div>
+      </div>
+      <div class="opp-role-body">
+        <p class="opp-role-desc">Support Credii&#8217;s research, programs, pilots, and stakeholder activities as we test new approaches to credentialing, verification, and trusted evidence of capability.</p>
+        <div class="opp-role-list-label">We&#8217;re looking for someone who can contribute to:</div>
+        <ul class="opp-role-list">
+          <li>Research and information gathering</li>
+          <li>Program and pilot coordination</li>
+          <li>Documentation and reporting</li>
+          <li>Participant and stakeholder support</li>
+        </ul>
+        <a href="mailto:contact@crediifoundation.org?subject=Volunteer%20Program%20%26%20Research%20Support" class="btn-red">Express Interest &#8599;</a>
+      </div>
+    </div>
+
+    <div class="opp-role">
+      <div class="opp-role-meta">
+        <div class="opp-role-title">Volunteer Communications Support</div>
+        <div class="opp-role-tags">
+          <span class="opp-role-tag">Remote</span>
+          <span class="opp-role-tag">Volunteer</span>
+        </div>
+      </div>
+      <div class="opp-role-body">
+        <p class="opp-role-desc">Help Credii communicate its work clearly and consistently as our programs, partnerships, and community grow.</p>
+        <div class="opp-role-list-label">We&#8217;re looking for someone who can contribute to:</div>
+        <ul class="opp-role-list">
+          <li>Digital content and communications</li>
+          <li>Social media support</li>
+          <li>Community updates</li>
+          <li>Stories from Credii programs and activities</li>
+        </ul>
+        <a href="mailto:contact@crediifoundation.org?subject=Volunteer%20Communications%20Support" class="btn-red">Express Interest &#8599;</a>
+      </div>
+    </div>
+  </div>
 </div>
+
+<!-- NO MATCH: dark strip with photo -->
+<div style="background:var(--charcoal);padding:80px 5%;">
+  <div class="opp-nomatch-inner">
+    <div class="opp-nomatch-text">
+      <div class="eyebrow" style="color:rgba(255,255,255,0.5);">Don&#8217;t See the Right Opportunity?</div>
+      <h2>Your expertise may still be useful.</h2>
+      <p>Credii&#8217;s work touches research, education, entrepreneurship, technology, workforce development, economic inclusion, community development, and digital trust. If you have experience or expertise that could contribute, we&#8217;d be happy to hear from you.</p>
+      <a href="mailto:contact@crediifoundation.org?subject=Introduction" class="btn-cream">Introduce Yourself &#8599;</a>
+    </div>
+    <div class="opp-nomatch-photo">
+      <img src="https://www.healthycaribbean.org/wp-content/uploads/2024/02/DSC_0103.jpg" alt="Caribbean community"/>
+    </div>
+  </div>
 </div>
-<p class="opp-desc">Support Credii’s research, programs, pilots, and stakeholder activities as we test new approaches to credentialing, verification, and trusted evidence of capability.</p>
-<p style="font-size:0.84rem;font-weight:600;color:var(--charcoal);margin-bottom:10px;">We’re looking for someone who can contribute to:</p>
-<ul class="opp-list">
-<li>Research and information gathering</li>
-<li>Program and pilot coordination</li>
-<li>Documentation and reporting</li>
-<li>Participant and stakeholder support</li>
-</ul>
-<a class="opp-btn" href="mailto:contact@crediifoundation.org?subject=Volunteer%20Program%20%26%20Research%20Support">Express Interest ↗</a>
+
+<!-- ORGS: espresso section -->
+<div class="opp-orgs">
+  <div class="opp-orgs-inner">
+    <div class="opp-orgs-text">
+      <div class="eyebrow" style="color:rgba(255,255,255,0.5);">For Organizations</div>
+      <h2>Looking to collaborate as an organization?</h2>
+      <p>We work with organizations interested in research, pilot programs, credentialing, verification, community engagement, and other opportunities to strengthen trusted pathways to opportunity across the Caribbean.</p>
+      <a href="mailto:ourpartner@crediifoundation.org" class="btn-cream">Explore Partnership Opportunities &#8599;</a>
+    </div>
+    <div class="opp-orgs-photo">
+      <img src="https://unsdg.un.org/sites/default/files/styles/hero_divider_2xl_1x/public/2025-03/Bahamas_women-entrepreneurs.jpeg?itok=TDHSO0rE" alt="Caribbean organizations collaborating"/>
+    </div>
+  </div>
 </div>
-<div class="opp-card">
-<div class="opp-header">
-<div class="opp-title">Volunteer Communications Support</div>
-<div class="opp-tags">
-<span class="opp-tag">Remote</span>
-<span class="opp-tag">Volunteer</span>
-</div>
-</div>
-<p class="opp-desc">Help Credii communicate its work clearly and consistently as our programs, partnerships, and community grow.</p>
-<p style="font-size:0.84rem;font-weight:600;color:var(--charcoal);margin-bottom:10px;">We’re looking for someone who can contribute to:</p>
-<ul class="opp-list">
-<li>Digital content and communications</li>
-<li>Social media support</li>
-<li>Community updates</li>
-<li>Stories from Credii programs and activities</li>
-</ul>
-<a class="opp-btn" href="mailto:contact@crediifoundation.org?subject=Volunteer%20Communications%20Support">Express Interest ↗</a>
-</div>
-</div>
-<!-- No match -->
-<div class="section-block">
-<div class="block-label">Don’t See the Right Opportunity?</div>
-<div class="no-match">
-<h3>Your expertise may still be useful.</h3>
-<p>Credii’s work touches research, education, entrepreneurship, technology, workforce development, economic inclusion, community development, and digital trust. If you have experience or expertise that could contribute to our work, we’d be happy to hear from you.</p>
-<a class="no-match-btn" href="mailto:contact@crediifoundation.org?subject=Introduction">Introduce Yourself ↗</a>
-</div>
-</div>
-<!-- Organizations -->
-<div class="section-block">
-<div class="block-label">For Organizations</div>
-<div class="org-box">
-<h3>Looking to collaborate as an organization?</h3>
-<p>We work with organizations interested in research, pilot programs, credentialing, verification, community engagement, and other opportunities to strengthen trusted pathways to opportunity across the Caribbean.</p>
-<a class="org-btn" href="mailto:ourpartner@crediifoundation.org">Explore Partnership Opportunities ↗</a>
-</div>
-</div>
-</div>
+
 <footer>
-<div class="footer-inner">
-<div class="footer-top">
-<div class="footer-col">
-<h2>Explore</h2>
-<ul>
-<li><a href="index.html#problem">Why Credii</a></li>
-<li><a href="index.html#building">How It Works</a></li>
-<li><a href="index.html#approach">Our Vision</a></li>
-<li><a href="index.html#involved">Programs &amp; Pilots</a></li>
-</ul>
-</div>
-<div class="footer-col">
-<h2>Organization</h2>
-<ul>
-<li><a href="credii-governance.html">Governance</a></li>
-<li><a href="credii-opportunities.html">Opportunities</a></li>
-<li><a href="#">FAQs</a></li>
-<li><a href="mailto:contact@crediifoundation.org">Contact</a></li>
-</ul>
-</div>
-<div class="footer-col">
-<h2>Tools</h2>
-<ul>
-<li><a href="credii-trust.html">Trust Platform (Beta)</a></li>
-<li><a href="credii-verify.html">Credential Verification</a></li>
-<li><a href="credii-portal.html">Member Portal</a></li>
-</ul>
-</div>
-<div class="footer-col">
-<h2>Connect</h2>
-<ul>
-<li><a href="mailto:ourpartner@crediifoundation.org">Partner With Us</a></li>
-<li><a href="index.html#involved">Join the Community</a></li>
-<li><a href="https://www.linkedin.com/company/credii-foundation/posts/?viewAsMember=true" rel="noopener" target="_blank">LinkedIn</a></li>
-<li><a href="https://www.instagram.com/credii" rel="noopener" target="_blank">Instagram</a></li>
-<li><a href="https://www.facebook.com/profile.php?id=61589564333491" rel="noopener" target="_blank">Facebook</a></li>
-</ul>
-</div>
-</div>
-<div class="footer-bottom">
-<div>
-<div class="footer-tagline">Making capability more visible, trusted, and recognized.</div>
-<div class="footer-copy">© 2026 Credii Foundation · Trinidad &amp; Tobago</div>
-</div>
-<div class="footer-legal">
-<a href="credii-privacy.html">Privacy Policy</a>
-<a href="mailto:legal@crediifoundation.org?subject=Terms%20of%20Use">Terms of Use</a>
-<a href="mailto:legal@crediifoundation.org?subject=Trust%20and%20Verification">Trust &amp; Verification</a>
-</div>
-</div>
-</div>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-col"><h2>Explore</h2><ul>
+        <li><a href="index.html#problem">Why Credii</a></li>
+        <li><a href="index.html#building">How It Works</a></li>
+        <li><a href="index.html#approach">Our Vision</a></li>
+        <li><a href="index.html#involved">Programs &amp; Pilots</a></li>
+      </ul></div>
+      <div class="footer-col"><h2>Organization</h2><ul>
+        <li><a href="credii-governance.html">Governance</a></li>
+        <li><a href="credii-opportunities.html">Opportunities</a></li>
+        <li><a href="#">FAQs</a></li>
+        <li><a href="mailto:contact@crediifoundation.org">Contact</a></li>
+      </ul></div>
+      <div class="footer-col"><h2>Tools</h2><ul>
+        <li><a href="credii-trust.html">Trust Platform (Beta)</a></li>
+        <li><a href="credii-verify.html">Credential Verification</a></li>
+        <li><a href="credii-portal.html">Member Portal</a></li>
+      </ul></div>
+      <div class="footer-col"><h2>Connect</h2><ul>
+        <li><a href="mailto:ourpartner@crediifoundation.org">Partner With Us</a></li>
+        <li><a href="index.html#involved">Join the Community</a></li>
+        <li><a href="https://www.linkedin.com/company/credii-foundation/posts/?viewAsMember=true" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://www.instagram.com/credii" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://www.facebook.com/profile.php?id=61589564333491" target="_blank" rel="noopener">Facebook</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div>
+        <div class="footer-tagline">Making capability more visible, trusted, and recognized.</div>
+        <div class="footer-copy">&#169; 2026 Credii Foundation &middot; Trinidad &amp; Tobago</div>
+      </div>
+      <div class="footer-legal">
+        <a href="credii-privacy.html">Privacy Policy</a>
+        <a href="mailto:legal@crediifoundation.org?subject=Terms">Terms of Use</a>
+        <a href="mailto:legal@crediifoundation.org?subject=Trust">Trust &amp; Verification</a>
+      </div>
+    </div>
+  </div>
 </footer>
 </body>
 </html>
