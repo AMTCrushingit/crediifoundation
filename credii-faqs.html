@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FAQs | Credii Foundation</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&amp;family=Fraunces:ital,wght@0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#C0392B;--red-dark:#9B2D20;--red-pale:#FDF0EE;
+  --espresso:#2C1503;--espresso-mid:#5C3317;--espresso-pale:#F2E8D9;
+  --sand-pale:#FAF7F2;--warm-white:#FDFCF9;--off-white:#F5F3EF;
+  --charcoal:#2C2825;--text:#3D3835;--muted:#7A7370;
+  --border:rgba(212,197,169,0.4);
+}
+html,body{font-family:"DM Sans",sans-serif;color:var(--text);background:var(--warm-white);line-height:1.7;font-size:17px;overflow-x:hidden;}
+a{color:inherit;text-decoration:none;}
+a:hover{color:var(--red);}
+
+/* HEADER */
+.site-header{position:sticky;top:0;z-index:100;background:rgba(253,252,249,0.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:10px 5%;}
+.site-header-inner{display:flex;flex-direction:column;align-items:center;gap:8px;max-width:1200px;margin:0 auto;}
+.header-nav{display:flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center;}
+.header-nav a{font-size:0.84rem;font-weight:500;color:var(--muted);transition:color 0.2s;}
+.header-nav a:hover{color:var(--red);}
+.header-cta{background:var(--red)!important;color:#fff!important;padding:7px 18px;border-radius:100px;font-weight:600;}
+.header-cta:hover{background:var(--red-dark)!important;}
+
+/* PAGE HERO */
+.page-hero{background:var(--espresso-pale);padding:72px 5% 56px;border-bottom:1px solid var(--border);}
+.page-hero-inner{max-width:760px;margin:0 auto;}
+.page-eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.page-eyebrow::before{content:'';width:18px;height:2px;background:var(--red);border-radius:2px;display:inline-block;}
+.page-title{font-family:"Fraunces",serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:var(--charcoal);line-height:1.18;margin-bottom:14px;}
+.page-lead{font-size:1rem;color:var(--muted);line-height:1.8;max-width:580px;}
+
+/* FAQ CONTENT */
+.faq-content{max-width:800px;margin:0 auto;padding:72px 5% 96px;}
+
+/* GROUP */
+.faq-group{margin-bottom:56px;}
+.faq-group:last-child{margin-bottom:0;}
+.faq-group-title{
+  font-family:"Fraunces",serif;
+  font-size:1.15rem;font-weight:700;
+  color:var(--charcoal);
+  margin-bottom:24px;
+  padding-bottom:12px;
+  border-bottom:2px solid var(--red);
+  display:flex;align-items:center;gap:10px;
+}
+.faq-group-title::before{
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--red);flex-shrink:0;
+}
+
+/* ACCORDION */
+.faq-item{border-bottom:1px solid var(--border);}
+.faq-item:first-of-type{border-top:1px solid var(--border);}
+
+.faq-question{
+  width:100%;background:none;border:none;
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:16px;padding:20px 0;
+  cursor:pointer;text-align:left;
+  font-family:"DM Sans",sans-serif;
+  font-size:1rem;font-weight:600;
+  color:var(--charcoal);
+  transition:color 0.2s;
+}
+.faq-question:hover{color:var(--red);}
+.faq-question.open{color:var(--red);}
+
+.faq-icon{
+  width:24px;height:24px;border-radius:50%;
+  background:var(--off-white);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:2px;
+  font-size:0.9rem;color:var(--muted);
+  transition:background 0.2s,transform 0.3s,color 0.2s;
+}
+.faq-question.open .faq-icon{
+  background:var(--red-pale);color:var(--red);
+  transform:rotate(45deg);
+}
+
+.faq-answer{
+  max-height:0;overflow:hidden;
+  transition:max-height 0.35s ease,padding 0.2s;
+}
+.faq-answer.open{max-height:400px;}
+.faq-answer-inner{
+  padding:0 0 20px;
+  font-size:0.95rem;color:var(--muted);line-height:1.8;
+}
+.faq-answer-inner strong{color:var(--charcoal);}
+
+/* CTA STRIP */
+.faq-cta{
+  background:var(--espresso);
+  border-radius:20px;
+  padding:48px 40px;
+  text-align:center;
+  margin-top:64px;
+}
+.faq-cta h3{font-family:"Fraunces",serif;font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:10px;}
+.faq-cta p{font-size:0.92rem;color:rgba(255,255,255,0.65);margin-bottom:24px;line-height:1.7;}
+.faq-cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-cream{display:inline-flex;align-items:center;gap:8px;background:var(--espresso-pale);color:var(--espresso);padding:12px 26px;border-radius:100px;font-weight:700;font-size:0.9rem;transition:background 0.2s;}
+.btn-cream:hover{background:#fff;color:var(--espresso);}
+.btn-outline-cream{display:inline-flex;align-items:center;gap:8px;background:transparent;color:rgba(255,255,255,0.75);padding:11px 24px;border-radius:100px;font-weight:600;font-size:0.9rem;border:1.5px solid rgba(255,255,255,0.3);transition:all 0.2s;}
+.btn-outline-cream:hover{border-color:rgba(255,255,255,0.7);color:#fff;}
+
+/* FOOTER */
+footer{background:var(--espresso);padding:56px 5% 32px;}
+.footer-inner{max-width:1200px;margin:0 auto;}
+.footer-top{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,0.1);}
+.footer-col h2{font-size:0.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:14px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.footer-col ul li a{font-size:0.84rem;color:rgba(255,255,255,0.6);transition:color 0.2s;}
+.footer-col ul li a:hover{color:#fff;}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:24px;flex-wrap:wrap;gap:12px;}
+.footer-tagline{font-size:0.8rem;font-style:italic;color:rgba(255,255,255,0.5);}
+.footer-copy{font-size:0.78rem;color:rgba(255,255,255,0.35);margin-top:3px;}
+.footer-legal{display:flex;gap:16px;flex-wrap:wrap;}
+.footer-legal a{font-size:0.78rem;color:rgba(255,255,255,0.4);transition:color 0.2s;}
+.footer-legal a:hover{color:#fff;}
+
+@media(max-width:768px){
+  .footer-top{grid-template-columns:1fr 1fr;}
+  .faq-cta{padding:36px 24px;}
+  .faq-cta-actions{flex-direction:column;align-items:center;}
+}
+@media(max-width:480px){
+  .footer-top{grid-template-columns:1fr;}
+  .footer-bottom{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+<div class="site-header-inner">
+<a aria-label="Credii Foundation home" href="index.html">
+<svg height="36" style="display:block;" viewbox="0 0 140 40" width="130" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#C0392B" height="38" rx="8" width="38" x="0" y="1"></rect>
+<path d="M19 10c-5 0-9 4-9 9s4 9 9 9c2.8 0 5.2-1.2 7-3l-2.8-2.4c-1 1.2-2.6 1.9-4.2 1.9-3.5 0-6.3-2.8-6.3-6.3s2.8-6.3 6.3-6.3c1.6 0 3.1.6 4.2 1.8l2.8-2.4C24.2 11.2 21.8 10 19 10z" fill="white"></path>
+<text fill="#2C2825" font-family="Georgia,serif" font-size="20" font-weight="700" letter-spacing="-0.5" x="46" y="28">cred</text>
+<text fill="#C0392B" font-family="Georgia,serif" font-size="20" font-weight="700" letter-spacing="-0.5" x="100" y="28">ii</text>
+</svg>
+</a>
+<nav class="header-nav">
+<a href="index.html#problem">Why Credii</a>
+<a href="index.html#building">How It Works</a>
+<a href="index.html#approach">Our Vision</a>
+<a href="credii-governance.html">Governance</a>
+<a href="credii-opportunities.html">Opportunities</a>
+<a class="header-cta" href="mailto:hello@crediifoundation.org">Partner With Us</a>
+</nav>
+</div>
+</header>
+<div class="page-hero">
+<div class="page-hero-inner">
+<div class="page-eyebrow">Questions</div>
+<h1 class="page-title">Frequently Asked Questions</h1>
+<p class="page-lead">Practical answers to common questions about Credii, digital credentials, verification, and Trust Profiles.</p>
+</div>
+</div>
+<div class="faq-content">
+<!-- GROUP 1: About Credii -->
+<div class="faq-group">
+<div class="faq-group-title">About Credii</div>
+<div class="faq-item">
+<button class="faq-question" onclick="toggle(this)">
+        What is Credii?
+        <span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<div class="faq-answer-inner">Credii is a Caribbean trust infrastructure initiative that helps people and organizations transform capability into recognized opportunity through trusted evidence, credentials, verification, and optional Trust Profiles.</div>
+</div>
+</div>
+<div class="faq-item">
+<button class="faq-question" onclick="toggle(this)">
+        Is Credii only for women entrepreneurs?
+        <span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<div class="faq-answer-inner">No. While Credii’s first pilot focuses on women entrepreneurs, the framework is intended to support a wide range of individuals and communities across the Caribbean.</div>
+</div>
+</div>
+<div class="faq-item">
+<button class="faq-question" onclick="toggle(this)">
+        Is Credii available across the Caribbean?
+        <span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<div class="faq-answer-inner">Credii is being developed with regional adoption in mind. Initial pilots are taking place in Trinidad &amp; Tobago, with plans to expand across the Caribbean over time.</div>
+</div>
+</div>
+<div class="faq-item">
+<button class="faq-question" onclick="toggle(this)">
+        Who is Credii for?
+        <span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<div class="faq-answer-inner">Credii is designed for individuals, entrepreneurs, students, workers, community members, organizations, institutions, and opportunity providers seeking trusted ways to recognize and demonstrate capability.</div>
+</div>
+</div>
+</div>
+<!-- GROUP 2: Credentials & Verification -->
+<div class="faq-group">
+<div class="faq-group-title">Credentials &amp; Verification</div>
+<div class="faq-item">
+<button class="faq-question" onclick="toggle(this)">
+        What is a digital credential?
+        <span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<div class="faq-answer-inner">A digital credential is a secure, verifiable record of an achievement, skill, qualification, experience, or accomplishment that can be shared online and independently verified.</div>
+</div>
+</div>
+<div class="faq-item">
+<button class="faq-question" onclick="toggle(this)">
+        What can Credii credentials represent?
+        <span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<div class="faq-answer-inner">Credii credentials can represent learning, training, skills, achievements, professional development, business milestones, participation in programmes, community contributions, and other forms of trusted evidence.</div>
+</div>
+</div>
+<div class="faq-item">
+<button class="faq-question" onclick="toggle(this)">
+        How does credential verification work?
+        <span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<div class="faq-answer-inner">Each credential can be independently verified to confirm its authenticity, issuer, status, and associated achievement, helping build trust and confidence in the information being shared.</div>
+</div>
+</div>
+<div class="faq-item">
+<button class="faq-question" onclick="toggle(this)">
+        Who can issue credentials?
+        <span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<div class="faq-answer-inner">Educational institutions, training providers, employers, professional associations, community organizations, non-profits, project partners, and other approved credential issuers can issue credentials through Credii.</div>
+</div>
+</div>
+<div class="faq-item">
+<button class="faq-question" onclick="toggle(this)">
+        Who can verify credentials?
+        <span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<div class="faq-answer-inner">Anyone receiving a credential — including employers, financial institutions, opportunity providers, training organizations, or community partners — can verify its authenticity.</div>
+</div>
+</div>
+</div>
+<!-- GROUP 3: Trust Profiles -->
+<div class="faq-group">
+<div class="faq-group-title">Trust Profiles</div>
+<div class="faq-item">
+<button class="faq-question" onclick="toggle(this)">
+        What is a Credii Trust Profile?
+        <span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<div class="faq-answer-inner">A Trust Profile is an optional digital profile that brings together verified achievements, credentials, experiences, evidence, and trust signals in one place to help individuals better demonstrate their capabilities.</div>
+</div>
+</div>
+<div class="faq-item">
+<button class="faq-question" onclick="toggle(this)">
+        Do I need a Trust Profile to use Credii credentials?
+        <span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<div class="faq-answer-inner">No. Credii credentials can be issued, shared, and verified independently. A Trust Profile simply provides an additional way to organize and showcase trusted evidence.</div>
+</div>
+</div>
+</div>
+<!-- GROUP 4: Getting Involved -->
+<div class="faq-group">
+<div class="faq-group-title">Getting Involved</div>
+<div class="faq-item">
+<button class="faq-question" onclick="toggle(this)">
+        How can my organization participate?
+        <span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<div class="faq-answer-inner">Organizations can participate as credential issuers, verification partners, pilot collaborators, ecosystem partners, employers, opportunity providers, sponsors, researchers, or community supporters.</div>
+</div>
+</div>
+<div class="faq-item">
+<button class="faq-question" onclick="toggle(this)">
+        How can I volunteer?
+        <span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<div class="faq-answer-inner">You can support Credii by contributing your time, expertise, professional skills, mentorship, research, outreach, technology, communications, or community engagement experience. Visit our <a href="credii-opportunities.html" style="color:var(--red);font-weight:600;">Opportunities page</a> to see current roles.</div>
+</div>
+</div>
+<div class="faq-item">
+<button class="faq-question" onclick="toggle(this)">
+        How can I support Credii?
+        <span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<div class="faq-answer-inner">You can support Credii by becoming a partner, sponsor, funder, volunteer, advisor, credential issuer, verification partner, or advocate for trusted pathways to opportunity across the Caribbean.</div>
+</div>
+</div>
+</div>
+<!-- CTA -->
+<div class="faq-cta">
+<h3>Still have questions?</h3>
+<p>We’re happy to hear from you. Reach out and we’ll get back to you as soon as we can.</p>
+<div class="faq-cta-actions">
+<a class="btn-cream" href="mailto:hello@crediifoundation.org">Get in Touch ↗</a>
+<a class="btn-outline-cream" href="credii-opportunities.html">See Opportunities</a>
+</div>
+</div>
+</div>
+<footer>
+<div class="footer-inner">
+<div class="footer-top">
+<div class="footer-col"><h2>Explore</h2><ul>
+<li><a href="index.html#problem">Why Credii</a></li>
+<li><a href="index.html#building">How It Works</a></li>
+<li><a href="index.html#approach">Our Vision</a></li>
+<li><a href="index.html#involved">Programs &amp; Pilots</a></li>
+</ul></div>
+<div class="footer-col"><h2>Organization</h2><ul>
+<li><a href="credii-governance.html">Governance</a></li>
+<li><a href="credii-opportunities.html">Opportunities</a></li>
+<li><a href="credii-faqs.html">FAQs</a></li>
+<li><a href="mailto:hello@crediifoundation.org">Contact</a></li>
+</ul></div>
+<div class="footer-col"><h2>Tools</h2><ul>
+<li><a href="credii-trust.html">Trust Platform (Beta)</a></li>
+<li><a href="credii-verify.html">Credential Verification</a></li>
+<li><a href="credii-portal.html">Member Portal</a></li>
+</ul></div>
+<div class="footer-col"><h2>Connect</h2><ul>
+<li><a href="mailto:hello@crediifoundation.org">Partner With Us</a></li>
+<li><a href="index.html#involved">Join the Community</a></li>
+<li><a href="https://www.linkedin.com/company/credii-foundation/posts/?viewAsMember=true" rel="noopener" target="_blank">LinkedIn</a></li>
+<li><a href="https://www.instagram.com/credii" rel="noopener" target="_blank">Instagram</a></li>
+<li><a href="https://www.facebook.com/profile.php?id=61589564333491" rel="noopener" target="_blank">Facebook</a></li>
+</ul></div>
+</div>
+<div class="footer-bottom">
+<div>
+<div class="footer-tagline">Making capability more visible, trusted, and recognized.</div>
+<div class="footer-copy">© 2026 Credii Foundation · Trinidad &amp; Tobago</div>
+</div>
+<div class="footer-legal">
+<a href="credii-privacy.html">Privacy Policy</a>
+<a href="mailto:hello@crediifoundation.org?subject=Terms">Terms of Use</a>
+<a href="mailto:hello@crediifoundation.org?subject=Trust">Trust &amp; Verification</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+function toggle(btn){
+  var answer = btn.nextElementSibling;
+  var isOpen = btn.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.faq-question.open').forEach(function(q){
+    q.classList.remove('open');
+    q.nextElementSibling.classList.remove('open');
+  });
+  // Open this one if it was closed
+  if(!isOpen){
+    btn.classList.add('open');
+    answer.classList.add('open');
+  }
+}
+</script>
+</body>
+</html>
