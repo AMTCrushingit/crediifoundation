@@ -394,7 +394,14 @@
       .footer-bottom-links { flex-wrap: wrap; gap: 10px; }
 
       /* Scrolling band */
-      .scroll-item { padding: 0 20px; font-size: 0.75rem; }
+      .scroll-band { background: var(--espresso, #2C1503); overflow: hidden; padding: 13px 0; position: relative; }
+    .scroll-band::before, .scroll-band::after { content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; }
+    .scroll-band::before { left: 0; background: linear-gradient(to right, var(--espresso, #2C1503), transparent); }
+    .scroll-band::after  { right: 0; background: linear-gradient(to left, var(--espresso, #2C1503), transparent); }
+    .scroll-track { display: flex; animation: scrollLeft 36s linear infinite; width: max-content; }
+    @keyframes scrollLeft { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .scroll-item { display: flex; align-items: center; gap: 10px; padding: 0 32px; white-space: nowrap; color: rgba(255,255,255,0.75); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.6px; }
+    .scroll-star { color: rgba(255,255,255,0.4); font-size: 0.6rem; }
 
       /* Trust callout */
       .trust-callout { padding: 40px 4%; }
