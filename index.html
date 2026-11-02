@@ -213,6 +213,232 @@
     .vs-principle-name { font-family: 'Fraunces', serif; font-size: 0.92rem; font-weight: 700; color: var(--charcoal); }
     .vs-principle-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; padding-left: 28px; }
 
+
+    /* ── VERIFICATION DEMO ── */
+    .verify-demo {
+      background: #1A1A2E;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.4);
+      height: 100%;
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+      margin: 32px 32px 32px 0;
+    }
+
+    /* Browser chrome */
+    .vd-browser {
+      background: #16213E;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      flex-shrink: 0;
+    }
+    .vd-dots { display: flex; gap: 6px; }
+    .vd-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .vd-dot-red { background: #FF5F57; }
+    .vd-dot-yellow { background: #FFBD2E; }
+    .vd-dot-green { background: #28CA41; }
+    .vd-url {
+      background: rgba(255,255,255,0.07);
+      border-radius: 6px;
+      padding: 4px 12px;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.45);
+      font-family: monospace;
+      flex: 1;
+      text-align: center;
+    }
+
+    /* Body */
+    .vd-body {
+      flex: 1;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    .vd-state { display: flex; flex-direction: column; gap: 0; }
+    .vd-hidden { display: none !important; }
+
+    /* Input state */
+    .vd-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #C0392B;
+      margin-bottom: 8px;
+    }
+    .vd-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .vd-sub {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .vd-input-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 6px;
+    }
+    .vd-input-field {
+      background: rgba(255,255,255,0.06);
+      border: 1.5px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-family: monospace;
+      font-size: 1rem;
+      color: #fff;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      min-height: 46px;
+      display: flex;
+      align-items: center;
+      transition: border-color 0.3s;
+    }
+    .vd-input-field.typing { border-color: rgba(192,57,43,0.6); }
+    .vd-cursor {
+      color: #C0392B;
+      animation: blink 0.8s infinite;
+      font-weight: 300;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    .vd-btn {
+      background: #C0392B;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    .vd-btn.visible { opacity: 1; transform: translateY(0); transition: opacity 0.4s, transform 0.4s, background 0.2s; }
+    .vd-btn:hover { background: #9B2D20; }
+
+    /* Loading state */
+    .vd-spinner-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .vd-spinner {
+      width: 44px; height: 44px;
+      border: 3px solid rgba(255,255,255,0.1);
+      border-top-color: #C0392B;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .vd-loading-text {
+      font-size: 0.84rem;
+      color: rgba(255,255,255,0.6);
+    }
+    .vd-loading-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .vd-step {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.7);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .vd-step.visible { opacity: 1; transform: translateX(0); }
+    .vd-step-pending { color: rgba(255,255,255,0.3); }
+
+    /* Result state */
+    .vd-result-icon {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: rgba(40,202,65,0.15);
+      border: 2px solid #28CA41;
+      color: #28CA41;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      animation: popIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
+    }
+    @keyframes popIn { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+    .vd-result-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .vd-result-sub {
+      font-size: 0.76rem;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .vd-result-fields {
+      background: rgba(255,255,255,0.04);
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .vd-field {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.76rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding-bottom: 8px;
+    }
+    .vd-field:last-child { border-bottom: none; padding-bottom: 0; }
+    .vd-field-label { color: rgba(255,255,255,0.4); flex-shrink: 0; }
+    .vd-field-value { color: #fff; text-align: right; }
+    .vd-verified-badge {
+      display: inline-block;
+      background: rgba(40,202,65,0.15);
+      color: #28CA41;
+      font-size: 0.65rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 6px;
+    }
+    .vd-status-valid { color: #28CA41; font-weight: 600; }
+    .vd-replay {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.35);
+      cursor: pointer;
+      text-align: center;
+      transition: color 0.2s;
+    }
+    .vd-replay:hover { color: rgba(255,255,255,0.7); }
+
     /* WHO WE SERVE */
     .who-serve { background: var(--warm-white); position: relative; overflow: hidden; }
     .who-deco { position: absolute; border-radius: 50%; }
@@ -1252,12 +1478,67 @@
       <p class="build-closing">Each capability can stand on its own. Together, they create the foundation for a stronger Caribbean trust ecosystem.</p>
     </div>
     <div class="build-photo anim-right">
-      <img src="https://static.wixstatic.com/media/e19a38_c808d055abc048bb867b6e00b6b577ef~mv2.jpg/v1/fill/w_611,h_407,al_c,lg_1,q_80,enc_auto/csCS2.jpg" alt="Caribbean girls learning digital skills" />
-      <div class="build-photo-overlay">
-        <span>&#8220;Making capability visible and trusted.&#8221;</span>
+  <div class="verify-demo" id="verifyDemo">
+
+    <!-- Browser chrome -->
+    <div class="vd-browser">
+      <div class="vd-dots">
+        <span class="vd-dot vd-dot-red"></span>
+        <span class="vd-dot vd-dot-yellow"></span>
+        <span class="vd-dot vd-dot-green"></span>
       </div>
+      <div class="vd-url">verify.crediifoundation.org</div>
+    </div>
+
+    <!-- Demo content -->
+    <div class="vd-body">
+
+      <!-- State 1: Input -->
+      <div class="vd-state" id="vd-input">
+        <div class="vd-label">Credential Verification</div>
+        <div class="vd-title">Verify a Credential</div>
+        <div class="vd-sub">Enter a credential ID to confirm its issuer, status, and authenticity.</div>
+        <div class="vd-input-wrap">
+          <div class="vd-input-label">Credential ID</div>
+          <div class="vd-input-field">
+            <span class="vd-typed" id="vd-typed"></span><span class="vd-cursor" id="vd-cursor">|</span>
+          </div>
+        </div>
+        <div class="vd-btn" id="vd-verify-btn">Verify Credential</div>
+      </div>
+
+      <!-- State 2: Loading -->
+      <div class="vd-state vd-hidden" id="vd-loading">
+        <div class="vd-spinner-wrap">
+          <div class="vd-spinner"></div>
+          <div class="vd-loading-text">Checking credential record...</div>
+        </div>
+        <div class="vd-loading-steps">
+          <div class="vd-step" id="step1">&#10003; Locating credential record</div>
+          <div class="vd-step vd-step-pending" id="step2">&#10003; Verifying issuer signature</div>
+          <div class="vd-step vd-step-pending" id="step3">&#10003; Checking revocation status</div>
+        </div>
+      </div>
+
+      <!-- State 3: Result -->
+      <div class="vd-state vd-hidden" id="vd-result">
+        <div class="vd-result-icon">&#10003;</div>
+        <div class="vd-result-title">Credential Verified</div>
+        <div class="vd-result-sub">This credential was issued through Credii and is currently valid.</div>
+        <div class="vd-result-fields">
+          <div class="vd-field"><span class="vd-field-label">Credential</span><span class="vd-field-value">Digital Readiness Certificate</span></div>
+          <div class="vd-field"><span class="vd-field-label">Issued to</span><span class="vd-field-value">Andrea Joseph</span></div>
+          <div class="vd-field"><span class="vd-field-label">Issued by</span><span class="vd-field-value">Credii Foundation <span class="vd-verified-badge">&#10003; Verified Issuer</span></span></div>
+          <div class="vd-field"><span class="vd-field-label">Date issued</span><span class="vd-field-value">September 15, 2026</span></div>
+          <div class="vd-field"><span class="vd-field-label">Status</span><span class="vd-field-value vd-status-valid">&#9679; Valid</span></div>
+        </div>
+        <div class="vd-replay" id="vd-replay">&#8635; Run again</div>
+      </div>
+
     </div>
   </div>
+</div>
+</div>
 </section>
 
 <!-- VISION & APPROACH -->
@@ -1791,6 +2072,94 @@ document.querySelectorAll('.header-nav a').forEach(function(a){
     document.getElementById('header-burger').classList.remove('open');
   });
 });
+</script>
+
+<script>
+(function(){
+  var CRED_ID = "CRD-2026-000184";
+  var typed = document.getElementById("vd-typed");
+  var cursor = document.getElementById("vd-cursor");
+  var btn = document.getElementById("vd-verify-btn");
+  var inputField = document.querySelector(".vd-input-field");
+  var stateInput = document.getElementById("vd-input");
+  var stateLoading = document.getElementById("vd-loading");
+  var stateResult = document.getElementById("vd-result");
+  var replay = document.getElementById("vd-replay");
+
+  if(!typed) return;
+
+  var running = false;
+
+  function sleep(ms){ return new Promise(function(r){setTimeout(r,ms);}); }
+
+  async function runDemo(){
+    if(running) return;
+    running = true;
+
+    // Reset
+    typed.textContent = "";
+    stateInput.classList.remove("vd-hidden");
+    stateLoading.classList.add("vd-hidden");
+    stateResult.classList.add("vd-hidden");
+    btn.classList.remove("visible");
+    inputField.classList.remove("typing");
+    document.querySelectorAll(".vd-step").forEach(function(s){
+      s.classList.remove("visible");
+    });
+
+    await sleep(800);
+
+    // Type the credential ID
+    inputField.classList.add("typing");
+    for(var i=0; i<CRED_ID.length; i++){
+      typed.textContent = CRED_ID.slice(0,i+1);
+      await sleep(60 + Math.random()*40);
+    }
+
+    await sleep(400);
+    btn.classList.add("visible");
+    await sleep(700);
+
+    // Switch to loading
+    stateInput.classList.add("vd-hidden");
+    stateLoading.classList.remove("vd-hidden");
+
+    // Show loading steps
+    var steps = document.querySelectorAll(".vd-step");
+    for(var j=0; j<steps.length; j++){
+      await sleep(600);
+      steps[j].classList.add("visible");
+      steps[j].classList.remove("vd-step-pending");
+    }
+
+    await sleep(500);
+
+    // Show result
+    stateLoading.classList.add("vd-hidden");
+    stateResult.classList.remove("vd-hidden");
+
+    running = false;
+  }
+
+  // Replay button
+  if(replay){
+    replay.addEventListener("click", runDemo);
+  }
+
+  // Auto-start when section scrolls into view
+  var demo = document.getElementById("verifyDemo");
+  if(demo){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          runDemo();
+          obs.disconnect();
+        }
+      });
+    }, {threshold: 0.4});
+    obs.observe(demo);
+  }
+})();
 </script>
 </body>
 </html>
