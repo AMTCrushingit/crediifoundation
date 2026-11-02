@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Connect With Credii | Credii Foundation</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&amp;family=Fraunces:ital,wght@0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#C0392B;--red-dark:#9B2D20;--red-pale:#FDF0EE;
+  --espresso:#2C1503;--espresso-mid:#5C3317;--espresso-pale:#F2E8D9;
+  --sand-pale:#FAF7F2;--warm-white:#FDFCF9;--off-white:#F5F3EF;
+  --charcoal:#2C2825;--text:#3D3835;--muted:#7A7370;
+  --border:rgba(212,197,169,0.4);
+}
+html,body{font-family:"DM Sans",sans-serif;color:var(--text);background:var(--warm-white);line-height:1.7;font-size:17px;overflow-x:hidden;}
+a{color:inherit;text-decoration:none;}
+a:hover{color:var(--red);}
+
+/* HEADER */
+.site-header{position:sticky;top:0;z-index:100;background:rgba(253,252,249,0.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:10px 5%;}
+.site-header-inner{display:flex;flex-direction:column;align-items:center;gap:8px;max-width:1200px;margin:0 auto;}
+.header-nav{display:flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center;}
+.header-nav a{font-size:0.84rem;font-weight:500;color:var(--muted);transition:color 0.2s;}
+.header-nav a:hover{color:var(--red);}
+.header-cta{background:var(--red)!important;color:#fff!important;padding:7px 18px;border-radius:100px;font-weight:600;}
+.header-cta:hover{background:var(--red-dark)!important;}
+
+/* HERO */
+.page-hero{background:var(--espresso);padding:80px 5% 64px;position:relative;overflow:hidden;}
+.page-hero::before{content:'';position:absolute;top:-80px;right:-80px;width:360px;height:360px;border-radius:50%;background:rgba(192,57,43,0.12);}
+.page-hero::after{content:'';position:absolute;bottom:-60px;left:10%;width:240px;height:240px;border-radius:50%;background:rgba(242,232,217,0.05);}
+.page-hero-inner{max-width:760px;margin:0 auto;position:relative;z-index:1;}
+.page-eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.page-eyebrow::before{content:'';width:18px;height:2px;background:rgba(255,255,255,0.3);border-radius:2px;display:inline-block;}
+.page-title{font-family:"Fraunces",serif;font-size:clamp(2.2rem,4.5vw,3.2rem);font-weight:700;color:#fff;line-height:1.15;margin-bottom:16px;}
+.page-title em{color:var(--espresso-pale);font-style:italic;}
+.page-lead{font-size:1rem;color:rgba(255,255,255,0.65);line-height:1.8;max-width:600px;margin-bottom:12px;}
+
+/* PATHS SECTION */
+.paths{max-width:1100px;margin:0 auto;padding:80px 5%;}
+.paths-intro{text-align:center;margin-bottom:64px;}
+.paths-intro h2{font-family:"Fraunces",serif;font-size:clamp(1.5rem,2.5vw,2rem);font-weight:700;color:var(--charcoal);margin-bottom:10px;}
+.paths-intro p{font-size:0.95rem;color:var(--muted);max-width:560px;margin:0 auto;}
+
+/* PATH ITEMS — editorial ruled list, no cards */
+.path-list{display:flex;flex-direction:column;gap:0;}
+
+.path-item{
+  display:grid;
+  grid-template-columns:1fr 2fr auto;
+  gap:32px;
+  align-items:start;
+  padding:40px 0;
+  border-top:1.5px solid var(--border);
+  transition:background 0.15s;
+}
+.path-item:last-child{border-bottom:1.5px solid var(--border);}
+
+.path-num{
+  font-family:"Fraunces",serif;
+  font-size:2.8rem;font-weight:700;
+  color:rgba(192,57,43,0.12);
+  line-height:1;
+  padding-top:4px;
+}
+
+.path-content{}
+.path-title{
+  font-family:"Fraunces",serif;
+  font-size:1.15rem;font-weight:700;
+  color:var(--charcoal);margin-bottom:6px;
+}
+.path-sub{
+  font-size:0.82rem;font-weight:600;
+  color:var(--red);margin-bottom:10px;
+  font-style:italic;
+}
+.path-desc{font-size:0.92rem;color:var(--muted);line-height:1.8;}
+
+.path-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  background:transparent;color:var(--espresso);
+  padding:10px 20px;border-radius:100px;
+  font-weight:700;font-size:0.84rem;
+  border:1.5px solid rgba(44,21,3,0.25);
+  white-space:nowrap;
+  transition:all 0.2s;
+  cursor:pointer;
+  font-family:"DM Sans",sans-serif;
+  text-decoration:none;
+  align-self:center;
+}
+.path-cta:hover{background:var(--espresso);color:#fff;border-color:var(--espresso);}
+
+/* NOT SURE SECTION */
+.not-sure{
+  background:var(--espresso-pale);
+  padding:64px 5%;
+  text-align:center;
+  border-top:1.5px solid var(--border);
+  border-bottom:1.5px solid var(--border);
+}
+.not-sure h2{font-family:"Fraunces",serif;font-size:clamp(1.4rem,2.5vw,1.9rem);font-weight:700;color:var(--charcoal);margin-bottom:8px;}
+.not-sure p{font-size:0.95rem;color:var(--muted);max-width:520px;margin:0 auto 24px;}
+
+/* FORM SECTION */
+.form-section{max-width:680px;margin:0 auto;padding:80px 5%;}
+.form-section-title{font-family:"Fraunces",serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:var(--charcoal);margin-bottom:8px;}
+.form-section-sub{font-size:0.95rem;color:var(--muted);margin-bottom:40px;line-height:1.7;}
+
+.form-group{margin-bottom:20px;}
+.form-label{font-size:0.82rem;font-weight:600;color:var(--charcoal);margin-bottom:6px;display:block;}
+.form-input,.form-select,.form-textarea{
+  width:100%;padding:11px 14px;
+  border-radius:10px;border:1.5px solid var(--border);
+  font-family:"DM Sans",sans-serif;font-size:0.9rem;
+  color:var(--text);background:var(--warm-white);
+  transition:border-color 0.15s;outline:none;
+}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--red);}
+.form-textarea{resize:vertical;min-height:100px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+
+.form-submit{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--red);color:#fff;
+  padding:14px 32px;border-radius:100px;
+  font-weight:700;font-size:0.95rem;
+  border:none;cursor:pointer;
+  font-family:"DM Sans",sans-serif;
+  transition:background 0.2s,transform 0.15s;
+  margin-top:8px;
+}
+.form-submit:hover{background:var(--red-dark);transform:translateY(-1px);}
+
+.form-note{font-size:0.75rem;color:var(--muted);margin-top:16px;line-height:1.6;}
+
+/* SUCCESS STATE */
+.form-success{
+  display:none;
+  text-align:center;
+  padding:48px 32px;
+  background:var(--espresso-pale);
+  border-radius:16px;
+  border:1.5px solid rgba(44,21,3,0.15);
+}
+.form-success h3{font-family:"Fraunces",serif;font-size:1.3rem;font-weight:700;color:var(--charcoal);margin-bottom:8px;}
+.form-success p{font-size:0.92rem;color:var(--muted);line-height:1.7;}
+
+/* FOOTER */
+footer{background:var(--espresso);padding:56px 5% 32px;}
+.footer-inner{max-width:1200px;margin:0 auto;}
+.footer-top{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,0.1);}
+.footer-col h2{font-size:0.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:14px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.footer-col ul li a{font-size:0.84rem;color:rgba(255,255,255,0.6);transition:color 0.2s;}
+.footer-col ul li a:hover{color:#fff;}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:24px;flex-wrap:wrap;gap:12px;}
+.footer-tagline{font-size:0.8rem;font-style:italic;color:rgba(255,255,255,0.5);}
+.footer-copy{font-size:0.78rem;color:rgba(255,255,255,0.35);margin-top:3px;}
+.footer-legal{display:flex;gap:16px;flex-wrap:wrap;}
+.footer-legal a{font-size:0.78rem;color:rgba(255,255,255,0.4);transition:color 0.2s;}
+.footer-legal a:hover{color:#fff;}
+
+@media(max-width:900px){
+  .path-item{grid-template-columns:1fr;gap:16px;}
+  .path-num{font-size:1.8rem;}
+  .path-cta{align-self:flex-start;}
+}
+@media(max-width:768px){
+  .form-row{grid-template-columns:1fr;}
+  .footer-top{grid-template-columns:1fr 1fr;}
+  .footer-bottom{flex-direction:column;align-items:flex-start;}
+}
+@media(max-width:480px){
+  .footer-top{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+<div class="site-header-inner">
+<a aria-label="Credii Foundation home" href="index.html">
+<svg height="36" style="display:block;" viewbox="0 0 140 40" width="130" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#C0392B" height="38" rx="8" width="38" x="0" y="1"></rect>
+<path d="M19 10c-5 0-9 4-9 9s4 9 9 9c2.8 0 5.2-1.2 7-3l-2.8-2.4c-1 1.2-2.6 1.9-4.2 1.9-3.5 0-6.3-2.8-6.3-6.3s2.8-6.3 6.3-6.3c1.6 0 3.1.6 4.2 1.8l2.8-2.4C24.2 11.2 21.8 10 19 10z" fill="white"></path>
+<text fill="#2C2825" font-family="Georgia,serif" font-size="20" font-weight="700" letter-spacing="-0.5" x="46" y="28">cred</text>
+<text fill="#C0392B" font-family="Georgia,serif" font-size="20" font-weight="700" letter-spacing="-0.5" x="100" y="28">ii</text>
+</svg>
+</a>
+<nav class="header-nav">
+<a href="index.html#problem">Why Credii</a>
+<a href="index.html#building">How It Works</a>
+<a href="index.html#approach">Our Vision</a>
+<a href="credii-governance.html">Governance</a>
+<a href="credii-opportunities.html">Opportunities</a>
+<a class="header-cta" href="credii-connect.html">Connect</a>
+</nav>
+</div>
+</header>
+<!-- HERO -->
+<div class="page-hero">
+<div class="page-hero-inner">
+<div class="page-eyebrow">Engagement</div>
+<h1 class="page-title">Connect With <em>Credii.</em></h1>
+<p class="page-lead">There are many ways to be part of what we’re building. Credii brings together people, organizations, institutions, and partners who want to help make capability more visible, trusted, and connected to opportunity across the Caribbean.</p>
+<p class="page-lead">Whether you want to join the community, explore a partnership, participate in our work, or support the Foundation, choose the path that best fits.</p>
+</div>
+</div>
+<!-- PATHS -->
+<div class="paths">
+<div class="paths-intro">
+<h2>How would you like to connect?</h2>
+<p>Each path leads to the same place — a conversation. Choose the one that best describes your interest.</p>
+</div>
+<div class="path-list">
+<div class="path-item">
+<div class="path-num">01</div>
+<div class="path-content">
+<div class="path-title">Join the Community</div>
+<div class="path-sub">Stay close to the work.</div>
+<div class="path-desc">Join a growing community interested in trust, recognition, financial and economic inclusion, credentialing, and new pathways to opportunity across the Caribbean. Stay connected to Credii’s programs, ideas, research, opportunities, and ways to participate.</div>
+</div>
+<a class="path-cta" href="#get-in-touch" onclick="selectInterest('community')">Join the Community ↗</a>
+</div>
+<div class="path-item">
+<div class="path-num">02</div>
+<div class="path-content">
+<div class="path-title">Partner With Credii</div>
+<div class="path-sub">Let’s explore what we can build together.</div>
+<div class="path-desc">Credii works with organizations and institutions interested in credentialing, verification, research, pilot programs, capability recognition, financial inclusion, and other ways of strengthening pathways to opportunity. We welcome conversations with education and training providers, entrepreneur-support organizations, financial and development institutions, employers, researchers, community organizations, and regional partners.</div>
+</div>
+<a class="path-cta" href="#get-in-touch" onclick="selectInterest('partnership')">Explore a Partnership ↗</a>
+</div>
+<div class="path-item">
+<div class="path-num">03</div>
+<div class="path-content">
+<div class="path-title">Participate in a Program or Pilot</div>
+<div class="path-sub">Help us test what works.</div>
+<div class="path-desc">Credii’s programs and pilots bring our trust model into real-world settings. If you are interested in participating, referring participants, supporting community engagement, or exploring how a Credii pilot could work with your organization, we’d like to hear from you.</div>
+</div>
+<a class="path-cta" href="#get-in-touch" onclick="selectInterest('programs')">Explore Programs &amp; Pilots ↗</a>
+</div>
+<div class="path-item">
+<div class="path-num">04</div>
+<div class="path-content">
+<div class="path-title">Contribute Your Skills</div>
+<div class="path-sub">Bring what you know.</div>
+<div class="path-desc">We’re building Credii with people who can contribute expertise, experience, research, ideas, and practical support. Explore current volunteer and contribution opportunities or introduce yourself if you believe your experience could help advance our work.</div>
+</div>
+<a class="path-cta" href="credii-opportunities.html">View Opportunities ↗</a>
+</div>
+<div class="path-item">
+<div class="path-num">05</div>
+<div class="path-content">
+<div class="path-title">Support Credii</div>
+<div class="path-sub">Help make the work possible.</div>
+<div class="path-desc">Support from individuals, organizations, funders, and development partners helps Credii research, test, validate, and expand new approaches to trusted evidence, recognition, and opportunity. If you’re interested in supporting Credii’s work, we’d be happy to start a conversation.</div>
+</div>
+<a class="path-cta" href="#get-in-touch" onclick="selectInterest('support')">Support the Foundation ↗</a>
+</div>
+</div>
+</div>
+<!-- NOT SURE -->
+<div class="not-sure">
+<h2>Not sure where you fit?</h2>
+<p>You don’t need to know exactly where your interest fits. Tell us a little about yourself, your organization, or what brought you to Credii, and we’ll take it from there.</p>
+<a class="path-cta" href="#get-in-touch" onclick="selectInterest('other')" style="display:inline-flex;">Start a Conversation ↗</a>
+</div>
+<!-- FORM -->
+<div class="form-section" id="get-in-touch">
+<h2 class="form-section-title">Get in Touch</h2>
+<p class="form-section-sub">Tell us about your interest and we’ll be in touch. We read every message.</p>
+<div id="form-wrap">
+<form id="connect-form" onsubmit="submitForm(event)">
+<div class="form-group">
+<label class="form-label" for="interest">I’m interested in</label>
+<select class="form-select" id="interest" name="interest" required="">
+<option value="">Select an option</option>
+<option value="community">Joining the Credii community</option>
+<option value="partnership">Exploring a partnership</option>
+<option value="programs">Programs &amp; pilots</option>
+<option value="credentialing">Credentialing &amp; verification</option>
+<option value="research">Research collaboration</option>
+<option value="support">Supporting Credii</option>
+<option value="volunteering">Volunteering / contributing expertise</option>
+<option value="other">Something else</option>
+</select>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label class="form-label" for="name">Name</label>
+<input class="form-input" id="name" name="name" placeholder="Your full name" required="" type="text"/>
+</div>
+<div class="form-group">
+<label class="form-label" for="email">Email</label>
+<input class="form-input" id="email" name="email" placeholder="your@email.com" required="" type="email"/>
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label class="form-label" for="org">Organization <span style="font-weight:400;color:var(--muted);">(optional)</span></label>
+<input class="form-input" id="org" name="organization" placeholder="Your organization or business" type="text"/>
+</div>
+<div class="form-group">
+<label class="form-label" for="country">Country / Territory <span style="font-weight:400;color:var(--muted);">(optional)</span></label>
+<input class="form-input" id="country" name="country" placeholder="e.g. Trinidad &amp; Tobago" type="text"/>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label" for="message">Tell us a little about your interest</label>
+<textarea class="form-textarea" id="message" name="message" placeholder="What brought you to Credii? What are you hoping to explore?" required=""></textarea>
+</div>
+<button class="form-submit" type="submit">Send Inquiry ↗</button>
+<p class="form-note">We will respond within 3–5 business days. Your information will not be shared with third parties. See our <a href="credii-privacy.html" style="color:var(--red);">Privacy Policy</a>.</p>
+</form>
+<div class="form-success" id="form-success">
+<div style="font-size:2rem;margin-bottom:16px;">✓</div>
+<h3>Thank you for reaching out.</h3>
+<p>We’ve received your message and will be in touch within 3–5 business days. We look forward to the conversation.</p>
+</div>
+</div>
+</div>
+<!-- FOOTER -->
+<footer>
+<div class="footer-inner">
+<div class="footer-top">
+<div class="footer-col"><h2>Explore</h2><ul>
+<li><a href="index.html#problem">Why Credii</a></li>
+<li><a href="index.html#building">How It Works</a></li>
+<li><a href="index.html#approach">Our Vision</a></li>
+<li><a href="index.html#involved">Programs &amp; Pilots</a></li>
+</ul></div>
+<div class="footer-col"><h2>Organization</h2><ul>
+<li><a href="credii-governance.html">Governance</a></li>
+<li><a href="credii-opportunities.html">Opportunities</a></li>
+<li><a href="credii-faqs.html">FAQs</a></li>
+<li><a href="credii-connect.html">Contact</a></li>
+</ul></div>
+<div class="footer-col"><h2>Tools</h2><ul>
+<li><a href="credii-trust.html">Trust Platform (Beta)</a></li>
+<li><a href="credii-verify.html">Credential Verification</a></li>
+<li><a href="credii-portal.html">Member Portal</a></li>
+</ul></div>
+<div class="footer-col"><h2>Connect</h2><ul>
+<li><a href="credii-connect.html">Partner With Us</a></li>
+<li><a href="credii-connect.html#get-in-touch">Join the Community</a></li>
+<li><a href="https://www.linkedin.com/company/credii-foundation/posts/?viewAsMember=true" rel="noopener" target="_blank">LinkedIn</a></li>
+<li><a href="https://www.instagram.com/credii" rel="noopener" target="_blank">Instagram</a></li>
+<li><a href="https://www.facebook.com/profile.php?id=61589564333491" rel="noopener" target="_blank">Facebook</a></li>
+</ul></div>
+</div>
+<div class="footer-bottom">
+<div>
+<div class="footer-tagline">Making capability more visible, trusted, and recognized.</div>
+<div class="footer-copy">© 2026 Credii Foundation · Trinidad &amp; Tobago</div>
+</div>
+<div class="footer-legal">
+<a href="credii-privacy.html">Privacy Policy</a>
+<a href="mailto:hello@crediifoundation.org?subject=Terms">Terms of Use</a>
+<a href="mailto:hello@crediifoundation.org?subject=Trust">Trust &amp; Verification</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+// Auto-select interest from URL param or onclick
+function selectInterest(val){
+  var sel = document.getElementById('interest');
+  if(sel) sel.value = val;
+  // Smooth scroll to form
+  var form = document.getElementById('get-in-touch');
+  if(form) setTimeout(function(){ form.scrollIntoView({behavior:'smooth',block:'start'}); }, 50);
+}
+
+// Read URL param on load
+window.addEventListener('DOMContentLoaded', function(){
+  var params = new URLSearchParams(window.location.search);
+  var interest = params.get('interest');
+  if(interest) selectInterest(interest);
+});
+
+// Form submission — sends to mailto as fallback (replace with real endpoint)
+function submitForm(e){
+  e.preventDefault();
+  var form = document.getElementById('connect-form');
+  var interest = document.getElementById('interest').value;
+  var name = document.getElementById('name').value;
+  var email = document.getElementById('email').value;
+  var org = document.getElementById('org').value;
+  var country = document.getElementById('country').value;
+  var message = document.getElementById('message').value;
+
+  var subject = encodeURIComponent('Credii Connect: ' + interest);
+  var body = encodeURIComponent(
+    'Name: ' + name + '\n' +
+    'Email: ' + email + '\n' +
+    'Organization: ' + (org||'—') + '\n' +
+    'Country: ' + (country||'—') + '\n' +
+    'Interest: ' + interest + '\n\n' +
+    'Message:\n' + message
+  );
+
+  // Open mailto
+  window.location.href = 'mailto:hello@crediifoundation.org?subject=' + subject + '&body=' + body;
+
+  // Show success state
+  setTimeout(function(){
+    form.style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+  }, 500);
+}
+</script>
+</body>
+</html>
