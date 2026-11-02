@@ -325,30 +325,30 @@ footer{background:var(--espresso);padding:56px 5% 32px;}
 </div>
 
 <!-- NO MATCH: dark strip with photo -->
-<div style="background:var(--charcoal);padding:80px 5%;">
-  <div class="opp-nomatch-inner" style="grid-template-columns:1fr;max-width:720px;">
-    <div class="opp-nomatch-text">
-      <div class="eyebrow" style="color:rgba(255,255,255,0.5);">Don&#8217;t See the Right Opportunity?</div>
-      <h2>Your expertise may still be useful.</h2>
-      <p>Credii&#8217;s work touches research, education, entrepreneurship, technology, workforce development, economic inclusion, community development, and digital trust. If you have experience or expertise that could contribute, we&#8217;d be happy to hear from you.</p>
-      <a href="mailto:hello@crediifoundation.org?subject=Introduction" class="btn-cream">Introduce Yourself &#8599;</a>
+<div style="position:relative;overflow:hidden;padding:96px 5%;background:var(--espresso-pale,#F2E8D9);">
+  <!-- Subtle photo texture behind -->
+  <div style="position:absolute;inset:0;background-image:url('img-opp-collab-bg.png');background-size:cover;background-position:center 30%;opacity:0.12;"></div>
+  <div style="position:relative;z-index:1;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;">
+
+    <!-- Don't see the right opportunity -->
+    <div>
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:14px;display:flex;align-items:center;gap:8px;"><span style="width:18px;height:2px;background:var(--red);border-radius:2px;display:inline-block;"></span>Don&#8217;t See the Right Opportunity?</div>
+      <h2 style="font-family:Fraunces,serif;font-size:clamp(1.4rem,2.5vw,1.9rem);font-weight:700;color:var(--charcoal);line-height:1.25;margin-bottom:14px;">Your expertise may still be useful.</h2>
+      <p style="font-size:0.92rem;color:var(--muted);line-height:1.8;margin-bottom:24px;">Credii&#8217;s work touches research, education, entrepreneurship, technology, workforce development, economic inclusion, community development, and digital trust. If you have experience or expertise that could contribute, we&#8217;d be happy to hear from you.</p>
+      <a href="mailto:hello@crediifoundation.org?subject=Introduction" style="display:inline-flex;align-items:center;gap:8px;background:var(--espresso,#2C1503);color:#fff;padding:12px 26px;border-radius:100px;font-weight:700;font-size:0.88rem;text-decoration:none;">Introduce Yourself &#8599;</a>
     </div>
+
+    <!-- For organizations -->
+    <div style="padding-left:32px;border-left:1.5px solid rgba(44,21,3,0.15);">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:14px;display:flex;align-items:center;gap:8px;"><span style="width:18px;height:2px;background:var(--red);border-radius:2px;display:inline-block;"></span>For Organizations</div>
+      <h2 style="font-family:Fraunces,serif;font-size:clamp(1.4rem,2.5vw,1.9rem);font-weight:700;color:var(--charcoal);line-height:1.25;margin-bottom:14px;">Looking to collaborate as an organization?</h2>
+      <p style="font-size:0.92rem;color:var(--muted);line-height:1.8;margin-bottom:24px;">We work with organizations interested in research, pilot programs, credentialing, verification, community engagement, and other opportunities to strengthen trusted pathways to opportunity across the Caribbean.</p>
+      <a href="mailto:hello@crediifoundation.org" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--espresso,#2C1503);padding:11px 24px;border-radius:100px;font-weight:700;font-size:0.88rem;text-decoration:none;border:1.5px solid var(--espresso,#2C1503);">Explore Partnership Opportunities &#8599;</a>
+    </div>
+
   </div>
 </div>
 
-<!-- ORGS: espresso section -->
-<div class="opp-orgs" style="position:relative;overflow:hidden;">
-  <div style="position:absolute;inset:0;background-image:url('img-opp-collab-bg.png');background-size:cover;background-position:center 30%;filter:brightness(0.25) saturate(0.6);"></div>
-  <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(44,21,3,0.85) 0%,rgba(44,21,3,0.6) 100%);"></div>
-  <div class="opp-orgs-inner" style="grid-template-columns:1fr;max-width:720px;">
-    <div class="opp-orgs-text">
-      <div class="eyebrow" style="color:rgba(255,255,255,0.5);">For Organizations</div>
-      <h2>Looking to collaborate as an organization?</h2>
-      <p>We work with organizations interested in research, pilot programs, credentialing, verification, community engagement, and other opportunities to strengthen trusted pathways to opportunity across the Caribbean.</p>
-      <a href="mailto:hello@crediifoundation.org" class="org-btn">Explore Partnership Opportunities &#8599;</a>
-    </div>
-  </div>
-</div>
 
 <footer>
   <div class="footer-inner">
