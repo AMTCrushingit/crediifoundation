@@ -1,228 +1,417 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Governance | Credii Foundation</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&amp;family=Fraunces:ital,wght@0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Fraunces:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet"/>
 <style>
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --red:#C0392B;--red-dark:#9B2D20;--red-pale:#FDF0EE;
-  --espresso:#2C1503;--espresso-pale:#F2E8D9;
-  --sand-pale:#FAF7F2;--warm-white:#FDFCF9;--off-white:#F5F3EF;
+  --espresso:#2C1503;--espresso-mid:#5C3317;--espresso-pale:#F2E8D9;
+  --sand:#D4C5A9;--sand-pale:#FAF7F2;
+  --warm-white:#FDFCF9;--off-white:#F5F3EF;
   --charcoal:#2C2825;--text:#3D3835;--muted:#7A7370;
   --border:rgba(212,197,169,0.4);
 }
-html,body{font-family:"DM Sans",sans-serif;color:var(--text);background:var(--warm-white);line-height:1.7;font-size:17px;}
+html,body{font-family:"DM Sans",sans-serif;color:var(--text);background:var(--warm-white);line-height:1.7;font-size:17px;overflow-x:hidden;}
 a{color:inherit;text-decoration:none;}
 a:hover{color:var(--red);}
-img{max-width:100%;height:auto;}
+img{max-width:100%;height:auto;display:block;}
 
 /* HEADER */
 .site-header{position:sticky;top:0;z-index:100;background:rgba(253,252,249,0.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:10px 5%;}
 .site-header-inner{display:flex;flex-direction:column;align-items:center;gap:8px;max-width:1200px;margin:0 auto;}
-.header-logo svg{display:block;}
 .header-nav{display:flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center;}
 .header-nav a{font-size:0.84rem;font-weight:500;color:var(--muted);transition:color 0.2s;}
 .header-nav a:hover{color:var(--red);}
 .header-cta{background:var(--red)!important;color:#fff!important;padding:7px 18px;border-radius:100px;font-weight:600;}
 .header-cta:hover{background:var(--red-dark)!important;}
 
-/* PAGE */
-.page-hero{background:var(--espresso-pale);padding:72px 5% 56px;border-bottom:1px solid var(--border);}
-.page-hero-inner{max-width:760px;margin:0 auto;}
-.page-eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
-.page-eyebrow::before{content:'';width:18px;height:2px;background:var(--red);border-radius:2px;display:inline-block;}
-.page-title{font-family:"Fraunces",serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:var(--charcoal);line-height:1.18;margin-bottom:16px;}
-.page-lead{font-size:1rem;color:var(--muted);line-height:1.8;max-width:640px;}
-
-/* CONTENT */
-.page-content{max-width:900px;margin:0 auto;padding:64px 5% 80px;}
-.section-block{margin-bottom:56px;}
-.section-block:last-child{margin-bottom:0;}
-.block-label{font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:20px;}
-.block-title{font-family:"Fraunces",serif;font-size:1.4rem;font-weight:700;color:var(--charcoal);margin-bottom:16px;}
-.block-body{font-size:0.95rem;color:var(--muted);line-height:1.8;}
-
-/* BOARD GRID */
-.board-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:8px;}
-.board-card{background:var(--off-white);border-radius:14px;padding:24px 20px;border:1.5px solid var(--border);}
-.board-avatar{width:56px;height:56px;border-radius:50%;background:var(--espresso-pale);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:"Fraunces",serif;font-size:1.1rem;font-weight:700;color:var(--espresso);margin-bottom:14px;}
-.board-name{font-family:"Fraunces",serif;font-size:1rem;font-weight:700;color:var(--charcoal);margin-bottom:3px;}
-.board-role{font-size:0.78rem;font-weight:600;color:var(--red);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.6px;}
-.board-bio{font-size:0.82rem;color:var(--muted);line-height:1.65;}
-
-/* LEADERSHIP */
-.leadership-card{display:flex;gap:28px;align-items:flex-start;padding:28px;background:var(--off-white);border-radius:16px;border:1.5px solid var(--border);}
-.leadership-photo{width:80px;height:80px;border-radius:50%;background:var(--espresso-pale);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:"Fraunces",serif;font-size:1.4rem;font-weight:700;color:var(--espresso);flex-shrink:0;}
-.leadership-name{font-family:"Fraunces",serif;font-size:1.15rem;font-weight:700;color:var(--charcoal);margin-bottom:3px;}
-.leadership-title{font-size:0.82rem;font-weight:600;color:var(--red);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.6px;}
-.leadership-bio{font-size:0.92rem;color:var(--muted);line-height:1.75;margin-bottom:12px;}
-.leadership-link{font-size:0.84rem;font-weight:600;color:var(--red);}
-.leadership-link:hover{text-decoration:underline;}
-
-/* CTA */
-.page-cta{background:var(--espresso);border-radius:20px;padding:48px 40px;text-align:center;margin-top:56px;}
-.page-cta h3{font-family:"Fraunces",serif;font-size:1.5rem;font-weight:700;color:#fff;margin-bottom:10px;}
-.page-cta p{font-size:0.92rem;color:rgba(255,255,255,0.7);margin-bottom:24px;line-height:1.7;}
-.btn-cta{display:inline-flex;align-items:center;gap:8px;background:var(--espresso-pale);color:var(--espresso);padding:12px 26px;border-radius:100px;font-weight:700;font-size:0.9rem;transition:background 0.2s;}
-.btn-cta:hover{background:#fff;color:var(--espresso);}
-
 /* FOOTER */
-footer{background:var(--sand-pale);border-top:1.5px solid var(--border);padding:52px 5% 28px;}
+footer{background:var(--espresso);padding:56px 5% 32px;}
 .footer-inner{max-width:1200px;margin:0 auto;}
-.footer-top{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;padding-bottom:36px;border-bottom:1.5px solid var(--border);}
-.footer-col h2{font-size:0.7rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.footer-top{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,0.1);}
+.footer-col h2{font-size:0.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:14px;}
 .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
-.footer-col ul li a{font-size:0.84rem;color:var(--muted);transition:color 0.2s;}
-.footer-col ul li a:hover{color:var(--red);}
-.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:22px;flex-wrap:wrap;gap:12px;}
-.footer-tagline{font-size:0.8rem;font-style:italic;color:var(--muted);}
-.footer-copy{font-size:0.78rem;color:var(--muted);}
+.footer-col ul li a{font-size:0.84rem;color:rgba(255,255,255,0.6);transition:color 0.2s;}
+.footer-col ul li a:hover{color:#fff;}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:24px;flex-wrap:wrap;gap:12px;}
+.footer-tagline{font-size:0.8rem;font-style:italic;color:rgba(255,255,255,0.5);}
+.footer-copy{font-size:0.78rem;color:rgba(255,255,255,0.35);margin-top:3px;}
 .footer-legal{display:flex;gap:16px;flex-wrap:wrap;}
-.footer-legal a{font-size:0.78rem;color:var(--muted);transition:color 0.2s;}
-.footer-legal a:hover{color:var(--red);}
+.footer-legal a{font-size:0.78rem;color:rgba(255,255,255,0.4);transition:color 0.2s;}
+.footer-legal a:hover{color:#fff;}
+
+/* SHARED COMPONENTS */
+.eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.eyebrow::before{content:'';width:18px;height:2px;background:var(--red);border-radius:2px;display:inline-block;}
+.btn-red{display:inline-flex;align-items:center;gap:8px;background:var(--red);color:#fff;padding:12px 26px;border-radius:100px;font-weight:700;font-size:0.9rem;transition:all 0.2s;}
+.btn-red:hover{background:var(--red-dark);transform:translateY(-1px);}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--red);padding:11px 24px;border-radius:100px;font-weight:600;font-size:0.9rem;border:1.5px solid var(--red);transition:all 0.2s;}
+.btn-outline:hover{background:var(--red);color:#fff;}
+.btn-cream{display:inline-flex;align-items:center;gap:8px;background:var(--espresso-pale);color:var(--espresso);padding:12px 26px;border-radius:100px;font-weight:700;font-size:0.9rem;transition:all 0.2s;}
+.btn-cream:hover{background:#fff;color:var(--espresso);}
 
 @media(max-width:768px){
-  .board-grid{grid-template-columns:1fr;}
-  .leadership-card{flex-direction:column;gap:16px;}
   .footer-top{grid-template-columns:1fr 1fr;}
-  .page-cta{padding:36px 24px;}
+  .footer-bottom{flex-direction:column;align-items:flex-start;}
 }
 @media(max-width:480px){
   .footer-top{grid-template-columns:1fr;}
-  .footer-bottom{flex-direction:column;align-items:flex-start;}
+}
+
+
+/* ── GOVERNANCE SPECIFIC ── */
+
+/* HERO — full-bleed split */
+.gov-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 480px;
+}
+.gov-hero-text {
+  background: var(--espresso);
+  padding: 80px 6% 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.gov-hero-text .eyebrow::before { background: rgba(255,255,255,0.4); }
+.gov-hero-text .eyebrow { color: rgba(255,255,255,0.6); }
+.gov-hero-title {
+  font-family: "Fraunces", serif;
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+.gov-hero-title em { color: var(--espresso-pale); font-style: italic; }
+.gov-hero-lead { font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.8; max-width: 480px; }
+.gov-hero-photo { position: relative; overflow: hidden; }
+.gov-hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+.gov-hero-photo-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, rgba(44,21,3,0.3), transparent);
+}
+
+/* COMMITMENT — full-width editorial strip */
+.gov-commitment {
+  background: var(--espresso-pale);
+  padding: 72px 5%;
+}
+.gov-commitment-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 2fr; gap: 64px; align-items: center;
+}
+.gov-commitment-label {
+  font-family: "Fraunces", serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 700;
+  color: var(--espresso);
+  line-height: 1.25;
+}
+.gov-commitment-text { font-size: 0.95rem; color: var(--muted); line-height: 1.85; }
+
+/* BOARD — photo-forward layout, no cards */
+.gov-board {
+  padding: 96px 5%;
+  background: var(--warm-white);
+}
+.gov-board-inner { max-width: 1200px; margin: 0 auto; }
+.gov-board-header { margin-bottom: 56px; }
+.gov-board-header h2 {
+  font-family: "Fraunces", serif;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 700;
+  color: var(--charcoal);
+  margin-bottom: 12px;
+}
+.gov-board-header p { font-size: 0.95rem; color: var(--muted); max-width: 560px; line-height: 1.8; }
+
+.gov-board-list { display: flex; flex-direction: column; gap: 0; }
+.gov-board-item {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 0;
+  border-top: 1.5px solid var(--border);
+  padding: 36px 0;
+  align-items: start;
+}
+.gov-board-item:last-child { border-bottom: 1.5px solid var(--border); }
+.gov-board-photo {
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background: var(--espresso-pale);
+  display: flex; align-items: center; justify-content: center;
+  font-family: "Fraunces", serif;
+  font-size: 2rem; font-weight: 700;
+  color: var(--espresso);
+  border: 3px solid var(--border);
+  flex-shrink: 0;
+}
+.gov-board-info { padding-left: 8px; }
+.gov-board-name {
+  font-family: "Fraunces", serif;
+  font-size: 1.2rem; font-weight: 700;
+  color: var(--charcoal); margin-bottom: 4px;
+}
+.gov-board-role {
+  font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: var(--red); margin-bottom: 12px;
+}
+.gov-board-bio { font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+
+/* LEADERSHIP — full-bleed photo with text overlay */
+.gov-leadership {
+  position: relative;
+  min-height: 520px;
+  overflow: hidden;
+}
+.gov-leadership-bg {
+  position: absolute; inset: 0;
+  background-image: url('https://nycaribnews.com/wp-content/uploads/2023/06/352416352_137896639302025_7133039871220548574_n.jpg');
+  background-size: cover;
+  background-position: center 30%;
+  filter: brightness(0.35) saturate(0.7);
+}
+.gov-leadership-content {
+  position: relative; z-index: 2;
+  max-width: 1200px; margin: 0 auto;
+  padding: 80px 5%;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+}
+.gov-leadership-label {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: rgba(255,255,255,0.5);
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 8px;
+}
+.gov-leadership-label::before { content: ''; width: 18px; height: 2px; background: rgba(255,255,255,0.4); border-radius: 2px; display: inline-block; }
+.gov-leadership-name {
+  font-family: "Fraunces", serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 700; color: #fff;
+  line-height: 1.18; margin-bottom: 8px;
+}
+.gov-leadership-title {
+  font-size: 0.82rem; font-weight: 700;
+  letter-spacing: 0.8px; text-transform: uppercase;
+  color: var(--espresso-pale); margin-bottom: 20px;
+}
+.gov-leadership-bio {
+  font-size: 0.95rem; color: rgba(255,255,255,0.75);
+  line-height: 1.8; margin-bottom: 24px;
+}
+.gov-leadership-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--espresso-pale); font-weight: 600; font-size: 0.88rem;
+  border-bottom: 1px solid rgba(242,232,217,0.4);
+  padding-bottom: 2px; transition: border-color 0.2s;
+}
+.gov-leadership-link:hover { border-color: var(--espresso-pale); color: var(--espresso-pale); }
+.gov-leadership-quote {
+  font-family: "Fraunces", serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  font-style: italic; color: rgba(255,255,255,0.6);
+  line-height: 1.55;
+  border-left: 3px solid rgba(192,57,43,0.6);
+  padding-left: 24px;
+}
+
+/* CTA — warm editorial */
+.gov-cta {
+  background: var(--off-white);
+  padding: 96px 5%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  max-width: 100%;
+}
+.gov-cta-inner { max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.gov-cta-text h2 {
+  font-family: "Fraunces", serif;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 700; color: var(--charcoal);
+  line-height: 1.22; margin-bottom: 14px;
+}
+.gov-cta-text p { font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 28px; }
+.gov-cta-photo { border-radius: 120px 24px 24px 24px; overflow: hidden; aspect-ratio: 4/3; }
+.gov-cta-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+@media(max-width:900px){
+  .gov-hero { grid-template-columns: 1fr; }
+  .gov-hero-photo { height: 300px; }
+  .gov-commitment-inner { grid-template-columns: 1fr; gap: 24px; }
+  .gov-board-item { grid-template-columns: 1fr; gap: 16px; }
+  .gov-leadership-content { grid-template-columns: 1fr; gap: 36px; }
+  .gov-cta-inner { grid-template-columns: 1fr; gap: 36px; }
+  .gov-cta-photo { display: none; }
 }
 </style>
 </head>
 <body>
+
 <header class="site-header">
-<div class="site-header-inner">
-<a aria-label="Credii Foundation home" class="header-logo" href="index.html">
-<svg height="40" viewbox="0 0 140 40" width="140" xmlns="http://www.w3.org/2000/svg">
-<rect fill="#C0392B" height="38" rx="8" width="38" x="0" y="1"></rect>
-<path d="M19 10c-5 0-9 4-9 9s4 9 9 9c2.8 0 5.2-1.2 7-3l-2.8-2.4c-1 1.2-2.6 1.9-4.2 1.9-3.5 0-6.3-2.8-6.3-6.3s2.8-6.3 6.3-6.3c1.6 0 3.1.6 4.2 1.8l2.8-2.4C24.2 11.2 21.8 10 19 10z" fill="white"></path>
-<text fill="#2C2825" font-family="Georgia,serif" font-size="20" font-weight="700" letter-spacing="-0.5" x="46" y="28">cred</text>
-<text fill="#C0392B" font-family="Georgia,serif" font-size="20" font-weight="700" letter-spacing="-0.5" x="100" y="28">ii</text>
-</svg>
-</a>
-<nav class="header-nav">
-<a href="index.html#problem">Why Credii</a>
-<a href="index.html#building">How It Works</a>
-<a href="index.html#approach">Our Vision</a>
-<a href="credii-governance.html">Governance</a>
-<a href="credii-opportunities.html">Opportunities</a>
-<a class="header-cta" href="mailto:ourpartner@crediifoundation.org">Partner With Us</a>
-</nav>
-</div>
+  <div class="site-header-inner">
+    <a href="index.html" aria-label="Credii Foundation home"><svg width="130" height="36" viewBox="0 0 140 40" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="1" width="38" height="38" rx="8" fill="#C0392B"/>
+        <path d="M19 10c-5 0-9 4-9 9s4 9 9 9c2.8 0 5.2-1.2 7-3l-2.8-2.4c-1 1.2-2.6 1.9-4.2 1.9-3.5 0-6.3-2.8-6.3-6.3s2.8-6.3 6.3-6.3c1.6 0 3.1.6 4.2 1.8l2.8-2.4C24.2 11.2 21.8 10 19 10z" fill="white"/>
+        <text x="46" y="28" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#2C2825" letter-spacing="-0.5">cred</text>
+        <text x="100" y="28" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#C0392B" letter-spacing="-0.5">ii</text>
+      </svg></a>
+    <nav class="header-nav">
+      <a href="index.html#problem">Why Credii</a>
+      <a href="index.html#building">How It Works</a>
+      <a href="index.html#approach">Our Vision</a>
+      <a href="credii-governance.html">Governance</a>
+      <a href="credii-opportunities.html">Opportunities</a>
+      <a href="mailto:ourpartner@crediifoundation.org" class="header-cta">Partner With Us</a>
+    </nav>
+  </div>
 </header>
-<div class="page-hero">
-<div class="page-hero-inner">
-<div class="page-eyebrow">Organization</div>
-<h1 class="page-title">Governance</h1>
-<p class="page-lead">Built with accountability from the beginning. Credii Foundation is committed to responsible governance, transparency, and stewardship as we build and test new approaches to trust, recognition, and opportunity across the Caribbean.</p>
+
+<!-- HERO: espresso left + photo right -->
+<div class="gov-hero">
+  <div class="gov-hero-text">
+    <div class="eyebrow">Organization</div>
+    <h1 class="gov-hero-title">Governance.<br><em>Built with accountability</em><br>from the beginning.</h1>
+    <p class="gov-hero-lead">Credii Foundation is committed to responsible governance, transparency, and stewardship as we build and test new approaches to trust, recognition, and opportunity across the Caribbean.</p>
+  </div>
+  <div class="gov-hero-photo">
+    <img src="https://unsdg.un.org/sites/default/files/styles/hero_divider_2xl_1x/public/2025-03/Bahamas_women-entrepreneurs.jpeg?itok=TDHSO0rE" alt="Caribbean women leaders"/>
+    <div class="gov-hero-photo-overlay"></div>
+  </div>
 </div>
+
+<!-- COMMITMENT: editorial two-column -->
+<div class="gov-commitment">
+  <div class="gov-commitment-inner">
+    <div class="gov-commitment-label">Our commitment to the communities we aim to serve.</div>
+    <div class="gov-commitment-text">
+      <p>Our Board of Directors provides governance and oversight while helping ensure that our work remains aligned with Credii&#8217;s mission and the communities we aim to serve.</p>
+      <p style="margin-top:14px;">We believe that organizations exploring new approaches to trust and recognition must themselves be trustworthy. That means clear governance, honest reporting, and accountability to the people and communities at the centre of our work.</p>
+    </div>
+  </div>
 </div>
-<div class="page-content">
-<!-- Board -->
-<div class="section-block">
-<div class="block-label">Board of Directors</div>
-<p class="block-body" style="margin-bottom:24px;">Our Board of Directors provides governance and oversight while helping ensure that our work remains aligned with Credii's mission and the communities we aim to serve.</p>
-<div class="board-grid">
-<div class="board-card">
-<div class="board-avatar">—</div>
-<div class="board-name">[Director Name]</div>
-<div class="board-role">Chair / Director</div>
-<div class="board-bio">One concise sentence on relevant background, experience, or perspective.</div>
+
+<!-- BOARD: ruled list, no cards -->
+<div class="gov-board">
+  <div class="gov-board-inner">
+    <div class="gov-board-header">
+      <div class="eyebrow">Board of Directors</div>
+      <h2>The people who guide our work.</h2>
+      <p>Our board brings together experience in governance, community development, entrepreneurship, and the Caribbean region to help ensure Credii remains accountable, focused, and mission-driven.</p>
+    </div>
+    <div class="gov-board-list">
+      <div class="gov-board-item">
+        <div class="gov-board-photo">—</div>
+        <div class="gov-board-info">
+          <div class="gov-board-name">[Director Name]</div>
+          <div class="gov-board-role">Chair / Director</div>
+          <div class="gov-board-bio">One concise sentence on relevant background, experience, or perspective that connects to Credii&#8217;s mission.</div>
+        </div>
+      </div>
+      <div class="gov-board-item">
+        <div class="gov-board-photo">—</div>
+        <div class="gov-board-info">
+          <div class="gov-board-name">[Director Name]</div>
+          <div class="gov-board-role">Director</div>
+          <div class="gov-board-bio">One concise sentence on relevant background, experience, or perspective that connects to Credii&#8217;s mission.</div>
+        </div>
+      </div>
+      <div class="gov-board-item">
+        <div class="gov-board-photo">—</div>
+        <div class="gov-board-info">
+          <div class="gov-board-name">[Director Name]</div>
+          <div class="gov-board-role">Director</div>
+          <div class="gov-board-bio">One concise sentence on relevant background, experience, or perspective that connects to Credii&#8217;s mission.</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="board-card">
-<div class="board-avatar">—</div>
-<div class="board-name">[Director Name]</div>
-<div class="board-role">Director</div>
-<div class="board-bio">One concise sentence on relevant background, experience, or perspective.</div>
+
+<!-- LEADERSHIP: full-bleed dark photo -->
+<div class="gov-leadership">
+  <div class="gov-leadership-bg"></div>
+  <div class="gov-leadership-content">
+    <div>
+      <div class="gov-leadership-label">Leadership</div>
+      <div class="gov-leadership-name">Andrea M. Tanguay</div>
+      <div class="gov-leadership-title">Founder &amp; Executive Director</div>
+      <p class="gov-leadership-bio">Andrea leads Credii Foundation&#8217;s strategy, programs, partnerships, and development, working with organizations and communities to explore how trusted evidence of capability can create stronger pathways to opportunity.</p>
+      <a href="https://www.linkedin.com/company/credii-foundation/posts/?viewAsMember=true" target="_blank" rel="noopener" class="gov-leadership-link">LinkedIn &#8599;</a>
+    </div>
+    <div class="gov-leadership-quote">
+      &#8220;Drawing from education, tourism, global exposure, communication training, and deep cultural roots, Credii was established to explore whether trusted infrastructure could help the Caribbean unlock its collective potential.&#8221;
+    </div>
+  </div>
 </div>
-<div class="board-card">
-<div class="board-avatar">—</div>
-<div class="board-name">[Director Name]</div>
-<div class="board-role">Director</div>
-<div class="board-bio">One concise sentence on relevant background, experience, or perspective.</div>
+
+<!-- CTA: editorial split -->
+<div style="background:var(--off-white);padding:96px 5%;">
+  <div class="gov-cta-inner">
+    <div class="gov-cta-text">
+      <div class="eyebrow">Get Involved</div>
+      <h2>Help shape what comes next.</h2>
+      <p>Credii is building through research, pilots, partnerships, and participation. Whether you&#8217;re an individual, organization, or institution, there is a place for you in this work.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="mailto:ourpartner@crediifoundation.org" class="btn-red">Partner With Credii &#8599;</a>
+        <a href="credii-opportunities.html" class="btn-outline">See Opportunities</a>
+      </div>
+    </div>
+    <div class="gov-cta-photo">
+      <img src="https://content.carib-export.com/wp-content/uploads/2019/06/DSC_0091.jpg" alt="Caribbean collaboration"/>
+    </div>
+  </div>
 </div>
-</div>
-</div>
-<!-- Leadership -->
-<div class="section-block">
-<div class="block-label">Leadership</div>
-<div class="leadership-card">
-<div class="leadership-photo">AT</div>
-<div>
-<div class="leadership-name">Andrea M. Tanguay</div>
-<div class="leadership-title">Founder &amp; Executive Director</div>
-<p class="leadership-bio">Andrea leads Credii Foundation's strategy, programs, partnerships, and development, working with organizations and communities to explore how trusted evidence of capability can create stronger pathways to opportunity.</p>
-<a class="leadership-link" href="https://www.linkedin.com/company/credii-foundation/posts/?viewAsMember=true" rel="noopener" target="_blank">LinkedIn ↗</a>
-</div>
-</div>
-</div>
-<!-- CTA -->
-<div class="page-cta">
-<h3>Help shape what comes next.</h3>
-<p>Credii is building through research, pilots, partnerships, and participation.</p>
-<a class="btn-cta" href="mailto:ourpartner@crediifoundation.org">Partner With Credii ↗</a>
-</div>
-</div>
+
 <footer>
-<div class="footer-inner">
-<div class="footer-top">
-<div class="footer-col">
-<h2>Explore</h2>
-<ul>
-<li><a href="index.html#problem">Why Credii</a></li>
-<li><a href="index.html#building">How It Works</a></li>
-<li><a href="index.html#approach">Our Vision</a></li>
-<li><a href="index.html#involved">Programs &amp; Pilots</a></li>
-</ul>
-</div>
-<div class="footer-col">
-<h2>Organization</h2>
-<ul>
-<li><a href="credii-governance.html">Governance</a></li>
-<li><a href="credii-opportunities.html">Opportunities</a></li>
-<li><a href="#">FAQs</a></li>
-<li><a href="mailto:contact@crediifoundation.org">Contact</a></li>
-</ul>
-</div>
-<div class="footer-col">
-<h2>Tools</h2>
-<ul>
-<li><a href="credii-trust.html">Trust Platform (Beta)</a></li>
-<li><a href="credii-verify.html">Credential Verification</a></li>
-<li><a href="credii-portal.html">Member Portal</a></li>
-</ul>
-</div>
-<div class="footer-col">
-<h2>Connect</h2>
-<ul>
-<li><a href="mailto:ourpartner@crediifoundation.org">Partner With Us</a></li>
-<li><a href="index.html#involved">Join the Community</a></li>
-<li><a href="https://www.linkedin.com/company/credii-foundation/posts/?viewAsMember=true" rel="noopener" target="_blank">LinkedIn</a></li>
-<li><a href="https://www.instagram.com/credii" rel="noopener" target="_blank">Instagram</a></li>
-<li><a href="https://www.facebook.com/profile.php?id=61589564333491" rel="noopener" target="_blank">Facebook</a></li>
-</ul>
-</div>
-</div>
-<div class="footer-bottom">
-<div>
-<div class="footer-tagline">Making capability more visible, trusted, and recognized.</div>
-<div class="footer-copy">© 2026 Credii Foundation · Trinidad &amp; Tobago</div>
-</div>
-<div class="footer-legal">
-<a href="credii-privacy.html">Privacy Policy</a>
-<a href="mailto:legal@crediifoundation.org?subject=Terms%20of%20Use">Terms of Use</a>
-<a href="mailto:legal@crediifoundation.org?subject=Trust%20and%20Verification">Trust &amp; Verification</a>
-</div>
-</div>
-</div>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-col"><h2>Explore</h2><ul>
+        <li><a href="index.html#problem">Why Credii</a></li>
+        <li><a href="index.html#building">How It Works</a></li>
+        <li><a href="index.html#approach">Our Vision</a></li>
+        <li><a href="index.html#involved">Programs &amp; Pilots</a></li>
+      </ul></div>
+      <div class="footer-col"><h2>Organization</h2><ul>
+        <li><a href="credii-governance.html">Governance</a></li>
+        <li><a href="credii-opportunities.html">Opportunities</a></li>
+        <li><a href="#">FAQs</a></li>
+        <li><a href="mailto:contact@crediifoundation.org">Contact</a></li>
+      </ul></div>
+      <div class="footer-col"><h2>Tools</h2><ul>
+        <li><a href="credii-trust.html">Trust Platform (Beta)</a></li>
+        <li><a href="credii-verify.html">Credential Verification</a></li>
+        <li><a href="credii-portal.html">Member Portal</a></li>
+      </ul></div>
+      <div class="footer-col"><h2>Connect</h2><ul>
+        <li><a href="mailto:ourpartner@crediifoundation.org">Partner With Us</a></li>
+        <li><a href="index.html#involved">Join the Community</a></li>
+        <li><a href="https://www.linkedin.com/company/credii-foundation/posts/?viewAsMember=true" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://www.instagram.com/credii" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://www.facebook.com/profile.php?id=61589564333491" target="_blank" rel="noopener">Facebook</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div>
+        <div class="footer-tagline">Making capability more visible, trusted, and recognized.</div>
+        <div class="footer-copy">&#169; 2026 Credii Foundation &middot; Trinidad &amp; Tobago</div>
+      </div>
+      <div class="footer-legal">
+        <a href="credii-privacy.html">Privacy Policy</a>
+        <a href="mailto:legal@crediifoundation.org?subject=Terms">Terms of Use</a>
+        <a href="mailto:legal@crediifoundation.org?subject=Trust">Trust &amp; Verification</a>
+      </div>
+    </div>
+  </div>
 </footer>
 </body>
 </html>
