@@ -1338,6 +1338,31 @@
     pre, code { overflow-x: auto; }
 
 
+  
+    /* ── CANONICAL FOOTER ── */
+    footer { background: #FAF7F2; border-top: 1.5px solid rgba(212,197,169,0.4); padding: 56px 5% 28px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 1.6fr repeat(4,1fr); gap: 32px; padding-bottom: 36px; border-bottom: 1.5px solid rgba(212,197,169,0.4); align-items: start; }
+    .footer-brand-desc { font-size: 0.82rem; color: #7A7370; line-height: 1.75; max-width: 260px; }
+    .footer-col h2 { font-size: 0.68rem; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase; color: #7A7370; margin-bottom: 14px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .footer-col ul li a { font-size: 0.84rem; color: #7A7370; text-decoration: none; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: #C0392B; }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 22px; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom-left { display: flex; flex-direction: column; gap: 3px; }
+    .footer-tagline { font-size: 0.8rem; font-style: italic; color: #7A7370; }
+    .footer-copy { font-size: 0.76rem; color: #9E9590; }
+    .footer-bottom-links { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .footer-bottom-links a { font-size: 0.76rem; color: #9E9590; text-decoration: none; transition: color 0.2s; }
+    .footer-bottom-links a:hover { color: #C0392B; }
+    .footer-sep { color: #9E9590; font-size: 0.76rem; }
+    .footer-top-link { font-size: 0.76rem; color: #9E9590; text-decoration: none; transition: color 0.2s; white-space: nowrap; }
+    .footer-top-link:hover { color: #C0392B; }
+    @media(max-width:900px){ .footer-top { grid-template-columns: 1fr 1fr 1fr; } .footer-brand { grid-column: span 3; } }
+    @media(max-width:600px){ .footer-top { grid-template-columns: 1fr 1fr; } .footer-brand { grid-column: span 2; } .footer-bottom { flex-direction: column; align-items: flex-start; } }
+    @media(max-width:400px){ .footer-top { grid-template-columns: 1fr; } .footer-brand { grid-column: span 1; } }
+
+
   </style>
 </head>
 <body>
@@ -1932,15 +1957,15 @@
           <text x="100" y="28" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#C0392B" letter-spacing="-0.5">ii</text>
         </svg>
       </a>
-      <p>Exploring how trusted credentials, verification, and trust profiles can help transform capability into recognized opportunity across the Caribbean.</p>
+      <p class="footer-brand-desc">Exploring how trusted credentials, verification, and trust profiles can help transform capability into recognized opportunity across the Caribbean.</p>
     </div>
     <div class="footer-col">
       <h2>Explore</h2>
       <ul>
-        <li><a href="#problem">Why Credii</a></li>
-        <li><a href="#building">How It Works</a></li>
-        <li><a href="#approach">Our Vision</a></li>
-        <li><a href="#involved">Programs &amp; Pilots</a></li>
+        <li><a href="index.html#problem">Why Credii</a></li>
+        <li><a href="index.html#building">How It Works</a></li>
+        <li><a href="index.html#approach">Our Vision</a></li>
+        <li><a href="index.html#involved">Programs &amp; Pilots</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -1963,8 +1988,8 @@
     <div class="footer-col">
       <h2>Connect</h2>
       <ul>
-        <li><a href="mailto:hello@crediifoundation.org">Partner With Us</a></li>
-        <li><a href="#involved">Join the Community</a></li>
+        <li><a href="credii-connect.html?interest=partnership">Partner With Us</a></li>
+        <li><a href="credii-connect.html?interest=community">Join the Community</a></li>
         <li><a href="https://www.linkedin.com/company/credii-foundation/posts/?viewAsMember=true" target="_blank" rel="noopener">LinkedIn</a></li>
         <li><a href="https://www.instagram.com/credii" target="_blank" rel="noopener">Instagram</a></li>
         <li><a href="https://www.facebook.com/profile.php?id=61589564333491" target="_blank" rel="noopener">Facebook</a></li>
@@ -1977,11 +2002,11 @@
       <span class="footer-copy">&#169; 2026 Credii Foundation &middot; Trinidad &amp; Tobago</span>
     </div>
     <div class="footer-bottom-links">
-      <a href="credii-privacy.html">Privacy Policy</a><span class="separator">&#183;</span>
-      <a href="mailto:hello@crediifoundation.org?subject=Terms%20of%20Use">Terms of Use</a><span class="separator">&#183;</span>
-      <a href="mailto:hello@crediifoundation.org?subject=Trust%20and%20Verification">Trust &amp; Verification</a>
+      <a href="credii-privacy.html">Privacy Policy</a><span class="footer-sep">&#183;</span>
+      <a href="mailto:hello@crediifoundation.org?subject=Terms">Terms of Use</a><span class="footer-sep">&#183;</span>
+      <a href="mailto:hello@crediifoundation.org?subject=Trust">Trust &amp; Verification</a>
     </div>
-    <a class="back-to-top" href="#top">Back to top &#8593;</a>
+    <a class="footer-top-link" href="#top">Back to top &#8593;</a>
   </div>
 </div>
 </footer>
